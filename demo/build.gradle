@@ -1,0 +1,180 @@
+apply plugin: 'com.android.application'
+
+android {
+//    compileSdkVersion 25
+//    buildToolsVersion "25"
+//    compileSdkVersion 24
+//    buildToolsVersion "24.0.3"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    signingConfigs {
+        config {
+            keyAlias 'pcl-sdk-cert-dev'
+            keyPassword '123456'
+            storeFile file('../keystores/android-cert-dev.jks')
+            storePassword '123456'
+        }
+    }
+
+    defaultConfig {
+//        applicationId "com.wa.sdk.demo"
+        applicationId "com.ghw.sdk2"
+        minSdkVersion 15
+//        minSdkVersion 25
+//        targetSdkVersion 24
+        targetSdkVersion 23
+        versionCode 12
+        versionName "3.6.0"
+        signingConfig signingConfigs.config
+        multiDexEnabled true
+        manifestPlaceholders.putAll([APP_ID:'f7f9a9d18da611e5a0be000d3a906774',
+                                     APP_KEY:'CFHF7nQCCaojCX6Sm4eT1GEIWRprimgX',
+                                     FACEBOOK_APP_ID:'1811388679079227',
+                                     APPSFLYER_APP_KEY:'922wXRJwEns6Qj4MfMt4Gg',
+                                     APPSFLYER_CHANNEL:'GOOGLE',
+                                     CHARTBOOST_APP_ID:'55b74c74c909a66b8af388a7',
+                                     CHARTBOOST_APP_SIGNATURE: '2b7b5cbc8c5d0429c9498dd3484d84fb4974a206'])
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.config
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable true
+        }
+
+        debug {
+            signingConfig signingConfigs.config
+        }
+    }
+
+    productFlavors {
+
+        // 测试环境
+        tst {
+            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL         : 'http://sdk-test1.gamehollywood.com/sdkapi',
+                                         SDK_TRACKING_HTTP_BASE_URL: 'http://sdk-test2.gamehollywood.com/data_collection/data/forward'])
+        }
+
+        // 正式环境地址
+        prod {
+            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL         : 'https://api.wingsdk.com/sdkapi',
+                                         SDK_TRACKING_HTTP_BASE_URL: 'https://api.wingsdk.com/data'])
+        }
+    }
+
+    // 打包自动生成名字
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            if (variant.buildType.name.equals('release')) {
+                def oldFile = output.outputFile
+                def newName = 'WASdkDemo_' + variant.productFlavors[0].name + "_" + variant.buildType.name + '_v' + versionName + '_build' + getDate() + '.apk'
+                output.outputFile = new File(oldFile.parent, newName)
+            }
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
+
+//获取时间戳
+def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMddHHmm')
+    return formattedDate
+}
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:23.0.0'
+    compile 'com.android.support:support-v4:23.0.0'
+//            compile 'com.android.support:support-v13:24.0.0'
+    //        compile 'com.android.support:cardview-v7:24.0.0'
+
+    compile 'com.wa.sdk:wa-sdk-base:3.6.0'
+    compile 'com.wa.sdk:wa-sdk-core:3.6.0'
+    compile 'com.wa.sdk:wa-sdk-appsflyer:3.6.0'
+    compile 'com.wa.sdk:wa-sdk-chartboost:3.6.0'
+    compile 'com.wa.sdk:wa-sdk-facebook:3.6.0'
+    compile 'com.wa.sdk:wa-sdk-google:3.6.0'
+    compile 'com.wa.sdk:wa-sdk-vk:3.6.0'
+    compile 'com.wa.sdk:wa-sdk-webpay:3.6.0'
+
+    //    compile 'com.android.support:appcompat-v7:23.1.1'
+
+    //    compile 'com.android.support:support-v4:23.1.1'
+
+    //    compile 'com.android.support:support-v13:23.1.1'
+
+    //    compile 'com.android.support:cardview-v7:23.1.1'
+
+    //        compile 'com.android.support:appcompat-v7:25.0.0'
+
+    //        compile 'com.android.support:support-v4:25.0.0'
+
+    //        compile 'com.android.support:support-v13:25.0.0'
+
+    //        compile 'com.android.support:cardview-v7:25.0.0'
+
+    //    compile files('libs/wa_sdk_interface_v3.6.jar')
+
+    //    compile files('libs/picasso-2.5.2.jar')
+
+    //    compile 'com.google.android.gms:play-services:9.6.1'
+
+    //    compile 'com.facebook.android:facebook-android-sdk:4.10.0'
+
+    //    compile 'com.vk:androidsdk:1.6.7'
+
+    //    compile 'com.google.guava:guava:16.0.1'
+
+    //    compile 'com.squareup.dagger:dagger:1.2.1'
+
+    //    compile 'com.squareup.okhttp:okhttp:2.0.0'
+
+    //    compile 'com.google.code.gson:gson:2.2.4'
+
+    //    compile 'com.nineoldandroids:library:2.4.0'
+
+    //    compile 'joda-time:joda-time:2.3'
+
+    //    compile 'com.jakewharton:butterknife:5.1.1'
+
+    //    compile 'com.android.support:support-annotations:23.0.0'
+
+    //    compile 'com.android.support:mediarouter-v7:23.0.0'
+
+    //    compile 'com.android.support:support-vector-drawable:23.0.0'
+
+    //    compile 'com.android.support:palette-v7:23.0.0'
+
+    //    compile 'com.android.support.test:runner:0.5'
+
+    //    compile 'com.android.support:mediarouter-v7:23.0.0'
+
+    //    compile 'com.pushtorefresh.storio:sqlite:1.11.0'
+
+    //    compile 'com.almworks.sqlite4java:sqlite4java:1.0.392'
+
+    //    compile 'com.github.snowdream.android.database:sqlite:1.0'
+
+    //    compile 'com.almworks.sqlite4java:sqlite4java-win32-x64:1.0.392'
+
+    //    compile 'com.almworks.sqlite4java:sqlite4java-win32-x86:1.0.392'
+
+    //    compile 'org.apache:apache:18'
+
+    //    compile 'org.apache.juneau:apache-juneau:6.0.0-incubating'
+
+    //    compile 'org.apache.stratos:apache-stratos-cli-parent:4.1.6'
+
+    //    compile 'org.apache.stratos:apache-stratos-python-cli-parent:4.1.6'
+
+    //    compile 'com.google:google:5'
+
+    //    compile 'com.googlecode.javacpp:javacpp:0.7'
+}

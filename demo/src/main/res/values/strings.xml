@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WASdkDemo</string>
+
+
+    <!-- ghwsdk -->
+    <!--<string name="facebook_app_id">1605928646288355</string>-->
+
+    <!-- com.ghw.sdk2 -->
+    <!--<string name="facebook_app_id">1639751112946046</string>-->
+    <string name="facebook_app_id">1811388679079227</string>
+
+
+    <!-- Google In-app billing public key -->
+    <!--<string name="google_base64EncodedPublicKey">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv1V2WNTi8eJq787TLyH+ifB8uWwQQVxY5PTMVeLKgmH2DWv+DMfdMTlgJivSqaM+8kmLuCcqdkaMdfDSDV3Bdy77wWUaeJx9GS/d19zZDSZDwHWGRiyBVbcRNJ5r54XcfP21fiBgg9Rqj3qOYuJuPFj6SJWsCMuw3uE/e+BTGM6lVMlTDqQcQr67NxwB3Zhcw8iZkIkBJxVH4W9WDzQjcI2eEpQ/tby+AiLFmDVDoOPb+41ldfEkIZEoGbNhrG5KlUSbS25TU4H34dPyIQ+rrCaErob2nZKoQ2PvO+tZ4uzmT926c3IUXknCMwrnW/SdBpia93j6ZEuVgYKlYT6jewIDAQAB</string>-->
+    <string name="google_base64EncodedPublicKey">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhab03+1NEH/qdRcB8aA8quIz1VntrG21aJzd8W7E0nyh6CxmwwqwLtfs/ro4CTd76jz94+k/xP263d/bJZg+biczsVIcU8wT+zQJH5Ze5wTthgl+XAtN7xGxnNaDpUXxr28K/mHyUnc/yg3iXeHFI3Rg2QcaixOP7xyImIdRrM1FjDOhlEtnXdsIpCkK8TDCnFXo1qmXKheLxd6nZ96d3zSt/lJenFPdI84/RJszJfD4aJPrHg/K+iPLV15bYNfskpgnn/Vq1JEKq91N67c/szQDZB7o9ZJNfSTHVPO5riOyZd0guNXEMB7+YT/oSIo+I0A87GcP9rasGI2FuBNLHwIDAQAB</string>
+
+
+    <!-- VK app id -->
+    <integer name="com_vk_sdk_AppId">5527303</integer>
+
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="loading">Loading</string>
+    <string name="app_error">Application error!</string>
+    <string name="searching">Searching&#8230;</string>
+    <string name="waiting">Waiting&#8230;</string>
+
+    <!-- 首页 -->
+    <string name="enable_logcat">Enable logcat</string>
+    <string name="disable_logcat">Disable logcat</string>
+    <string name="enable_extend">Enable AppWall</string>
+    <string name="disable_extend">Disable AppWall</string>
+    <string name="enable_debug">Enable debug</string>
+    <string name="disable_debug">Disable debug</string>
+    <string name="account_manager">Account Manager</string>
+    <string name="google_in_app_billing">In-App Billing</string>
+    <string name="fb_gifting">FB Gifting</string>
+    <string name="test_crash">Test Crash</string>
+    <string name="check_update">Check Update</string>
+    <string name="download_patch">Download Patch</string>
+    <string name="clear_install_campaign_cache">Clear Install Campaign cache</string>
+    <string name="payment">Payment</string>
+    <string name="static_payment">Static Payment</string>
+    <string name="input_sku_id">Input Sku Id</string>
+    <string name="warming">Warming</string>
+    <string name="not_login_yet">Not login! Please login first!</string>
+    <string name="login_now">Login Now</string>
+    <string name="gg_game_service">Google Game Service</string>
+    <string name="test_crash_warming">Test crash will make application crash, are you continue?</string>
+    <string name="hot_update_check">Hot update check</string>
+    <string name="update">Update</string>
+    <string name="get_update_link">Get update link</string>
+
+    <!-- 数据收集 -->
+    <string name="parameters">Parameters</string>
+    <string name="add_parameter">Add parameter</string>
+    <string name="tracking">Tracking</string>
+    <string name="send_tracking">Send Tracking</string>
+    <string name="send">Send</string>
+    <string name="event_send">Event Send</string>
+
+    <!-- 登录 -->
+    <string name="login">Login</string>
+    <string name="fb_login">FB Login</string>
+    <string name="fb_logout">FB Logout</string>
+    <string name="gg_login">GG Login</string>
+    <string name="gg_logout">GG Logout</string>
+    <string name="anonymous_login">Visitor Login</string>
+    <string name="vk_login">VK Login</string>
+    <string name="login_form">Login Form</string>
+    <string name="app_login">App Login</string>
+    <string name="logout">Logout</string>
+    <string name="rebind_account_with_device">Rebind the login account with device</string>
+    <string name="do_not_rebind_account_with_device">Do not rebind device on login</string>
+    <string name="enable_login_cache">Enable Login Cache</string>
+    <string name="disable_login_cache">Disable Login Cache</string>
+    <string name="clean_login_cache">Clean login cache</string>
+
+
+    <!-- 账户管理 -->
+    <string name="bind_account">Bind Account</string>
+    <string name="choose_account_platform">Choose account platform</string>
+    <string name="query_bound_account">Query Bound Account</string>
+    <string name="open_account_manager_page">Open SDK Account Manager Page</string>
+    <string name="bound_accounts">Bound Accounts</string>
+    <string name="not_bound_any_account">Not bound any account</string>
+    <string name="create_account">Create Account</string>
+    <string name="switch_account">Change Account</string>
+    <string name="get_account_info">Get Account Info</string>
+    <string name="bind">Bind</string>
+    <string name="unbind">Unbind</string>
+    <string name="bind_account_success">Binded successfully!</string>
+    <string name="bind_account_error">Failed to bind. Please try again later.</string>
+    <string name="unbind_account_success">Unbinded successfully!</string>
+    <string name="unbind_account_error">Failed to unbind. Please try again later.</string>
+    <string name="facebook_account">Facebook account</string>
+    <string name="google_account">Google account</string>
+    <string name="vk_account">VK account</string>
+
+
+    <!-- Google应用内购买 -->
+    <string name="google_iap_billing">Iap Billing</string>
+    <string name="init_parameter_error">Initialization parameter error</string>
+    <string name="loading_inventory">Loading inventory</string>
+    <string name="generating_order">Generating order</string>
+    <string name="processing_payment_result">Processing payment result</string>
+    <string name="buy_success_title">Thank you</string>
+    <string name="buy_success">Bought success</string>
+    <string name="buy_failed_title">Warming</string>
+    <string name="buy_failed">Bought failed,please try again</string>
+    <string name="buy_item_unconsumed">You already owned the item and dose not consumed. please try again later</string>
+    <string name="buy_error">An error occurred,if you have successfully charged,Please contact customer service</string>
+    <string name="buy_reorder_time_limit">Operation too frequent!</string>
+    <string name="inventory">Inventory</string>
+    <string name="error_loading_data">An error occurred when loading data</string>
+    <string name="reload_data">Click to reload</string>
+    <string name="buy">Buy</string>
+    <string name="purchase_canceled">Purchase canceled</string>
+
+    <!-- Facebook礼物 -->
+    <string name="gifting">Gifting</string>
+    <string name="received_gift">Received Gift</string>
+    <string name="ask_for_gift">Ask for gift</string>
+    <string name="click_to_choose_gift">Click to choose gift</string>
+    <string name="send_gift">Send Gift</string>
+    <string name="search">Search</string>
+    <string name="choose_gift_first">Please choose a gift</string>
+    <string name="send_you_a_gift">Send you a gift</string>
+    <string name="gift_send_success">Gift send success</string>
+    <string name="gift_send_cancel">Gift send canceled</string>
+    <string name="gift_send_error">Gift send failed</string>
+    <string name="send_me_a_gift">Please send me a gift</string>
+    <string name="ask_for_gift_success">Ask for gift success</string>
+    <string name="ask_for_gift_cancel">Ask for gift canceled</string>
+    <string name="ask_for_gift_error">Ask for gift failed</string>
+    <string name="gift_received">Gift received, check you package</string>
+    <string name="gift_received_msg_format">%1$s send you a gift " %2$s "</string>
+    <string name="ask_for_gift_msg_format">%1$s ask you for a gift " %2$s "</string>
+    <string name="gift_data_error">Gift data error</string>
+    <string name="gift_chooser">Gift Chooser</string>
+
+    <!-- 分享 -->
+    <string name="share">Share</string>
+    <string name="fb_share">Facebook Share</string>
+    <string name="fb_share_link">Facebook Share Link</string>
+    <string name="fb_share_picture">Facebook Share Picture</string>
+    <string name="fb_share_video">Facebook Share Video</string>
+    <string name="fb_share_open_graph">Facebook Share Open Graph</string>
+    <string name="share_use_dialog">Share use dialog</string>
+    <string name="share_use_api">Share use api</string>
+
+    <!-- 邀请 -->
+    <string name="invite">Invite</string>
+    <string name="fb_invite">Facebook invite</string>
+    <string name="fb_app_invite">FB App Invite</string>
+    <string name="fb_game_service_invite">FB Game Service Invite</string>
+    <string name="fb_check_invite_install_reward">FB invite install reward</string>
+    <string name="fb_check_invite_event_reward">FB invite event reward</string>
+    <string name="vk_invite">VK invite</string>
+    <string name="vk_app_invite">VK App Invite</string>
+    <string name="vk_game_service_invite">VK Game Service Invite</string>
+    <string name="vk_check_invite_install_reward">VK invite install reward</string>
+    <string name="vk_check_invite_event_reward">VK invite event reward</string>
+
+    <!-- payUI -->
+    <string name="pay_ui_title">Web Pay</string>
+
+
+    <!-- Game service -->
+    <string name="game_service">Game Service</string>
+    <!-- Google Game -->
+    <string name="google_game_service">Google Game Service</string>
+    <string name="sign_in">Sign-in</string>
+    <string name="sign_out">Sign-out</string>
+    <string name="need_sign_in">You need sign in to google game</string>
+    <string name="display_achievements">Display achievements</string>
+    <string name="hint_input_achievement_id">Input achievement id</string>
+    <string name="unlock_achievements">Unlock achievements</string>
+    <string name="increase_achievements">Increase achievements</string>
+    <string name="hint_input_increase_num_steps">Input increase num steps</string>
+
+    <!-- Community -->
+    <string name="community">Community</string>
+    <string name="vk_community">VK Community</string>
+    <string name="vk_community_get_account">Get account info</string>
+    <string name="vk_community_search_by_id">Search by id</string>
+    <string name="vk_community_app_linked">App linked group</string>
+    <string name="vk_community_user">Current user group</string>
+    <string name="vk_community_is_member">Current user is member of group</string>
+    <string name="vk_community_search_tip">Enter group id or screen name, split with &quot;,&quot; when you search two or more at once.</string>
+    <string name="vk_community_search_tip_one_id">Enter group id or screen name</string>
+    <string name="vk_community_id_null">Please enter group id</string>
+    <string name="vk_community_no_match">No match group found</string>
+    <string name="id_label">ID:</string>
+    <string name="member_count_label">Member count:</string>
+    <string name="place_label">Place:</string>
+    <string name="description_label">Description:</string>
+    <string name="join">Join</string>
+    <string name="leave">Leave</string>
+    <string name="closed">Closed</string>
+    <string name="joined">Joined</string>
+    <string name="not_joined">Not joined</string>
+    <string name="name_format">Name: %s</string>
+    <string name="id_format">ID: %s</string>
+    <string name="platform_format">Platform: %s</string>
+
+</resources>

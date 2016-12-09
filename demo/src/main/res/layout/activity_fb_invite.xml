@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFEFEFEF">
+
+    <com.wa.sdk.demo.widget.TitleBar
+        android:id="@+id/tb_fb_invite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_black_alpha_bb" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+            <Button
+                android:id="@+id/btn_fb_app_invite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/fb_app_invite"
+                android:onClick="onClick"/>
+            <Button
+                android:id="@+id/btn_fb_game_service_invite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:onClick="onClick"
+                android:text="@string/fb_game_service_invite"/>
+            <Button
+                android:id="@+id/btn_fb_invite_install_reward"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:onClick="onClick"
+                android:text="@string/fb_check_invite_install_reward"/>
+            <Button
+                android:id="@+id/btn_fb_invite_event_reward"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:onClick="onClick"
+                android:text="@string/fb_check_invite_event_reward"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

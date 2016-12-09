@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wa.sdk.demo">
+
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:debuggable="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:name=".WADemoApp"
+        android:supportsRtl="true"
+        android:hardwareAccelerated="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/app_name"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.VIEW" /> -->
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!-- <category android:name="android.intent.category.BROWSABLE" /> -->
+            <!-- <data android:scheme="ghwsdk://demo" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+
+        <activity
+            android:name=".LoginActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".AccountManagerActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".GetAccountInfoActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".tracking.TrackingActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".tracking.TrackingSendActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/app_name" />
+
+        <!-- Share -->
+        <activity
+            android:name=".share.ShareActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/app_name" />
+        <!-- Facebook Share -->
+        <activity
+            android:name=".share.FBShareActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/app_name" />
+
+        <!-- Invite -->
+        <activity
+            android:name=".invite.InviteActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/app_name" />
+        <!-- Facebook Invite -->
+        <activity
+            android:name=".invite.FBInviteActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".invite.FBInviteFriendsActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".invite.VKInviteActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/app_name" />
+
+        <activity
+            android:name=".invite.VKInviteFriendsActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/app_name" />
+
+        <activity
+            android:name=".gifting.GiftingActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".gifting.FBGiftingActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".gifting.FBGiftChooserActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".PaymentActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/app_name" />
+
+        <!-- Game Service -->
+        <activity android:name=".game.GameServiceActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/app_name" />
+        <!-- Google Game -->
+        <activity android:name=".game.GoogleGameActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/app_name" />
+
+        <!-- Hot Update -->
+        <activity android:name=".UpdateActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/app_name" />
+
+        <!-- Community -->
+        <activity android:name=".community.CommunityActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity android:name=".community.VKCommunityActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity android:name=".community.VKCommunityDisplayActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/app_name" />
+
+
+
+        <meta-data
+            android:name="com.google.android.gms.games.APP_ID"
+            android:value="@string/google_game_app_id" />
+
+        <!-- AppsFlyer SDK START -->
+        <!-- AppsFlyer AppKey(需要自己申请) -->
+        <meta-data
+            android:name="com.wa.sdk.track.APPSFLYER_APP_KEY"
+            android:value="${APPSFLYER_APP_KEY}" />
+        <!-- AppsFlyer Channel -->
+        <meta-data
+            android:name="CHANNEL"
+            android:value="${APPSFLYER_CHANNEL}" />
+        <!-- AppsFlyer SDK END -->
+
+        <!-- sdk的appid -->
+        <meta-data
+            android:name="com.wa.sdk.APP_ID"
+            android:value="${APP_ID}" />
+        <!-- sdk的appkey -->
+        <meta-data
+            android:name="com.wa.sdk.APP_KEY"
+            android:value="${APP_KEY}" />
+
+        <!-- sdk平台请求的host地址，所有请求的前面公共部分 -->
+        <meta-data
+            android:name="com.wa.sdk.HTTP_BASE_URL"
+            android:value="${SDK_HTTP_BASE_URL}" />
+        <!-- PCL request http url（PCL数据收集相关请求的url，这个必须配置，以支持不同版本的api请求） -->
+        <meta-data
+            android:name="com.wa.sdk.track.BASE_URL"
+            android:value="${SDK_TRACKING_HTTP_BASE_URL}" />
+
+        <!-- Chartboost SDK START -->
+        <!-- Chartboost app id -->
+        <meta-data
+            android:name="com.wa.sdk.track.CHARTBOOST_APP_ID"
+            android:value="${CHARTBOOST_APP_ID}" />
+        <!-- Chartboost app signature -->
+        <meta-data
+            android:name="com.wa.sdk.track.CHARTBOOST_APP_SIGNATURE"
+            android:value="${CHARTBOOST_APP_SIGNATURE}" />
+        <!-- Chartboost SDK END -->
+
+
+        <!-- Facebook START -->
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider${FACEBOOK_APP_ID}"
+            android:exported="true" />
+        <meta-data android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
+        <!-- Facebook END -->
+
+    </application>
+
+</manifest>

@@ -1,0 +1,9 @@
+<resources>
+
+    <dimen name="textSize_level1">22sp</dimen>
+    <dimen name="textSize_level2">20sp</dimen>
+    <dimen name="textSize_level3">18sp</dimen>
+    <dimen name="textSize_level4">16sp</dimen>
+    <dimen name="textSize_level5">14sp</dimen>
+    <dimen name="textSize_level6">12sp</dimen>
+</resources>

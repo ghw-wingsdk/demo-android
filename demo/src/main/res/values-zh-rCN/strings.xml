@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WASdkDemo</string>
+
+    <!--&lt;!&ndash; com.ghw.sdk2 &ndash;&gt;-->
+    <!--<string name="facebook_app_id">1639751112946046</string>-->
+
+
+    <!--&lt;!&ndash; Google In-app billing public key &ndash;&gt;-->
+    <!--&lt;!&ndash;<string name="google_base64EncodedPublicKey">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv1V2WNTi8eJq787TLyH+ifB8uWwQQVxY5PTMVeLKgmH2DWv+DMfdMTlgJivSqaM+8kmLuCcqdkaMdfDSDV3Bdy77wWUaeJx9GS/d19zZDSZDwHWGRiyBVbcRNJ5r54XcfP21fiBgg9Rqj3qOYuJuPFj6SJWsCMuw3uE/e+BTGM6lVMlTDqQcQr67NxwB3Zhcw8iZkIkBJxVH4W9WDzQjcI2eEpQ/tby+AiLFmDVDoOPb+41ldfEkIZEoGbNhrG5KlUSbS25TU4H34dPyIQ+rrCaErob2nZKoQ2PvO+tZ4uzmT926c3IUXknCMwrnW/SdBpia93j6ZEuVgYKlYT6jewIDAQAB</string>&ndash;&gt;-->
+    <!--<string name="google_base64EncodedPublicKey">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhab03+1NEH/qdRcB8aA8quIz1VntrG21aJzd8W7E0nyh6CxmwwqwLtfs/ro4CTd76jz94+k/xP263d/bJZg+biczsVIcU8wT+zQJH5Ze5wTthgl+XAtN7xGxnNaDpUXxr28K/mHyUnc/yg3iXeHFI3Rg2QcaixOP7xyImIdRrM1FjDOhlEtnXdsIpCkK8TDCnFXo1qmXKheLxd6nZ96d3zSt/lJenFPdI84/RJszJfD4aJPrHg/K+iPLV15bYNfskpgnn/Vq1JEKq91N67c/szQDZB7o9ZJNfSTHVPO5riOyZd0guNXEMB7+YT/oSIo+I0A87GcP9rasGI2FuBNLHwIDAQAB</string>-->
+
+
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string name="loading">加载中</string>
+    <string name="app_error">程序错误！</string>
+    <string name="searching">查询中&#8230;</string>
+    <string name="waiting">请稍后&#8230;</string>
+
+    <!-- 首页 -->
+    <string name="enable_logcat">启用Logcat</string>
+    <string name="disable_logcat">禁用Logcat</string>
+    <string name="enable_extend">启用应用墙</string>
+    <string name="disable_extend">禁用应用墙</string>
+    <string name="enable_debug">启用debug</string>
+    <string name="disable_debug">禁用debug</string>
+    <string name="account_manager">账户管理</string>
+    <string name="google_in_app_billing">Google应用内支付</string>
+    <string name="fb_gifting">Facebook礼物</string>
+    <string name="test_crash">闪退测试</string>
+    <string name="payment">支付</string>
+    <string name="static_payment">静态支付</string>
+    <string name="input_sku_id">请输入商品id</string>
+    <string name="check_update">检查更新</string>
+    <string name="download_patch">下载Patch包</string>
+    <string name="clear_install_campaign_cache">清除渠道安装缓存</string>
+    <string name="gg_game_service">Google游戏服务</string>
+    <string name="test_crash_warming">测试闪退会导致程序闪退，是否继续？</string>
+    <string name="hot_update_check">热更新检查</string>
+    <string name="update">更新</string>
+    <string name="get_update_link">获取更新链接</string>
+
+    <!-- 数据收集 -->
+    <string name="parameters">参数</string>
+    <string name="add_parameter">添加参数</string>
+    <string name="tracking">数据收集</string>
+    <string name="send_tracking">发送事件数据</string>
+    <string name="send">发送</string>
+    <string name="event_send">事件数据已发送</string>
+
+    <!-- 登录 -->
+    <string name="login">登录</string>
+    <string name="fb_login">Facebook登录</string>
+    <string name="fb_logout">Facebook登出</string>
+    <string name="gg_login">Google登录</string>
+    <string name="gg_logout">Google登出</string>
+    <string name="anonymous_login">访客登录</string>
+    <string name="vk_login">VK登录</string>
+    <string name="login_form">登录窗口</string>
+    <string name="app_login">应用内登录</string>
+    <string name="logout">登出</string>
+    <string name="rebind_account_with_device">登录时重新绑定设备</string>
+    <string name="do_not_rebind_account_with_device">登录时不重新绑定设备</string>
+    <string name="warming">提示</string>
+    <string name="not_login_yet">你还没有登录，请先登录</string>
+    <string name="login_now">马上登录</string>
+    <string name="enable_login_cache">启用登录缓存</string>
+    <string name="disable_login_cache">禁用登录缓存</string>
+    <string name="clean_login_cache">清除登录缓存</string>
+
+
+    <!-- 账户管理 -->
+    <string name="bind_account">绑定账户</string>
+    <string name="choose_account_platform">选择账户平台</string>
+    <string name="query_bound_account">查询已绑定的账户</string>
+    <string name="open_account_manager_page">打开SDK内置账户管理页面</string>
+    <string name="bound_accounts">已绑定的账户</string>
+    <string name="not_bound_any_account">没有绑定任何账户</string>
+    <string name="create_account">新建账户</string>
+    <string name="switch_account">切换账户</string>
+    <string name="get_account_info">获取账户信息</string>
+    <string name="bind">绑定</string>
+    <string name="unbind">解绑</string>
+    <string name="bind_account_success">绑定成功</string>
+    <string name="bind_account_error">绑定失败，请稍后重试</string>
+    <string name="unbind_account_success">解绑成功</string>
+    <string name="unbind_account_error">解绑失败，请稍后重试</string>
+    <string name="facebook_account">Facebook账号</string>
+    <string name="google_account">Google账号</string>
+    <string name="vk_account">VK账号</string>
+
+    <!-- Google应用内购买 -->
+    <string name="google_iap_billing">Google应用内支付</string>
+    <string name="init_parameter_error">初始化参数失败</string>
+    <string name="loading_inventory">正在加载库存</string>
+    <string name="generating_order">正在创建订单</string>
+    <string name="processing_payment_result">正在处理支付结果</string>
+    <string name="buy_success_title">感谢您的购买！</string>
+    <string name="buy_success">购买成功</string>
+    <string name="buy_failed_title">警告</string>
+    <string name="buy_failed">购买失败，请重试</string>
+    <string name="buy_item_unconsumed">你已经拥有该商品还没有消耗，请消耗后再重试。</string>
+    <string name="buy_error">购买出现错误，如果你已经成功支付，请联系客服处理</string>
+    <string name="buy_reorder_time_limit">操作过于频繁!</string>
+    <string name="inventory">商品库存</string>
+    <string name="error_loading_data">加载数据失败</string>
+    <string name="reload_data">点击重新加载</string>
+    <string name="buy">购买</string>
+    <string name="purchase_canceled">取消购买</string>
+
+    <!-- Facebook礼物 -->
+    <string name="gifting">礼物</string>
+    <string name="received_gift">收到的礼物</string>
+    <string name="ask_for_gift">索要礼物</string>
+    <string name="click_to_choose_gift">点击选择礼物</string>
+    <string name="send_gift">发送礼物</string>
+    <string name="search">搜索</string>
+    <string name="choose_gift_first">请先选着一个礼物</string>
+    <string name="send_you_a_gift">送给你一个礼物</string>
+    <string name="gift_send_success">礼物成功发送</string>
+    <string name="gift_send_cancel">礼物取消发送</string>
+    <string name="gift_send_error">礼物发送失败</string>
+    <string name="send_me_a_gift">送我一个礼物吧</string>
+    <string name="ask_for_gift_success">索要礼物成功</string>
+    <string name="ask_for_gift_cancel">索要礼物取消</string>
+    <string name="ask_for_gift_error">索要礼物失败</string>
+    <string name="gift_received">查收礼物成功，请查看背包</string>
+    <string name="gift_received_msg_format">%1$s 送你一个礼物 " %2$s "</string>
+    <string name="ask_for_gift_msg_format">%1$s 向你索要礼物 " %2$s "</string>
+    <string name="gift_data_error">礼物数据错误</string>
+    <string name="gift_chooser">选择礼物</string>
+
+    <!-- 分享 -->
+    <string name="share">分享</string>
+    <string name="fb_share">Facebook分享</string>
+    <string name="fb_share_link">Facebook分享链接</string>
+    <string name="fb_share_picture">Facebook分享图片</string>
+    <string name="fb_share_video">Facebook分享视频</string>
+    <string name="fb_share_open_graph">Facebook分享Open Graph</string>
+    <string name="share_use_dialog">Dialog分享</string>
+    <string name="share_use_api">Api分享</string>
+
+    <!-- 邀请 -->
+    <string name="invite">邀请</string>
+    <string name="fb_invite">Facebook邀请</string>
+    <string name="fb_app_invite">FB应用邀请</string>
+    <string name="fb_game_service_invite">FB Game Service邀请</string>
+    <string name="fb_check_invite_install_reward">FB邀请安装奖励</string>
+    <string name="fb_check_invite_event_reward">FB邀请事件奖励</string>
+    <string name="vk_invite">VK邀请</string>
+    <string name="vk_app_invite">VK应用邀请</string>
+    <string name="vk_game_service_invite">VK游戏服务邀请</string>
+    <string name="vk_check_invite_install_reward">VK邀请安装奖励</string>
+    <string name="vk_check_invite_event_reward">VK邀请事件奖励</string>
+
+    <!-- payUI -->
+    <string name="pay_ui_title">网页支付</string>
+
+    <!-- Game service -->
+    <string name="game_service">游戏服务</string>
+    <!-- Google Game -->
+    <string name="google_game_service">Google游戏服务</string>
+    <string name="sign_in">登入</string>
+    <string name="sign_out">登出</string>
+    <string name="need_sign_in">你还没有登录Google游戏</string>
+    <string name="display_achievements">展示成就</string>
+    <string name="hint_input_achievement_id">请输入成就id</string>
+    <string name="unlock_achievements">解锁成就</string>
+    <string name="increase_achievements">增加成就进度</string>
+    <string name="hint_input_increase_num_steps">请输入增加的进度数</string>
+
+    <!-- Community -->
+    <string name="community">社区</string>
+    <string name="vk_community">VK社区</string>
+    <string name="vk_community_get_account">读取用户信息</string>
+    <string name="vk_community_search_by_id">根据ID搜索</string>
+    <string name="vk_community_app_linked">App关联的group</string>
+    <string name="vk_community_user">当前用户加入的group</string>
+    <string name="vk_community_is_member">当前用户是否为Group成员</string>
+    <string name="vk_community_search_tip">请输入社区id或者Screen Name，同时搜索多个请用半角&quot;,&quot;隔开</string>
+    <string name="vk_community_search_tip_one_id">请输入社区id或者Screen Name</string>
+    <string name="vk_community_id_null">请输入社区id</string>
+    <string name="vk_community_no_match">未找到匹配的社区</string>
+    <string name="id_label">ID:</string>
+    <string name="member_count_label">成员数:</string>
+    <string name="place_label">地区:</string>
+    <string name="description_label">简介:</string>
+    <string name="join">加入</string>
+    <string name="leave">离开</string>
+    <string name="closed">已关闭</string>
+    <string name="joined">已加入</string>
+    <string name="not_joined">未加入</string>
+    <string name="name_format">昵称: %s</string>
+    <string name="id_format">ID: %s</string>
+    <string name="platform_format">平台: %s</string>
+</resources>

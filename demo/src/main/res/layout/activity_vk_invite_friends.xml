@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFEFEFEF">
+    <com.wa.sdk.demo.widget.TitleBar
+        android:id="@+id/tb_vk_invite_friends"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_black_alpha_bb" />
+    <!--<LinearLayout-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:padding="8dp"-->
+        <!--android:gravity="center"-->
+        <!--android:focusable="true"-->
+        <!--android:focusableInTouchMode="true">-->
+        <!--<EditText-->
+            <!--android:id="@+id/et_vk_invite_input"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:inputType="text"/>-->
+        <!--<ImageButton-->
+            <!--android:id="@+id/btn_vk_invite_search"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="8dip"-->
+            <!--android:onClick="onClick"-->
+            <!--android:src="@android:drawable/ic_menu_search"-->
+            <!--android:contentDescription="@null"/>-->
+    <!--</LinearLayout>-->
+    <ListView
+        android:id="@+id/lv_vk_invitable_friends"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+    <Button
+        android:id="@+id/btn_vk_invite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dip"
+        android:text="@string/invite"
+        android:onClick="invite"/>
+</LinearLayout>

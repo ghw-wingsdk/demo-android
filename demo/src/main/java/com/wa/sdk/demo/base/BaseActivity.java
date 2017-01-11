@@ -39,13 +39,13 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
     @Override
     protected void onResume(){
         super.onResume();
-        WATrackProxy.startHeartBeat(this);
+//        WATrackProxy.startHeartBeat(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        WATrackProxy.stopHeartBeat(this);
+//        WATrackProxy.stopHeartBeat(this);
     }
 
     @Override

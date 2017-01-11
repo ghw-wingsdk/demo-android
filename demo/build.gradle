@@ -90,17 +90,17 @@ def getDate() {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:23.0.0'
-    compile 'com.android.support:support-v4:23.0.0'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:support-v4:23.1.1'
 //            compile 'com.android.support:support-v13:24.0.0'
     //        compile 'com.android.support:cardview-v7:24.0.0'
 
-    compile 'com.wa.sdk:wa-sdk-base:3.6.0'
-    compile 'com.wa.sdk:wa-sdk-core:3.6.0'
-    compile 'com.wa.sdk:wa-sdk-appsflyer:3.6.0'
-    compile 'com.wa.sdk:wa-sdk-chartboost:3.6.0'
-    compile 'com.wa.sdk:wa-sdk-facebook:3.6.0'
-    compile 'com.wa.sdk:wa-sdk-google:3.6.0'
+    compile 'com.wa.sdk:wa-sdk-base:3.6.1'
+    compile 'com.wa.sdk:wa-sdk-core:3.6.1'
+    compile 'com.wa.sdk:wa-sdk-appsflyer:3.6.1'
+    compile 'com.wa.sdk:wa-sdk-chartboost:3.6.1'
+    compile 'com.wa.sdk:wa-sdk-facebook:3.6.1'
+    compile 'com.wa.sdk:wa-sdk-google:3.6.1'
     compile 'com.wa.sdk:wa-sdk-vk:3.6.0'
     compile 'com.wa.sdk:wa-sdk-webpay:3.6.0'
 

@@ -89,12 +89,12 @@ public class FBShareActivity extends BaseActivity {
     public void fbShareLink(View view) {
         mShareWithApi = Boolean.valueOf((String) view.getTag());
         WAShareLinkContent shareLinkContent = new WAShareLinkContent.Builder()
-                .setContentTitle("Test share")
-                .setContentDescription("Test Ghw share with facebook")
+                .setContentTitle("Test share") // 分享标题
+                .setContentDescription("Test Ghw share with facebook") // 分享文本内容
 //                .setImageUri(Uri.parse("https://www.baidu.com/img/bdlogo.png"))
 //                .setContentUri(Uri.parse("https://www.baidu.com/"))
-                .setImageUri(Uri.parse("http://assets.bmob.cn/images/2014-data-service-icon.png"))
-                .setContentUri(Uri.parse("http://www.bmob.cn/"))
+                .setImageUri(Uri.parse("http://assets.bmob.cn/images/2014-data-service-icon.png")) // 缩略图地址
+                .setContentUri(Uri.parse("http://www.bmob.cn/")) // 分享的链接
                 .build();
 
         WASocialProxy.share(this, WAConstants.CHANNEL_FACEBOOK, shareLinkContent, mShareWithApi, null, mShareCallback);
@@ -179,13 +179,15 @@ public class FBShareActivity extends BaseActivity {
                     Toast.makeText(FBShareActivity.this, "Bitmap is ：" + bm.getByteCount(), Toast.LENGTH_LONG).show();
                     LogUtil.e("Bitmap", "Bitmap byte count:" + bm.getByteCount());
                 }
+                // 构造图片内容对象
                 WASharePhoto photo = new WASharePhoto.Builder()
-                                .setImageUri(uri)
-                                .setImageUri(Uri.fromFile(imgFile))
+                                .setImageUri(uri) // 图片本地Uri
+//                                .setImageUri(Uri.fromFile(imgFile))
 //                        .setImageUri(Uri.parse("http://attach.bbs.miui.com/forum/201311/24/215445jhkmukdk1p3urpur.jpg"))
 //                                                .setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ghw_sdk_ic_anonymous))
-                        .setBitmap(bm)
+//                        .setBitmap(bm)
                         .build();
+                // 构造分享图片对象
                 WASharePhotoContent sharePhotoContent = new WASharePhotoContent.Builder()
                         .addPhoto(photo)
                         .build();
@@ -201,17 +203,20 @@ public class FBShareActivity extends BaseActivity {
                     showShortToast("Share error: video data is null");
                     return;
                 }
+                // 构建视频内容对象
                 WAShareVideo video = new WAShareVideo.Builder()
                         .setLocalUri(uri)
                         .build();
+                // 构建缩略图内容对象
                 WASharePhoto photo = new WASharePhoto.Builder()
                         .setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher))
                         .build();
+                // 构建分享视频对象
                 WAShareVideoContent shareVideoContent = new WAShareVideoContent.Builder()
-                        .setContentTitle("TestVideo")
-                        .setContentDescription("Test share video to facebook")
-                        .setVideo(video)
-                        .setPreviewPhoto(photo)
+                        .setContentTitle("TestVideo") // 标题
+                        .setContentDescription("Test share video to facebook") // 文本内容描述
+                        .setVideo(video) // 视频内容
+                        .setPreviewPhoto(photo) // 缩略图内容
                         .build();
                 WASocialProxy.share(FBShareActivity.this, WAConstants.CHANNEL_FACEBOOK,
                         shareVideoContent, mShareWithApi, null, mShareCallback);

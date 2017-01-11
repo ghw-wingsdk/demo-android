@@ -6,13 +6,17 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.common.WACommonProxy;
+import com.wa.sdk.common.WASharedPrefHelper;
 import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.demo.R;
+import com.wa.sdk.demo.WADemoConfig;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.invite.adapter.FriendsAdapter;
 import com.wa.sdk.demo.widget.TitleBar;

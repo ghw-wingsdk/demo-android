@@ -119,6 +119,9 @@ public class FBGiftingFragment extends BaseFragment {
         mLvFriends.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
         mAdapter = new FriendsAdapter(getActivity());
         mLvFriends.setAdapter(mAdapter);
+        // FIXME 测试需要
+        mBtnSendGift.setEnabled(true);
+        mBtnAskForGift.setEnabled(true);
 
         mBtnChooseGift.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,9 +140,10 @@ public class FBGiftingFragment extends BaseFragment {
         mBtnSendGift.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mLvFriends.getCheckedItemCount() < 1) {
-                    return;
-                }
+                // FIXME 测试需要，注释掉好友id判空
+//                if (mLvFriends.getCheckedItemCount() < 1) {
+//                    return;
+//                }
                 if(null == mObject) {
                     Toast.makeText(getActivity(), getString(R.string.choose_gift_first), Toast.LENGTH_LONG).show();
                     return;
@@ -217,9 +221,10 @@ public class FBGiftingFragment extends BaseFragment {
         mBtnAskForGift.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mLvFriends.getCheckedItemCount() < 1) {
-                    return;
-                }
+                // FIXME 测试需要，注释掉好友id判空
+//                if(mLvFriends.getCheckedItemCount() < 1) {
+//                    return;
+//                }
                 if(null == mObject) {
                     showShortToast(R.string.choose_gift_first);
                     return;

@@ -16,7 +16,6 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ToggleButton;
 
-import com.wa.sdk.WAConstants;
 import com.wa.sdk.appwall.WAApwProxy;
 import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.WASharedPrefHelper;
@@ -35,8 +34,6 @@ import com.wa.sdk.demo.tracking.TrackingActivity;
 import com.wa.sdk.demo.widget.TitleBar;
 import com.wa.sdk.pay.WAPayProxy;
 import com.wa.sdk.pay.model.WAPurchaseResult;
-import com.wa.sdk.track.WATrackProxy;
-import com.wa.sdk.user.WAUserProxy;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -92,14 +89,16 @@ public class MainActivity extends BaseActivity {
 
         initView();
 
-        if (mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_LOGCAT, true)) {
-            WACommonProxy.enableLogcat(this);
-        } else {
-            WACommonProxy.disableLogcat(this);
-        }
+//        if (mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_LOGCAT, true)) {
+//            WACommonProxy.enableLogcat(this);
+//        } else {
+//            WACommonProxy.disableLogcat(this);
+//        }
         if (mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_APW, true)) {
             WAApwProxy.showEntryFlowIcon(this);
         }
+
+//        IInAppBillingService.Stub.
 
         showHashKey(this);
     }
@@ -121,7 +120,9 @@ public class MainActivity extends BaseActivity {
                 Log.e("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
             }
         } catch (PackageManager.NameNotFoundException e) {
+            // do nothing
         } catch (NoSuchAlgorithmException e) {
+            // do nothing
         }
 
     }
@@ -136,14 +137,12 @@ public class MainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         Log.i(TAG, "---onResume---");
-        WATrackProxy.startHeartBeat(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         Log.i(TAG, "---onPause---");
-        WATrackProxy.stopHeartBeat(this);
     }
 
     @Override

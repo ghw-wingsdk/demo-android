@@ -78,13 +78,11 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        WATrackProxy.startHeartBeat(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        WATrackProxy.stopHeartBeat(this);
     }
 
     @Override

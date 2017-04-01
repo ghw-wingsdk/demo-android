@@ -9,8 +9,8 @@ import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.widget.TitleBar;
-import com.wa.sdk.hotupdate.WAHupProxy;
-import com.wa.sdk.hotupdate.model.WAUpdateInfo;
+import com.wa.sdk.hup.WAHupProxy;
+import com.wa.sdk.hup.model.WAUpdateInfo;
 
 /**
  *
@@ -39,7 +39,12 @@ public class UpdateActivity extends BaseActivity {
                 checkHotUpdate();
                 break;
             case R.id.btn_download_patch:
-                downloadPatch();
+//                downloadPatch();
+                showShortToast("检查更新后自动下载，无需手动调用下载");
+//                File file = Environment.getExternalStorageDirectory();
+//                WAUpdateInfo info = new WAUpdateInfo();
+//                info.setDownloadUrl(new File(file, "patch_v1.apatch").getPath());
+//                WAHupProxy.startUpdate(info, null);
                 break;
             case R.id.btn_get_update_link:
                 getUpdateLink();
@@ -64,29 +69,7 @@ public class UpdateActivity extends BaseActivity {
     }
 
     public void checkHotUpdate() {
-        WAHupProxy.checkUpdate(new WACallback<WAUpdateInfo>() {
-            @Override
-            public void onSuccess(int code, String message, WAUpdateInfo result) {
-                String text = "Check SDK update success" + result.toString();
-                LogUtil.d(LogUtil.TAG, text);
-                mUpdateInfo = result;
-                showLongToast(text);
-            }
-
-            @Override
-            public void onCancel() {
-                LogUtil.d(LogUtil.TAG, "Check SDK update canceled");
-            }
-
-            @Override
-            public void onError(int code, String message, WAUpdateInfo result, Throwable throwable) {
-                String text = "Check SDK update failed:" + message
-                        + "\n--->>>" + (null == result ? "" : result.toString())
-                        + "\n--->" + (null == throwable ? "" : LogUtil.getStackTrace(throwable));
-                LogUtil.d(LogUtil.TAG, text);
-                showLongToast(text);
-            }
-        });
+        WAHupProxy.checkUpdate();
     }
 
     public void downloadPatch() {

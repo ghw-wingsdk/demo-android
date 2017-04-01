@@ -45,6 +45,10 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        // Demo的初始化，跟SDK无关
+        WASdkDemo.getInstance().initialize(this);
+
         setContentView(R.layout.activity_login);
         mSharedPrefHelper = WASharedPrefHelper.newInstance(this, WADemoConfig.SP_CONFIG_FILE_DEMO);
 

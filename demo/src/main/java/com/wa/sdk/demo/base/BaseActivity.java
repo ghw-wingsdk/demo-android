@@ -49,6 +49,12 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
     }
 
     @Override
+    protected void onDestroy() {
+        dismissLoadingDialog();
+        super.onDestroy();
+    }
+
+    @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if(hasFocus) {
@@ -162,7 +168,7 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
      */
     public void dismissLoadingDialog() {
         if(null != mLoadingDialog && mLoadingDialog.isShowing()) {
-            mLoadingDialog.cancel();
+            mLoadingDialog.dismiss();
         }
         mLoadingDialog = null;
     }

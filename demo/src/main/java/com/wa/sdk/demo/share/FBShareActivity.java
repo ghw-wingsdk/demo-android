@@ -1,5 +1,6 @@
 package com.wa.sdk.demo.share;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -229,14 +230,26 @@ public class FBShareActivity extends BaseActivity {
     }
 
     private void pickImage() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
+//        Intent intent = new Intent(Intent.ACTION_PICK);
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
-        startActivityForResult(intent, WACallbackManagerImpl.RequestCodeOffset.PickImage.toRequestCode());
+        try {
+            startActivityForResult(intent, WACallbackManagerImpl.RequestCodeOffset.PickImage.toRequestCode());
+        } catch (ActivityNotFoundException e) {
+            LogUtil.e(LogUtil.TAG, LogUtil.getStackTrace(e));
+            showShortToast("No Activity found to handle pick image");
+        }
     }
 
     private void pickVideo() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
+//        Intent intent = new Intent(Intent.ACTION_PICK);
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("video/*");
-        startActivityForResult(intent, WACallbackManagerImpl.RequestCodeOffset.PickVideo.toRequestCode());
+        try {
+            startActivityForResult(intent, WACallbackManagerImpl.RequestCodeOffset.PickVideo.toRequestCode());
+        } catch (ActivityNotFoundException e) {
+            LogUtil.e(LogUtil.TAG, LogUtil.getStackTrace(e));
+            showShortToast("No Activity found to handle pick video");
+        }
     }
 }

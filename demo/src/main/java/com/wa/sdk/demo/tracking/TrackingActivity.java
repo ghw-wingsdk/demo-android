@@ -324,6 +324,7 @@ public class TrackingActivity extends BaseActivity {
         eventValues.put(WAEventParameterName.GAME_GOLD, 10000);
         eventValues.put(WAEventParameterName.LEVEL, 100);
         eventValues.put(WAEventParameterName.FIGHTING, 1230020);
+        eventValues.put(WAEventParameterName.STATUS, 1);
 
         intent.putExtra(WADemoConfig.EXTRA_EVENT_NAME, WAEventType.USER_CREATED);
         intent.putExtra(WADemoConfig.EXTRA_EVENT_VALUES, eventValues);

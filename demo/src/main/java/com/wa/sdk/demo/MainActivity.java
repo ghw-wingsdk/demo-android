@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -16,7 +18,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ToggleButton;
 
-import com.wa.sdk.appwall.WAApwProxy;
+import com.wa.sdk.apw.WAApwProxy;
 import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.WASharedPrefHelper;
 import com.wa.sdk.common.model.WACallback;
@@ -38,6 +40,10 @@ import com.wa.sdk.pay.model.WAPurchaseResult;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import bolts.AppLinks;
+
+//import bolts.AppLinks;
+
 public class MainActivity extends BaseActivity {
     private static final String TAG = "MainActivity";
 
@@ -52,8 +58,9 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        WACoreProxy.setDebugMode(true);
 
+//        WACoreProxy.setClientId("client123456789");
+        WACoreProxy.setDebugMode(true);
         WACoreProxy.initialize(this);
 
         // Demo的初始化，跟SDK无关
@@ -89,20 +96,43 @@ public class MainActivity extends BaseActivity {
 
         initView();
 
-//        if (mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_LOGCAT, true)) {
-//            WACommonProxy.enableLogcat(this);
-//        } else {
-//            WACommonProxy.disableLogcat(this);
-//        }
+        if (mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_LOGCAT, true)) {
+            WACommonProxy.enableLogcat(this);
+        } else {
+            WACommonProxy.disableLogcat(this);
+        }
         if (mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_APW, true)) {
             WAApwProxy.showEntryFlowIcon(this);
         }
 
 //        IInAppBillingService.Stub.
 
+        Uri targetUrl = AppLinks.getTargetUrlFromInboundIntent(this, getIntent());
+        if (targetUrl != null) {
+            Log.i("Activity", "App Link Target URL: " + targetUrl.toString());
+            showLongToast("App Link Target URL: " + targetUrl.toString());
+        }
+
         showHashKey(this);
+
+//        WACommonProxy.checkSelfPermission(this, Manifest.permission.GET_ACCOUNTS, new WAPermissionCallback() {
+//            @Override
+//            public void onCancel() {
+//
+//            }
+//
+//            @Override
+//            public void onRequestPermissionResult(String[] permissions, boolean[] grantedResults) {
+//
+//            }
+//        });
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        WACommonProxy.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+    }
 
     @Override
     public void onBackPressed() {

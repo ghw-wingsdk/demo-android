@@ -105,13 +105,15 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:hint="@string/hint_input_achievement_id"/>
+
                 <EditText
                     android:id="@+id/et_google_game_increase_num_steps"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:inputType="number"
-                    android:hint="@string/hint_input_increase_num_steps"/>
+                    android:hint="@string/hint_input_increase_num_steps"
+                    android:inputType="number" />
+
                 <Button
                     android:id="@+id/btn_google_game_increase_achievements"
                     android:layout_width="match_parent"

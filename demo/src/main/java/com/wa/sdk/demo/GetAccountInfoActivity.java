@@ -13,6 +13,7 @@ import com.squareup.picasso.Picasso;
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.model.WACallback;
+import com.wa.sdk.common.utils.StringUtil;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.widget.TitleBar;
 import com.wa.sdk.user.WAUserProxy;
@@ -30,7 +31,7 @@ public class GetAccountInfoActivity extends BaseActivity {
     private TextView mTvId;
     private TextView mTvPlatform;
 
-    private String [] mAccountTypeArray = new String [] {"Facebook", "Google", "VK", };
+    private String [] mAccountTypeArray = new String [] {"Facebook", "Google", "VK", "Twitter", "Instagram", };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,12 @@ public class GetAccountInfoActivity extends BaseActivity {
                 break;
             case R.id.btn_get_vk_account:
                 getAccountInfo(WAConstants.CHANNEL_VK);
+                break;
+            case R.id.btn_get_twitter_account:
+                getAccountInfo(WAConstants.CHANNEL_TWITTER);
+                break;
+            case R.id.btn_get_instagram_account:
+                getAccountInfo(WAConstants.CHANNEL_INSTAGRAM);
                 break;
             default:
                 break;
@@ -105,6 +112,12 @@ public class GetAccountInfoActivity extends BaseActivity {
                                 break;
                             case 2:
                                 platform = WAConstants.CHANNEL_VK;
+                                break;
+                            case 3:
+                                platform = WAConstants.CHANNEL_TWITTER;
+                                break;
+                            case 4:
+                                platform = WAConstants.CHANNEL_INSTAGRAM;
                                 break;
                             default:
                                 break;
@@ -165,10 +178,13 @@ public class GetAccountInfoActivity extends BaseActivity {
             public void onSuccess(int code, String message, WAUser result) {
                 dismissLoadingDialog();
 
-                Picasso.with(GetAccountInfoActivity.this)
-                        .load(result.getPicture())
-                        .placeholder(R.drawable.ic_avatar_default)
-                        .into(mIvAvatar);
+                final String avatar = result.getPicture();
+                if(!StringUtil.isEmpty(avatar)) {
+                    Picasso.with(GetAccountInfoActivity.this)
+                            .load(avatar)
+                            .placeholder(R.drawable.ic_avatar_default)
+                            .into(mIvAvatar);
+                }
                 mTvName.setText(String.format(getString(R.string.name_format), result.getName()));
                 mTvId.setText(String.format(getString(R.string.id_format), result.getId()));
                 mTvPlatform.setText(String.format(getString(R.string.platform_format), result.getPlatform()));

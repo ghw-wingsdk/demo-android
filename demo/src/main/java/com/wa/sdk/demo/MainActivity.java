@@ -1,10 +1,13 @@
 package com.wa.sdk.demo;
 
+import android.*;
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -22,6 +25,7 @@ import com.wa.sdk.apw.WAApwProxy;
 import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.WASharedPrefHelper;
 import com.wa.sdk.common.model.WACallback;
+import com.wa.sdk.common.model.WAPermissionCallback;
 import com.wa.sdk.common.model.WAResult;
 import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.common.utils.StringUtil;
@@ -36,11 +40,13 @@ import com.wa.sdk.demo.tracking.TrackingActivity;
 import com.wa.sdk.demo.widget.TitleBar;
 import com.wa.sdk.pay.WAPayProxy;
 import com.wa.sdk.pay.model.WAPurchaseResult;
+import com.wa.sdk.push.WAPushProxy;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Set;
 
-import bolts.AppLinks;
+//import bolts.AppLinks;
 
 //import bolts.AppLinks;
 
@@ -105,17 +111,24 @@ public class MainActivity extends BaseActivity {
             WAApwProxy.showEntryFlowIcon(this);
         }
 
-//        IInAppBillingService.Stub.
-
-        Uri targetUrl = AppLinks.getTargetUrlFromInboundIntent(this, getIntent());
-        if (targetUrl != null) {
-            Log.i("Activity", "App Link Target URL: " + targetUrl.toString());
-            showLongToast("App Link Target URL: " + targetUrl.toString());
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if(null != bundle) {
+            Set<String> keys = bundle.keySet();
+            for(String key : keys) {
+                LogUtil.e("MainActivity", "Key-------" + key);
+            }
         }
+
+//        Uri targetUrl = AppLinks.getTargetUrlFromInboundIntent(this, getIntent());
+//        if (targetUrl != null) {
+//            Log.i("Activity", "App Link Target URL: " + targetUrl.toString());
+//            showLongToast("App Link Target URL: " + targetUrl.toString());
+//        }
 
         showHashKey(this);
 
-//        WACommonProxy.checkSelfPermission(this, Manifest.permission.GET_ACCOUNTS, new WAPermissionCallback() {
+//        WACommonProxy.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE, new WAPermissionCallback() {
 //            @Override
 //            public void onCancel() {
 //
@@ -126,6 +139,22 @@ public class MainActivity extends BaseActivity {
 //
 //            }
 //        });
+
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if(null == intent) {
+            return;
+        }
+        Bundle bundle = intent.getExtras();
+        if(null != bundle) {
+            Set<String> keys = bundle.keySet();
+            for(String key : keys) {
+                LogUtil.e("MainActivity", "Key-------" + key);
+            }
+        }
     }
 
     @Override
@@ -274,7 +303,25 @@ public class MainActivity extends BaseActivity {
                     public void onError(int code, String message, WAPurchaseResult result, Throwable throwable) {
                         LogUtil.d(TAG, "pay error");
                         cancelLoadingDialog();
-                        showLongToast("Billing service is not available at this moment.");
+                        if(WACallback.CODE_NOT_LOGIN == code) {
+                            new AlertDialog.Builder(MainActivity.this)
+                                    .setTitle(R.string.warming)
+                                    .setMessage(R.string.not_login_yet)
+                                    .setPositiveButton(R.string.login_now, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            login(true);
+                                        }
+                                    })
+                                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.cancel();
+                                        }
+                                    })
+                                    .show();
+                        }
+                        showLongToast(StringUtil.isEmpty(message) ? "Billing service is not available at this moment." : message);
                     }
                 });
                 break;

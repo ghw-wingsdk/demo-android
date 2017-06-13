@@ -57,6 +57,8 @@
     <string name="gg_logout">Google登出</string>
     <string name="anonymous_login">访客登录</string>
     <string name="vk_login">VK登录</string>
+    <string name="twitter_login">Twitter登录</string>
+    <string name="instagram_login">Instagram登录</string>
     <string name="login_form">登录窗口</string>
     <string name="app_login">应用内登录</string>
     <string name="logout">登出</string>
@@ -89,6 +91,8 @@
     <string name="facebook_account">Facebook账号</string>
     <string name="google_account">Google账号</string>
     <string name="vk_account">VK账号</string>
+    <string name="twitter_account">Twitter账号</string>
+    <string name="instagram_account">Instagram账号</string>
 
     <!-- Google应用内购买 -->
     <string name="google_iap_billing">Google应用内支付</string>

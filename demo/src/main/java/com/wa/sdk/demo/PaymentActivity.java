@@ -1,6 +1,8 @@
 package com.wa.sdk.demo;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -142,7 +144,27 @@ public class PaymentActivity extends BaseActivity {
             public void onError(int code, String message, WAPurchaseResult result, Throwable throwable) {
                 LogUtil.d(TAG, "pay error");
                 cancelLoadingDialog();
-                showLongToast("Billing service is not available at this moment.");
+                if(WACallback.CODE_NOT_LOGIN == code) {
+                    new AlertDialog.Builder(PaymentActivity.this)
+                            .setTitle(R.string.warming)
+                            .setMessage(R.string.not_login_yet)
+                            .setPositiveButton(R.string.login_now, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(PaymentActivity.this, LoginActivity.class);
+                                    intent.putExtra("auto_finish", true);
+                                    startActivity(intent);
+                                }
+                            })
+                            .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            })
+                            .show();
+                }
+                showLongToast(StringUtil.isEmpty(message) ? "Billing service is not available at this moment." : message);
             }
         });
     }

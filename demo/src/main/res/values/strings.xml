@@ -68,6 +68,8 @@
     <string name="gg_logout">GG Logout</string>
     <string name="anonymous_login">Visitor Login</string>
     <string name="vk_login">VK Login</string>
+    <string name="twitter_login">Twitter Login</string>
+    <string name="instagram_login">Instagram Login</string>
     <string name="login_form">Login Form</string>
     <string name="app_login">App Login</string>
     <string name="logout">Logout</string>
@@ -97,6 +99,8 @@
     <string name="facebook_account">Facebook account</string>
     <string name="google_account">Google account</string>
     <string name="vk_account">VK account</string>
+    <string name="twitter_account">Twitter account</string>
+    <string name="instagram_account">Instagram account</string>
 
 
     <!-- Google应用内购买 -->

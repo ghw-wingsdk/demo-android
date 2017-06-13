@@ -16,10 +16,6 @@ import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.core.WACoreProxy;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.widget.TitleBar;
-import com.wa.sdk.track.WAEventParameterName;
-import com.wa.sdk.track.WAEventType;
-import com.wa.sdk.track.WATrackProxy;
-import com.wa.sdk.track.model.WAEvent;
 import com.wa.sdk.user.WAUserProxy;
 import com.wa.sdk.user.model.WALoginResult;
 
@@ -113,6 +109,12 @@ public class LoginActivity extends BaseActivity {
             case R.id.btn_vk_login:
                 vkLogin();
                 break;
+            case R.id.btn_twitter_login:
+                twitterLogin();
+                break;
+            case R.id.btn_instagram_login:
+                instagramLogin();
+                break;
             case R.id.btn_logout:
                 logout();
                 break;
@@ -187,7 +189,9 @@ public class LoginActivity extends BaseActivity {
                         + "\nuserId:" + result.getUserId()
                         + "\ntoken:" + result.getToken()
                         + "\nplatformUserId:" + result.getPlatformUserId()
-                        + "\nplatformToken:" + result.getPlatformToken();
+                        + "\nplatformToken:" + result.getPlatformToken()
+                        + "\nisBindMobile: " + result.isBindMobile()
+                        + "\nisFistLogin: " + result.isFirstLogin();
 
                 // 数据收集
                 WACoreProxy.setServerId("165");
@@ -287,20 +291,37 @@ public class LoginActivity extends BaseActivity {
     }
 
     /**
+     * Twitter平台登录
+     */
+    public void twitterLogin() {
+        showLoadingDialog("正在登录Twitter", null);
+        WAUserProxy.login(this, WAConstants.CHANNEL_TWITTER, mLoginCallback, null);
+    }
+
+    /**
+     * Instagram平台登录
+     */
+    public void instagramLogin() {
+        showLoadingDialog("正在登录Instagram", null);
+        WAUserProxy.login(this, WAConstants.CHANNEL_INSTAGRAM, mLoginCallback, null);
+    }
+
+    /**
      * 应用内登录
      */
     public void appLogin() {
         JSONObject extObject = new JSONObject();
         try {
             extObject.putOpt("appSelfLogin", true);
-            extObject.putOpt("appUserId", "12345");
-            extObject.putOpt("appToken", "o1akkfjia81FMvFSO8kxC96TgQYlhEEr");
+            extObject.putOpt("puserId", "12345");
+            extObject.putOpt("accessToken", "o1akkfjia81FMvFSO8kxC96TgQYlhEEr");
             extObject.putOpt("extInfo", "extInfo String");
         } catch (JSONException e) {
             e.printStackTrace();
         }
         showLoadingDialog("应用内登录", null);
         WAUserProxy.login(this, WAConstants.CHANNEL_WA, mLoginCallback, extObject.toString());
+//        WAUserProxy.login(this, "APPSELF", mLoginCallback, extObject.toString());
     }
 
     /**

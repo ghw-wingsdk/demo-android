@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.common.WACommonProxy;
+import com.wa.sdk.common.WAConfig;
 import com.wa.sdk.common.WASharedPrefHelper;
 import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.model.WAResult;
@@ -46,7 +47,7 @@ public class AccountManagerActivity extends BaseActivity {
 
     private TitleBar mTitlebar;
 
-    private String [] mAccountTypeArray = new String [] {"Facebook", "Google", "VK", };
+    private String [] mAccountTypeArray = new String [] {"Facebook", "Google", "VK", "Twitter", "Instagram"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,6 +202,12 @@ public class AccountManagerActivity extends BaseActivity {
                                 break;
                             case 2:
                                 platform = WAConstants.CHANNEL_VK;
+                                break;
+                            case 3:
+                                platform = WAConstants.CHANNEL_TWITTER;
+                                break;
+                            case 4:
+                                platform = WAConstants.CHANNEL_INSTAGRAM;
                                 break;
                             default:
                                 break;
@@ -409,6 +416,12 @@ public class AccountManagerActivity extends BaseActivity {
                                 break;
                             case 2:
                                 platform = WAConstants.CHANNEL_VK;
+                                break;
+                            case 3:
+                                platform = WAConstants.CHANNEL_TWITTER;
+                                break;
+                            case 4:
+                                platform = WAConstants.CHANNEL_INSTAGRAM;
                                 break;
                             default:
                                 break;

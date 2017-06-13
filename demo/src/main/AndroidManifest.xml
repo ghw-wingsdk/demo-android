@@ -15,29 +15,29 @@
         android:name=".WADemoApp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".MainActivity"
-            android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name"
-            >
-            <!--android:launchMode="singleTask"-->
+        <!--<activity android:name=".SplashActivity" >-->
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->
 
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
+        <!--</activity>-->
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            >
+            <!--android:launchMode="singleTask"-->
+            <intent-filter>
+                <action android:name="com.wa.sdk.push.MAIN_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.VIEW" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-                <!--<category android:name="android.intent.category.BROWSABLE" />-->
-                <!--<data android:scheme="com.wa.sdk" />-->
-            <!--</intent-filter>-->
         </activity>
 
         <activity
@@ -138,6 +138,13 @@
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:label="@string/app_name" />
 
+        <receiver android:name=".receiver.PushReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.wa.sdk.push.intent.NOTIFICATION_OPENED" />
+            </intent-filter>
+        </receiver>
+
 
         <!-- AppsFlyer SDK START -->
         <!-- AppsFlyer AppKey(需要自己申请) -->
@@ -210,6 +217,28 @@
         <meta-data
             android:name="com.google.android.gms.games.APP_ID"
             android:value="@string/google_game_app_id" />
+
+        <!-- Twitter Start -->
+        <!-- Twitter consumer key，需要到Twitter后台申请 -->
+        <meta-data
+            android:name="com.wa.sdk.TWITTER_CONSUMER_KEY"
+            android:value="SLTsEh1c61Um0gRArM8MMYNdk" />
+        <!-- Twitter consumer secret，需要到Twitter后台申请 -->
+        <meta-data
+            android:name="com.wa.sdk.TWITTER_CONSUMER_SECRET"
+            android:value="mQxNdMLMpvWXNR2tJZ9qblHxct7YI3thgYMvxWnA5Tq71py4Ni" />
+        <!-- Twitter End -->
+
+        <!-- Instagram Start -->
+        <!-- Instagram client id，需要到Instagram后台申请 -->
+        <meta-data
+            android:name="com.ghw.sdk.INSTAGRAM_CLIENT_ID"
+            android:value="15fceba08b294d5e844c6b07c59cccb3" />
+        <!-- Instagram client secret，需要到Instagram后台申请 -->
+        <meta-data
+            android:name="com.ghw.sdk.INSTAGRAM_CLIENT_SECRET"
+            android:value="1b71301d548147629d40994eae808fc0" />
+        <!-- Instagram End -->
 
     </application>
 

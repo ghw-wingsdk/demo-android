@@ -36,6 +36,7 @@
     <string name="account_manager">Account Manager</string>
     <string name="google_in_app_billing">In-App Billing</string>
     <string name="fb_gifting">FB Gifting</string>
+    <string name="wa_video_ad">Video Ad</string>
     <string name="test_crash">Test Crash</string>
     <string name="check_update">Check Update</string>
     <string name="download_patch">Download Patch</string>
@@ -208,5 +209,10 @@
     <string name="name_format">Name: %s</string>
     <string name="id_format">ID: %s</string>
     <string name="platform_format">Platform: %s</string>
+
+    <!-- 视频广告 -->
+    <string name="wa_get_cached_video_ad_amount">Get cached video ad amount</string>
+    <string name="wa_cached_video_ad_amount_format">Cached video ad: %d</string>
+    <string name="wa_display_video_ad">Display video ad</string>
 
 </resources>

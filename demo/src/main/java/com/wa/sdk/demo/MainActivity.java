@@ -1,17 +1,13 @@
 package com.wa.sdk.demo;
 
-import android.*;
-import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Base64;
@@ -21,11 +17,13 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ToggleButton;
 
+import com.wa.sdk.WAConstants;
+import com.wa.sdk.ad.WAAdProxy;
+import com.wa.sdk.ad.model.WAAdCachedCallback;
 import com.wa.sdk.apw.WAApwProxy;
 import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.WASharedPrefHelper;
 import com.wa.sdk.common.model.WACallback;
-import com.wa.sdk.common.model.WAPermissionCallback;
 import com.wa.sdk.common.model.WAResult;
 import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.common.utils.StringUtil;
@@ -40,10 +38,15 @@ import com.wa.sdk.demo.tracking.TrackingActivity;
 import com.wa.sdk.demo.widget.TitleBar;
 import com.wa.sdk.pay.WAPayProxy;
 import com.wa.sdk.pay.model.WAPurchaseResult;
-import com.wa.sdk.push.WAPushProxy;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Set;
 
 //import bolts.AppLinks;
@@ -111,6 +114,15 @@ public class MainActivity extends BaseActivity {
             WAApwProxy.showEntryFlowIcon(this);
         }
 
+        WAAdProxy.setAdCachedCallback(new WAAdCachedCallback() {
+            @Override
+            public void onVideoCached(int validVideoCount) {
+                String text = "有新的广告缓存成功，当前可用广告数： " + validVideoCount;
+                LogUtil.e(WAConstants.TAG, text);
+                showShortToast(text);
+            }
+        });
+
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if(null != bundle) {
@@ -128,18 +140,62 @@ public class MainActivity extends BaseActivity {
 
         showHashKey(this);
 
-//        WACommonProxy.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE, new WAPermissionCallback() {
+
+//        WACommonProxy.checkSelfPermission(this, Manifest.permission.GET_ACCOUNTS, true,
+//                "如果您不允许WASdkDemo访问你的账户信息，您将无法使用Google登录",
+//                "WASdkDemo需要获取您的联系人信息来登录您的Google账号", new WAPermissionCallback() {
 //            @Override
 //            public void onCancel() {
-//
+//                // TODO 取消授权
+//                showShortToast("check permission canceled");
 //            }
 //
 //            @Override
 //            public void onRequestPermissionResult(String[] permissions, boolean[] grantedResults) {
-//
+//                // TODO 处理授权结果，判断是否通过授权
+//                String msg = "Request permission result:\n";
+//                if(permissions.length > 0) {
+//                    for(int  i = 0; i < permissions.length; i++) {
+//                        msg += permissions[i] + "--" + (grantedResults[i] ? "granted" : "denied");
+//                    }
+//                }
+//                showShortToast(msg);
 //            }
 //        });
 
+//        startActivity(new Intent(this, SplashActivity.class));
+
+//        executeCommand("su");
+    }
+
+    public static ArrayList<String> executeCommand(String... shellCmd){
+        String line = null;
+        ArrayList<String> fullResponse = new ArrayList<String>();
+        Process localProcess = null;
+        try {
+            LogUtil.i(LogUtil.TAG, "to shell exec which for find su :");
+            localProcess = Runtime.getRuntime().exec(shellCmd);
+        } catch (Exception e) {
+            return null;
+        }
+        BufferedWriter out = new BufferedWriter(new OutputStreamWriter(localProcess.getOutputStream()));
+        BufferedReader in = new BufferedReader(new InputStreamReader(localProcess.getInputStream()));
+        try {
+            while ((line = in.readLine()) != null) {
+                LogUtil.i(LogUtil.TAG, "–> Line received: " + line);
+                fullResponse.add(line);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        LogUtil.i(LogUtil.TAG, "–> Full response was: " + fullResponse);
+        return fullResponse;
     }
 
     @Override
@@ -251,7 +307,7 @@ public class MainActivity extends BaseActivity {
                 if (WASdkDemo.getInstance().isLogin()) {
                     accountManager();
                 } else {
-                    showLongToast("Not login! Please login first!");
+                    showLongToast("Not loginAccount! Please loginAccount first!");
                     new AlertDialog.Builder(MainActivity.this)
                             .setTitle(R.string.warming)
                             .setMessage(R.string.not_login_yet)
@@ -351,6 +407,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.btn_community:
                 startActivity(new Intent(this, CommunityActivity.class));
+                break;
+            case R.id.btn_video_ad:
+                startActivity(new Intent(this, VideoAdActivity.class));
                 break;
             default:
                 break;

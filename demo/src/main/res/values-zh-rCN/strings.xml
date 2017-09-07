@@ -28,6 +28,7 @@
     <string name="account_manager">账户管理</string>
     <string name="google_in_app_billing">Google应用内支付</string>
     <string name="fb_gifting">Facebook礼物</string>
+    <string name="wa_video_ad">视频广告</string>
     <string name="test_crash">闪退测试</string>
     <string name="payment">支付</string>
     <string name="static_payment">静态支付</string>
@@ -198,4 +199,9 @@
     <string name="name_format">昵称: %s</string>
     <string name="id_format">ID: %s</string>
     <string name="platform_format">平台: %s</string>
+
+    <!-- 视频广告 -->
+    <string name="wa_get_cached_video_ad_amount">获取缓存的视频广告数</string>
+    <string name="wa_cached_video_ad_amount_format">已缓存视频广告数: %d</string>
+    <string name="wa_display_video_ad">展示视频广告</string>
 </resources>

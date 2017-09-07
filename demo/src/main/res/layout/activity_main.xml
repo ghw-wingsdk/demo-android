@@ -258,6 +258,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
+                <Button
+                    android:id="@+id/btn_video_ad"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="@string/wa_video_ad" />
 
                 <Button
                     android:id="@+id/btn_test_crash"
@@ -270,15 +280,6 @@
                     android:onClick="onClick"
                     android:text="@string/test_crash" />
 
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:visibility="invisible" />
             </LinearLayout>
 
             <LinearLayout

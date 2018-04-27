@@ -3,6 +3,7 @@ package com.wa.sdk.demo.invite;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.common.WACommonProxy;
@@ -15,6 +16,11 @@ import com.wa.sdk.demo.WADemoConfig;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.widget.TitleBar;
 import com.wa.sdk.social.WASocialProxy;
+import com.wa.sdk.social.model.WARequestSendResult;
+import com.wa.sdk.user.model.WAUser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Facebook邀请页面
@@ -52,8 +58,8 @@ public class FBInviteActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_fb_app_invite:
-                String appLinkUrl = "https://fb.me/1666843733570117?userId=11111111111";
-                String previewImageUrl = "https://scontent-sjc2-1.xx.fbcdn.net/hphotos-xaf1/t39.2081-0/11057103_1038207922873472_1902526455_n.jpg";
+                String appLinkUrl = "https://fb.me/1666843733570117";
+                String previewImageUrl = "https://lh3.googleusercontent.com/Q83SJEGMmWz_OBunjahU-RUtyJZJG8P3lbKAvrPB7q4F6UwMdWkvInvkCwTfYElanq4=w300-rw";
                 WASocialProxy.appInvite(FBInviteActivity.this, WAConstants.CHANNEL_FACEBOOK,
                         appLinkUrl, previewImageUrl, new WACallback<WAResult>() {
                             @Override
@@ -74,7 +80,31 @@ public class FBInviteActivity extends BaseActivity {
                         });
                 break;
             case R.id.btn_fb_game_service_invite:
-                startActivity(new Intent(FBInviteActivity.this, FBInviteFriendsActivity.class));
+//                startActivity(new Intent(FBInviteActivity.this, FBInviteFriendsActivity.class));
+                WASocialProxy.sendRequest(this, WAConstants.CHANNEL_FACEBOOK, WAConstants.REQUEST_INVITE,
+                        "Your friends invite you to join it",
+                        "This is game is very funning, come and join with me!", null, null,
+                         new WACallback<WARequestSendResult>() {
+                            @Override
+                            public void onSuccess(int code, String message, WARequestSendResult result) {
+                                cancelLoadingDialog();
+                                Toast.makeText(FBInviteActivity.this, "Invite send success", Toast.LENGTH_LONG).show();
+                                WASocialProxy.createInviteRecord(WAConstants.CHANNEL_FACEBOOK,
+                                        result.getRequestId(), result.getRecipients(), null);
+                            }
+
+                            @Override
+                            public void onCancel() {
+                                cancelLoadingDialog();
+                                Toast.makeText(FBInviteActivity.this, "Invite canceled", Toast.LENGTH_LONG).show();
+                            }
+
+                            @Override
+                            public void onError(int code, String message, WARequestSendResult result, Throwable throwable) {
+                                cancelLoadingDialog();
+                                Toast.makeText(FBInviteActivity.this, "Invite error:" + message, Toast.LENGTH_LONG).show();
+                            }
+                        }, null);
                 break;
             case R.id.btn_fb_invite_install_reward:
                 inviteInstallReward();

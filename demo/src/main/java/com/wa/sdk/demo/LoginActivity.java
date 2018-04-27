@@ -196,6 +196,7 @@ public class LoginActivity extends BaseActivity {
                 // 数据收集
                 WACoreProxy.setServerId("165");
                 WACoreProxy.setGameUserId("gUid01");
+                WACoreProxy.setNickname("wing_test");
 
 //                WAEvent event = new WAEvent.Builder()
 //                        .setDefaultEventName(WAEventType.LOGIN)

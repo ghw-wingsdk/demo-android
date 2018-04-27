@@ -13,6 +13,7 @@ import com.wa.sdk.demo.widget.TitleBar;
 
 /**
  * 邀请好友
+ * @deprecated
  * Created by ghw_zhangyy on 2015/7/1.
  */
 public class InviteActivity extends BaseActivity {

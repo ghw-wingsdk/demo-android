@@ -3,9 +3,10 @@ apply plugin: 'maven'
 buildscript {
     repositories {
         jcenter()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.3'
+        classpath 'com.android.tools.build:gradle:3.0.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -17,12 +18,15 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        google()
         maven {
             // 测试环境
-//            url "http://172.16.100.58:8081/nexus/content/groups/wing/"
-            // 正式环境（国内仓库）
-            url "http://git.wingsdk.cn:8081/repository/winga-group/"
+            url "http://172.16.100.58:8081/nexus/content/groups/wing/"
         }
+//        maven {
+//            // 正式环境（国内仓库）
+//            url "http://repo.wingsdk.cn:8081/repository/winga-group/"
+//        }
     }
 }
 

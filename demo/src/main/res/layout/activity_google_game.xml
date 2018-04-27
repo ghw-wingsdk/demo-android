@@ -124,6 +124,22 @@
 
             </LinearLayout>
 
+            <Button
+                android:id="@+id/load_achievement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:onClick="onClick"
+                android:text="Force Reload achievement"/>
+            <TextView
+                android:id="@+id/tv_achievement_data"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="#FF111111"
+                android:hint="通过强制加载Achievement数据，可以排除本地数据与服务器数据不一而导展示Achievement页面数据不正确的问题，如果执行了解锁Achievement或者增长Achievement操作，建议执行一次强制重新加载，再在成就展示页面看数据。"/>
+
         </LinearLayout>
     </ScrollView>
 

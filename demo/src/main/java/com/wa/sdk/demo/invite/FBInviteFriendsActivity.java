@@ -30,6 +30,7 @@ import java.util.List;
 
 /**
  * 给好友发送邀请
+ * @deprecated
  * Created by yinglovezhuzhu@gmail.com on 2016/3/23.
  */
 public class FBInviteFriendsActivity extends BaseActivity {

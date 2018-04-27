@@ -14,11 +14,14 @@ import com.wa.sdk.WAConstants;
 import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.model.WAResult;
+import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.common.utils.StringUtil;
 import com.wa.sdk.demo.R;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.widget.TitleBar;
 import com.wa.sdk.social.WASocialProxy;
+import com.wa.sdk.social.model.WAAchievement;
+import com.wa.sdk.social.model.WALoadAchievementResult;
 import com.wa.sdk.social.model.WAPlayer;
 import com.wa.sdk.social.model.WAUpdateAchievementResult;
 
@@ -32,7 +35,11 @@ public class GoogleGameActivity extends BaseActivity {
     private EditText mEtIncreaseAchievementId;
     private EditText mEtIncreaseSteps;
 
+    private Button mBtnLoadAchievement;
+    private TextView mTvDataText;
+
     private boolean mSignIn = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +65,7 @@ public class GoogleGameActivity extends BaseActivity {
                 }
                 break;
             case R.id.btn_google_game_display_achievements:
-                if(WASocialProxy.isGameSignedIn(WAConstants.CHANNEL_GOOGLE)) {
+                if(WASocialProxy.isGameSignedIn(GoogleGameActivity.this, WAConstants.CHANNEL_GOOGLE)) {
                     int result = WASocialProxy.displayAchievement(this, WAConstants.CHANNEL_GOOGLE, new WACallback<WAResult>() {
                         @Override
                         public void onSuccess(int code, String message, WAResult result) {
@@ -86,18 +93,90 @@ public class GoogleGameActivity extends BaseActivity {
                 }
                 break;
             case R.id.btn_google_game_unlock_achievements:
-                if(WASocialProxy.isGameSignedIn(WAConstants.CHANNEL_GOOGLE)) {
+                if(WASocialProxy.isGameSignedIn(GoogleGameActivity.this, WAConstants.CHANNEL_GOOGLE)) {
                     unlockAchievement();
                 } else {
                     showShortToast("You need sign in game first");
                 }
                 break;
             case R.id.btn_google_game_increase_achievements:
-                if(WASocialProxy.isGameSignedIn(WAConstants.CHANNEL_GOOGLE)) {
+                if(WASocialProxy.isGameSignedIn(GoogleGameActivity.this, WAConstants.CHANNEL_GOOGLE)) {
                     increaseAchievement();
                 } else {
                     showShortToast("You need sign in game first");
                 }
+                break;
+            case R.id.load_achievement:
+                mBtnLoadAchievement.setEnabled(false);
+                mTvDataText.setText("loading...");
+                WASocialProxy.loadAchievements(GoogleGameActivity.this, WAConstants.CHANNEL_GOOGLE, true, new WACallback<WALoadAchievementResult>() {
+                    @Override
+                    public void onSuccess(int code, String message, WALoadAchievementResult result) {
+                        LogUtil.e(WAConstants.TAG, "Load achievement onSuccess, achievement array size: " + result.getAchievements().size());
+                        StringBuilder sb = new StringBuilder();
+                        for (WAAchievement achievement : result.getAchievements()) {
+                            sb.append("Id: ")
+                                    .append(achievement.getAchievementId())
+                                    .append("\n")
+                                    .append("Name: ")
+                                    .append(achievement.getName())
+                                    .append("\n")
+                                    .append("Description: ")
+                                    .append(achievement.getDescription())
+                                    .append("\n")
+                                    .append("Type: ");
+                            switch (achievement.getType()) {
+                                case WAAchievement.TYPE_STANDARD:
+                                    sb.append("Standard");
+                                    break;
+                                case WAAchievement.TYPE_INCREMENTAL:
+                                    sb.append("Incremental")
+                                            .append("\n")
+                                            .append("Step: ")
+                                            .append(achievement.getCurrentSteps());
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                            sb.append("\n")
+                                    .append("State: ");
+
+                            switch (achievement.getState()) {
+                                case WAAchievement.STATE_HIDDEN:
+                                    sb.append("Hidden");
+                                    break;
+                                case WAAchievement.STATE_REVEALED:
+                                    sb.append("Revealed");
+                                    break;
+                                case WAAchievement.STATE_UNLOCKED:
+                                    sb.append("Unlocked");
+                                    break;
+                                default:
+                                    break;
+                            }
+                            sb.append("\n-----------------\n");
+
+                            LogUtil.w(WAConstants.TAG, achievement.toString());
+                        }
+                         mTvDataText.setText(sb.toString());
+                        mBtnLoadAchievement.setEnabled(true);
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        LogUtil.e(WAConstants.TAG, "Load achievement onCancel");
+                        mTvDataText.setText("Load achievement canceled");
+                        mBtnLoadAchievement.setEnabled(true);
+                    }
+
+                    @Override
+                    public void onError(int code, String message, WALoadAchievementResult result, Throwable throwable) {
+                        LogUtil.e(WAConstants.TAG, String.format("Load achievement onError: code=%d, message=%s", code, message));
+                        mTvDataText.setText(String.format("Load achievement error: code=%d, message=%s", code, message));
+                        mBtnLoadAchievement.setEnabled(true);
+                    }
+                });
                 break;
             default:
                 break;
@@ -137,6 +216,9 @@ public class GoogleGameActivity extends BaseActivity {
         mEtIncreaseSteps = (EditText) findViewById(R.id.et_google_game_increase_num_steps);
         mEtIncreaseAchievementId.setText("CgkIjKzo4o0fEAIQCw");
         mEtIncreaseSteps.setText("1");
+
+        mBtnLoadAchievement = (Button) findViewById(R.id.load_achievement);
+        mTvDataText = (TextView) findViewById(R.id.tv_achievement_data);
     }
 
     private void signIn() {
@@ -212,7 +294,7 @@ public class GoogleGameActivity extends BaseActivity {
         }
 
         showLoadingDialog("Unlocking achievement", null);
-        WASocialProxy.unlockAchievement(WAConstants.CHANNEL_GOOGLE, achievementId, new WACallback<WAUpdateAchievementResult>() {
+        WASocialProxy.unlockAchievement(GoogleGameActivity.this, WAConstants.CHANNEL_GOOGLE, achievementId, new WACallback<WAUpdateAchievementResult>() {
             @Override
             public void onSuccess(int code, String message, WAUpdateAchievementResult result) {
                 dismissLoadingDialog();
@@ -257,7 +339,7 @@ public class GoogleGameActivity extends BaseActivity {
         int steps = Integer.parseInt(stepStr);
 
         showLoadingDialog("Increase achievement", null);
-        WASocialProxy.increaseAchievement(WAConstants.CHANNEL_GOOGLE, achievementId, steps, new WACallback<WAUpdateAchievementResult>() {
+        WASocialProxy.increaseAchievement(GoogleGameActivity.this, WAConstants.CHANNEL_GOOGLE, achievementId, steps, new WACallback<WAUpdateAchievementResult>() {
             @Override
             public void onSuccess(int code, String message, WAUpdateAchievementResult result) {
                 dismissLoadingDialog();

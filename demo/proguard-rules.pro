@@ -53,3 +53,6 @@
 -keep class com.google.android.gms.** { *; }
 -keep class com.google.firebase.** { *; }
 -keep class com.android.vending.billing.** { *; }
+
+# Twitter
+-keep class com.twitter.sdk.android.** { *; }

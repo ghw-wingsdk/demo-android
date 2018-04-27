@@ -4,6 +4,10 @@ import android.text.InputType;
 
 import com.wa.sdk.track.WAEventParameterName;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 
@@ -45,5 +49,37 @@ public class Util {
             return InputType.TYPE_NUMBER_FLAG_DECIMAL;
         }
         return InputType.TYPE_CLASS_TEXT;
+    }
+
+
+
+    public static String getMD5(InputStream is) throws IOException, NoSuchAlgorithmException {
+
+        if(null == is) {
+            return "";
+        }
+
+        try {
+            byte[] buffer = new byte[1024 * 16]; // 16KB
+            MessageDigest md5 = MessageDigest.getInstance("MD5");
+            int len;
+            while((len = is.read(buffer)) != -1){
+                md5.update(buffer, 0, len);
+            }
+            return convertByteToHex(md5.digest());
+        } finally {
+            is.close();
+            is = null;
+        }
+    }
+
+    private static String convertByteToHex(byte[] byteData) {
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < byteData.length; i++) {
+            sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+        }
+
+        return sb.toString();
     }
 }

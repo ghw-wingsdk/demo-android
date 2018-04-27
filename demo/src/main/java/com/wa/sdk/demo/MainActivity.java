@@ -24,9 +24,11 @@ import com.wa.sdk.apw.WAApwProxy;
 import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.WASharedPrefHelper;
 import com.wa.sdk.common.model.WACallback;
+import com.wa.sdk.common.model.WAPermissionCallback;
 import com.wa.sdk.common.model.WAResult;
 import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.common.utils.StringUtil;
+import com.wa.sdk.common.utils.WAUtil;
 import com.wa.sdk.core.WACoreProxy;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.community.CommunityActivity;
@@ -70,6 +72,7 @@ public class MainActivity extends BaseActivity {
 
 //        WACoreProxy.setClientId("client123456789");
         WACoreProxy.setDebugMode(true);
+//        AppsFlyerLib.getInstance().enableUninstallTracking("YOURE_APPSFLYER_SENDER_ID");
         WACoreProxy.initialize(this);
 
         // Demo的初始化，跟SDK无关
@@ -141,27 +144,27 @@ public class MainActivity extends BaseActivity {
         showHashKey(this);
 
 
-//        WACommonProxy.checkSelfPermission(this, Manifest.permission.GET_ACCOUNTS, true,
-//                "如果您不允许WASdkDemo访问你的账户信息，您将无法使用Google登录",
-//                "WASdkDemo需要获取您的联系人信息来登录您的Google账号", new WAPermissionCallback() {
-//            @Override
-//            public void onCancel() {
-//                // TODO 取消授权
-//                showShortToast("check permission canceled");
-//            }
-//
-//            @Override
-//            public void onRequestPermissionResult(String[] permissions, boolean[] grantedResults) {
-//                // TODO 处理授权结果，判断是否通过授权
-//                String msg = "Request permission result:\n";
-//                if(permissions.length > 0) {
-//                    for(int  i = 0; i < permissions.length; i++) {
-//                        msg += permissions[i] + "--" + (grantedResults[i] ? "granted" : "denied");
-//                    }
-//                }
-//                showShortToast(msg);
-//            }
-//        });
+        WACommonProxy.checkSelfPermission(this, android.Manifest.permission.GET_ACCOUNTS, true,
+                "如果您不允许WASdkDemo访问你的账户信息，您将无法使用Google登录",
+                "WASdkDemo需要获取您的联系人信息来登录您的Google账号", new WAPermissionCallback() {
+            @Override
+            public void onCancel() {
+                // TODO 取消授权
+                showShortToast("check permission canceled");
+            }
+
+            @Override
+            public void onRequestPermissionResult(String[] permissions, boolean[] grantedResults) {
+                // TODO 处理授权结果，判断是否通过授权
+                String msg = "Request permission result:\n";
+                if(permissions.length > 0) {
+                    for(int  i = 0; i < permissions.length; i++) {
+                        msg += permissions[i] + "--" + (grantedResults[i] ? "granted" : "denied");
+                    }
+                }
+                showShortToast(msg);
+            }
+        });
 
 //        startActivity(new Intent(this, SplashActivity.class));
 
@@ -227,7 +230,8 @@ public class MainActivity extends BaseActivity {
     public void showHashKey(Context context) {
 
         try {
-            PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES); //Your            package name here
+//            PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES); //Your            package name here
+            PackageInfo info = context.getPackageManager().getPackageInfo("com.proficientcity.nyjjh", PackageManager.GET_SIGNATURES); //Your            package name here
 
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
@@ -236,8 +240,10 @@ public class MainActivity extends BaseActivity {
             }
         } catch (PackageManager.NameNotFoundException e) {
             // do nothing
+            e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
             // do nothing
+            e.printStackTrace();
         }
 
     }

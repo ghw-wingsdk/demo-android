@@ -23,7 +23,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/fb_app_invite"
-                android:onClick="onClick"/>
+                android:onClick="onClick"
+                android:visibility="gone"/>
             <Button
                 android:id="@+id/btn_fb_game_service_invite"
                 android:layout_width="match_parent"

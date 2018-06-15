@@ -28,7 +28,6 @@ import com.wa.sdk.common.model.WAPermissionCallback;
 import com.wa.sdk.common.model.WAResult;
 import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.common.utils.StringUtil;
-import com.wa.sdk.common.utils.WAUtil;
 import com.wa.sdk.core.WACoreProxy;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.community.CommunityActivity;
@@ -72,7 +71,6 @@ public class MainActivity extends BaseActivity {
 
 //        WACoreProxy.setClientId("client123456789");
         WACoreProxy.setDebugMode(true);
-//        AppsFlyerLib.getInstance().enableUninstallTracking("YOURE_APPSFLYER_SENDER_ID");
         WACoreProxy.initialize(this);
 
         // Demo的初始化，跟SDK无关
@@ -416,6 +414,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.btn_video_ad:
                 startActivity(new Intent(this, VideoAdActivity.class));
+                break;
+            case R.id.btn_csc:
+                startActivity(new Intent(this, CscActivity.class));
                 break;
             default:
                 break;

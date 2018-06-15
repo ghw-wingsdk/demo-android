@@ -3,7 +3,6 @@
     package="com.wa.sdk.demo">
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -28,6 +27,7 @@
             android:label="@string/app_name"
             android:configChanges="keyboardHidden|screenSize|orientation"
             >
+            <!--android:screenOrientation="landscape"-->
             <!--android:launchMode="singleTask"-->
             <intent-filter>
                 <action android:name="com.wa.sdk.push.MAIN_ACTIVITY" />
@@ -44,7 +44,11 @@
         <activity
             android:name=".LoginActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"/>
+        <activity
+            android:name=".CscActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/app_name"/>
         <activity
             android:name=".AccountManagerActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
@@ -141,6 +145,7 @@
         <activity android:name=".VideoAdActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:label="@string/app_name" />
+            <!--android:screenOrientation="landscape"-->
 
         <receiver android:name=".receiver.PushReceiver"
             android:exported="false">
@@ -148,7 +153,6 @@
                 <action android:name="com.wa.sdk.push.intent.NOTIFICATION_OPENED" />
             </intent-filter>
         </receiver>
-
 
         <!-- AppsFlyer SDK START -->
         <!-- AppsFlyer AppKey(需要自己申请) -->
@@ -206,10 +210,10 @@
         <!-- Chartboost SDK END -->
 
         <!-- Facebook Start -->
-        <provider
-            android:name="com.facebook.FacebookContentProvider"
-            android:authorities="com.facebook.app.FacebookContentProvider1811388679079227"
-            android:exported="true" />
+        <!--<provider-->
+            <!--android:name="com.facebook.FacebookContentProvider"-->
+            <!--android:authorities="com.facebook.app.FacebookContentProvider1811388679079227"-->
+            <!--android:exported="true" />-->
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
         <!-- 开启/关闭 Facebook数据收集功能，默认关闭，使用默认配置可不配置此项 -->
@@ -223,11 +227,6 @@
             android:value="@string/google_game_app_id" />
 
         <!-- Twitter Start -->
-        <!-- Fabric api key，需要到Fabric后台申请 -->
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="0851e13e347797a5afa8b6ba407007f0ac0e4adc" />
-        <!-- Twitter consumer key，需要到Twitter后台申请 -->
         <meta-data
             android:name="com.wa.sdk.TWITTER_CONSUMER_KEY"
             android:value="SLTsEh1c61Um0gRArM8MMYNdk" />
@@ -247,6 +246,17 @@
             android:name="com.ghw.sdk.INSTAGRAM_CLIENT_SECRET"
             android:value="1b71301d548147629d40994eae808fc0" />
         <!-- Instagram End -->
+
+
+        <meta-data
+            android:name="com.wa.sdk.AIHelp_appKey"
+            android:value="GAMEHOLLYWOODCOMPANY_app_b35e57c1ff2f4efa95231e3692b645d4" />
+        <meta-data
+            android:name="com.wa.sdk.AIHelp_domain"
+            android:value="GameHollywoodcompany.CS30.NET" />
+        <meta-data
+            android:name="com.wa.sdk.AIHelp_appId"
+            android:value="GameHollywoodcompany_platform_75592cd4-fdff-4fd3-a8b1-38e12aaba26f" />
 
     </application>
 

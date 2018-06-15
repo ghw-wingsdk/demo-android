@@ -14,8 +14,11 @@
     <!-- Google In-app billing public key -->
     <!--<string name="google_base64EncodedPublicKey">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv1V2WNTi8eJq787TLyH+ifB8uWwQQVxY5PTMVeLKgmH2DWv+DMfdMTlgJivSqaM+8kmLuCcqdkaMdfDSDV3Bdy77wWUaeJx9GS/d19zZDSZDwHWGRiyBVbcRNJ5r54XcfP21fiBgg9Rqj3qOYuJuPFj6SJWsCMuw3uE/e+BTGM6lVMlTDqQcQr67NxwB3Zhcw8iZkIkBJxVH4W9WDzQjcI2eEpQ/tby+AiLFmDVDoOPb+41ldfEkIZEoGbNhrG5KlUSbS25TU4H34dPyIQ+rrCaErob2nZKoQ2PvO+tZ4uzmT926c3IUXknCMwrnW/SdBpia93j6ZEuVgYKlYT6jewIDAQAB</string>-->
     <string name="google_base64EncodedPublicKey">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhab03+1NEH/qdRcB8aA8quIz1VntrG21aJzd8W7E0nyh6CxmwwqwLtfs/ro4CTd76jz94+k/xP263d/bJZg+biczsVIcU8wT+zQJH5Ze5wTthgl+XAtN7xGxnNaDpUXxr28K/mHyUnc/yg3iXeHFI3Rg2QcaixOP7xyImIdRrM1FjDOhlEtnXdsIpCkK8TDCnFXo1qmXKheLxd6nZ96d3zSt/lJenFPdI84/RJszJfD4aJPrHg/K+iPLV15bYNfskpgnn/Vq1JEKq91N67c/szQDZB7o9ZJNfSTHVPO5riOyZd0guNXEMB7+YT/oSIo+I0A87GcP9rasGI2FuBNLHwIDAQAB</string>
+    <!-- Google Web application type OAuth 2.0 client ID -->
+    <!--<string name="google_server_client_id">1068848780812-ta07figcg5rosk5hpmhbn4030fnvjnjb.apps.googleusercontent.com</string>-->
     <string name="google_server_client_id">1068848780812-e5p4q2kon33fm4cajv08aj4a23b0aqva.apps.googleusercontent.com</string>
-
+    <!--<string name="google_server_client_id">1068848780812-18mn438fjr7bim2dlmq31g0u5gq9sjlg.apps.googleusercontent.com</string>-->
+    <string name="google_firebaseSenderId">15309153268</string>
 
     <!-- VK app id -->
     <integer name="com_vk_sdk_AppId">5527303</integer>
@@ -38,6 +41,7 @@
     <string name="google_in_app_billing">In-App Billing</string>
     <string name="fb_gifting">FB Gifting</string>
     <string name="wa_video_ad">Video Ad</string>
+    <string name="wa_csc">AIHelp</string>
     <string name="test_crash">Test Crash</string>
     <string name="check_update">Check Update</string>
     <string name="download_patch">Download Patch</string>
@@ -215,5 +219,13 @@
     <string name="wa_get_cached_video_ad_amount">Get cached video ad amount</string>
     <string name="wa_cached_video_ad_amount_format">Cached video ad: %d</string>
     <string name="wa_display_video_ad">Display video ad</string>
+    <string name="showElva">showElva</string>
+    <string name="showElvaOP">showElvaOP</string>
+    <string name="showFAQs">showFAQs</string>
+    <string name="showConversation">showConversation</string>
+    <string name="setSDKLanguage">setSDKLanguage</string>
+    <string name="showSingleFAQ">showSingleFAQ</string>
+    <string name="csc">AIHelp</string>
+    <string name="showFAQSection">showFAQSection</string>
 
 </resources>

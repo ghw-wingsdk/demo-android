@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion = '26.0.2'
+    buildToolsVersion = '27.0.3'
 
     signingConfigs {
         config {
@@ -102,35 +102,37 @@ def getDate() {
 
 dependencies {
     //    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:support-v4:23.1.1'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:support-v4:26.1.0'
     // 基础模块（必选）
-    compile 'com.wa.sdk:wa-sdk-base:3.6.7'
+    implementation 'com.wa.sdk:wa-sdk-base:3.6.8.1'
     // 核心模块（必选）
-    compile 'com.wa.sdk:wa-sdk-core:3.6.7'
+    implementation 'com.wa.sdk:wa-sdk-core:3.6.8.1'
     // AppsFlyer模块（可选）
-    compile 'com.wa.sdk:wa-sdk-appsflyer:3.6.7'
+    implementation 'com.wa.sdk:wa-sdk-appsflyer:3.6.7'
     // Chartboost模块（可选）
-    compile 'com.wa.sdk:wa-sdk-chartboost:3.6.7'
+    implementation 'com.wa.sdk:wa-sdk-chartboost:3.6.7'
     // Facebook模块（可选）
-    compile 'com.wa.sdk:wa-sdk-facebook:3.6.7'
+    implementation 'com.wa.sdk:wa-sdk-facebook:3.6.7'
     // Google模块（可选）
-    compile 'com.wa.sdk:wa-sdk-google:3.6.7'
+    implementation 'com.wa.sdk:wa-sdk-google:3.6.7'
     // VK模块（可选）
-    compile 'com.wa.sdk:wa-sdk-vk:3.6.7'
+    implementation 'com.wa.sdk:wa-sdk-vk:3.6.7'
     // 网页支付模块（可选）
-    compile 'com.wa.sdk:wa-sdk-webpay:3.6.7'
+    implementation 'com.wa.sdk:wa-sdk-webpay:3.6.7'
     // 应用墙模块（可选）
-    compile 'com.wa.sdk:wa-sdk-apw:3.6.7'
+    implementation 'com.wa.sdk:wa-sdk-apw:3.6.7'
     // 消息推送模块（可选）
-    compile 'com.wa.sdk:wa-sdk-push:3.6.7'
+    implementation 'com.wa.sdk:wa-sdk-push:3.6.7'
     // Twitter推送模块（可选）
-    compile 'com.wa.sdk:wa-sdk-twitter:3.6.7'
+    implementation 'com.wa.sdk:wa-sdk-twitter:3.6.7'
     // Instagram推送模块（可选）
-    compile 'com.wa.sdk:wa-sdk-instagram:3.6.7'
+    implementation 'com.wa.sdk:wa-sdk-instagram:3.6.7'
     // WA广告模块（可选）
-    compile 'com.wa.sdk:wa-sdk-ad:3.6.7'
-
+    implementation 'com.wa.sdk:wa-sdk-ad:3.6.7'
+	//
+    implementation 'com.wa.sdk:wa-sdk-aihelp:3.6.8.1'
 }
 
 // ADD THIS AT THE BOTTOM,如果去掉推送模块的依赖，这句也要去掉

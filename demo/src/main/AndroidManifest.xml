@@ -8,6 +8,13 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+
         <!--android:debuggable="true"-->
     <application
         android:icon="@drawable/ic_launcher"
@@ -210,10 +217,10 @@
         <!-- Chartboost SDK END -->
 
         <!-- Facebook Start -->
-        <!--<provider-->
-            <!--android:name="com.facebook.FacebookContentProvider"-->
-            <!--android:authorities="com.facebook.app.FacebookContentProvider1811388679079227"-->
-            <!--android:exported="true" />-->
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider1811388679079227"
+            android:exported="true" />
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
         <!-- 开启/关闭 Facebook数据收集功能，默认关闭，使用默认配置可不配置此项 -->
@@ -238,25 +245,39 @@
 
         <!-- Instagram Start -->
         <!-- Instagram client id，需要到Instagram后台申请 -->
+        <!--
+        20180619 demo修改
+
+                原有Client ID 15fceba08b294d5e844c6b07c59cccb3
+                原有Client Secret 1b71301d548147629d40994eae808fc0 -->
         <meta-data
             android:name="com.ghw.sdk.INSTAGRAM_CLIENT_ID"
-            android:value="15fceba08b294d5e844c6b07c59cccb3" />
+            android:value="bd0a37a364ab408fb319281ec53c5a7f" />
         <!-- Instagram client secret，需要到Instagram后台申请 -->
         <meta-data
             android:name="com.ghw.sdk.INSTAGRAM_CLIENT_SECRET"
-            android:value="1b71301d548147629d40994eae808fc0" />
+            android:value="eb4bf3c2b42b42579ea948913d947eb5" />
         <!-- Instagram End -->
 
 
         <meta-data
             android:name="com.wa.sdk.AIHelp_appKey"
-            android:value="GAMEHOLLYWOODCOMPANY_app_b35e57c1ff2f4efa95231e3692b645d4" />
+            android:value="GameHollywoodcompany_app_bd0fce60951445c780adff91fe0d456b" />
         <meta-data
             android:name="com.wa.sdk.AIHelp_domain"
-            android:value="GameHollywoodcompany.CS30.NET" />
+            android:value="GameHollywoodcompany@aihelp.net" />
         <meta-data
             android:name="com.wa.sdk.AIHelp_appId"
-            android:value="GameHollywoodcompany_platform_75592cd4-fdff-4fd3-a8b1-38e12aaba26f" />
+            android:value="GameHollywoodcompany_platform_27c19a34-35a2-45da-891e-c26ec7c0d305" />
+        <!--<meta-data-->
+            <!--android:name="com.wa.sdk.AIHelp_appKey"-->
+            <!--android:value="GAMEHOLLYWOODCOMPANY_app_b35e57c1ff2f4efa95231e3692b645d4" />-->
+        <!--<meta-data-->
+            <!--android:name="com.wa.sdk.AIHelp_domain"-->
+            <!--android:value="GameHollywoodcompany.CS30.NET" />-->
+        <!--<meta-data-->
+            <!--android:name="com.wa.sdk.AIHelp_appId"-->
+            <!--android:value="GameHollywoodcompany_platform_75592cd4-fdff-4fd3-a8b1-38e12aaba26f" />-->
 
     </application>
 

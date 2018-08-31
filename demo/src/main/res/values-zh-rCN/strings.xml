@@ -30,6 +30,7 @@
     <string name="fb_gifting">Facebook礼物</string>
     <string name="wa_video_ad">视频广告</string>
     <string name="test_crash">闪退测试</string>
+    <string name="privacy_and_cookie_policy">隐私政策</string>
     <string name="payment">支付</string>
     <string name="static_payment">静态支付</string>
     <string name="input_sku_id">请输入商品id</string>
@@ -217,4 +218,9 @@
     <string name="input_sectionPublishId">请输入SectionPublishId</string>
     <string name="input_faqId">请输入faqId</string>
     <string name="wa_csc">客服系统</string>
+
+    <!-- 隐私政策-->
+    <string name="getUrl">获取隐私政策链接</string>
+    <string name="getTime">获取隐私政策更新时间</string>
+    <string name="popPrivacyWindow">打开隐私政策页面</string>
 </resources>

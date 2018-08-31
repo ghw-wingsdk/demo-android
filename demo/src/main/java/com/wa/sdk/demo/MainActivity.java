@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.wa.sdk.WAConstants;
@@ -49,6 +50,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Set;
+
+import static com.wa.sdk.core.WACoreProxy.showPrivacyUI;
 
 //import bolts.AppLinks;
 
@@ -417,6 +420,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.btn_csc:
                 startActivity(new Intent(this, CscActivity.class));
+                break;
+            case R.id.btn_privacy:
+                startActivity(new Intent(this, PrivacyActivity.class));
                 break;
             default:
                 break;

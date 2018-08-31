@@ -8,13 +8,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
-
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-
         <!--android:debuggable="true"-->
     <application
         android:icon="@drawable/ic_launcher"
@@ -54,6 +47,10 @@
             android:label="@string/app_name"/>
         <activity
             android:name=".CscActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/app_name"/>
+        <activity
+            android:name=".PrivacyActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:label="@string/app_name"/>
         <activity
@@ -234,6 +231,14 @@
             android:value="@string/google_game_app_id" />
 
         <!-- Twitter Start -->
+        <!-- Consumer Key (API Key)	XVyoEoCH5DnZEfJ911arzF0kV
+Consumer Secret (API Secret)	uLAjbYQ37mcM7xonFPX4y8VBeTHhOaXntYpPEqHp2mJCnDJxK5-->
+        <!--consumerKey: SPRwO9pH5p9bJCAbUHaiV8oQY-->
+        <!--consumerSecret:9i6bo6KjPNl0k08kVPR29qjoaBLwbFWPZzYoBZ6jS7JuQZEPCa-->
+        <!-- Consumer Key (API Key)	SLTsEh1c61Um0gRArM8MMYNdk
+Consumer Secret (API Secret)	mQxNdMLMpvWXNR2tJZ9qblHxct7YI3thgYMvxWnA5Tq71py4Ni-->
+
+
         <meta-data
             android:name="com.wa.sdk.TWITTER_CONSUMER_KEY"
             android:value="SLTsEh1c61Um0gRArM8MMYNdk" />
@@ -245,21 +250,16 @@
 
         <!-- Instagram Start -->
         <!-- Instagram client id，需要到Instagram后台申请 -->
-        <!--
-        20180619 demo修改
-
-                原有Client ID 15fceba08b294d5e844c6b07c59cccb3
-                原有Client Secret 1b71301d548147629d40994eae808fc0 -->
         <meta-data
             android:name="com.ghw.sdk.INSTAGRAM_CLIENT_ID"
-            android:value="bd0a37a364ab408fb319281ec53c5a7f" />
+            android:value="15fceba08b294d5e844c6b07c59cccb3" />
         <!-- Instagram client secret，需要到Instagram后台申请 -->
         <meta-data
             android:name="com.ghw.sdk.INSTAGRAM_CLIENT_SECRET"
-            android:value="eb4bf3c2b42b42579ea948913d947eb5" />
+            android:value="1b71301d548147629d40994eae808fc0" />
         <!-- Instagram End -->
 
-
+        <!--系统本地-->
         <meta-data
             android:name="com.wa.sdk.AIHelp_appKey"
             android:value="GameHollywoodcompany_app_bd0fce60951445c780adff91fe0d456b" />
@@ -269,6 +269,17 @@
         <meta-data
             android:name="com.wa.sdk.AIHelp_appId"
             android:value="GameHollywoodcompany_platform_27c19a34-35a2-45da-891e-c26ec7c0d305" />
+        <!--<meta-data-->
+            <!--android:name="com.wa.sdk.interface.ENABLE_IM"-->
+            <!--android:value="true"/>-->
+        <!--<meta-data-->
+            <!--android:name="com.wa.sdk.interface.ENABLE_ADS"-->
+            <!--android:value="true"/>-->
+        <!--<meta-data-->
+            <!--android:name="com.wa.sdk.interface.ENABLE_AND"-->
+            <!--android:value="true"/>-->
+
+        <!--一线江湖-->
         <!--<meta-data-->
             <!--android:name="com.wa.sdk.AIHelp_appKey"-->
             <!--android:value="GAMEHOLLYWOODCOMPANY_app_b35e57c1ff2f4efa95231e3692b645d4" />-->

@@ -228,4 +228,8 @@
     <string name="csc">AIHelp</string>
     <string name="showFAQSection">showFAQSection</string>
 
+    <!-- 隐私政策-->
+    <string name="getUrl">getPrivacyUrl</string>
+    <string name="getTime">getPrivacyTime</string>
+    <string name="popPrivacyWindow">showPrivacyPop</string>
 </resources>

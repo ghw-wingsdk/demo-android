@@ -54,7 +54,25 @@ public class LoginActivity extends BaseActivity {
         }
 
         initView();
+
+
+                Bundle metaData = null;
+        boolean apiKey;
+try {
+            android.content.pm.ApplicationInfo ai = this.getPackageManager()
+                    .getApplicationInfo(this.getPackageName(),android.content.pm.PackageManager.GET_META_DATA);
+            if (null != ai) {
+                metaData = ai.metaData;
+            }
+            if (null != metaData) {
+                apiKey = metaData.getBoolean("com.wa.sdk.android_ad");
+                boolean a = apiKey;
+            }
+        } catch (android.content.pm.PackageManager.NameNotFoundException e) {
+        }
     }
+
+
 
     @Override
     public void onBackPressed() {

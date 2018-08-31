@@ -298,16 +298,16 @@
                     android:text="@string/wa_csc" />
 
                 <Button
-                    android:id="@+id/btn_csc_test"
+                    android:id="@+id/btn_privacy"
                     android:layout_width="0dp"
-                    android:visibility="invisible"
+                    android:visibility="visible"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginLeft="5dp"
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
                     android:onClick="onClick"
-                    android:text="@string/test_crash" />
+                    android:text="@string/privacy_and_cookie_policy" />
 
             </LinearLayout>
             <LinearLayout

@@ -226,6 +226,8 @@
     <string name="setSDKLanguage">setSDKLanguage</string>
     <string name="showSingleFAQ">showSingleFAQ</string>
     <string name="csc">AIHelp</string>
+    <string name="input_faqId">PleaseInputfaqId</string>
+    <string name="input_sectionPublishId">PleaseInputSectionPublishId</string>
     <string name="showFAQSection">showFAQSection</string>
 
     <!-- 隐私政策-->

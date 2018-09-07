@@ -112,11 +112,11 @@ public class AccountManagerActivity extends BaseActivity {
                         WACoreProxy.setServerId("165");
                         WACoreProxy.setGameUserId("gUid01");
 
-                        WAEvent event = new WAEvent.Builder()
-                                .setDefaultEventName(WAEventType.LOGIN)
-                                .addDefaultEventValue(WAEventParameterName.LEVEL, 140)
-                                .build();
-                        event.track(AccountManagerActivity.this);
+//                        WAEvent event = new WAEvent.Builder()
+//                                .setDefaultEventName(WAEventType.LOGIN)
+//                                .addDefaultEventValue(WAEventParameterName.LEVEL, 140)
+//                                .build();
+//                        event.track(AccountManagerActivity.this);
                     }
 
                     @Override

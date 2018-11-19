@@ -34,6 +34,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -131,6 +132,8 @@
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:label="@string/app_name" />
 
+
+
         <!-- Hot Update -->
         <activity android:name=".UpdateActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
@@ -224,6 +227,15 @@
         <meta-data
             android:name="com.wa.sdk.track.ENABLE_FACEBOOK"
             android:value="true" />
+        <activity android:name="com.facebook.CustomTabActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+
         <!-- Facebook End -->
 
         <meta-data

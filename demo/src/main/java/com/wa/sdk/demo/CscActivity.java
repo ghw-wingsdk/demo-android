@@ -7,8 +7,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
-import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.csc.WACscProxy;
+import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.widget.TitleBar;
 
@@ -80,8 +80,6 @@ public class CscActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.btn_show_elva:
                 WACscProxy.showElva(showConversationFlag,null);
-
-
                 break;
             case R.id.btn_show_elva_op:
                 WACscProxy.showElvaOP(showConversationFlag,null);
@@ -107,7 +105,8 @@ public class CscActivity extends BaseActivity {
                 } else {
                     WACscProxy.showFAQSection(sectionPublishId,null);
                 }
-                break;
+
+                    break;
             default:
                 break;
         }

@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 27
+    buildToolsVersion = '28.0.2'
 
     signingConfigs {
         config {
@@ -14,14 +14,14 @@ android {
     }
 
     defaultConfig {
+
         applicationId "com.ghw.sdk2"
-        minSdkVersion 19
-        targetSdkVersion 26
+        minSdkVersion 15
+        targetSdkVersion 27
         versionCode 20
-        versionName "3.7.0"
+        versionName "3.7.1"
         signingConfig signingConfigs.config
         multiDexEnabled true
-
     }
 
     buildTypes {
@@ -37,8 +37,8 @@ android {
 //                    '../wa_facebook/proguard-rules.pro', '../wa_google/proguard-rules.pro',
 //                    '../wa_webpay/proguard-rules.pro', '../wa_houpdate/proguard-rules.pro'
             // 正式环境地址
-            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL:'https://api.wingsdk.com/sdkapi',
-                                         SDK_TRACKING_HTTP_BASE_URL:'https://api.wingsdk.com/data'])
+//            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL:'https://api.wingsdk.com/sdkapi',
+//                                         SDK_TRACKING_HTTP_BASE_URL:'https://api.wingsdk.com/data'])
 //            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL:'http://sdk-test1.gamehollywood.com/sdkapi',
 //                                         SDK_TRACKING_HTTP_BASE_URL:'http://sdk-test2.gamehollywood.com/data_collection/data/forward'])
 
@@ -52,21 +52,15 @@ android {
 //            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL:'https://api.wingsdk.com/sdkapi',
 //                                         SDK_TRACKING_HTTP_BASE_URL:'https://api.wingsdk.com/data'])
 //             测试环境
-//            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL:'http://172.16.100.53/sdk_bkd_qa/sdkapi',
-//                                         SDK_TRACKING_HTTP_BASE_URL:'http://sdk-test2.gamehollywood.com/data_collection_qa/data/forward'])
 //            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL:'http://sdk-test1.gamehollywood.com/sdk_bkd_qa/sdkapi',
 //                                         SDK_TRACKING_HTTP_BASE_URL:'http://sdk-test2.gamehollywood.com/data_collection_qa/data/forward'])
-            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL:'https://api.wingsdk.com/sdkapi',
-                                         SDK_TRACKING_HTTP_BASE_URL:'https://api.wingsdk.com/data'])
-//            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL:'http://172.16.100.58/sdk_bkd_qa/sdkapi/',
-//                                         SDK_TRACKING_HTTP_BASE_URL:'http://172.16.100.58/data_collection_qa/data/'])
+
 //            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL:'http://172.16.100.53/sdk_bkd_qa/sdkapi/',
 //                                         SDK_TRACKING_HTTP_BASE_URL:'http://172.16.100.53/data_collection_qa/data/'])
         }
     }
 
     flavorDimensions "server"
-
     productFlavors {
         tst {
             dimension "server"
@@ -100,8 +94,8 @@ android {
     }
 
     compileOptions {
-        targetCompatibility 1.8
-        sourceCompatibility 1.8
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -113,42 +107,42 @@ def getDate() {
 }
 
 dependencies {
-    //noinspection GradleCompatible
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support:support-v4:26.1.0'
-    
-
+    //    compile fileTree(dir: 'libs', include: ['*.jar'])
+    api 'com.android.support:appcompat-v7:27.0.2'
+    api 'com.android.support:support-v4:27.0.2'
     // 基础模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-base:3.7.0'
+    implementation 'com.wa.sdk:wa-sdk-base:3.7.1'
     // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:3.7.0'
-    // appsflyer模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-appsflyer:3.7.0'
-    // chartboost模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-chartboost:3.7.0'
-    // facebook模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-facebook:3.7.0'
-    // google模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-google:3.7.0'
-    // vk模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-vk:3.7.0'
-    // 网页支付模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-webpay:3.7.0'
-    // 应用墙模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-apw:3.7.0'
-    // 消息推送模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-push:3.7.0'
-    // twitter模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-twitter:3.7.0'
-    // instagram模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-instagram:3.7.0'
-    // wa广告模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-ad:3.7.0'
-    //wa hup模块
-//    implementation 'com.wa.sdk:wa-sdk-hup:3.7.0'
-    //wa 客服系统
-    implementation 'com.wa.sdk:wa-sdk-aihelp:3.7.0'
+    implementation 'com.wa.sdk:wa-sdk-core:3.7.1'
+//    // AppsFlyer模块（可选）
+    implementation 'com.wa.sdk:wa-sdk-appsflyer:3.7.0.1'
+//    // Chartboost模块（可选）
+    implementation 'com.wa.sdk:wa-sdk-chartboost:3.7.0.1'
+    // Facebook模块（可选）
+    implementation 'com.wa.sdk:wa-sdk-facebook:3.7.0.1'
+    // Google模块（可选）
+    implementation 'com.wa.sdk:wa-sdk-google:3.7.1'
+//    // VK模块（可选）
+    implementation 'com.wa.sdk:wa-sdk-vk:3.7.0.1'
+//    // 网页支付模块（可选）
+    implementation 'com.wa.sdk:wa-sdk-webpay:3.7.1'
+//    // 应用墙模块（可选）
+    implementation 'com.wa.sdk:wa-sdk-apw:3.7.1'
+//    // 消息推送模块（可选）
+    implementation 'com.wa.sdk:wa-sdk-push:3.7.0.1'
+//    // Twitter推送模块（可选）
+    implementation 'com.wa.sdk:wa-sdk-twitter:3.7.0.1'
+//    // Instagram推送模块（可选）
+    implementation 'com.wa.sdk:wa-sdk-instagram:3.7.0.1'
+//    // WA广告模块（可选）
+    implementation 'com.wa.sdk:wa-sdk-ad:3.7.0.1'
+
+//    wa hup模块
+    implementation 'com.wa.sdk:wa-sdk-hup:3.6.7'
+
+//    wa 客服系统
+    implementation 'com.wa.sdk:wa-sdk-aihelp:3.7.0.1'
 }
 
-// ADD THIS AT THE BOTTOM，如果没有添加推送模块的依赖，这句也要去掉
+// ADD THIS AT THE BOTTOM,如果去掉推送模块的依赖，这句也要去掉
 apply plugin: 'com.google.gms.google-services'

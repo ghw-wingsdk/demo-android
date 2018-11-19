@@ -9,7 +9,7 @@
     <!-- com.ghw.sdk2 -->
     <!--<string name="facebook_app_id">470856513088794</string>-->
     <string name="facebook_app_id">1811388679079227</string>
-
+    <string name="fb_login_protocol_scheme">fb1811388679079227</string>
 
     <!-- Google In-app billing public key -->
     <!--<string name="google_base64EncodedPublicKey">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv1V2WNTi8eJq787TLyH+ifB8uWwQQVxY5PTMVeLKgmH2DWv+DMfdMTlgJivSqaM+8kmLuCcqdkaMdfDSDV3Bdy77wWUaeJx9GS/d19zZDSZDwHWGRiyBVbcRNJ5r54XcfP21fiBgg9Rqj3qOYuJuPFj6SJWsCMuw3uE/e+BTGM6lVMlTDqQcQr67NxwB3Zhcw8iZkIkBJxVH4W9WDzQjcI2eEpQ/tby+AiLFmDVDoOPb+41ldfEkIZEoGbNhrG5KlUSbS25TU4H34dPyIQ+rrCaErob2nZKoQ2PvO+tZ4uzmT926c3IUXknCMwrnW/SdBpia93j6ZEuVgYKlYT6jewIDAQAB</string>-->
@@ -39,7 +39,7 @@
     <string name="disable_debug">Disable debug</string>
     <string name="account_manager">Account Manager</string>
     <string name="google_in_app_billing">In-App Billing</string>
-    <string name="fb_gifting">FB Gifting</string>
+    <string name="fb_gifting">FB Gifts</string>
     <string name="wa_video_ad">Video Ad</string>
     <string name="wa_csc">AIHelp</string>
     <string name="test_crash">Test Crash</string>
@@ -49,11 +49,11 @@
     <string name="payment">Payment</string>
     <string name="static_payment">Static Payment</string>
     <string name="input_sku_id">Input Sku Id</string>
-    <string name="warming">Warming</string>
+    <string name="warming">Warning</string>
     <string name="not_login_yet">Not login! Please login first!</string>
     <string name="login_now">Login Now</string>
-    <string name="gg_game_service">Google Game Service</string>
-    <string name="test_crash_warming">Test crash will make application crash, are you continue?</string>
+    <string name="gg_game_service">Google Game Services</string>
+    <string name="test_crash_warming">Test crash will make the app crash. Continue?</string>
     <string name="hot_update_check">Hot update check</string>
     <string name="update">Update</string>
     <string name="get_update_link">Get update link</string>
@@ -79,8 +79,8 @@
     <string name="login_form">Login Form</string>
     <string name="app_login">App Login</string>
     <string name="logout">Logout</string>
-    <string name="rebind_account_with_device">Rebind the login account with device</string>
-    <string name="do_not_rebind_account_with_device">Do not rebind device on login</string>
+    <string name="rebind_account_with_device">Bind third party accounts with device</string>
+    <string name="do_not_rebind_account_with_device">Don\'t bind third party accounts with device</string>
     <string name="enable_login_cache">Enable Login Cache</string>
     <string name="disable_login_cache">Disable Login Cache</string>
     <string name="clean_login_cache">Clean login cache</string>
@@ -129,7 +129,7 @@
     <string name="purchase_canceled">Purchase canceled</string>
 
     <!-- Facebook礼物 -->
-    <string name="gifting">Gifting</string>
+    <string name="gifting">Send Gifts</string>
     <string name="received_gift">Received Gift</string>
     <string name="ask_for_gift">Ask for gift</string>
     <string name="click_to_choose_gift">Click to choose gift</string>
@@ -161,26 +161,26 @@
     <string name="share_use_api">Share use api</string>
 
     <!-- 邀请 -->
-    <string name="invite">Invite</string>
-    <string name="fb_invite">Facebook invite</string>
-    <string name="fb_app_invite">FB App Invite</string>
-    <string name="fb_game_service_invite">FB Game Service Invite</string>
-    <string name="fb_check_invite_install_reward">FB invite install reward</string>
-    <string name="fb_check_invite_event_reward">FB invite event reward</string>
-    <string name="vk_invite">VK invite</string>
-    <string name="vk_app_invite">VK App Invite</string>
-    <string name="vk_game_service_invite">VK Game Service Invite</string>
-    <string name="vk_check_invite_install_reward">VK invite install reward</string>
-    <string name="vk_check_invite_event_reward">VK invite event reward</string>
+    <string name="invite">Invitations</string>
+    <string name="fb_invite">Facebook Invitations</string>
+    <string name="fb_app_invite">FB App Invitations</string>
+    <string name="fb_game_service_invite">FB Game Services Invitations</string>
+    <string name="fb_check_invite_install_reward">FB Invitations Install Reward</string>
+    <string name="fb_check_invite_event_reward">FB Invitations Event Reward</string>
+    <string name="vk_invite">VK Invitations</string>
+    <string name="vk_app_invite">VK App Invitations</string>
+    <string name="vk_game_service_invite">VK Game Services Invitations</string>
+    <string name="vk_check_invite_install_reward">VK Invitations Install Reward</string>
+    <string name="vk_check_invite_event_reward">VK Invitations Event Reward</string>
 
     <!-- payUI -->
     <string name="pay_ui_title">Web Pay</string>
 
 
     <!-- Game service -->
-    <string name="game_service">Game Service</string>
+    <string name="game_service">Game Services</string>
     <!-- Google Game -->
-    <string name="google_game_service">Google Game Service</string>
+    <string name="google_game_service">Google Game Services</string>
     <string name="sign_in">Sign-in</string>
     <string name="sign_out">Sign-out</string>
     <string name="need_sign_in">You need sign in to google game</string>
@@ -216,7 +216,7 @@
     <string name="platform_format">Platform: %s</string>
 
     <!-- 视频广告 -->
-    <string name="wa_get_cached_video_ad_amount">Get cached video ad amount</string>
+    <string name="wa_get_cached_video_ad_amount">Show cached video ads</string>
     <string name="wa_cached_video_ad_amount_format">Cached video ad: %d</string>
     <string name="wa_display_video_ad">Display video ad</string>
     <string name="showElva">showElva</string>

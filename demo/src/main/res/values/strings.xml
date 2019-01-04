@@ -66,6 +66,9 @@
     <string name="send">Send</string>
     <string name="event_send">Event Send</string>
 
+    <!--申请权限-->
+    <string name="request_permisssion">Request Permission</string>
+
     <!-- 登录 -->
     <string name="login">Login</string>
     <string name="fb_login">FB Login</string>

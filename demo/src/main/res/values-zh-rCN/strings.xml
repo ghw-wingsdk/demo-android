@@ -51,6 +51,9 @@
     <string name="send">发送</string>
     <string name="event_send">事件数据已发送</string>
 
+    <!--申请权限-->
+    <string name="request_permisssion">申请权限</string>
+
     <!-- 登录 -->
     <string name="login">登录</string>
     <string name="fb_login">Facebook登录</string>

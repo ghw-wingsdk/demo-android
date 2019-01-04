@@ -28,7 +28,7 @@ android {
         release {
             minifyEnabled false
             shrinkResources false
-            debuggable true
+//            debuggable true
             signingConfig signingConfigs.config
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro',
@@ -48,9 +48,8 @@ android {
             minifyEnabled false
             shrinkResources false
             signingConfig signingConfigs.config
-            ext.enableCrashlytics = false
-//            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL:'https://api.wingsdk.com/sdkapi',
-//                                         SDK_TRACKING_HTTP_BASE_URL:'https://api.wingsdk.com/data'])
+            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL:'https://api.wingsdk.com/sdkapi',
+                                         SDK_TRACKING_HTTP_BASE_URL:'https://api.wingsdk.com/data'])
 //             测试环境
 //            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL:'http://sdk-test1.gamehollywood.com/sdk_bkd_qa/sdkapi',
 //                                         SDK_TRACKING_HTTP_BASE_URL:'http://sdk-test2.gamehollywood.com/data_collection_qa/data/forward'])
@@ -111,17 +110,17 @@ dependencies {
     api 'com.android.support:appcompat-v7:27.0.2'
     api 'com.android.support:support-v4:27.0.2'
     // 基础模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-base:3.7.1'
+    implementation 'com.wa.sdk:wa-sdk-base:3.7.1.1'
     // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:3.7.1'
+    implementation 'com.wa.sdk:wa-sdk-core:3.7.1.1'
 //    // AppsFlyer模块（可选）
     implementation 'com.wa.sdk:wa-sdk-appsflyer:3.7.0.1'
 //    // Chartboost模块（可选）
     implementation 'com.wa.sdk:wa-sdk-chartboost:3.7.0.1'
     // Facebook模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-facebook:3.7.0.1'
+    implementation 'com.wa.sdk:wa-sdk-facebook:3.7.1.1'
     // Google模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-google:3.7.1'
+    implementation 'com.wa.sdk:wa-sdk-google:3.7.1.1'
 //    // VK模块（可选）
     implementation 'com.wa.sdk:wa-sdk-vk:3.7.0.1'
 //    // 网页支付模块（可选）
@@ -129,7 +128,7 @@ dependencies {
 //    // 应用墙模块（可选）
     implementation 'com.wa.sdk:wa-sdk-apw:3.7.1'
 //    // 消息推送模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-push:3.7.0.1'
+    implementation 'com.wa.sdk:wa-sdk-push:3.7.1.1'
 //    // Twitter推送模块（可选）
     implementation 'com.wa.sdk:wa-sdk-twitter:3.7.0.1'
 //    // Instagram推送模块（可选）

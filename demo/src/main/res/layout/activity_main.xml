@@ -66,16 +66,16 @@
                     android:textOff="@string/disable_debug"
                     android:textOn="@string/enable_debug" />
 
-                <ToggleButton
+                <Button
+                    android:id="@+id/btn_request_permission"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginStart="5dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:checked="true"
-                    android:textOff="@string/disable_extend"
-                    android:textOn="@string/enable_extend"
-                    android:visibility="invisible" />
+                    android:onClick="onClick"
+                    android:text="@string/request_permisssion" />
             </LinearLayout>
 
             <LinearLayout
@@ -201,16 +201,16 @@
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/btn_gifting"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="@string/gifting" />
+                <!--<Button-->
+                    <!--android:id="@+id/btn_gifting"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center_horizontal"-->
+                    <!--android:layout_marginEnd="5dp"-->
+                    <!--android:layout_marginRight="5dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:onClick="onClick"-->
+                    <!--android:text="@string/gifting" />-->
 
                 <Button
                     android:id="@+id/btn_game_service"

@@ -167,29 +167,29 @@ public class MainActivity extends BaseActivity {
         showHashKey(this);
 
 
-        WACommonProxy.checkSelfPermission(this, android.Manifest.permission.GET_ACCOUNTS, true,
-                "如果您不允许WASdkDemo访问你的账户信息，您将无法使用Google登录",
-                "WASdkDemo需要获取您的联系人信息来登录您的Google账号", new WAPermissionCallback() {
-            @Override
-            public void onCancel() {
-                // TODO 取消授权
-                showShortToast("check permission canceled");
-                handler.sendEmptyMessage(0);
-            }
-
-            @Override
-            public void onRequestPermissionResult(String[] permissions, boolean[] grantedResults) {
-                // TODO 处理授权结果，判断是否通过授权
-                String msg = "Request permission result:\n";
-                if(permissions.length > 0) {
-                    for(int  i = 0; i < permissions.length; i++) {
-                        msg += permissions[i] + "--" + (grantedResults[i] ? "granted" : "denied");
-                    }
-                }
-                showShortToast(msg);
-                handler.sendEmptyMessage(0);
-            }
-        });
+//        WACommonProxy.checkSelfPermission(this, android.Manifest.permission.GET_ACCOUNTS, true,
+//                "如果您不允许WASdkDemo访问你的账户信息，您将无法使用Google登录",
+//                "WASdkDemo需要获取您的联系人信息来登录您的Google账号", new WAPermissionCallback() {
+//            @Override
+//            public void onCancel() {
+//                // TODO 取消授权
+//                showShortToast("check permission canceled");
+//                handler.sendEmptyMessage(0);
+//            }
+//
+//            @Override
+//            public void onRequestPermissionResult(String[] permissions, boolean[] grantedResults) {
+//                // TODO 处理授权结果，判断是否通过授权
+//                String msg = "Request permission result:\n";
+//                if(permissions.length > 0) {
+//                    for(int  i = 0; i < permissions.length; i++) {
+//                        msg += permissions[i] + "--" + (grantedResults[i] ? "granted" : "denied");
+//                    }
+//                }
+//                showShortToast(msg);
+//                handler.sendEmptyMessage(0);
+//            }
+//        });
 
 
 //        startActivity(new Intent(this, SplashActivity.class));
@@ -332,6 +332,9 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.btn_request_permission:
+                testRequestPermission();
+                break;
             case R.id.btn_login:
                 login(false);
                 break;
@@ -422,9 +425,9 @@ public class MainActivity extends BaseActivity {
             case R.id.btn_invite:
                 invite();
                 break;
-            case R.id.btn_gifting: // 礼物
-                startActivity(new Intent(this, GiftingActivity.class));
-                break;
+//            case R.id.btn_gifting: // 礼物 //礼物功能已废弃
+//                startActivity(new Intent(this, GiftingActivity.class));
+//                break;
             case R.id.btn_test_crash:
                 testCrash();
                 break;
@@ -452,6 +455,28 @@ public class MainActivity extends BaseActivity {
             default:
                 break;
         }
+    }
+
+    private void testRequestPermission(){
+        WACommonProxy.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE, true,
+                "测试权限申请",
+                "测试权限申请:READ_PHONE_STATE", new WAPermissionCallback() {
+                    @Override
+                    public void onCancel() {
+                        showShortToast("check permission canceled");
+                    }
+
+                    @Override
+                    public void onRequestPermissionResult(String[] permissions, boolean[] grantedResults) {
+                        String msg = "Request permission result:\n";
+                        if(permissions.length > 0) {
+                            for(int  i = 0; i < permissions.length; i++) {
+                                msg += permissions[i] + "--" + (grantedResults[i] ? "granted" : "denied");
+                            }
+                        }
+                        showShortToast(msg);
+                    }
+                });
     }
 
     String userId;

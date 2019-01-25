@@ -161,7 +161,7 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
         if(StringUtil.isEmpty(url)) {
             return;
         }
-        Picasso.with(getActivity())
+        Picasso.get()
                 .load(Uri.parse(url))
                 .placeholder(placeHolder)
                 .error(error)
@@ -180,7 +180,7 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
         if(StringUtil.isEmpty(url)) {
             return;
         }
-        Picasso.with(getActivity())
+        Picasso.get()
                 .load(Uri.parse(url))
                 .resize(width, height)
                 .centerCrop()
@@ -196,7 +196,7 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
         if(StringUtil.isEmpty(url)) {
             return;
         }
-        Picasso.with(getActivity())
+        Picasso.get()
                 .load(Uri.parse(url))
                 .into(imageView, callback);
     }

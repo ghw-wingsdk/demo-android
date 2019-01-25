@@ -267,7 +267,7 @@ public class GoogleGameActivity extends BaseActivity {
         mBtnSignIn.setText(R.string.sign_out);
         String icon = player.getIconImageUrl();
         if(!StringUtil.isEmpty(icon)) {
-            Picasso.with(GoogleGameActivity.this)
+            Picasso.get()
                     .load(icon)
                     .placeholder(R.drawable.ic_launcher)
                     .error(R.drawable.ic_launcher)

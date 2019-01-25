@@ -225,7 +225,7 @@ try {
             }
 
             LogUtil.i(LogUtil.TAG, text);
-            Toast.makeText(LoginActivity.this, text, Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, text, Toast.LENGTH_LONG).show();
             cancelLoadingDialog();
 
             WASdkDemo.getInstance().updateLoginAccount(result);
@@ -241,7 +241,7 @@ try {
         public void onCancel() {
             cancelLoadingDialog();
             LogUtil.i(LogUtil.TAG, "Login canceled");
-            Toast.makeText(LoginActivity.this, "Login canceled", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "Login canceled", Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -249,7 +249,7 @@ try {
             cancelLoadingDialog();
             String text = "code:" + code + "\nmessage:" + message;
             LogUtil.i(LogUtil.TAG, "Login failed->" + text);
-            Toast.makeText(LoginActivity.this, "Login failed->" + text, Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "Login failed->" + text, Toast.LENGTH_LONG).show();
         }
     };
 

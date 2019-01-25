@@ -425,7 +425,7 @@ public class MainActivity extends BaseActivity {
             case R.id.btn_invite:
                 invite();
                 break;
-//            case R.id.btn_gifting: // 礼物 //礼物功能已废弃
+//            case R.id.btn_gifting: // 礼物  //礼物功能已被废弃
 //                startActivity(new Intent(this, GiftingActivity.class));
 //                break;
             case R.id.btn_test_crash:

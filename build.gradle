@@ -22,14 +22,14 @@ allprojects {
         maven { url "https://maven.aliyun.com/repository/public" }
         jcenter()
         google()
-        maven {
-            // 测试环境
-            url "http://172.16.100.58:8081/nexus/content/groups/wing/"
-        }
 //        maven {
-//            // 正式环境（国内仓库）
-//            url "http://git.wingsdk.cn:8081/repository/winga-group/"
+//            // 测试环境
+//            url "http://172.16.100.58:8081/nexus/content/groups/wing/"
 //        }
+        maven {
+            // 正式环境（国内仓库）
+            url "http://git.wingsdk.cn:8081/repository/winga-group/"
+        }
     }
 }
 

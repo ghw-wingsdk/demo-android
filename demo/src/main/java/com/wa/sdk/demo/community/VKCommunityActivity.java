@@ -104,7 +104,7 @@ public class VKCommunityActivity extends BaseActivity {
             @Override
             public void onSuccess(int code, String message, WAUser result) {
                 dismissLoadingDialog();
-                Picasso.with(VKCommunityActivity.this)
+                Picasso.get()
                         .load(result.getPicture())
                         .placeholder(R.drawable.ic_avatar_default)
                         .into(mIvAvatar);
@@ -183,7 +183,7 @@ public class VKCommunityActivity extends BaseActivity {
         TextView tvPlace = (TextView) view.findViewById(R.id.tv_item_group_place);
         TextView tvDescription = (TextView) view.findViewById(R.id.tv_item_group_description);
         Button btnJoin = (Button) view.findViewById(R.id.btn_item_group_join);
-        Picasso.with(this)
+        Picasso.get()
                 .load(group.getPhoto_medium())
                 .placeholder(R.drawable.ic_launcher)
                 .into(ivIcon);

@@ -4,13 +4,12 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!--<uses-permission android:name="android.permission.GET_ACCOUNTS" />-->
+    <!--<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />-->
+    <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
+    <!--<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />-->
 
         <!--android:debuggable="true"-->
     <application
@@ -250,29 +249,39 @@
             <!--android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation" />-->
 
         <!-- Twitter Start -->
-        <!-- Fabric api key，需要到Fabric后台申请 -->
+        <!-- Consumer Key (API Key)	XVyoEoCH5DnZEfJ911arzF0kV
+Consumer Secret (API Secret)	uLAjbYQ37mcM7xonFPX4y8VBeTHhOaXntYpPEqHp2mJCnDJxK5-->
+        <!--consumerKey: SPRwO9pH5p9bJCAbUHaiV8oQY-->
+        <!--consumerSecret:9i6bo6KjPNl0k08kVPR29qjoaBLwbFWPZzYoBZ6jS7JuQZEPCa-->
+        <!-- Consumer Key (API Key)	SLTsEh1c61Um0gRArM8MMYNdk
+Consumer Secret (API Secret)	mQxNdMLMpvWXNR2tJZ9qblHxct7YI3thgYMvxWnA5Tq71py4Ni-->
+	<!-- Fabric api key，需要到Fabric后台申请 -->
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="0851e13e347797a5afa8b6ba407007f0ac0e4adc" />
         <!-- Twitter consumer key，需要到Twitter后台申请 -->
+
         <meta-data
             android:name="com.wa.sdk.TWITTER_CONSUMER_KEY"
-            android:value="SLTsEh1c61Um0gRArM8MMYNdk" />
+            android:value="XVyoEoCH5DnZEfJ911arzF0kV" />
         <!-- Twitter consumer secret，需要到Twitter后台申请 -->
         <meta-data
             android:name="com.wa.sdk.TWITTER_CONSUMER_SECRET"
-            android:value="mQxNdMLMpvWXNR2tJZ9qblHxct7YI3thgYMvxWnA5Tq71py4Ni" />
+            android:value="uLAjbYQ37mcM7xonFPX4y8VBeTHhOaXntYpPEqHp2mJCnDJxK5" />
         <!-- Twitter End -->
 
         <!-- Instagram Start -->
         <!-- Instagram client id，需要到Instagram后台申请 -->
         <meta-data
             android:name="com.ghw.sdk.INSTAGRAM_CLIENT_ID"
-            android:value="15fceba08b294d5e844c6b07c59cccb3" />
+            android:value="5678398c241341f881934f43dfdc157f" />
         <!-- Instagram client secret，需要到Instagram后台申请 -->
         <meta-data
             android:name="com.ghw.sdk.INSTAGRAM_CLIENT_SECRET"
-            android:value="1b71301d548147629d40994eae808fc0" />
+            android:value="b8cebfb9d70c4b7dbaf99d3401f4efb5" />
+
+        <meta-data android:name="com.ghw.sdk.INSTAGRAM_REDIRECT_URI"
+            android:value="http://blog.wing-analytics.com/" />
         <!-- Instagram End -->
 
         <!--系统本地-->

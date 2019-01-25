@@ -119,7 +119,7 @@ public class ALinearLayout extends LinearLayout {
         if(StringUtil.isEmpty(url)) {
             return;
         }
-        Picasso.with(mContext)
+        Picasso.get()
                 .load(Uri.parse(url))
                 .resize(width, height)
                 .centerCrop()

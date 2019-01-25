@@ -201,6 +201,7 @@
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
+                <!--礼物功能已被废弃-->
                 <!--<Button-->
                     <!--android:id="@+id/btn_gifting"-->
                     <!--android:layout_width="0dp"-->

@@ -19,6 +19,6 @@ public class WADemoApp extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        MultiDex.install(base);
+        MultiDex.install(this);
     }
 }

@@ -1,11 +1,13 @@
 package com.wa.sdk.demo.share;
 
+import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Toast;
 
@@ -14,6 +16,7 @@ import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.WASharedPrefHelper;
 import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.model.WACallbackManagerImpl;
+import com.wa.sdk.common.model.WAPermissionCallback;
 import com.wa.sdk.common.utils.FileUtil;
 import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.demo.R;
@@ -165,35 +168,64 @@ public class FBShareActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(WACallbackManagerImpl.RequestCodeOffset.PickImage.toRequestCode() == requestCode) {
             if(RESULT_OK == resultCode) {
+
                 Uri uri = data.getData();
                 if(null == uri) {
                     showShortToast("Share error: image data is null");
                     return;
                 }
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inSampleSize = 2;
-                File imgFile = FileUtil.parseUriToFile(FBShareActivity.this, uri);
-                Bitmap bm = BitmapFactory.decodeFile(imgFile.getPath(), options);
-                if(null == bm) {
-                    Toast.makeText(FBShareActivity.this, "Bitmap is null", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(FBShareActivity.this, "Bitmap is ：" + bm.getByteCount(), Toast.LENGTH_LONG).show();
-                    LogUtil.e("Bitmap", "Bitmap byte count:" + bm.getByteCount());
+
+                final File[] imgFile = {null};
+                try{
+                    imgFile[0] = FileUtil.parseUriToFile(FBShareActivity.this, uri);
+                }catch (SecurityException se){
+                    WACommonProxy.checkSelfPermission(this,     Manifest.permission.READ_EXTERNAL_STORAGE, false,
+                            "读取外存储设备文件需要READ_EXTERNAL_STORAGE权限",
+                            "WASdkDemo需要获取您的外存储设备读取权限", new WAPermissionCallback() {
+                        @Override
+                        public void onCancel() {
+                            Toast.makeText(FBShareActivity.this, "读取文件失败，没有外存储设备读取权限", Toast.LENGTH_LONG).show();
+                        }
+
+                        @Override
+                        public void onRequestPermissionResult(String[] permissions, boolean[] grantedResults) {
+                            if(grantedResults == null || grantedResults.length == 0 || grantedResults[0] == false){
+                                Toast.makeText(FBShareActivity.this, "读取文件失败，没有外存储设备读取权限", Toast.LENGTH_LONG).show();
+                            }else{
+                                imgFile[0] = FileUtil.parseUriToFile(FBShareActivity.this, uri);
+
+                                if(imgFile[0] != null){
+                                    doSharePhoto(uri, imgFile[0]);
+                                }
+                            }
+                        }
+                    });
                 }
-                // 构造图片内容对象
-                WASharePhoto photo = new WASharePhoto.Builder()
-                                .setImageUri(uri) // 图片本地Uri
-//                                .setImageUri(Uri.fromFile(imgFile))
-//                        .setImageUri(Uri.parse("http://attach.bbs.miui.com/forum/201311/24/215445jhkmukdk1p3urpur.jpg"))
-//                                                .setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ghw_sdk_ic_anonymous))
-//                        .setBitmap(bm)
-                        .build();
-                // 构造分享图片对象
-                WASharePhotoContent sharePhotoContent = new WASharePhotoContent.Builder()
-                        .addPhoto(photo)
-                        .build();
-                WASocialProxy.share(FBShareActivity.this, WAConstants.CHANNEL_FACEBOOK,
-                        sharePhotoContent, mShareWithApi, null, mShareCallback);
+
+                if(imgFile[0] != null){
+                    doSharePhoto(uri, imgFile[0]);
+                }
+
+//                BitmapFactory.Options options = new BitmapFactory.Options();
+//                options.inSampleSize = 2;
+//
+//                Bitmap bm = BitmapFactory.decodeFile(imgFile[0].getPath(), options);
+//                if(null == bm) {
+//                    Toast.makeText(FBShareActivity.this, "Demo: Bitmap is null", Toast.LENGTH_LONG).show();
+//                } else {
+//                    Toast.makeText(FBShareActivity.this, "Demo: Bitmap is ：" + bm.getByteCount(), Toast.LENGTH_LONG).show();
+//                    LogUtil.e("Bitmap", "Bitmap byte count:" + bm.getByteCount());
+//                }
+//                // 构造图片内容对象
+//                WASharePhoto photo = new WASharePhoto.Builder()
+//                                .setImageUri(uri) // 图片本地Uri
+//                        .build();
+//                // 构造分享图片对象
+//                WASharePhotoContent sharePhotoContent = new WASharePhotoContent.Builder()
+//                        .addPhoto(photo)
+//                        .build();
+//                WASocialProxy.share(FBShareActivity.this, WAConstants.CHANNEL_FACEBOOK,
+//                        sharePhotoContent, mShareWithApi, null, mShareCallback);
             } else {
                 showShortToast("Share canceled!");
             }
@@ -227,6 +259,38 @@ public class FBShareActivity extends BaseActivity {
         } else {
             WACommonProxy.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        WACommonProxy.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+    }
+
+    private void doSharePhoto(Uri uri, File file){
+        if(uri == null || file == null){
+            return;
+        }
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 2;
+
+        Bitmap bm = BitmapFactory.decodeFile(file.getPath(), options);
+        if(null == bm) {
+            Toast.makeText(FBShareActivity.this, "Demo: Bitmap is null", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(FBShareActivity.this, "Demo: Bitmap is ：" + bm.getByteCount(), Toast.LENGTH_LONG).show();
+            LogUtil.e("Bitmap", "Bitmap byte count:" + bm.getByteCount());
+        }
+        // 构造图片内容对象
+        WASharePhoto photo = new WASharePhoto.Builder()
+                .setImageUri(uri) // 图片本地Uri
+                .build();
+        // 构造分享图片对象
+        WASharePhotoContent sharePhotoContent = new WASharePhotoContent.Builder()
+                .addPhoto(photo)
+                .build();
+        WASocialProxy.share(FBShareActivity.this, WAConstants.CHANNEL_FACEBOOK,
+                sharePhotoContent, mShareWithApi, null, mShareCallback);
     }
 
     private void pickImage() {

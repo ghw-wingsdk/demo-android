@@ -165,7 +165,7 @@ public class FBGiftChooserActivity extends BaseActivity {
 
             String iconUrl = object.getImageUrl();
             if (!StringUtil.isEmpty(iconUrl)) {
-                Picasso.with(mmContext)
+                Picasso.get()
                         .load(Uri.parse(iconUrl))
                         .placeholder(R.drawable.ic_launcher)
                         .error(R.drawable.ic_launcher)

@@ -293,7 +293,7 @@ public class VKCommunityDisplayActivity extends BaseActivity {
             }
 
             final WAGroup group = getItem(position);
-            Picasso.with(mmContext)
+            Picasso.get()
                     .load(group.getPhoto_medium())
                     .placeholder(R.drawable.ic_launcher)
                     .into(viewHolder.ivIcon);

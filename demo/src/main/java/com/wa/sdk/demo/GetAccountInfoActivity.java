@@ -180,7 +180,7 @@ public class GetAccountInfoActivity extends BaseActivity {
 
                 final String avatar = result.getPicture();
                 if(!StringUtil.isEmpty(avatar)) {
-                    Picasso.with(GetAccountInfoActivity.this)
+                    Picasso.get()
                             .load(avatar)
                             .placeholder(R.drawable.ic_avatar_default)
                             .into(mIvAvatar);

@@ -318,6 +318,17 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/btn_user_center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="@string/user_center" />
+
+                <Button
                     android:id="@+id/btn_clear_campaign"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

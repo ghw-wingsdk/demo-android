@@ -226,4 +226,9 @@
     <string name="getUrl">获取隐私政策链接</string>
     <string name="getTime">获取隐私政策更新时间</string>
     <string name="popPrivacyWindow">打开隐私政策页面</string>
+
+    <!-- 充值中心-用户中心 -->
+    <string name="user_center">用户中心</string>s
+    <string name="get_user_center_data">获取用户中心数据</string>
+    <string name="show_user_center_ui">打开用户中心界面</string>
 </resources>

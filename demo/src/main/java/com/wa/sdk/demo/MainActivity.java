@@ -452,6 +452,9 @@ public class MainActivity extends BaseActivity {
             case R.id.btn_privacy:
                 startActivity(new Intent(this, PrivacyActivity.class));
                 break;
+            case R.id.btn_user_center:
+                startActivity(new Intent(this, UserCenterActivity.class));
+                break;
             default:
                 break;
         }

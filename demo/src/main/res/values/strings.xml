@@ -237,4 +237,9 @@
     <string name="getUrl">getPrivacyUrl</string>
     <string name="getTime">getPrivacyTime</string>
     <string name="popPrivacyWindow">showPrivacyPop</string>
+
+    <!-- 充值中心-用户中心 -->
+    <string name="user_center">User Center</string>
+    <string name="get_user_center_data">Get userCenter data</string>
+    <string name="show_user_center_ui">show userCenter ui</string>
 </resources>

@@ -19,7 +19,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 27
         versionCode 20
-        versionName "3.8.0"
+        versionName "3.8.1"
         signingConfig signingConfigs.config
         multiDexEnabled true
     }
@@ -112,9 +112,9 @@ dependencies {
     api 'com.android.support:multidex:1.0.3'
 
     // 基础模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-base:3.8.0'
+    implementation 'com.wa.sdk:wa-sdk-base:3.8.1'
     // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:3.8.0'
+    implementation 'com.wa.sdk:wa-sdk-core:3.8.1'
 //    // AppsFlyer模块（可选）
     implementation 'com.wa.sdk:wa-sdk-appsflyer:3.8.0'
 //    // Chartboost模块（可选）

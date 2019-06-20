@@ -1,45 +1,28 @@
 package com.wa.sdk.demo.share;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 
-import com.wa.sdk.common.WASharedPrefHelper;
 import com.wa.sdk.demo.R;
-import com.wa.sdk.demo.WADemoConfig;
-import com.wa.sdk.demo.base.BaseActivity;
-import com.wa.sdk.demo.widget.TitleBar;
+import com.wa.sdk.demo.base.BaseGridActivity;
 
 
-public class ShareActivity extends BaseActivity {
+public class ShareActivity extends BaseGridActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_share);
+    protected void initViews() {
+        title = R.string.share;
+        titles = new int[]{R.string.fb_share};
 
-        TitleBar tb = (TitleBar) findViewById(R.id.tb_share);
-        tb.setLeftButton(android.R.drawable.ic_menu_revert, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        tb.setTitleText(R.string.share);
-        tb.setTitleTextColor(R.color.color_white);
-
-        WASharedPrefHelper sharedPrefHelper = WASharedPrefHelper.newInstance(this, WADemoConfig.SP_CONFIG_FILE_DEMO);
-//        if (sharedPrefHelper.getBoolean("enable_logcat", true)) {
-//            Logcat.enableLogcat(this);
-//        }
-
+        super.initViews();
     }
 
     @Override
     public void onClick(View v) {
-        super.onClick(v);
-        switch (v.getId()) {
-            case R.id.btn_fb_share:
+        int tag = (int) v.getTag();
+
+        switch (tag) {
+            case R.string.fb_share:
                 startActivity(new Intent(this, FBShareActivity.class));
                 break;
             default:

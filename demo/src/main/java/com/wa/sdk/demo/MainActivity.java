@@ -35,7 +35,6 @@ import com.wa.sdk.core.WACoreProxy;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.community.CommunityActivity;
 import com.wa.sdk.demo.game.GameServiceActivity;
-import com.wa.sdk.demo.gifting.GiftingActivity;
 import com.wa.sdk.demo.invite.InviteActivity;
 import com.wa.sdk.demo.share.ShareActivity;
 import com.wa.sdk.demo.tracking.TrackingActivity;
@@ -558,7 +557,6 @@ public class MainActivity extends BaseActivity {
                 })
                 .show();
     }
-
 
     private void clearCampaign() {
 //        GhwCampaignHelper.getInstance().clearCache(this);

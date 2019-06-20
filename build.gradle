@@ -1,40 +1,86 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply from: rootProject.file('dependencies.gradle')
+apply from: rootProject.file('common.gradle')
 apply plugin: 'maven'
-buildscript {
+
+boolean isCN = Boolean.valueOf(project.SDK_TYPE_CN)
+boolean isRelease = Boolean.valueOf(project.NEXUS_TRUNK_RELEASE)
+
+    buildscript {
     repositories {
         maven { url "https://maven.aliyun.com/repository/public" }
         maven { url "https://maven.google.com" }
-        jcenter()
         google()
+        jcenter()
     }
     dependencies {
+//        classpath 'com.android.tools.build:gradle:2.3.3'
         classpath 'com.android.tools.build:gradle:3.1.4'
+//        classpath 'com.android.tools.build:gradle:3.4.1'
+//        classpath 'com.android.tools.build:gradle:3.1.2'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-
-        classpath 'com.google.gms:google-services:4.0.2'
+        classpath 'com.google.gms:google-services:4.2.0'
+//        classpath 'com.google.gms:google-services:3.3.0'
     }
 }
 
 allprojects {
     repositories {
         maven { url "https://maven.aliyun.com/repository/public" }
-        jcenter()
+
         google()
+        maven { url "https://maven.google.com" }
+        jcenter()
+        mavenCentral()
+//        flatDir {
+//            dirs 'libs', '../wa_ysdk/libs'
+//        }
+//        http://repo.wingsdk.cn:8081/repository/winga-cn-sdk/com/wa/sdkcn/wa-sdk-xiaomi/1.2/wa-sdk-xiaomi-1.2.aar
+        maven {
+            if(isCN) {
+                // 国内版
+                if(isRelease) {
+                    // 正式环境
+                    url "http://repo.wingsdk.cn:8081/repository/winga-cn-group/"
+                } else {
+                    // 测试环境
+                    url "http://172.16.100.58:8081/nexus/content/groups/WingCN/"
+                }
+            } else {
+                if(isRelease) {
+                    // 正式环境（国内仓库）
+                    url "http://repo.wingsdk.cn:8081/repository/winga-group/"
+                } else {
+                    // 测试环境
+                    url "http://172.16.100.58:8081/nexus/content/groups/wing/"
+                }
+            }
+        }
+
+//        // 国外版SDK
 //        maven {
 //            // 测试环境
 //            url "http://172.16.100.58:8081/nexus/content/groups/wing/"
 //        }
-        maven {
-            // 正式环境（国内仓库）
-            url "http://git.wingsdk.cn:8081/repository/winga-group/"
-        }
+//        maven {
+//            // 正式环境（国内仓库）
+//            url "http://repo.wingsdk.cn:8081/repository/winga-group/"
+//        }
+//
+//        // 国内版SDK
+//        maven {
+//            // 测试环境
+//            url "http://172.16.100.58:8081/nexus/content/groups/WingCN/"
+//        }
+//        maven {
+//            // 正式环境（国内仓库）
+//            url "http://repo.wingsdk.cn:8081/repository/winga-cn-group/"
+//        }
     }
 }
 
-allprojects {
-    repositories {
-        jcenter()
-    }
-}
+//task clean(type: Delete) {
+//    delete rootProject.buildDir
+//}

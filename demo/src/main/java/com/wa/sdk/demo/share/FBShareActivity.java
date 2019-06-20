@@ -276,9 +276,10 @@ public class FBShareActivity extends BaseActivity {
 
         Bitmap bm = BitmapFactory.decodeFile(file.getPath(), options);
         if(null == bm) {
-            Toast.makeText(FBShareActivity.this, "Demo: Bitmap is null", Toast.LENGTH_LONG).show();
+//            Toast.makeText(FBShareActivity.this, "Demo: Bitmap is null", Toast.LENGTH_LONG).show();
+            LogUtil.d("Bitmap", "Demo: Bitmap is null");
         } else {
-            Toast.makeText(FBShareActivity.this, "Demo: Bitmap is ：" + bm.getByteCount(), Toast.LENGTH_LONG).show();
+//            Toast.makeText(FBShareActivity.this, "Demo: Bitmap is ：" + bm.getByteCount(), Toast.LENGTH_LONG).show();
             LogUtil.e("Bitmap", "Bitmap byte count:" + bm.getByteCount());
         }
         // 构造图片内容对象

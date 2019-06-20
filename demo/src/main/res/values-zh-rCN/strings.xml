@@ -231,4 +231,5 @@
     <string name="user_center">用户中心</string>s
     <string name="get_user_center_data">获取用户中心数据</string>
     <string name="show_user_center_ui">打开用户中心界面</string>
+
 </resources>

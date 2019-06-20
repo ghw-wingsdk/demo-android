@@ -1,86 +1,40 @@
 package com.wa.sdk.demo;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.view.View;
 
-import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.model.WAResult;
 import com.wa.sdk.core.WACoreProxy;
-import com.wa.sdk.demo.base.BaseActivity;
-import com.wa.sdk.demo.widget.TitleBar;
+import com.wa.sdk.demo.base.BaseGridActivity;
 
 import static com.wa.sdk.core.WACoreProxy.showPrivacyUI;
 
 
 /**
- * 测试Login
- * Created by yinglovezhuzhu@gmail.com on 2016/1/4.
+ * 测试隐私政策
+ * Created by hank on 2016/1/4.
  */
-public class PrivacyActivity extends BaseActivity {
-
-    private TitleBar mTitlebar;
+public class PrivacyActivity extends BaseGridActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initViews() {
+        title = R.string.privacy_and_cookie_policy;
+        titles = new int[]{R.string.getUrl, R.string.getTime, R.string.popPrivacyWindow};
 
-        // Demo的初始化，跟SDK无关
-        WASdkDemo.getInstance().initialize(this);
-
-        setContentView(R.layout.activity_privacy);
-        initView();
+        super.initViews();
     }
-
-    @Override
-    public void onBackPressed() {
-        exit();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        WACommonProxy.onActivityResult(requestCode, resultCode, data);
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (WACommonProxy.onRequestPermissionsResult(this, requestCode, permissions, grantResults)) {
-            return;
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        cancelLoadingDialog();
-    }
-
-    String showConversationFlag = "1";
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_get_url:
+        int tag = (int) v.getTag();
+        switch (tag) {
+            case R.string.getUrl:
                 showLongToast(WACoreProxy.getPrivacyUrl(this));
                 break;
-            case R.id.btn_get_privacy_time:
+            case R.string.getTime:
                 showLongToast(WACoreProxy.getPrivacyUpdateTime(this));
                 break;
-            case R.id.btn_show_pops:
+            case R.string.popPrivacyWindow:
                 showPrivacyUI(this, new WACallback<WAResult>() {
                     @Override
                     public void onSuccess(int code, String message, WAResult result) {
@@ -102,22 +56,6 @@ public class PrivacyActivity extends BaseActivity {
             default:
                 break;
         }
-    }
-
-    private void initView() {
-        mTitlebar = (TitleBar) findViewById(R.id.tb_csc);
-        mTitlebar.setTitleText(R.string.privacy_and_cookie_policy);
-        mTitlebar.setLeftButton(android.R.drawable.ic_menu_revert, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                exit();
-            }
-        });
-        mTitlebar.setTitleTextColor(R.color.color_white);
-    }
-
-    public void exit() {
-        finish();
     }
 
 }

@@ -17,6 +17,8 @@
 #}
 
 -keepattributes SourceFile,LineNumberTable
+-dontwarn android.support.**
+-dontwarn com.squareup.**
 
 # Google Service报错过滤
 -dontwarn com.google.**

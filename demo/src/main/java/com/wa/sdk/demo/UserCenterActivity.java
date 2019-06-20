@@ -58,7 +58,7 @@ public class UserCenterActivity extends BaseGridActivity {
         WAUserProxy.showUserCenterNoticeUI(this, new WACallback<WAUserCenterResult>() {
             @Override
             public void onSuccess(int code, String message, WAUserCenterResult result) {
-
+                // 此方法不会被调用
             }
 
             @Override

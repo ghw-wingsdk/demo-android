@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 29
     buildToolsVersion = '28.0.2'
 
     signingConfigs {
@@ -17,9 +17,9 @@ android {
 
         applicationId "com.ghw.sdk2"
         minSdkVersion 16
-        targetSdkVersion 27
+        targetSdkVersion 29
         versionCode 23
-        versionName "3.8.2"
+        versionName "3.8.3"
         signingConfig signingConfigs.config
         multiDexEnabled true
     }
@@ -112,37 +112,38 @@ dependencies {
     api 'com.android.support:multidex:1.0.3'
 
     // 基础模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-base:3.8.2'
+    implementation 'com.wa.sdk:wa-sdk-base:3.8.3'
     // 核心模块（必选）
     implementation 'com.wa.sdk:wa-sdk-core:3.8.2'
 //    // AppsFlyer模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-appsflyer:3.8.2'
+    implementation 'com.wa.sdk:wa-sdk-appsflyer:3.8.3'
 //    // Chartboost模块（可选）
     implementation 'com.wa.sdk:wa-sdk-chartboost:3.8.0'
     // Facebook模块（可选）
     implementation 'com.wa.sdk:wa-sdk-facebook:3.8.2'
     // Google模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-google:3.8.2'
+    implementation 'com.wa.sdk:wa-sdk-google:3.8.3'
 //    // VK模块（可选）
     implementation 'com.wa.sdk:wa-sdk-vk:3.8.0'
 //    // 网页支付模块（可选）
     implementation 'com.wa.sdk:wa-sdk-webpay:3.8.0'
 //    // 应用墙模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-apw:3.8.0'
+    implementation 'com.wa.sdk:wa-sdk-apw:3.8.3'
 //    // 消息推送模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-push:3.8.2'
+    implementation 'com.wa.sdk:wa-sdk-push:3.8.3'
 //    // Twitter推送模块（可选）
     implementation 'com.wa.sdk:wa-sdk-twitter:3.8.0'
 //    // Instagram推送模块（可选）
     implementation 'com.wa.sdk:wa-sdk-instagram:3.8.0'
 //    // WA广告模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-ad:3.8.0'
+    implementation 'com.wa.sdk:wa-sdk-ad:3.8.3'
 
 //    wa hup模块
 //    implementation 'com.wa.sdk:wa-sdk-hup:3.8.0'
 
 //    wa 客服系统
     implementation 'com.wa.sdk:wa-sdk-aihelp:3.8.0'
+
 }
 
 // ADD THIS AT THE BOTTOM,如果去掉推送模块的依赖，这句也要去掉

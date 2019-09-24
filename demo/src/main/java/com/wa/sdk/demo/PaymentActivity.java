@@ -11,20 +11,24 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.wa.sdk.WAConstants;
 import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.model.WAResult;
 import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.common.utils.StringUtil;
 import com.wa.sdk.demo.base.BaseActivity;
+import com.wa.sdk.demo.pay.ProductListAdapter;
 import com.wa.sdk.demo.widget.TitleBar;
 import com.wa.sdk.pay.WAPayProxy;
+import com.wa.sdk.pay.model.WAChannelProduct;
 import com.wa.sdk.pay.model.WAPurchaseResult;
 import com.wa.sdk.pay.model.WASkuDetails;
 import com.wa.sdk.pay.model.WASkuResult;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 网页支付页面
@@ -53,22 +57,22 @@ public class PaymentActivity extends BaseActivity {
         });
         titleBar.setTitleTextColor(R.color.color_white);
 
-        WAPayProxy.initialize(this, new WACallback<WAResult>(){
+        WAPayProxy.initialize(this, new WACallback<WAResult>() {
 
             @Override
             public void onSuccess(int code, String message, WAResult result) {
-                LogUtil.d(TAG,"WAPayProxy.initialize success");
+                LogUtil.d(TAG, "WAPayProxy.initialize success");
                 showLongToast("PayUIActitivy:Payment is successful.");
             }
 
             @Override
             public void onCancel() {
-                LogUtil.d(TAG,"PayUIActitivy:WAPayProxy.initialize has been cancelled.");
+                LogUtil.d(TAG, "PayUIActitivy:WAPayProxy.initialize has been cancelled.");
             }
 
             @Override
             public void onError(int code, String message, WAResult result, Throwable throwable) {
-                LogUtil.d(TAG,"WAPayProxy.initialize error");
+                LogUtil.d(TAG, "WAPayProxy.initialize error");
                 showLongToast("PayUIActitivy:Payment initialization fail.");
             }
         });
@@ -77,30 +81,38 @@ public class PaymentActivity extends BaseActivity {
         WAPayProxy.queryInventory(new WACallback<WASkuResult>() {
             @Override
             public void onSuccess(int code, String message, WASkuResult result) {
+                List<WASkuDetails> waSkuDetailsList= result.getSkuList();
+                WAPayProxy.queryChannelProduct(WAConstants.CHANNEL_GOOGLE, new WACallback<Map<String, WAChannelProduct>>() {
+                    @Override
+                    public void onSuccess(int code, String message, Map<String, WAChannelProduct> map) {
+                        if (waSkuDetailsList.size() > 0) {//存在商品
+                            ProductListAdapter productListAdapter=new ProductListAdapter(PaymentActivity.this,waSkuDetailsList,map);
+                            ListView listView = (ListView) findViewById(R.id.lv_payment_sku);
+                            listView.setAdapter(productListAdapter);
+                            productListAdapter.setClickListenter(new ProductListAdapter.ClickListenter() {
+                                @Override
+                                public void onItemClick(String waSku) {
+                                    payUI(waSku, "extInfotest");
+                                }
+                            });
 
-                List<String> waProductIdList = new ArrayList<>();
-                for (WASkuDetails waSkudetails : result.getSkuList()) {
-                    if(waSkudetails!=null && !StringUtil.isEmpty(waSkudetails.getSku()))
-                    waProductIdList.add(waSkudetails.getSku());
-                }
-
-                if (waProductIdList.size() > 0){
-                    ListView listView = (ListView)findViewById(R.id.lv_payment_sku);
-                    ArrayAdapter<String> payUIAdapter = new ArrayAdapter<String>(mContext, R.layout.payui_item, waProductIdList);
-                    listView.setAdapter(payUIAdapter);
-
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            TextView tv = (TextView)view;
-
-                            payUI(tv.getText().toString(), "extInfotest");
                         }
-                    });
-                }
 
-                cancelLoadingDialog();
-                showLongToast("Query inventory is successful");
+                        cancelLoadingDialog();
+                        showLongToast("Query inventory is successful");
+                    }
+
+                    @Override
+                    public void onCancel() {
+
+                    }
+
+                    @Override
+                    public void onError(int code, String message, Map<String, WAChannelProduct> result, Throwable throwable) {
+                        LogUtil.d("WAChannelProduct", "error:"+message);
+                    }
+                });
+
 
             }
 
@@ -119,8 +131,8 @@ public class PaymentActivity extends BaseActivity {
 
     }
 
-    private void payUI(String waProductId, String extInfo){
-        if(!WAPayProxy.isPayServiceAvailable(this)) {
+    private void payUI(String waProductId, String extInfo) {
+        if (!WAPayProxy.isPayServiceAvailable(this)) {
             showShortToast("Pay service not available");
             return;
         }
@@ -145,7 +157,7 @@ public class PaymentActivity extends BaseActivity {
             public void onError(int code, String message, WAPurchaseResult result, Throwable throwable) {
                 LogUtil.d(TAG, "pay error");
                 cancelLoadingDialog();
-                if(WACallback.CODE_NOT_LOGIN == code) {
+                if (WACallback.CODE_NOT_LOGIN == code) {
                     new AlertDialog.Builder(PaymentActivity.this)
                             .setTitle(R.string.warming)
                             .setMessage(R.string.not_login_yet)

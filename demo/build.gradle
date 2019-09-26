@@ -107,8 +107,10 @@ def getDate() {
 
 dependencies {
     //    compile fileTree(dir: 'libs', include: ['*.jar'])
-    api 'com.android.support:appcompat-v7:27.0.2'
-    api 'com.android.support:support-v4:27.0.2'
+    //api 'com.android.support:appcompat-v7:27.0.2'
+    //api 'com.android.support:support-v4:27.0.2'
+	implementation(dependency.supportV4)
+    implementation(dependency.appcompatV7)
     api 'com.android.support:multidex:1.0.3'
 
     // 基础模块（必选）

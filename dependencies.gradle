@@ -1,0 +1,7 @@
+ext {
+    // 依赖配置
+    dependency = [
+            supportV4            : 'com.android.support:support-v4:27.0.2',
+            appcompatV7          : 'com.android.support:appcompat-v7:27.0.2',
+    ]
+}

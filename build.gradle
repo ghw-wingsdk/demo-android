@@ -9,7 +9,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.4'
+        classpath 'com.android.tools.build:gradle:3.2.0'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -23,11 +23,9 @@ allprojects {
         maven { url "https://maven.aliyun.com/repository/public" }
         jcenter()
         google()
-//        maven {
-//            // 测试环境
-//            url "http://172.16.100.58:8081/nexus/content/groups/wing/"
-//        }
         maven {
+            // 测试环境
+//            url "http://172.16.100.58:8081/nexus/content/groups/wing/"
             // 正式环境
             url "http://git.wingsdk.cn:8081/repository/winga-group/"
         }

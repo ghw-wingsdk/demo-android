@@ -33,6 +33,7 @@ import com.wa.sdk.user.model.WAAccountCallback;
 import com.wa.sdk.user.model.WAAccountResult;
 import com.wa.sdk.user.model.WABindCallback;
 import com.wa.sdk.user.model.WABindResult;
+import com.wa.sdk.user.model.WACertificationInfo;
 import com.wa.sdk.user.model.WALoginResult;
 
 import java.util.ArrayList;
@@ -160,6 +161,11 @@ public class AccountManagerActivity extends BaseActivity {
                                 }
                             });
                         }
+
+                    }
+
+                    @Override
+                    public void onRealNameAuthChanged(WAResult<WACertificationInfo> waResult) {
 
                     }
                 });

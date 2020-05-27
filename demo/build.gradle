@@ -16,10 +16,10 @@ android {
     defaultConfig {
 
         applicationId "com.ghw.sdk2"
-        minSdkVersion 16
+        minSdkVersion 18
         targetSdkVersion 29
         versionCode 23
-        versionName "3.8.3"
+        versionName "3.8.4"
         signingConfig signingConfigs.config
         multiDexEnabled true
     }
@@ -31,46 +31,36 @@ android {
             debuggable true
             signingConfig signingConfigs.config
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro',
-//                    '../wa_sdk_interface/proguard-rules.pro', '../wa_sdk/proguard-rules.pro',
-//                    '../wa_appsflyer/proguard-rules.pro', '../wa_chartboost/proguard-rules.pro',
-//                    '../wa_facebook/proguard-rules.pro', '../wa_google/proguard-rules.pro',
-//                    '../wa_webpay/proguard-rules.pro', '../wa_houpdate/proguard-rules.pro'
-            // 正式环境地址
-//            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL:'https://api.wingsdk.com/sdkapi',
-//                                         SDK_TRACKING_HTTP_BASE_URL:'https://api.wingsdk.com/data'])
-//            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL:'http://sdk-test1.gamehollywood.com/sdkapi',
-//                                         SDK_TRACKING_HTTP_BASE_URL:'http://sdk-test2.gamehollywood.com/data_collection/data/forward'])
-
         }
 
         debug {
             minifyEnabled false
             shrinkResources false
             signingConfig signingConfigs.config
-            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL:'https://api.wingsdk.com/sdkapi',
-                                         SDK_TRACKING_HTTP_BASE_URL:'https://api.wingsdk.com/data'])
-//             测试环境
-//            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL:'http://sdk-test1.gamehollywood.com/sdk_bkd_qa/sdkapi',
-//                                         SDK_TRACKING_HTTP_BASE_URL:'http://sdk-test2.gamehollywood.com/data_collection_qa/data/forward'])
-
-//            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL:'http://172.16.100.53/sdk_bkd_qa/sdkapi/',
-//                                         SDK_TRACKING_HTTP_BASE_URL:'http://172.16.100.53/data_collection_qa/data/'])
         }
     }
 
     flavorDimensions "server"
     productFlavors {
-        tst {
+
+        qa{
             dimension "server"
-            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL:'http://sdk-test1.gamehollywood.com/sdk_bkd_qa/sdkapi',
-                                         SDK_TRACKING_HTTP_BASE_URL:'http://sdk-test2.gamehollywood.com/data_collection_qa/data/forward'])
+            /**qa环境**/
+            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL         : 'http://172.16.100.53/sdk_bkd_qa/sdkapi/',
+                                         SDK_TRACKING_HTTP_BASE_URL: 'http://172.16.100.58/data_collection_qa/data'])
         }
 
-        prod {
+        pre {
             dimension "server"
-            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL:'https://api.wingsdk.com/sdkapi',
-                                         SDK_TRACKING_HTTP_BASE_URL:'https://api.wingsdk.com/data'])
+            /**pre环境**/
+            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL         : 'http://sdk-test1.gamehollywood.com/sdk_bkd_qa/sdkapi',
+                                         SDK_TRACKING_HTTP_BASE_URL: 'http://sdk-test2.gamehollywood.com/data_collection_qa/data/forward'])
+        }
+
+        pro{
+            dimension "server"
+            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL         : 'https://api.wingsdk.com/sdkapi',
+                                         SDK_TRACKING_HTTP_BASE_URL: 'https://api.wingsdk.com/data'])
         }
     }
 
@@ -109,22 +99,22 @@ dependencies {
     //    compile fileTree(dir: 'libs', include: ['*.jar'])
     //api 'com.android.support:appcompat-v7:27.0.2'
     //api 'com.android.support:support-v4:27.0.2'
-	implementation(dependency.supportV4)
+    implementation(dependency.supportV4)
     implementation(dependency.appcompatV7)
     api 'com.android.support:multidex:1.0.3'
 
     // 基础模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-base:3.8.3'
+    implementation 'com.wa.sdk:wa-sdk-base:3.8.4'
     // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:3.8.2'
+    implementation 'com.wa.sdk:wa-sdk-core:3.8.4'
 //    // AppsFlyer模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-appsflyer:3.8.3'
+    implementation 'com.wa.sdk:wa-sdk-appsflyer:3.8.4'
 //    // Chartboost模块（可选）
     implementation 'com.wa.sdk:wa-sdk-chartboost:3.8.0'
     // Facebook模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-facebook:3.8.2'
+    implementation 'com.wa.sdk:wa-sdk-facebook:3.8.4'
     // Google模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-google:3.8.3'
+    implementation 'com.wa.sdk:wa-sdk-google:3.8.4'
 //    // VK模块（可选）
     implementation 'com.wa.sdk:wa-sdk-vk:3.8.0'
 //    // 网页支付模块（可选）
@@ -136,7 +126,7 @@ dependencies {
 //    // Twitter推送模块（可选）
     implementation 'com.wa.sdk:wa-sdk-twitter:3.8.0'
 //    // Instagram推送模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-instagram:3.8.0'
+    implementation 'com.wa.sdk:wa-sdk-instagram:3.8.4'
 //    // WA广告模块（可选）
     implementation 'com.wa.sdk:wa-sdk-ad:3.8.3'
 
@@ -144,7 +134,7 @@ dependencies {
 //    implementation 'com.wa.sdk:wa-sdk-hup:3.8.0'
 
 //    wa 客服系统
-    implementation 'com.wa.sdk:wa-sdk-aihelp:3.8.0'
+    implementation 'com.wa.sdk:wa-sdk-aihelp:3.8.4'
 
 }
 

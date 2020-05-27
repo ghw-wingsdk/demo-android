@@ -166,43 +166,43 @@ public class FBShareActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(WACallbackManagerImpl.RequestCodeOffset.PickImage.toRequestCode() == requestCode) {
-            if(RESULT_OK == resultCode) {
+        if (WACallbackManagerImpl.RequestCodeOffset.PickImage.toRequestCode() == requestCode) {
+            if (RESULT_OK == resultCode) {
 
-                Uri uri = data.getData();
-                if(null == uri) {
+                final Uri uri = data.getData();
+                if (null == uri) {
                     showShortToast("Share error: image data is null");
                     return;
                 }
 
                 final File[] imgFile = {null};
-                try{
+                try {
                     imgFile[0] = FileUtil.parseUriToFile(FBShareActivity.this, uri);
-                }catch (SecurityException se){
-                    WACommonProxy.checkSelfPermission(this,     Manifest.permission.READ_EXTERNAL_STORAGE, false,
+                } catch (SecurityException se) {
+                    WACommonProxy.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE, false,
                             "读取外存储设备文件需要READ_EXTERNAL_STORAGE权限",
                             "WASdkDemo需要获取您的外存储设备读取权限", new WAPermissionCallback() {
-                        @Override
-                        public void onCancel() {
-                            Toast.makeText(FBShareActivity.this, "读取文件失败，没有外存储设备读取权限", Toast.LENGTH_LONG).show();
-                        }
-
-                        @Override
-                        public void onRequestPermissionResult(String[] permissions, boolean[] grantedResults) {
-                            if(grantedResults == null || grantedResults.length == 0 || grantedResults[0] == false){
-                                Toast.makeText(FBShareActivity.this, "读取文件失败，没有外存储设备读取权限", Toast.LENGTH_LONG).show();
-                            }else{
-                                imgFile[0] = FileUtil.parseUriToFile(FBShareActivity.this, uri);
-
-                                if(imgFile[0] != null){
-                                    doSharePhoto(uri, imgFile[0]);
+                                @Override
+                                public void onCancel() {
+                                    Toast.makeText(FBShareActivity.this, "读取文件失败，没有外存储设备读取权限", Toast.LENGTH_LONG).show();
                                 }
-                            }
-                        }
-                    });
+
+                                @Override
+                                public void onRequestPermissionResult(String[] permissions, boolean[] grantedResults) {
+                                    if (grantedResults == null || grantedResults.length == 0 || grantedResults[0] == false) {
+                                        Toast.makeText(FBShareActivity.this, "读取文件失败，没有外存储设备读取权限", Toast.LENGTH_LONG).show();
+                                    } else {
+                                        imgFile[0] = FileUtil.parseUriToFile(FBShareActivity.this, uri);
+
+                                        if (imgFile[0] != null) {
+                                            doSharePhoto(uri, imgFile[0]);
+                                        }
+                                    }
+                                }
+                            });
                 }
 
-                if(imgFile[0] != null){
+                if (imgFile[0] != null) {
                     doSharePhoto(uri, imgFile[0]);
                 }
 
@@ -229,8 +229,8 @@ public class FBShareActivity extends BaseActivity {
             } else {
                 showShortToast("Share canceled!");
             }
-        } else if(WACallbackManagerImpl.RequestCodeOffset.PickVideo.toRequestCode() == requestCode) {
-            if(RESULT_OK == resultCode) {
+        } else if (WACallbackManagerImpl.RequestCodeOffset.PickVideo.toRequestCode() == requestCode) {
+            if (RESULT_OK == resultCode) {
                 Uri uri = data.getData();
                 if (null == uri) {
                     showShortToast("Share error: video data is null");
@@ -267,15 +267,15 @@ public class FBShareActivity extends BaseActivity {
         WACommonProxy.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
 
-    private void doSharePhoto(Uri uri, File file){
-        if(uri == null || file == null){
+    private void doSharePhoto(Uri uri, File file) {
+        if (uri == null || file == null) {
             return;
         }
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 2;
 
         Bitmap bm = BitmapFactory.decodeFile(file.getPath(), options);
-        if(null == bm) {
+        if (null == bm) {
 //            Toast.makeText(FBShareActivity.this, "Demo: Bitmap is null", Toast.LENGTH_LONG).show();
             LogUtil.d("Bitmap", "Demo: Bitmap is null");
         } else {

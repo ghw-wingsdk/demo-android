@@ -1,8 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center">
+    android:gravity="center"
+    android:orientation="vertical">
+
     <com.wa.sdk.demo.widget.TitleBar
         android:id="@+id/tb_main"
         android:layout_width="match_parent"
@@ -41,8 +42,8 @@
                     android:id="@+id/tbtn_app_wall"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
                     android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:checked="true"
                     android:textOff="@string/disable_extend"
@@ -101,8 +102,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="5dp"
                     android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:onClick="onClick"
                     android:text="@string/account_manager" />
@@ -130,8 +131,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="5dp"
                     android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:onClick="onClick"
                     android:text="@string/tracking" />
@@ -188,8 +189,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="5dp"
                     android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:onClick="onClick"
                     android:text="@string/invite" />
@@ -203,15 +204,15 @@
 
                 <!--礼物功能已被废弃-->
                 <!--<Button-->
-                    <!--android:id="@+id/btn_gifting"-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_gravity="center_horizontal"-->
-                    <!--android:layout_marginEnd="5dp"-->
-                    <!--android:layout_marginRight="5dp"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:onClick="onClick"-->
-                    <!--android:text="@string/gifting" />-->
+                <!--android:id="@+id/btn_gifting"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:layout_marginEnd="5dp"-->
+                <!--android:layout_marginRight="5dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:onClick="onClick"-->
+                <!--android:text="@string/gifting" />-->
 
                 <Button
                     android:id="@+id/btn_game_service"
@@ -236,8 +237,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="5dp"
                     android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:onClick="onClick"
                     android:text="@string/community" />
@@ -247,8 +248,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="5dp"
                     android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:onClick="onClick"
                     android:text="@string/update" />
@@ -259,13 +260,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/btn_video_ad"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="5dp"
                     android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:onClick="onClick"
                     android:text="@string/wa_video_ad" />
@@ -275,25 +277,27 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="5dp"
                     android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:onClick="onClick"
                     android:text="@string/test_crash" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/btn_csc"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="5dp"
                     android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:onClick="onClick"
                     android:text="@string/wa_csc" />
@@ -301,16 +305,17 @@
                 <Button
                     android:id="@+id/btn_privacy"
                     android:layout_width="0dp"
-                    android:visibility="visible"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="5dp"
                     android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:onClick="onClick"
-                    android:text="@string/privacy_and_cookie_policy" />
+                    android:text="@string/privacy_and_cookie_policy"
+                    android:visibility="visible" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -322,8 +327,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="5dp"
                     android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:onClick="onClick"
                     android:text="@string/user_center" />
@@ -336,6 +341,30 @@
                     android:layout_weight="1"
                     android:onClick="onClick"
                     android:text="@string/clear_install_campaign_cache" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_create_client_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="@string/create_client_id" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:text=""
+                    android:visibility="invisible" />
             </LinearLayout>
 
         </LinearLayout>

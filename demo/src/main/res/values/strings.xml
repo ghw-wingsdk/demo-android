@@ -57,6 +57,7 @@
     <string name="hot_update_check">Hot update check</string>
     <string name="update">Update</string>
     <string name="get_update_link">Get update link</string>
+    <string name="create_client_id">Create ClientId</string>
 
     <!-- 数据收集 -->
     <string name="parameters">Parameters</string>
@@ -232,6 +233,9 @@
     <string name="input_faqId">PleaseInputfaqId</string>
     <string name="input_sectionPublishId">PleaseInputSectionPublishId</string>
     <string name="showFAQSection">showFAQSection</string>
+    <string name="openAiHelp">Call callAiHelp</string>
+    <string name="isOpenAiHelp">Is Open AiHelp</string>
+    <string name="switchAiHelpVip">Switch VIP</string>
 
     <!-- 隐私政策-->
     <string name="getUrl">getPrivacyUrl</string>

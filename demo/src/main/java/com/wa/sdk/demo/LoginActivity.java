@@ -49,18 +49,18 @@ public class LoginActivity extends BaseActivity {
         mSharedPrefHelper = WASharedPrefHelper.newInstance(this, WADemoConfig.SP_CONFIG_FILE_DEMO);
 
         Intent intent = getIntent();
-        if(intent.hasExtra("auto_finish")) {
+        if (intent.hasExtra("auto_finish")) {
             mAutoFinish = intent.getBooleanExtra("auto_finish", false);
         }
 
         initView();
 
 
-                Bundle metaData = null;
+        Bundle metaData = null;
         boolean apiKey;
-try {
+        try {
             android.content.pm.ApplicationInfo ai = this.getPackageManager()
-                    .getApplicationInfo(this.getPackageName(),android.content.pm.PackageManager.GET_META_DATA);
+                    .getApplicationInfo(this.getPackageName(), android.content.pm.PackageManager.GET_META_DATA);
             if (null != ai) {
                 metaData = ai.metaData;
             }
@@ -71,7 +71,6 @@ try {
         } catch (android.content.pm.PackageManager.NameNotFoundException e) {
         }
     }
-
 
 
     @Override
@@ -87,7 +86,7 @@ try {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(WACommonProxy.onRequestPermissionsResult(this, requestCode, permissions, grantResults)) {
+        if (WACommonProxy.onRequestPermissionsResult(this, requestCode, permissions, grantResults)) {
             return;
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -117,6 +116,7 @@ try {
                 break;
             case R.id.btn_gg_login:
                 googleLogin();
+//                aggLogin();
                 break;
             case R.id.btn_anonymous_login:
                 anonymousLogin();
@@ -166,7 +166,7 @@ try {
         WAUserProxy.setLoginFlowType(flowType);
         if (WAConstants.LOGIN_FLOW_TYPE_DEFAULT == flowType) {
             loginFlowType.setChecked(false);
-        } else if(WAConstants.LOGIN_FLOW_TYPE_REBIND == flowType){
+        } else if (WAConstants.LOGIN_FLOW_TYPE_REBIND == flowType) {
             loginFlowType.setChecked(true);
         }
         loginFlowType.setOnCheckedChangeListener(mOnCheckedChangeListener);
@@ -232,7 +232,7 @@ try {
 
             mResultCode = RESULT_OK;
 
-            if(mAutoFinish) {
+            if (mAutoFinish) {
                 exit();
             }
         }
@@ -365,4 +365,6 @@ try {
 //        GhwSdkDemo.getInstance().updateLoginAccount(null);
 
     }
+
+
 }

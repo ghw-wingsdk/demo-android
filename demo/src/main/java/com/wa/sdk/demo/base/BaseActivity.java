@@ -75,7 +75,7 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
         // Add the fragment to the activity, pushing this transaction
         // on to the back stack.
         FragmentTransaction ft = mFragmentManager.beginTransaction();
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        //ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         ft.replace(mContainerId, fragment);
         ft.addToBackStack(null);
         ft.commit();

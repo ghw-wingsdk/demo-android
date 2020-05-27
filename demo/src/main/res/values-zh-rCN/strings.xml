@@ -42,6 +42,7 @@
     <string name="hot_update_check">热更新检查</string>
     <string name="update">更新</string>
     <string name="get_update_link">获取更新链接</string>
+    <string name="create_client_id">创建clientId</string>
 
     <!-- 数据收集 -->
     <string name="parameters">参数</string>
@@ -221,6 +222,9 @@
     <string name="input_sectionPublishId">请输入SectionPublishId</string>
     <string name="input_faqId">请输入faqId</string>
     <string name="wa_csc">客服系统</string>
+    <string name="openAiHelp">调用callAiHelp</string>
+    <string name="isOpenAiHelp">是否开启AiHelp</string>
+    <string name="switchAiHelpVip">切换VIP</string>
 
     <!-- 隐私政策-->
     <string name="getUrl">获取隐私政策链接</string>

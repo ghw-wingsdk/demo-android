@@ -1,3 +1,8 @@
+storeFile file 'wingsdk-android-cert-dev.jks'
+storePassword '2wsx#EDC'
+
+keyAlias 'pcl-sdk-cert-dev'
+keyPassword '2wsx#EDC'
 
 storeFile file 'android-cert-dev.jks'
 storePassword '123456'

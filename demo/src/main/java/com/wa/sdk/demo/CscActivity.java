@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.wa.sdk.csc.WACscProxy;
@@ -12,6 +13,8 @@ import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.widget.TitleBar;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -25,6 +28,7 @@ public class CscActivity extends BaseActivity {
     private String sectionPublishId = "";
     private EditText mEtFaq;
     private EditText mEtSection;
+    private boolean mIsVip = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,7 @@ public class CscActivity extends BaseActivity {
         setContentView(R.layout.activity_csc);
 
         initView();
+
     }
 
     @Override
@@ -79,10 +84,10 @@ public class CscActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_show_elva:
-                WACscProxy.showElva(showConversationFlag,null);
+                WACscProxy.showElva(showConversationFlag, null);
                 break;
             case R.id.btn_show_elva_op:
-                WACscProxy.showElvaOP(showConversationFlag,null);
+                WACscProxy.showElvaOP(showConversationFlag, null);
                 break;
             case R.id.btn_show_faqs:
                 WACscProxy.showFAQs(null);
@@ -95,7 +100,7 @@ public class CscActivity extends BaseActivity {
                 if (TextUtils.isEmpty(faqId)) {
                     showShortToast("faqId不能为空");
                 } else {
-                    WACscProxy.showSingleFAQ(faqId,null);
+                    WACscProxy.showSingleFAQ(faqId, null);
                 }
                 break;
             case R.id.btn_show_faq_section:
@@ -103,12 +108,39 @@ public class CscActivity extends BaseActivity {
                 if (TextUtils.isEmpty(sectionPublishId)) {
                     showShortToast("sectionPublishId不能为空");
                 } else {
-                    WACscProxy.showFAQSection(sectionPublishId,null);
+                    WACscProxy.showFAQSection(sectionPublishId, null);
                 }
-
-                    break;
+                break;
+            case R.id.btn_openAiHelp: {
+                if (WACscProxy.isOpenAiHelp()) {
+                    WACscProxy.openAiHelp(null, mIsVip);
+                }
+                break;
+            }
+            case R.id.btn_isOpenAiHelp: {
+                String tip = WACscProxy.isOpenAiHelp() ? "已开启" : "未开启";
+                showShortToast(tip);
+                break;
+            }
+            case R.id.btn_switchAiHelpVip: {//切换VIP
+                switchVip(v);
+                break;
+            }
             default:
                 break;
+        }
+    }
+
+    private void switchVip(View view) {
+        Button btn = (Button) view;
+        if (mIsVip) {
+            mIsVip = false;
+            btn.setText("设置VIP");
+            showShortToast("您处于非Vip状态");
+        } else {
+            mIsVip = true;
+            btn.setText("设置非VIP");
+            showShortToast("您处于Vip状态");
         }
     }
 

@@ -16,10 +16,10 @@
         android:layout_height="match_parent">
 
         <!--<ImageView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:scaleType="fitCenter"-->
-            <!--android:src="@drawable/ic_launcher" />-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:scaleType="fitCenter"-->
+        <!--android:src="@drawable/ic_launcher" />-->
 
         <ScrollView
             android:layout_width="match_parent"
@@ -165,6 +165,36 @@
                     <View
                         android:layout_width="0dp"
                         android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_isOpenAiHelp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="onClick"
+                        android:text="@string/isOpenAiHelp" />
+
+                    <Button
+                        android:id="@+id/btn_switchAiHelpVip"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="onClick"
+                        android:text="@string/switchAiHelpVip" />
+
+                    <Button
+                        android:id="@+id/btn_openAiHelp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="onClick"
+                        android:text="@string/openAiHelp" />
                 </LinearLayout>
 
             </LinearLayout>

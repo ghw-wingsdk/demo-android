@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -22,6 +23,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.appsflyer.AppsFlyerLib;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -62,6 +64,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.UUID;
 
 public class MainActivity extends BaseActivity {
     private static final String TAG = "MainActivity";
@@ -72,7 +75,7 @@ public class MainActivity extends BaseActivity {
 
     private EditText mEtSkuId;
     private boolean mPayInitialized = false;
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -89,8 +92,8 @@ public class MainActivity extends BaseActivity {
                         public void onRequestPermissionResult(String[] permissions, boolean[] grantedResults) {
                             // TODO 处理授权结果，判断是否通过授权
                             String msg = "Request permission result:\n";
-                            if(permissions.length > 0) {
-                                for(int  i = 0; i < permissions.length; i++) {
+                            if (permissions.length > 0) {
+                                for (int i = 0; i < permissions.length; i++) {
                                     msg += permissions[i] + "--" + (grantedResults[i] ? "granted" : "denied");
                                 }
                             }
@@ -99,6 +102,7 @@ public class MainActivity extends BaseActivity {
                     });
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,24 +115,24 @@ public class MainActivity extends BaseActivity {
         // Demo的初始化，跟SDK无关
         WASdkDemo.getInstance().initialize(this);
 
-        WAPayProxy.initialize(this, new WACallback<WAResult>(){
+        WAPayProxy.initialize(this, new WACallback<WAResult>() {
 
             @Override
             public void onSuccess(int code, String message, WAResult result) {
-                LogUtil.d(TAG,"WAPayProxy.initialize success");
+                LogUtil.d(TAG, "WAPayProxy.initialize success");
                 showLongToast("PayUIActitivy:Payment is successful.");
                 mPayInitialized = true;
             }
 
             @Override
             public void onCancel() {
-                LogUtil.d(TAG,"PayUIActitivy:WAPayProxy.initialize has been cancelled.");
+                LogUtil.d(TAG, "PayUIActitivy:WAPayProxy.initialize has been cancelled.");
                 mPayInitialized = false;
             }
 
             @Override
             public void onError(int code, String message, WAResult result, Throwable throwable) {
-                LogUtil.d(TAG,"WAPayProxy.initialize error");
+                LogUtil.d(TAG, "WAPayProxy.initialize error");
                 showLongToast("PayUIActitivy:Payment initialization fail.");
                 mPayInitialized = false;
             }
@@ -161,9 +165,9 @@ public class MainActivity extends BaseActivity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        if(null != bundle) {
+        if (null != bundle) {
             Set<String> keys = bundle.keySet();
-            for(String key : keys) {
+            for (String key : keys) {
                 LogUtil.e("MainActivity", "Key-------" + key);
             }
         }
@@ -206,9 +210,11 @@ public class MainActivity extends BaseActivity {
 
 //        executeCommand("su");
 
+
+
     }
 
-    public static ArrayList<String> executeCommand(String... shellCmd){
+    public static ArrayList<String> executeCommand(String... shellCmd) {
         String line = null;
         ArrayList<String> fullResponse = new ArrayList<String>();
         Process localProcess = null;
@@ -241,13 +247,13 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if(null == intent) {
+        if (null == intent) {
             return;
         }
         Bundle bundle = intent.getExtras();
-        if(null != bundle) {
+        if (null != bundle) {
             Set<String> keys = bundle.keySet();
-            for(String key : keys) {
+            for (String key : keys) {
                 LogUtil.e("MainActivity", "Key-------" + key);
             }
         }
@@ -321,7 +327,7 @@ public class MainActivity extends BaseActivity {
         }
         switch (requestCode) {
             case 200: // 登录
-                if(RESULT_OK == resultCode) {
+                if (RESULT_OK == resultCode) {
                     switch (mPendingAction) {
                         case GO_ACCOUNT_MANAGER:
                             accountManager();
@@ -377,12 +383,12 @@ public class MainActivity extends BaseActivity {
                 payment();
                 break;
             case R.id.btn_static_pay:
-                if(!mPayInitialized) {
+                if (!mPayInitialized) {
                     showShortToast("Payment not initialize!");
                     return;
                 }
                 final String skuId = mEtSkuId.getText().toString().trim();
-                if(StringUtil.isEmpty(skuId)) {
+                if (StringUtil.isEmpty(skuId)) {
                     showShortToast("Sku id is empty!");
                     return;
                 }
@@ -405,7 +411,7 @@ public class MainActivity extends BaseActivity {
                     public void onError(int code, String message, WAPurchaseResult result, Throwable throwable) {
                         LogUtil.d(TAG, "pay error");
                         cancelLoadingDialog();
-                        if(WACallback.CODE_NOT_LOGIN == code) {
+                        if (WACallback.CODE_NOT_LOGIN == code) {
                             new AlertDialog.Builder(MainActivity.this)
                                     .setTitle(R.string.warming)
                                     .setMessage(R.string.not_login_yet)
@@ -466,12 +472,17 @@ public class MainActivity extends BaseActivity {
             case R.id.btn_user_center:
                 startActivity(new Intent(this, UserCenterActivity.class));
                 break;
+            case R.id.btn_create_client_id:
+                String clientId = UUID.randomUUID().toString().replaceAll("-", "");
+                WACoreProxy.setClientId(clientId);
+                showShortToast(clientId);
+                break;
             default:
                 break;
         }
     }
 
-    private void testRequestPermission(){
+    private void testRequestPermission() {
         WACommonProxy.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE, true,
                 "测试权限申请",
                 "测试权限申请:READ_PHONE_STATE", new WAPermissionCallback() {
@@ -483,8 +494,8 @@ public class MainActivity extends BaseActivity {
                     @Override
                     public void onRequestPermissionResult(String[] permissions, boolean[] grantedResults) {
                         String msg = "Request permission result:\n";
-                        if(permissions.length > 0) {
-                            for(int  i = 0; i < permissions.length; i++) {
+                        if (permissions.length > 0) {
+                            for (int i = 0; i < permissions.length; i++) {
                                 msg += permissions[i] + "--" + (grantedResults[i] ? "granted" : "denied");
                             }
                         }
@@ -496,7 +507,7 @@ public class MainActivity extends BaseActivity {
     String userId;
     ProgressDialog mLoadingDialog = null;
 
-    private void payment(){
+    private void payment() {
         startActivityForResult(new Intent(this, PaymentActivity.class), 202);
     }
 

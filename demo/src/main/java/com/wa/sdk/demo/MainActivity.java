@@ -20,15 +20,13 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.appsflyer.AppsFlyerLib;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
-import com.google.firebase.messaging.FirebaseMessagingService;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.ad.WAAdProxy;
 import com.wa.sdk.ad.model.WAAdCachedCallback;
@@ -40,6 +38,7 @@ import com.wa.sdk.common.model.WAPermissionCallback;
 import com.wa.sdk.common.model.WAResult;
 import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.common.utils.StringUtil;
+import com.wa.sdk.common.utils.ToastUtils;
 import com.wa.sdk.core.WACoreProxy;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.community.CommunityActivity;
@@ -50,6 +49,9 @@ import com.wa.sdk.demo.tracking.TrackingActivity;
 import com.wa.sdk.demo.widget.TitleBar;
 import com.wa.sdk.pay.WAPayProxy;
 import com.wa.sdk.pay.model.WAPurchaseResult;
+import com.wa.sdk.track.WAEventType;
+import com.wa.sdk.track.model.WAEvent;
+import com.wa.sdk.wa.common.utils.ImageUtils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -65,6 +67,7 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
+
 
 public class MainActivity extends BaseActivity {
     private static final String TAG = "MainActivity";
@@ -108,7 +111,6 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
 
-//        WACoreProxy.setClientId("client123456789");
         WACoreProxy.setDebugMode(true);
         WACoreProxy.initialize(this);
 
@@ -210,7 +212,14 @@ public class MainActivity extends BaseActivity {
 
 //        executeCommand("su");
 
+//        new WAEvent.Builder().setDefaultEventName("lv01")
+//                .build().track(this);
 
+//        Bundle bundle1 = new Bundle();
+//        bundle1.putString(FirebaseAnalytics.Param.ITEM_ID, "id1");
+//        bundle1.putString(FirebaseAnalytics.Param.ITEM_NAME, "name1");
+//        bundle1.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
+//        FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
     }
 
@@ -279,7 +288,7 @@ public class MainActivity extends BaseActivity {
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
-                Log.e("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+                LogUtil.e("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
             }
         } catch (PackageManager.NameNotFoundException e) {
             // do nothing
@@ -300,13 +309,13 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i(TAG, "---onResume---");
+        LogUtil.i(TAG, "---onResume---");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.i(TAG, "---onPause---");
+        LogUtil.i(TAG, "---onPause---");
     }
 
     @Override

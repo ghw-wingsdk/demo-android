@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.model.WACallback;
@@ -19,6 +18,7 @@ import com.wa.sdk.demo.widget.TitleBar;
 import com.wa.sdk.user.WAUserProxy;
 import com.wa.sdk.user.model.WALoginResult;
 import com.wa.sdk.user.model.WAUser;
+import com.wa.sdk.wa.common.utils.ImageUtils;
 
 /**
  * 获取账户信息
@@ -180,10 +180,11 @@ public class GetAccountInfoActivity extends BaseActivity {
 
                 final String avatar = result.getPicture();
                 if(!StringUtil.isEmpty(avatar)) {
-                    Picasso.get()
-                            .load(avatar)
-                            .placeholder(R.drawable.ic_avatar_default)
-                            .into(mIvAvatar);
+//                    Picasso.get()
+//                            .load(avatar)
+//                            .placeholder(R.drawable.ic_avatar_default)
+//                            .into(mIvAvatar);
+                    ImageUtils.loadImage(GetAccountInfoActivity.this,avatar,mIvAvatar);
                 }
                 mTvName.setText(String.format(getString(R.string.name_format), result.getName()));
                 mTvId.setText(String.format(getString(R.string.id_format), result.getId()));

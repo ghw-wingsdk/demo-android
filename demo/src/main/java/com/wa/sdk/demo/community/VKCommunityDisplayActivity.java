@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.model.WACallback;
@@ -27,6 +26,7 @@ import com.wa.sdk.social.WASocialProxy;
 import com.wa.sdk.social.model.WAGroup;
 import com.wa.sdk.social.model.WAGroupResult;
 import com.wa.sdk.social.model.WAPlace;
+import com.wa.sdk.wa.common.utils.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -293,10 +293,11 @@ public class VKCommunityDisplayActivity extends BaseActivity {
             }
 
             final WAGroup group = getItem(position);
-            Picasso.get()
-                    .load(group.getPhoto_medium())
-                    .placeholder(R.drawable.ic_launcher)
-                    .into(viewHolder.ivIcon);
+//            Picasso.get()
+//                    .load(group.getPhoto_medium())
+//                    .placeholder(R.drawable.ic_launcher)
+//                    .into(viewHolder.ivIcon);
+            ImageUtils.loadImage(VKCommunityDisplayActivity.this,group.getPhoto_medium(),viewHolder.ivIcon,R.drawable.ic_launcher);
             viewHolder.tvName.setText(group.getName());
             viewHolder.tvId.setText(group.getGid());
             viewHolder.tvMemberCount.setText(String.valueOf(group.getMembers_count()));

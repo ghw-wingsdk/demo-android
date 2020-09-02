@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.model.WACallback;
@@ -24,6 +23,7 @@ import com.wa.sdk.social.model.WAAchievement;
 import com.wa.sdk.social.model.WALoadAchievementResult;
 import com.wa.sdk.social.model.WAPlayer;
 import com.wa.sdk.social.model.WAUpdateAchievementResult;
+import com.wa.sdk.wa.common.utils.ImageUtils;
 
 public class GoogleGameActivity extends BaseActivity {
 
@@ -267,12 +267,13 @@ public class GoogleGameActivity extends BaseActivity {
         mBtnSignIn.setText(R.string.sign_out);
         String icon = player.getIconImageUrl();
         if(!StringUtil.isEmpty(icon)) {
-            Picasso.get()
-                    .load(icon)
-                    .placeholder(R.drawable.ic_launcher)
-                    .error(R.drawable.ic_launcher)
-                    .resize(100, 100)
-                    .into(mIvAvatar);
+//            Picasso.get()
+//                    .load(icon)
+//                    .placeholder(R.drawable.ic_launcher)
+//                    .error(R.drawable.ic_launcher)
+//                    .resize(100, 100)
+//                    .into(mIvAvatar);
+            ImageUtils.loadImage(GoogleGameActivity.this,icon,mIvAvatar,100,100,R.drawable.ic_launcher,R.drawable.ic_launcher);
         }
         mTvName.setText(player.getName());
     }

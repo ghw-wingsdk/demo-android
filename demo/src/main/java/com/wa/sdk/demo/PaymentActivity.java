@@ -82,12 +82,12 @@ public class PaymentActivity extends BaseActivity {
         WAPayProxy.queryInventory(new WACallback<WASkuResult>() {
             @Override
             public void onSuccess(int code, String message, WASkuResult result) {
-                List<WASkuDetails> waSkuDetailsList = result.getSkuList();
+                List<WASkuDetails> waSkuDetailsList= result.getSkuList();
                 WAPayProxy.queryChannelProduct(WAConstants.CHANNEL_GOOGLE, new WACallback<Map<String, WAChannelProduct>>() {
                     @Override
                     public void onSuccess(int code, String message, Map<String, WAChannelProduct> map) {
                         if (waSkuDetailsList.size() > 0) {//存在商品
-                            ProductListAdapter productListAdapter = new ProductListAdapter(PaymentActivity.this, waSkuDetailsList, map);
+                            ProductListAdapter productListAdapter=new ProductListAdapter(PaymentActivity.this,waSkuDetailsList,map);
                             ListView listView = (ListView) findViewById(R.id.lv_payment_sku);
                             listView.setAdapter(productListAdapter);
                             productListAdapter.setClickListenter(new ProductListAdapter.ClickListenter() {
@@ -101,7 +101,6 @@ public class PaymentActivity extends BaseActivity {
 
                         cancelLoadingDialog();
                         showLongToast("Query inventory is successful");
-                        LogUtil.d("google product:", map != null ? map.size() : "");
                     }
 
                     @Override
@@ -111,7 +110,7 @@ public class PaymentActivity extends BaseActivity {
 
                     @Override
                     public void onError(int code, String message, Map<String, WAChannelProduct> result, Throwable throwable) {
-                        LogUtil.d("WAChannelProduct", "error:" + message);
+                        LogUtil.d("WAChannelProduct", "error:"+message);
                     }
                 });
 

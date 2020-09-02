@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
 import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.WASharedPrefHelper;
 import com.wa.sdk.common.model.WACallback;
@@ -25,6 +24,7 @@ import com.wa.sdk.social.WASocialProxy;
 import com.wa.sdk.social.model.WAFBGraphObject;
 import com.wa.sdk.social.model.WAFBGraphObjectResult;
 import com.wa.sdk.track.WATrackProxy;
+import com.wa.sdk.wa.common.utils.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -165,12 +165,14 @@ public class FBGiftChooserActivity extends BaseActivity {
 
             String iconUrl = object.getImageUrl();
             if (!StringUtil.isEmpty(iconUrl)) {
-                Picasso.get()
-                        .load(Uri.parse(iconUrl))
-                        .placeholder(R.drawable.ic_launcher)
-                        .error(R.drawable.ic_launcher)
-                        .resize(100, 100)
-                        .into(itemView.icon);
+//                Picasso.get()
+//                        .load(Uri.parse(iconUrl))
+//                        .placeholder(R.drawable.ic_launcher)
+//                        .error(R.drawable.ic_launcher)
+//                        .resize(100, 100)
+//                        .into(itemView.icon);
+
+                ImageUtils.loadImage(FBGiftChooserActivity.this, iconUrl, itemView.icon, 100, 100, R.drawable.ic_launcher );
             }
             itemView.name.setText(object.getTitle());
             itemView.description.setText(object.getDescription());

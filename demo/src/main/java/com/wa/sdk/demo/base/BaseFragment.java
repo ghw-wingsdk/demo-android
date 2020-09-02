@@ -13,8 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 import com.wa.sdk.common.utils.StringUtil;
 import com.wa.sdk.demo.widget.LoadingDialog;
 
@@ -148,58 +146,11 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    /**
-     * 加载图片
-     * @param url 图片地址
-     * @param imageView 图片显示控件
-     * @param width 显示宽度
-     * @param height 显示高度
-     * @param placeHolder 加载中图片
-     * @param error 加载错误图片
-     */
-    protected void loadImage(String url, ImageView imageView, int width, int height, int placeHolder, int error) {
-        if(StringUtil.isEmpty(url)) {
-            return;
-        }
-        Picasso.get()
-                .load(Uri.parse(url))
-                .placeholder(placeHolder)
-                .error(error)
-                .resize(width, height)
-                .into(imageView);
-    }
 
-    /**
-     * 加载图片
-     * @param url 图片地址
-     * @param imageView 图片显示控件
-     * @param width 显示宽度
-     * @param height 显示高度
-     */
-    protected void loadImageCenterCrop(String url, ImageView imageView, int width, int height, Callback callback) {
-        if(StringUtil.isEmpty(url)) {
-            return;
-        }
-        Picasso.get()
-                .load(Uri.parse(url))
-                .resize(width, height)
-                .centerCrop()
-                .into(imageView, callback);
-    }
 
-    /**
-     * 加载图片
-     * @param url 图片地址
-     * @param imageView 图片显示控件
-     */
-    protected void loadImage(String url, ImageView imageView, Callback callback) {
-        if(StringUtil.isEmpty(url)) {
-            return;
-        }
-        Picasso.get()
-                .load(Uri.parse(url))
-                .into(imageView, callback);
-    }
+
+
+
 
     /**
      * 退出<br/><br/>

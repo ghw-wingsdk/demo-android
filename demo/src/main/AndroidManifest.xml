@@ -58,7 +58,7 @@
         <activity
             android:name=".CscActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name"/>
+            android:label="@string/app_name" />
         <activity
             android:name=".PrivacyActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
@@ -219,11 +219,11 @@
         <!-- Chartboost app id -->
         <meta-data
             android:name="com.wa.sdk.track.CHARTBOOST_APP_ID"
-            android:value="55b74c74c909a66b8af388a7" />
+            android:value="5ecf154cb8730209d26e1e4e" />
         <!-- Chartboost app signature -->
         <meta-data
             android:name="com.wa.sdk.track.CHARTBOOST_APP_SIGNATURE"
-            android:value="2b7b5cbc8c5d0429c9498dd3484d84fb4974a206" />
+            android:value="c11187ca183d21c88ce22a6817784ad9d15508c3" />
         <!-- 开启/关闭 Chartboost数据收集功能，默认关闭，使用默认配置可不配置此项 -->
         <meta-data
             android:name="com.wa.sdk.track.ENABLE_CHARTBOOST"

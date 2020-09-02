@@ -16,7 +16,8 @@
     <string name="google_base64EncodedPublicKey">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhab03+1NEH/qdRcB8aA8quIz1VntrG21aJzd8W7E0nyh6CxmwwqwLtfs/ro4CTd76jz94+k/xP263d/bJZg+biczsVIcU8wT+zQJH5Ze5wTthgl+XAtN7xGxnNaDpUXxr28K/mHyUnc/yg3iXeHFI3Rg2QcaixOP7xyImIdRrM1FjDOhlEtnXdsIpCkK8TDCnFXo1qmXKheLxd6nZ96d3zSt/lJenFPdI84/RJszJfD4aJPrHg/K+iPLV15bYNfskpgnn/Vq1JEKq91N67c/szQDZB7o9ZJNfSTHVPO5riOyZd0guNXEMB7+YT/oSIo+I0A87GcP9rasGI2FuBNLHwIDAQAB</string>
     <!-- Google Web application type OAuth 2.0 client ID -->
     <!--<string name="google_server_client_id">1068848780812-ta07figcg5rosk5hpmhbn4030fnvjnjb.apps.googleusercontent.com</string>-->
-    <string name="google_server_client_id">1068848780812-e5p4q2kon33fm4cajv08aj4a23b0aqva.apps.googleusercontent.com</string>
+<!--    <string name="google_server_client_id">1068848780812-e5p4q2kon33fm4cajv08aj4a23b0aqva.apps.googleusercontent.com</string>-->
+    <string name="google_server_client_id">15309153268-vnpucgn8cvbna2sseegrg2ofogrf8n17.apps.googleusercontent.com</string>
     <!--<string name="google_server_client_id">1068848780812-18mn438fjr7bim2dlmq31g0u5gq9sjlg.apps.googleusercontent.com</string>-->
     <string name="google_firebaseSenderId">15309153268</string>
 

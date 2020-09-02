@@ -34,6 +34,9 @@
 
 -keep class **.R$* { *; }
 
+# glide
+-keep class com.bumptech.glide.** {*;}
+
 # Chartboost
 -keep class com.chartboost.sdk.** { *; }
 

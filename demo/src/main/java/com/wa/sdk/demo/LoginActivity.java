@@ -212,9 +212,14 @@ public class LoginActivity extends BaseActivity {
                         + "\nisFistLogin: " + result.isFirstLogin();
 
                 // 数据收集
-                WACoreProxy.setServerId("165");
-                WACoreProxy.setGameUserId("gUid01");
-                WACoreProxy.setNickname("wing_test");
+                //qa
+                WACoreProxy.setServerId("server2");
+//                WACoreProxy.setGameUserId("server2-role1-59473005");
+//                WACoreProxy.setNickname("wing_test");
+                //pre
+                WACoreProxy.setServerId("server2");
+                WACoreProxy.setGameUserId("server2-role1-59473005");
+                WACoreProxy.setNickname("青铜server2-59473005");
 
 //                WAEvent event = new WAEvent.Builder()
 //                        .setDefaultEventName(WAEventType.LOGIN)

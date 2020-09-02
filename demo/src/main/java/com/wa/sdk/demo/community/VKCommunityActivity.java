@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.model.WACallback;
@@ -23,6 +22,7 @@ import com.wa.sdk.social.model.WAGroup;
 import com.wa.sdk.social.model.WAPlace;
 import com.wa.sdk.user.WAUserProxy;
 import com.wa.sdk.user.model.WAUser;
+import com.wa.sdk.wa.common.utils.ImageUtils;
 
 /**
  * 社区/群组等功能测试界面
@@ -104,10 +104,11 @@ public class VKCommunityActivity extends BaseActivity {
             @Override
             public void onSuccess(int code, String message, WAUser result) {
                 dismissLoadingDialog();
-                Picasso.get()
-                        .load(result.getPicture())
-                        .placeholder(R.drawable.ic_avatar_default)
-                        .into(mIvAvatar);
+//                Picasso.get()
+//                        .load(result.getPicture())
+//                        .placeholder(R.drawable.ic_avatar_default)
+//                        .into(mIvAvatar);
+                ImageUtils.loadImage(VKCommunityActivity.this,result.getPicture(),mIvAvatar,R.drawable.ic_avatar_default);
                 mTvName.setText(String.format(getString(R.string.name_format), result.getName()));
                 mTvId.setText(String.format(getString(R.string.id_format), result.getId()));
             }
@@ -183,10 +184,11 @@ public class VKCommunityActivity extends BaseActivity {
         TextView tvPlace = (TextView) view.findViewById(R.id.tv_item_group_place);
         TextView tvDescription = (TextView) view.findViewById(R.id.tv_item_group_description);
         Button btnJoin = (Button) view.findViewById(R.id.btn_item_group_join);
-        Picasso.get()
-                .load(group.getPhoto_medium())
-                .placeholder(R.drawable.ic_launcher)
-                .into(ivIcon);
+//        Picasso.get()
+//                .load(group.getPhoto_medium())
+//                .placeholder(R.drawable.ic_launcher)
+//                .into(ivIcon);
+        ImageUtils.loadImage(VKCommunityActivity.this,group.getPhoto_medium(),ivIcon,R.drawable.ic_launcher);
         tvName.setText(group.getName());
         tvId.setText(group.getGid());
         tvMemberCount.setText(String.valueOf(group.getMembers_count()));

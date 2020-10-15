@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion = '28.0.2'
+    compileSdkVersion 30
+    buildToolsVersion = '30.0.2'
 
     signingConfigs {
         config {
@@ -17,11 +17,14 @@ android {
 
         applicationId "com.ghw.sdk2"
         minSdkVersion 18
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 23
         versionName "3.8.5"
         signingConfig signingConfigs.config
         multiDexEnabled true
+
+        //华为多语种设置
+        resConfigs "en", "zh-rCN", "pt-rBR"
     }
 
     buildTypes {
@@ -99,32 +102,32 @@ dependencies {
     //    compile fileTree(dir: 'libs', include: ['*.jar'])
     //api 'com.android.support:appcompat-v7:27.0.2'
     //api 'com.android.support:support-v4:27.0.2'
-    implementation(dependency.supportV4)
-    implementation(dependency.appcompatV7)
-    api 'com.android.support:multidex:1.0.3'
+//    implementation(dependency.supportV4)
+//    implementation(dependency.appcompatV7)
+//    api 'com.android.support:multidex:1.0.3'
 
     // 基础模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-base:3.8.5'
+    implementation 'com.wa.sdk:wa-sdk-base:3.9.0'
     // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:3.8.5'
+    implementation 'com.wa.sdk:wa-sdk-core:3.9.0'
 //    // AppsFlyer模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-appsflyer:3.8.4'
+    implementation 'com.wa.sdk:wa-sdk-appsflyer:3.9.0'
 //    // Chartboost模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-chartboost:3.8.0'
+    implementation 'com.wa.sdk:wa-sdk-chartboost:3.9.0'
     // Facebook模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-facebook:3.8.4'
+    implementation 'com.wa.sdk:wa-sdk-facebook:3.9.0'
     // Google模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-google:3.8.4'
+    implementation 'com.wa.sdk:wa-sdk-google:3.9.0'
 //    // VK模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-vk:3.8.0'
+    implementation 'com.wa.sdk:wa-sdk-vk:3.9.0'
 //    // 网页支付模块（可选）
     implementation 'com.wa.sdk:wa-sdk-webpay:3.8.0'
 //    // 应用墙模块（可选）
     implementation 'com.wa.sdk:wa-sdk-apw:3.8.3'
 //    // 消息推送模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-push:3.8.5'
+    implementation 'com.wa.sdk:wa-sdk-push:3.9.0'
 //    // Twitter推送模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-twitter:3.8.0'
+    implementation 'com.wa.sdk:wa-sdk-twitter:3.9.0'
 //    // Instagram推送模块（可选）
     implementation 'com.wa.sdk:wa-sdk-instagram:3.8.4'
 //    // WA广告模块（可选）
@@ -134,9 +137,14 @@ dependencies {
 //    implementation 'com.wa.sdk:wa-sdk-hup:3.8.0'
 
 //    wa 客服系统
-    implementation 'com.wa.sdk:wa-sdk-aihelp:3.8.4'
+    implementation 'com.wa.sdk:wa-sdk-aihelp:3.9.0'
+
+    implementation 'com.wa.sdk:wa-sdk-huaweihms:3.9.0'
 
 }
 
-// ADD THIS AT THE BOTTOM,如果去掉推送模块的依赖，这句也要去掉
+//谷歌推送
 apply plugin: 'com.google.gms.google-services'
+
+//华为
+apply plugin: 'com.huawei.agconnect'

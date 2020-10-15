@@ -353,6 +353,8 @@ Consumer Secret (API Secret)	mQxNdMLMpvWXNR2tJZ9qblHxct7YI3thgYMvxWnA5Tq71py4Ni-
         <!--android:name="com.wa.sdk.AIHelp_appId"-->
         <!--android:value="GameHollywoodcompany_platform_75592cd4-fdff-4fd3-a8b1-38e12aaba26f" />-->
 
+<!--        <meta-data android:name="com.google.firebase.messaging.default_notification_icon"-->
+<!--            android:resource="@drawable/ic_launcher" />-->
 
     </application>
 

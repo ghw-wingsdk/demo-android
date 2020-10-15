@@ -2,7 +2,8 @@ package com.wa.sdk.demo;
 
 import android.content.Context;
 import android.content.res.Configuration;
-import android.support.multidex.MultiDex;
+
+import androidx.multidex.MultiDex;
 
 import com.wa.sdk.WAApplication;
 import com.wa.sdk.WAIApplicationListener;

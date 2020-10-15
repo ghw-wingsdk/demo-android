@@ -16,7 +16,7 @@
         android:layout_weight="1"
         android:focusable="true"
         android:focusableInTouchMode="true">
-        <android.support.v4.app.FragmentTabHost
+        <androidx.fragment.app.FragmentTabHost
             android:id="@+id/tabs_tracking_channel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
                 android:gravity="center_vertical"
                 android:background="#FFAAAAAA">
             </TabWidget>
-        </android.support.v4.app.FragmentTabHost>
+        </androidx.fragment.app.FragmentTabHost>
         <FrameLayout
             android:id="@+id/fl_tracking_channel_container"
             android:layout_width="match_parent"

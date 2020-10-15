@@ -1,62 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFEFEFEF">
+    android:background="#FFEFEFEF"
+    android:orientation="vertical">
+
     <com.wa.sdk.demo.widget.TitleBar
         android:id="@+id/tb_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#AA000000"/>
+        android:background="#AA000000" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_launcher"/>
+            android:src="@drawable/ic_launcher" />
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:padding="15dp">
+
                 <ToggleButton
                     android:id="@+id/tbtn_login_flow_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textOn="@string/rebind_account_with_device"
+                    android:checked="false"
                     android:textOff="@string/do_not_rebind_account_with_device"
-                    android:checked="false"/>
+                    android:textOn="@string/rebind_account_with_device" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal">
+
                     <Button
+                        android:id="@+id/btn_fb_login"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:text="@string/fb_login"
-                        android:onClick="onClick"
                         android:layout_gravity="center_horizontal"
-                        android:id="@+id/btn_fb_login" />
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:onClick="onClick"
+                        android:text="@string/fb_login" />
+
                     <Button
+                        android:id="@+id/btn_gg_login"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginRight="5dp"
                         android:layout_marginEnd="5dp"
-                        android:text="@string/gg_login"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
                         android:onClick="onClick"
-                        android:id="@+id/btn_gg_login" />
+                        android:text="@string/gg_login" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -65,48 +73,25 @@
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"
                     android:weightSum="2">
+
                     <Button
                         android:id="@+id/btn_anonymous_login"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginRight="5dp"
                         android:layout_marginEnd="5dp"
-                        android:text="@string/anonymous_login"
-                        android:onClick="onClick"/>
-                    <Button
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
                         android:layout_weight="1"
-                        android:text="@string/app_login"
                         android:onClick="onClick"
+                        android:text="@string/anonymous_login" />
+
+                    <Button
+                        android:id="@+id/btn_app_login"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:id="@+id/btn_app_login" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-                    <Button
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:text="@string/vk_login"
-                        android:id="@+id/btn_vk_login"
-                        android:onClick="onClick"/>
-                    <Button
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:text="@string/twitter_login"
-                        android:id="@+id/btn_twitter_login"
-                        android:onClick="onClick"/>
+                        android:onClick="onClick"
+                        android:text="@string/app_login" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -115,24 +100,81 @@
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"
                     android:weightSum="2">
+
                     <Button
+                        android:id="@+id/btn_vk_login"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginRight="5dp"
                         android:layout_marginEnd="5dp"
-                        android:text="@string/instagram_login"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:onClick="onClick"
+                        android:text="@string/vk_login" />
+
+                    <Button
+                        android:id="@+id/btn_twitter_login"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:onClick="onClick"
+                        android:text="@string/twitter_login" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <Button
                         android:id="@+id/btn_instagram_login"
-                        android:onClick="onClick"/>
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:onClick="onClick"
+                        android:text="@string/instagram_login" />
+
                     <Button
                         android:id="@+id/btn_login_form"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginLeft="5dp"
                         android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:onClick="onClick"
+                        android:text="@string/login_form" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <Button
+                        android:id="@+id/btn_huawei_hms_login"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:onClick="onClick"
+                        android:text="@string/huaweihms_login" />
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
                         android:text="@string/login_form"
-                        android:onClick="onClick"/>
+                        android:visibility="invisible" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -140,22 +182,24 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal">
+
                     <Button
+                        android:id="@+id/btn_logout"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/logout"
-                        android:onClick="onClick"
                         android:layout_gravity="center_horizontal"
-                        android:id="@+id/btn_logout" />
+                        android:layout_weight="1"
+                        android:onClick="onClick"
+                        android:text="@string/logout" />
+
                     <ToggleButton
                         android:id="@+id/tbtn_enable_login_cache"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textOn="@string/enable_login_cache"
+                        android:checked="false"
                         android:textOff="@string/disable_login_cache"
-                        android:checked="false"/>
+                        android:textOn="@string/enable_login_cache" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -163,24 +207,25 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal">
+
                     <Button
                         android:id="@+id/btn_clear_login_cache"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginLeft="5dp"
                         android:layout_marginStart="5dp"
-                        android:text="@string/clean_login_cache"
-                        android:onClick="onClick"/>
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:onClick="onClick"
+                        android:text="@string/clean_login_cache" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
         <!--<com.wa.sdk.wa.user.widget.WALoginForm-->
-            <!--android:id="@+id/glf_login_form"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:visibility="invisible"/>-->
+        <!--android:id="@+id/glf_login_form"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:visibility="invisible"/>-->
     </FrameLayout>
 
 </LinearLayout>

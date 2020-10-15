@@ -81,6 +81,7 @@
     <string name="vk_login">VK Login</string>
     <string name="twitter_login">Twitter Login</string>
     <string name="instagram_login">Instagram Login</string>
+    <string name="huaweihms_login">Huawei HMS Login</string>
     <string name="login_form">Login Form</string>
     <string name="app_login">App Login</string>
     <string name="logout">Logout</string>

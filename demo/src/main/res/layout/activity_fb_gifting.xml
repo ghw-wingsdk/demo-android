@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/color_black_alpha_bb" />
-    <android.support.v4.app.FragmentTabHost
+    <androidx.fragment.app.FragmentTabHost
         android:id="@+id/tabs_gifting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
             android:gravity="center_vertical"
             android:background="#FFAAAAAA">
         </TabWidget>
-    </android.support.v4.app.FragmentTabHost>
+    </androidx.fragment.app.FragmentTabHost>
     <FrameLayout
         android:id="@+id/fl_gifting_content"
         android:layout_width="match_parent"

@@ -65,6 +65,7 @@
     <string name="vk_login">VK登录</string>
     <string name="twitter_login">Twitter登录</string>
     <string name="instagram_login">Instagram登录</string>
+    <string name="huaweihms_login">华为HMS登录</string>
     <string name="login_form">登录窗口</string>
     <string name="app_login">应用内登录</string>
     <string name="logout">登出</string>

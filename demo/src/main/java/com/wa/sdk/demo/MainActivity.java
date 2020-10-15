@@ -2,6 +2,9 @@ package com.wa.sdk.demo;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,9 +16,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
+
+import android.util.ArrayMap;
 import android.util.Base64;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.CompoundButton;
@@ -26,7 +34,6 @@ import android.widget.ToggleButton;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.ad.WAAdProxy;
 import com.wa.sdk.ad.model.WAAdCachedCallback;
@@ -55,6 +62,7 @@ import com.wa.sdk.wa.common.utils.ImageUtils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -215,11 +223,6 @@ public class MainActivity extends BaseActivity {
 //        new WAEvent.Builder().setDefaultEventName("lv01")
 //                .build().track(this);
 
-//        Bundle bundle1 = new Bundle();
-//        bundle1.putString(FirebaseAnalytics.Param.ITEM_ID, "id1");
-//        bundle1.putString(FirebaseAnalytics.Param.ITEM_NAME, "name1");
-//        bundle1.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
-//        FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
     }
 

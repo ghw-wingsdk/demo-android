@@ -1,0 +1,12 @@
+{
+	"client":{
+		"cp_id":"890086000102099981",
+		"product_id":"736430079244649521",
+		"client_id":"460558644061144064",
+		"client_secret":"01301FA54B29CF745D6BA4C2BF2BF830C2002879FE8B0D8B51CA7E24742296D7",
+		"app_id":"102973841",
+		"package_name":"com.ghw.sdk2",
+		"api_key":"CgB6e3x9XOqV5y50e+obRSPgUQekHfGLFKlhzPDuMjuPdoUbuzVgIsRcBzS0udCY/MG+bsaGlkpuy4pBdcRmsbHV"
+	},
+	"configuration_version":"1.0"
+}

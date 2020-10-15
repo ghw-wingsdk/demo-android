@@ -2,7 +2,7 @@ package com.wa.sdk.demo;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Toast;
@@ -132,6 +132,9 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.btn_instagram_login:
                 instagramLogin();
+                break;
+            case R.id.btn_huawei_hms_login:
+                huaweiHmsLogin();
                 break;
             case R.id.btn_logout:
                 logout();
@@ -328,6 +331,14 @@ public class LoginActivity extends BaseActivity {
     public void instagramLogin() {
         showLoadingDialog("正在登录Instagram", null);
         WAUserProxy.login(this, WAConstants.CHANNEL_INSTAGRAM, mLoginCallback, null);
+    }
+
+    /**
+     * 华为hms平台登录
+     */
+    public void huaweiHmsLogin() {
+        showLoadingDialog("正在登录华为Hms", null);
+        WAUserProxy.login(this, WAConstants.CHANNEL_HUAWEI_HMS, mLoginCallback, null);
     }
 
     /**

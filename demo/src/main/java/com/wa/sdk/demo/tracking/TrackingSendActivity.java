@@ -2,8 +2,9 @@ package com.wa.sdk.demo.tracking;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTabHost;
 import android.view.View;
+
+import androidx.fragment.app.FragmentTabHost;
 
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.common.utils.StringUtil;

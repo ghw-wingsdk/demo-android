@@ -109,7 +109,7 @@ dependencies {
     // 基础模块（必选）
     implementation 'com.wa.sdk:wa-sdk-base:3.9.0'
     // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:3.9.0'
+    implementation 'com.wa.sdk:wa-sdk-core:3.9.0.1'
 //    // AppsFlyer模块（可选）
     implementation 'com.wa.sdk:wa-sdk-appsflyer:3.9.0'
 //    // Chartboost模块（可选）

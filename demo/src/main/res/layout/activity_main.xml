@@ -359,11 +359,38 @@
                     android:text="@string/create_client_id" />
 
                 <Button
+                    android:id="@+id/btn_open_review"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
-                    android:text=""
+                    android:onClick="onClick"
+                    android:text="@string/open_review"
+                     />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_display_app_version_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="APK信息" />
+
+                <Button
+                    android:id="@+id/btn_change_env_url"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:text="切换环境URL(未开放)"
                     android:visibility="invisible" />
             </LinearLayout>
 

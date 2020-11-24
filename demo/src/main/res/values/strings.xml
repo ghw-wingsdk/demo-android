@@ -12,11 +12,9 @@
     <string name="fb_login_protocol_scheme">fb1811388679079227</string>
 
     <!-- Google In-app billing public key -->
-    <!--<string name="google_base64EncodedPublicKey">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv1V2WNTi8eJq787TLyH+ifB8uWwQQVxY5PTMVeLKgmH2DWv+DMfdMTlgJivSqaM+8kmLuCcqdkaMdfDSDV3Bdy77wWUaeJx9GS/d19zZDSZDwHWGRiyBVbcRNJ5r54XcfP21fiBgg9Rqj3qOYuJuPFj6SJWsCMuw3uE/e+BTGM6lVMlTDqQcQr67NxwB3Zhcw8iZkIkBJxVH4W9WDzQjcI2eEpQ/tby+AiLFmDVDoOPb+41ldfEkIZEoGbNhrG5KlUSbS25TU4H34dPyIQ+rrCaErob2nZKoQ2PvO+tZ4uzmT926c3IUXknCMwrnW/SdBpia93j6ZEuVgYKlYT6jewIDAQAB</string>-->
-    <string name="google_base64EncodedPublicKey">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhab03+1NEH/qdRcB8aA8quIz1VntrG21aJzd8W7E0nyh6CxmwwqwLtfs/ro4CTd76jz94+k/xP263d/bJZg+biczsVIcU8wT+zQJH5Ze5wTthgl+XAtN7xGxnNaDpUXxr28K/mHyUnc/yg3iXeHFI3Rg2QcaixOP7xyImIdRrM1FjDOhlEtnXdsIpCkK8TDCnFXo1qmXKheLxd6nZ96d3zSt/lJenFPdI84/RJszJfD4aJPrHg/K+iPLV15bYNfskpgnn/Vq1JEKq91N67c/szQDZB7o9ZJNfSTHVPO5riOyZd0guNXEMB7+YT/oSIo+I0A87GcP9rasGI2FuBNLHwIDAQAB</string>
+<!--    3.9.0已不需要配置billing public key-->
+<!--    <string name="google_base64EncodedPublicKey">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAo2hffcW70PvVzmvzcmNE+9HrZdaUgTfiWVdh9Pgxa5eaGij/8QWi2NRTDMR0z+ilJ5qu0Iqhu9SJK4BcQKLLjB2bl+UGreaxDhrx1Pk219wdCsn9yQ4CtdR64WLGcfL/JwDGW1Via/hLKLw70flKyxXyyaryp4zkrz4vcaghtrg5PBPSPXsOWP6XBy43VbCOiFgyS75uXhcikija5jFJrt3aIfjubi65dkNyeKDgiFP5P2ACekk3LsAaqd+sfKhcCNOpzoOlpiEKsYXyBoikoQn9Y5vgM8T5Wr7QVaBf8p45uTxYAPKxAEt1bP818HGDiY5vYYftqQEzBPI+bwX9xQIDAQAB</string>-->
     <!-- Google Web application type OAuth 2.0 client ID -->
-    <!--<string name="google_server_client_id">1068848780812-ta07figcg5rosk5hpmhbn4030fnvjnjb.apps.googleusercontent.com</string>-->
-<!--    <string name="google_server_client_id">1068848780812-e5p4q2kon33fm4cajv08aj4a23b0aqva.apps.googleusercontent.com</string>-->
     <string name="google_server_client_id">15309153268-vnpucgn8cvbna2sseegrg2ofogrf8n17.apps.googleusercontent.com</string>
     <!--<string name="google_server_client_id">1068848780812-18mn438fjr7bim2dlmq31g0u5gq9sjlg.apps.googleusercontent.com</string>-->
     <string name="google_firebaseSenderId">15309153268</string>
@@ -59,6 +57,7 @@
     <string name="update">Update</string>
     <string name="get_update_link">Get update link</string>
     <string name="create_client_id">Create ClientId</string>
+    <string name="open_review">open review</string>
 
     <!-- 数据收集 -->
     <string name="parameters">Parameters</string>

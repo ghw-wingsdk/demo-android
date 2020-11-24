@@ -16,10 +16,10 @@ android {
     defaultConfig {
 
         applicationId "com.ghw.sdk2"
-        minSdkVersion 18
+        minSdkVersion 19
         targetSdkVersion 30
         versionCode 23
-        versionName "3.8.5"
+        versionName "3.9.1"
         signingConfig signingConfigs.config
         multiDexEnabled true
 
@@ -34,12 +34,18 @@ android {
             debuggable true
             signingConfig signingConfigs.config
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            def build_time = getDate()
+            buildConfigField 'String', 'DEMO_BUILD_TIME',"\"${build_time}\""
         }
 
         debug {
             minifyEnabled false
             shrinkResources false
             signingConfig signingConfigs.config
+
+            def build_time = getDate()
+            buildConfigField 'String', 'DEMO_BUILD_TIME',"\"${build_time}\""
         }
     }
 
@@ -70,9 +76,9 @@ android {
     // 打包自动生成名字
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
-            if (variant.buildType.name.equals('release')) {
+//            if (variant.buildType.name.equals('release')) {
                 output.outputFileName = 'WASdkDemo_' + variant.productFlavors[0].name + "_" + variant.buildType.name + '_v' + versionName + '_build' + getDate() + '.apk'
-            }
+//            }
         }
     }
 
@@ -107,9 +113,9 @@ dependencies {
 //    api 'com.android.support:multidex:1.0.3'
 
     // 基础模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-base:3.9.0'
+    implementation 'com.wa.sdk:wa-sdk-base:3.9.1'
     // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:3.9.0.1'
+    implementation 'com.wa.sdk:wa-sdk-core:3.9.1'
 //    // AppsFlyer模块（可选）
     implementation 'com.wa.sdk:wa-sdk-appsflyer:3.9.0'
 //    // Chartboost模块（可选）
@@ -117,7 +123,7 @@ dependencies {
     // Facebook模块（可选）
     implementation 'com.wa.sdk:wa-sdk-facebook:3.9.0'
     // Google模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-google:3.9.0'
+    implementation 'com.wa.sdk:wa-sdk-google:3.9.1'
 //    // VK模块（可选）
     implementation 'com.wa.sdk:wa-sdk-vk:3.9.0'
 //    // 网页支付模块（可选）
@@ -139,7 +145,7 @@ dependencies {
 //    wa 客服系统
     implementation 'com.wa.sdk:wa-sdk-aihelp:3.9.0'
 
-    implementation 'com.wa.sdk:wa-sdk-huaweihms:3.9.0'
+    implementation 'com.wa.sdk:wa-sdk-huaweihms:3.9.1'
 
 }
 

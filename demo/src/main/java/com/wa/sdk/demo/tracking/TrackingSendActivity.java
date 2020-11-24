@@ -32,6 +32,9 @@ public class TrackingSendActivity extends BaseActivity {
 
     public static final int TYPE_FACEBOOK = 3;
 
+    public static final int TYPE_HUAWEIHMS = 4;
+
+
     private FragmentTabHost mFtTabHost;
 
     private String mDefaultEventName;
@@ -123,6 +126,11 @@ public class TrackingSendActivity extends BaseActivity {
         TabView facebook = new TabView(this);
         facebook.setTitle("Facebook");
 
+        TabView huawei = new TabView(this);
+        huawei.setTitle("huaweihms");
+
+
+
         Bundle defaultEvent = new Bundle();
         defaultEvent.putString(WADemoConfig.EXTRA_EVENT_NAME, mDefaultEventName);
         defaultEvent.putFloat(WADemoConfig.EXTRA_COUNT_VALUE, mDefaultValue);
@@ -136,6 +144,13 @@ public class TrackingSendActivity extends BaseActivity {
         Bundle fbArgs = new Bundle();
         fbArgs.putInt(WADemoConfig.EXTRA_DATA, TrackingSendActivity.TYPE_FACEBOOK);
         mFtTabHost.addTab(mFtTabHost.newTabSpec("Facebook").setIndicator(facebook), CustomEventFragment.class, fbArgs);
+
+
+        Bundle hwArgs = new Bundle();
+        hwArgs.putInt(WADemoConfig.EXTRA_DATA, TrackingSendActivity.TYPE_HUAWEIHMS);
+        mFtTabHost.addTab(mFtTabHost.newTabSpec("huaweihms").setIndicator(huawei), CustomEventFragment.class, hwArgs);
+
+
 
         mFtTabHost.setCurrentTab(0);
     }
@@ -191,6 +206,14 @@ public class TrackingSendActivity extends BaseActivity {
                     mEventNameMap.put(WAConstants.CHANNEL_FACEBOOK, newName);
                 }
                 break;
+
+            case TYPE_HUAWEIHMS:
+                if(StringUtil.isEmpty(newName)) {
+                    mEventNameMap.remove(WAConstants.CHANNEL_HUAWEI_HMS);
+                } else {
+                    mEventNameMap.put(WAConstants.CHANNEL_HUAWEI_HMS, newName);
+                }
+                break;
             default:
                 break;
         }
@@ -206,6 +229,9 @@ public class TrackingSendActivity extends BaseActivity {
                 break;
             case TYPE_FACEBOOK:
                 mValueMap.put(WAConstants.CHANNEL_FACEBOOK, newValue);
+                break;
+            case TYPE_HUAWEIHMS:
+                mValueMap.put(WAConstants.CHANNEL_HUAWEI_HMS, newValue);
                 break;
             default:
                 break;
@@ -291,6 +317,38 @@ public class TrackingSendActivity extends BaseActivity {
                     mEventValueMap.put(WAConstants.CHANNEL_FACEBOOK, fbValues);
                 }
                 break;
+
+            case TYPE_HUAWEIHMS:
+                Map<String, Object> hwValues = mEventValueMap.get(WAConstants.CHANNEL_HUAWEI_HMS);
+                if(null == hwValues) {
+                    hwValues = new HashMap<>();
+                }
+                if(isKey) {
+                    if(null == oldValue || StringUtil.isEmpty(String.valueOf(oldValue))) {
+                        hwValues.put(String.valueOf(newValue), "");
+                    } else if(hwValues.containsKey(key)){
+                        Object value = hwValues.get(key);
+                        hwValues.remove(key);
+                        hwValues.put(String.valueOf(newValue), value);
+                    } else {
+                        hwValues.put(String.valueOf(newValue), "");
+                    }
+                } else {
+                    if(null == newValue) { // newValue 为null，删除
+                        if(hwValues.containsKey(key)) {
+                            hwValues.remove(key);
+                        }
+                    } else {
+                        hwValues.put(key, newValue);
+                    }
+                }
+                if(hwValues.isEmpty()) {
+                    mEventValueMap.remove(WAConstants.CHANNEL_HUAWEI_HMS);
+                } else {
+                    mEventValueMap.put(WAConstants.CHANNEL_HUAWEI_HMS, hwValues);
+                }
+                break;
+
             default:
                 break;
         }

@@ -2,9 +2,6 @@ package com.wa.sdk.demo;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,28 +9,17 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-
-import androidx.annotation.NonNull;
-import androidx.core.app.NotificationCompat;
-
-import android.util.ArrayMap;
 import android.util.Base64;
-import android.util.Log;
-import android.util.SparseArray;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import androidx.annotation.NonNull;
+
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.ad.WAAdProxy;
 import com.wa.sdk.ad.model.WAAdCachedCallback;
@@ -56,24 +42,17 @@ import com.wa.sdk.demo.tracking.TrackingActivity;
 import com.wa.sdk.demo.widget.TitleBar;
 import com.wa.sdk.pay.WAPayProxy;
 import com.wa.sdk.pay.model.WAPurchaseResult;
-import com.wa.sdk.track.WAEventType;
-import com.wa.sdk.track.model.WAEvent;
-import com.wa.sdk.wa.common.utils.ImageUtils;
+import com.wa.sdk.user.WAUserProxy;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.UUID;
 
 
@@ -488,6 +467,48 @@ public class MainActivity extends BaseActivity {
                 String clientId = UUID.randomUUID().toString().replaceAll("-", "");
                 WACoreProxy.setClientId(clientId);
                 showShortToast(clientId);
+                break;
+            case R.id.btn_open_review:
+                //不管回掉结果是什么，都需要统一当成成功处理后续逻辑
+                WAUserProxy.openReview( this, new WACallback<Boolean>() {
+                    @Override
+                    public void onSuccess(int code, String message, Boolean result) {
+
+                        showShortToast("调用google api 流程完成,无法获取用户是否评价，是否弹出评论界面"+message);
+
+                    }
+
+                    @Override
+                    public void onCancel() {
+
+                    }
+
+                    @Override
+                    public void onError(int code, String message, Boolean result, Throwable throwable) {
+
+
+                    }
+                } );
+
+                break;
+            case R.id.btn_display_app_version_info:
+                //app 信息
+                String info ;
+                String versionName = "版本名称："+BuildConfig.VERSION_NAME;
+                String versionCode = "代码版本："+BuildConfig.VERSION_CODE;
+                String buildType = "打包类型：" + BuildConfig.FLAVOR+"_"+BuildConfig.BUILD_TYPE;
+                String buildTime = "打包时间：" + BuildConfig.DEMO_BUILD_TIME;
+                info = versionName + "\n"
+                        + versionCode+ "\n"
+                        + buildType+ "\n"
+                        + buildTime+ "\n"
+                ;
+                new AlertDialog.Builder(this)
+                        .setMessage(info)
+                        .show();
+                break;
+            case R.id.btn_change_env_url:
+                ToastUtils.showShortToast(this,"暂未开放");
                 break;
             default:
                 break;

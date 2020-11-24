@@ -32,6 +32,7 @@
     <string name="gg_game_service">Google Игровые сервисы</string>
     <string name="vk_invite">VK пригласить</string>
     <string name="vk_join">VK присоединиться к</string>
+    <string name="open_review">打开评分</string>
 
     <!-- 数据收集 -->
     <string name="parameters">Параметры</string>

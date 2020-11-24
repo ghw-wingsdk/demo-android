@@ -43,6 +43,7 @@
     <string name="update">更新</string>
     <string name="get_update_link">获取更新链接</string>
     <string name="create_client_id">创建clientId</string>
+    <string name="open_review">打开评分</string>
 
     <!-- 数据收集 -->
     <string name="parameters">参数</string>

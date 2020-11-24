@@ -335,6 +335,12 @@ Consumer Secret (API Secret)	mQxNdMLMpvWXNR2tJZ9qblHxct7YI3thgYMvxWnA5Tq71py4Ni-
         <meta-data
             android:name="com.wa.sdk.interface.ENABLE_IM"
             android:value="true" />
+
+
+        <meta-data
+            android:name="com.wa.sdk.track.ENABLE_HUAWEIHMS"
+            android:value="true" />
+
         <!--<meta-data-->
         <!--android:name="com.wa.sdk.interface.ENABLE_ADS"-->
         <!--android:value="true"/>-->

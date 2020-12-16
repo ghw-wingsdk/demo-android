@@ -247,5 +247,7 @@
     <string name="user_center">User Center</string>
     <string name="get_user_center_data">Get userCenter data</string>
     <string name="show_user_center_ui">show userCenter ui</string>
+    <string name="apk_info">Apk Info</string>
+    <string name="no_function">No Function</string>
 
 </resources>

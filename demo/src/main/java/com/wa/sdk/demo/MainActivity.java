@@ -16,10 +16,12 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 
+import com.appsflyer.AppsFlyerLib;
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.ad.WAAdProxy;
 import com.wa.sdk.ad.model.WAAdCachedCallback;
@@ -470,12 +472,10 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.btn_open_review:
                 //不管回掉结果是什么，都需要统一当成成功处理后续逻辑
-                WAUserProxy.openReview( this, new WACallback<Boolean>() {
+                WAUserProxy.openReview(this, new WACallback<Boolean>() {
                     @Override
                     public void onSuccess(int code, String message, Boolean result) {
-
-                        showShortToast("调用google api 流程完成,无法获取用户是否评价，是否弹出评论界面"+message);
-
+                        showShortToast("api调用流程已经完成，无法获取用户是否评分，是否弹出评分框,"+message);
                     }
 
                     @Override
@@ -488,27 +488,30 @@ public class MainActivity extends BaseActivity {
 
 
                     }
-                } );
+                });
 
                 break;
             case R.id.btn_display_app_version_info:
                 //app 信息
-                String info ;
-                String versionName = "版本名称："+BuildConfig.VERSION_NAME;
-                String versionCode = "代码版本："+BuildConfig.VERSION_CODE;
-                String buildType = "打包类型：" + BuildConfig.FLAVOR+"_"+BuildConfig.BUILD_TYPE;
+                String info;
+                String versionName = "版本名称：" + BuildConfig.VERSION_NAME;
+                String versionCode = "代码版本：" + BuildConfig.VERSION_CODE;
+                String buildType = "打包类型：" + BuildConfig.FLAVOR + "_" + BuildConfig.BUILD_TYPE;
                 String buildTime = "打包时间：" + BuildConfig.DEMO_BUILD_TIME;
+                String isTestRepository = "是否测试仓库包：" + (BuildConfig.IS_TEST_REPOSITORY ? "是" : "否");
+
                 info = versionName + "\n"
-                        + versionCode+ "\n"
-                        + buildType+ "\n"
-                        + buildTime+ "\n"
+                        + versionCode + "\n"
+                        + buildType + "\n"
+                        + buildTime + "\n"
+                        + isTestRepository + "\n"
                 ;
                 new AlertDialog.Builder(this)
                         .setMessage(info)
                         .show();
                 break;
-            case R.id.btn_change_env_url:
-                ToastUtils.showShortToast(this,"暂未开放");
+            case R.id.btn_get_af_id:
+                ToastUtils.showLongToast(this,"暂无功能");
                 break;
             default:
                 break;

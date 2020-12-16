@@ -382,16 +382,18 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:onClick="onClick"
-                    android:text="APK信息" />
+                    android:text="@string/apk_info" />
 
                 <Button
-                    android:id="@+id/btn_change_env_url"
+                    android:id="@+id/btn_get_af_id"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
-                    android:text="切换环境URL(未开放)"
-                    android:visibility="invisible" />
+                    android:visibility="gone"
+                    android:onClick="onClick"
+                    android:text="@string/no_function"
+                    />
             </LinearLayout>
 
 

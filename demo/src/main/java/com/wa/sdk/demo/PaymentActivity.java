@@ -58,26 +58,6 @@ public class PaymentActivity extends BaseActivity {
         });
         titleBar.setTitleTextColor(R.color.color_white);
 
-        WAPayProxy.initialize(this, new WACallback<WAResult>() {
-
-            @Override
-            public void onSuccess(int code, String message, WAResult result) {
-                LogUtil.d(TAG, "WAPayProxy.initialize success");
-                showLongToast("PayUIActitivy:Payment is successful.");
-            }
-
-            @Override
-            public void onCancel() {
-                LogUtil.d(TAG, "PayUIActitivy:WAPayProxy.initialize has been cancelled.");
-            }
-
-            @Override
-            public void onError(int code, String message, WAResult result, Throwable throwable) {
-                LogUtil.d(TAG, "WAPayProxy.initialize error");
-                showLongToast("PayUIActitivy:Payment initialization fail.");
-            }
-        });
-
         showLoadingDialog("正在查询库存....", null);
         WAPayProxy.queryInventory(new WACallback<WASkuResult>() {
             @Override

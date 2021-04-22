@@ -510,7 +510,7 @@ public class MainActivity extends BaseActivity {
                         .setMessage(info)
                         .show();
                 break;
-            case R.id.btn_get_af_id:
+            case R.id.btn_temp_test:
                 ToastUtils.showLongToast(this,"暂无功能");
                 break;
             default:

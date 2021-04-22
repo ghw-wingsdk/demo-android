@@ -155,6 +155,8 @@ public class CustomEventFragment extends BaseFragment {
                     case TrackingSendActivity.TYPE_DEFAULT:
                     case TrackingSendActivity.TYPE_APPSFLYERS:
                     case TrackingSendActivity.TYPE_FACEBOOK:
+                    case TrackingSendActivity.TYPE_HUAWEIHMS:
+                    case TrackingSendActivity.TYPE_FIREBASE:
                         onParameterChanged(key, isKey, oldValue, newValue);
                     default:
                         break;

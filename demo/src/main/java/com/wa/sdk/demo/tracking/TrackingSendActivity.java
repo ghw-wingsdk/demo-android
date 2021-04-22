@@ -34,6 +34,8 @@ public class TrackingSendActivity extends BaseActivity {
 
     public static final int TYPE_HUAWEIHMS = 4;
 
+    public static final int TYPE_FIREBASE = 5;
+
 
     private FragmentTabHost mFtTabHost;
 
@@ -55,13 +57,6 @@ public class TrackingSendActivity extends BaseActivity {
 
         initView();
 
-//        WASharedPrefHelper sharedPrefHelper = WASharedPrefHelper.getInstance(this, WADemoConfig.SP_CONFIG_FILE_DEMO);
-//        if (sharedPrefHelper.getBoolean("enable_logcat", true)) {
-//            Logcat.enableLogcat(this);
-//        }
-//        if (sharedPrefHelper.getBoolean("enable_extend", true)) {
-//            GhwSdkExtend.showEntryFlowIcon(this);
-//        }
     }
 
     private void initView() {
@@ -125,9 +120,10 @@ public class TrackingSendActivity extends BaseActivity {
         appsflyers.setTitle("AppsFlyer");
         TabView facebook = new TabView(this);
         facebook.setTitle("Facebook");
-
         TabView huawei = new TabView(this);
-        huawei.setTitle("huaweihms");
+        huawei.setTitle("HuaweiHMS");
+        TabView firebase = new TabView(this);
+        firebase.setTitle("Firebase");
 
 
 
@@ -148,7 +144,11 @@ public class TrackingSendActivity extends BaseActivity {
 
         Bundle hwArgs = new Bundle();
         hwArgs.putInt(WADemoConfig.EXTRA_DATA, TrackingSendActivity.TYPE_HUAWEIHMS);
-        mFtTabHost.addTab(mFtTabHost.newTabSpec("huaweihms").setIndicator(huawei), CustomEventFragment.class, hwArgs);
+        mFtTabHost.addTab(mFtTabHost.newTabSpec("HuaweiHMS").setIndicator(huawei), CustomEventFragment.class, hwArgs);
+
+        Bundle firebaseArgs = new Bundle();
+        firebaseArgs.putInt(WADemoConfig.EXTRA_DATA, TrackingSendActivity.TYPE_FIREBASE);
+        mFtTabHost.addTab(mFtTabHost.newTabSpec("Firebase").setIndicator(firebase), CustomEventFragment.class, firebaseArgs);
 
 
 
@@ -214,6 +214,13 @@ public class TrackingSendActivity extends BaseActivity {
                     mEventNameMap.put(WAConstants.CHANNEL_HUAWEI_HMS, newName);
                 }
                 break;
+            case TYPE_FIREBASE:
+                if(StringUtil.isEmpty(newName)) {
+                    mEventNameMap.remove(WAConstants.CHANNEL_FIREBASE);
+                } else {
+                    mEventNameMap.put(WAConstants.CHANNEL_FIREBASE, newName);
+                }
+                break;
             default:
                 break;
         }
@@ -232,6 +239,9 @@ public class TrackingSendActivity extends BaseActivity {
                 break;
             case TYPE_HUAWEIHMS:
                 mValueMap.put(WAConstants.CHANNEL_HUAWEI_HMS, newValue);
+                break;
+            case TYPE_FIREBASE:
+                mValueMap.put(WAConstants.CHANNEL_FIREBASE, newValue);
                 break;
             default:
                 break;
@@ -346,6 +356,36 @@ public class TrackingSendActivity extends BaseActivity {
                     mEventValueMap.remove(WAConstants.CHANNEL_HUAWEI_HMS);
                 } else {
                     mEventValueMap.put(WAConstants.CHANNEL_HUAWEI_HMS, hwValues);
+                }
+                break;
+            case TYPE_FIREBASE:
+                Map<String, Object> firebaseValues = mEventValueMap.get(WAConstants.CHANNEL_FIREBASE);
+                if(null == firebaseValues) {
+                    firebaseValues = new HashMap<>();
+                }
+                if(isKey) {
+                    if(null == oldValue || StringUtil.isEmpty(String.valueOf(oldValue))) {
+                        firebaseValues.put(String.valueOf(newValue), "");
+                    } else if(firebaseValues.containsKey(key)){
+                        Object value = firebaseValues.get(key);
+                        firebaseValues.remove(key);
+                        firebaseValues.put(String.valueOf(newValue), value);
+                    } else {
+                        firebaseValues.put(String.valueOf(newValue), "");
+                    }
+                } else {
+                    if(null == newValue) { // newValue 为null，删除
+                        if(firebaseValues.containsKey(key)) {
+                            firebaseValues.remove(key);
+                        }
+                    } else {
+                        firebaseValues.put(key, newValue);
+                    }
+                }
+                if(firebaseValues.isEmpty()) {
+                    mEventValueMap.remove(WAConstants.CHANNEL_FIREBASE);
+                } else {
+                    mEventValueMap.put(WAConstants.CHANNEL_FIREBASE, firebaseValues);
                 }
                 break;
 

@@ -134,6 +134,7 @@
             <TextView
                 android:id="@+id/tv_achievement_data"
                 android:layout_marginTop="10dp"
+                android:textIsSelectable="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"

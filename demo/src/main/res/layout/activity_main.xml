@@ -385,18 +385,15 @@
                     android:text="@string/apk_info" />
 
                 <Button
-                    android:id="@+id/btn_get_af_id"
+                    android:id="@+id/btn_temp_test"
                     android:layout_width="0dp"
+                    android:onClick="onClick"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
-                    android:visibility="gone"
-                    android:onClick="onClick"
-                    android:text="@string/no_function"
-                    />
+                    android:text="@string/temp_test"
+                    android:visibility="gone" />
             </LinearLayout>
-
-
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

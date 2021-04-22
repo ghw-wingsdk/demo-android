@@ -230,6 +230,7 @@ public class LoginActivity extends BaseActivity {
 //                        .build();
 //                event.track(LoginActivity.this);
 
+                mTitlebar.setTitleText("登录(" + result.getPlatform() + ")");
             }
 
             LogUtil.i(LogUtil.TAG, text);
@@ -365,6 +366,7 @@ public class LoginActivity extends BaseActivity {
     public void logout() {
         Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_LONG).show();
         WAUserProxy.logout();
+        mTitlebar.setTitleText("登录");
         WASdkDemo.getInstance().logout();
 //        WALoginResult loginAccount = WASdkDemo.getInstance().getLoginAccount();
 //        if(null == loginAccount) {

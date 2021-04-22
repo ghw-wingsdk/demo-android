@@ -170,6 +170,8 @@ public class DefaultEventFragment extends BaseFragment {
                         break;
                     case TrackingSendActivity.TYPE_APPSFLYERS:
                     case TrackingSendActivity.TYPE_FACEBOOK:
+                    case TrackingSendActivity.TYPE_HUAWEIHMS:
+                    case TrackingSendActivity.TYPE_FIREBASE:
                     default:
                         break;
                 }

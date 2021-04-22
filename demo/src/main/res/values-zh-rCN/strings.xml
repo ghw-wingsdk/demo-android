@@ -239,5 +239,6 @@
     <string name="show_user_center_ui">打开用户中心界面</string>
     <string name="apk_info">APK信息</string>
     <string name="no_function">暂无功能</string>
+    <string name="temp_test">临时测试</string>
 
 </resources>

@@ -19,7 +19,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 30
         versionCode 24
-        versionName "3.9.2"
+        versionName "3.9.3"
         signingConfig signingConfigs.config
         multiDexEnabled true
 
@@ -115,25 +115,25 @@ dependencies {
 //    api 'com.android.support:multidex:1.0.3'
 
     // 基础模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-base:3.9.2'
+    implementation 'com.wa.sdk:wa-sdk-base:3.9.3'
     // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:3.9.2'
+    implementation 'com.wa.sdk:wa-sdk-core:3.9.3'
 //    // AppsFlyer模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-appsflyer:3.9.2'
+    implementation 'com.wa.sdk:wa-sdk-appsflyer:3.9.3'
 //    // Chartboost模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-chartboost:3.9.0'
+    implementation 'com.wa.sdk:wa-sdk-chartboost:3.9.3'
     // Facebook模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-facebook:3.9.0'
+    implementation 'com.wa.sdk:wa-sdk-facebook:3.9.3'
     // Google模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-google:3.9.1'
+    implementation 'com.wa.sdk:wa-sdk-google:3.9.3'
 //    // VK模块（可选）
     implementation 'com.wa.sdk:wa-sdk-vk:3.9.0'
 //    // 网页支付模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-webpay:3.8.0'
+    implementation 'com.wa.sdk:wa-sdk-webpay:3.9.3'
 //    // 应用墙模块（可选）
     implementation 'com.wa.sdk:wa-sdk-apw:3.8.3'
 //    // 消息推送模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-push:3.9.0'
+    implementation 'com.wa.sdk:wa-sdk-firebase:3.9.3'
 //    // Twitter推送模块（可选）
     implementation 'com.wa.sdk:wa-sdk-twitter:3.9.0'
 //    // Instagram推送模块（可选）

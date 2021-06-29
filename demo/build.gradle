@@ -18,8 +18,8 @@ android {
         applicationId "com.ghw.sdk2"
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 24
-        versionName "3.9.3"
+        versionCode 25
+        versionName "3.9.4"
         signingConfig signingConfigs.config
         multiDexEnabled true
 
@@ -115,9 +115,9 @@ dependencies {
 //    api 'com.android.support:multidex:1.0.3'
 
     // 基础模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-base:3.9.3'
+    implementation 'com.wa.sdk:wa-sdk-base:3.9.4'
     // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:3.9.3'
+    implementation 'com.wa.sdk:wa-sdk-core:3.9.4'
 //    // AppsFlyer模块（可选）
     implementation 'com.wa.sdk:wa-sdk-appsflyer:3.9.3'
 //    // Chartboost模块（可选）
@@ -125,7 +125,9 @@ dependencies {
     // Facebook模块（可选）
     implementation 'com.wa.sdk:wa-sdk-facebook:3.9.3'
     // Google模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-google:3.9.3'
+    implementation 'com.wa.sdk:wa-sdk-google:3.9.4'
+    // Aptoide模块（可选）
+    implementation 'com.wa.sdk:wa-sdk-aptoide:3.9.4'
 //    // VK模块（可选）
     implementation 'com.wa.sdk:wa-sdk-vk:3.9.0'
 //    // 网页支付模块（可选）

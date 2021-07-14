@@ -104,6 +104,8 @@ public class AccountManagerActivity extends BaseActivity {
                                 + "\nuserId:" + currentAccount.getUserId()
                                 + "\ntoken:" + currentAccount.getToken()
                                 + "\nplatformUserId:" + currentAccount.getPlatformUserId()
+                                + "\nisBindAccount: " + currentAccount.getIsBindAccount()
+                                + "\nisGuestAccount: " + currentAccount.getIsGuestAccount()
                                 + "\nplatformToken:" + currentAccount.getPlatformToken();
 
                         LogUtil.i(LogUtil.TAG, text);
@@ -140,6 +142,7 @@ public class AccountManagerActivity extends BaseActivity {
                                 .append("platformToken: ")
                                 .append(result.getAccessToken());
 
+                        LogUtil.i(LogUtil.TAG, sb.toString());
                         showShortToast(sb.toString());
 
                         if(binding && WACallback.CODE_SUCCESS == result.getCode()) {

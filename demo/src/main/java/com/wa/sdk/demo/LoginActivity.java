@@ -212,6 +212,8 @@ public class LoginActivity extends BaseActivity {
                         + "\nplatformUserId:" + result.getPlatformUserId()
                         + "\nplatformToken:" + result.getPlatformToken()
                         + "\nisBindMobile: " + result.isBindMobile()
+                        + "\nisBindAccount: " + result.getIsBindAccount()
+                        + "\nisGuestAccount: " + result.getIsGuestAccount()
                         + "\nisFistLogin: " + result.isFirstLogin();
 
                 // 数据收集

@@ -231,10 +231,10 @@
     <string name="setSDKLanguage">setSDKLanguage</string>
     <string name="showSingleFAQ">showSingleFAQ</string>
     <string name="csc">AIHelp</string>
-    <string name="input_faqId">PleaseInputfaqId</string>
-    <string name="input_sectionPublishId">PleaseInputSectionPublishId</string>
+    <string name="input_faqId">Please Input faqId,like:8</string>
+    <string name="input_sectionPublishId">Input Section Id,like:25448</string>
     <string name="showFAQSection">showFAQSection</string>
-    <string name="openAiHelp">Call callAiHelp</string>
+    <string name="openAiHelp">Call openAiHelp</string>
     <string name="isOpenAiHelp">Is Open AiHelp</string>
     <string name="switchAiHelpVip">Switch VIP</string>
 
@@ -249,6 +249,6 @@
     <string name="show_user_center_ui">show userCenter ui</string>
     <string name="apk_info">Apk Info</string>
     <string name="no_function">No Function</string>
-    <string name="temp_test">临时测试</string>
+    <string name="temp_test">Temp Test</string>
 
 </resources>

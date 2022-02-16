@@ -25,6 +25,7 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
+            android:exported="true"
             android:label="@string/app_name">
             <!--android:screenOrientation="landscape"-->
             <!--android:launchMode="singleTask"-->
@@ -316,7 +317,7 @@ Consumer Secret (API Secret)	mQxNdMLMpvWXNR2tJZ9qblHxct7YI3thgYMvxWnA5Tq71py4Ni-
             android:value="GAMEHOLLYWOODHK_app_6ff2af7846a245e8a56c74d2331ede73" />
         <meta-data
             android:name="com.wa.sdk.AIHelp_domain"
-            android:value="gamehollywoodhk@aihelp.net" />
+            android:value="gamehollywoodhk.aihelp.net" />
         <meta-data
             android:name="com.wa.sdk.AIHelp_appId"
             android:value="gamehollywoodhk_platform_598ee350-adbf-4a70-bef6-6d11232b7301" />

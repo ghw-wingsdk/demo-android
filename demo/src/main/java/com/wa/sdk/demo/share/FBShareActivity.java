@@ -83,10 +83,12 @@ public class FBShareActivity extends BaseActivity {
 
         @Override
         public void onError(int code, String message, WAShareResult result, Throwable throwable) {
-            Toast.makeText(FBShareActivity.this, "FacebookShare error: Code:" + code + "<>Message:"
-                            + message + (null == throwable ? "" : "<>Throwable:" + throwable.toString()),
-                    Toast.LENGTH_LONG).show();
-            LogUtil.e(TAG, "FacebookShare error:" + (null == throwable ? "" : LogUtil.getStackTrace(throwable)));
+            String msg1 = "FacebookShare error: Code:" + code + "<>Message:"
+                    + message + (null == throwable ? "" : "<>Throwable:" + throwable.toString());
+            String msg2 = "FacebookShare error: Code:" + code + "<>Message:"
+                    + message + (null == throwable ? "" : "<>Throwable:" + LogUtil.getStackTrace(throwable));
+            Toast.makeText(FBShareActivity.this, msg1, Toast.LENGTH_LONG).show();
+            LogUtil.e(TAG, msg2);
         }
     };
 

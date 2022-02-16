@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion = '30.0.2'
 
     signingConfigs {
@@ -17,9 +17,9 @@ android {
 
         applicationId "com.ghw.sdk2"
         minSdkVersion 19
-        targetSdkVersion 30
-        versionCode 26
-        versionName "3.9.6"
+        targetSdkVersion 31
+        versionCode 27
+        versionName "3.9.7"
         signingConfig signingConfigs.config
         multiDexEnabled true
 
@@ -78,9 +78,7 @@ android {
     // 打包自动生成名字
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
-//            if (variant.buildType.name.equals('release')) {
-                output.outputFileName = 'WASdkDemo_implementation_' + variant.productFlavors[0].name + "_" + variant.buildType.name + '_v' + versionName + '_build' + getDate() + '.apk'
-//            }
+            output.outputFileName = 'WASdkDemo_imp_' + variant.productFlavors[0].name + "_" + ('true' == IS_TEST_REPOSITORY ?'test':'live') + '_v' + versionName + '_build' + getDate() + '.apk'
         }
     }
 
@@ -102,7 +100,7 @@ android {
 //获取时间戳
 static def getDate() {
     def date = new Date()
-    def formattedDate = date.format('yyyyMMddHHmm')
+    def formattedDate = date.format('yyyyMMdd_HHmm')
     return formattedDate
 }
 
@@ -115,41 +113,39 @@ dependencies {
 //    api 'com.android.support:multidex:1.0.3'
 
     // 基础模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-base:3.9.6'
+    implementation 'com.wa.sdk:wa-sdk-base:3.9.7'
     // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:3.9.6'
+    implementation 'com.wa.sdk:wa-sdk-core:3.9.7'
 //    // AppsFlyer模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-appsflyer:3.9.3'
+    implementation 'com.wa.sdk:wa-sdk-appsflyer:3.9.7'
 //    // Chartboost模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-chartboost:3.9.3'
+    implementation 'com.wa.sdk:wa-sdk-chartboost:3.9.7'
     // Facebook模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-facebook:3.9.3'
+    implementation 'com.wa.sdk:wa-sdk-facebook:3.9.7'
     // Google模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-google:3.9.4'
+    implementation 'com.wa.sdk:wa-sdk-google:3.9.7'
     // Aptoide模块（可选）
     implementation 'com.wa.sdk:wa-sdk-aptoide:3.9.4'
 //    // VK模块（可选）
     implementation 'com.wa.sdk:wa-sdk-vk:3.9.0'
 //    // 网页支付模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-webpay:3.9.3'
+    implementation 'com.wa.sdk:wa-sdk-webpay:3.9.7'
 //    // 应用墙模块（可选）
     implementation 'com.wa.sdk:wa-sdk-apw:3.8.3'
 //    // 消息推送模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-firebase:3.9.3'
+    implementation 'com.wa.sdk:wa-sdk-firebase:3.9.7'
 //    // Twitter推送模块（可选）
     implementation 'com.wa.sdk:wa-sdk-twitter:3.9.0'
 //    // Instagram推送模块（可选）
     implementation 'com.wa.sdk:wa-sdk-instagram:3.8.4'
 //    // WA广告模块（可选）
     implementation 'com.wa.sdk:wa-sdk-ad:3.8.3'
-
 //    wa hup模块
 //    implementation 'com.wa.sdk:wa-sdk-hup:3.8.0'
-
 //    wa 客服系统
-    implementation 'com.wa.sdk:wa-sdk-aihelp:3.9.0'
-
-    implementation 'com.wa.sdk:wa-sdk-huaweihms:3.9.2'
+    implementation 'com.wa.sdk:wa-sdk-aihelp:3.9.7'
+//    华为 HMS
+    implementation 'com.wa.sdk:wa-sdk-huaweihms:3.9.7'
 
 }
 
@@ -158,4 +154,6 @@ apply plugin: 'com.google.gms.google-services'
 
 //华为
 apply plugin: 'com.huawei.agconnect'
-apply plugin: 'com.huawei.agconnect.apms'
+agcp{
+    enableAPMS true
+}

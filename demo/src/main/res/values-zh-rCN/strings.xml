@@ -221,10 +221,10 @@
     <string name="showSingleFAQ">展示单条FAQ</string>
     <string name="csc">客服系统</string>
     <string name="showFAQSection">展示FAQ分类</string>
-    <string name="input_sectionPublishId">请输入SectionPublishId</string>
-    <string name="input_faqId">请输入faqId</string>
+    <string name="input_sectionPublishId">输入SectionId,如:25448</string>
+    <string name="input_faqId">请输入faqId,例如：8</string>
     <string name="wa_csc">客服系统</string>
-    <string name="openAiHelp">调用callAiHelp</string>
+    <string name="openAiHelp">调用openAiHelp</string>
     <string name="isOpenAiHelp">是否开启AiHelp</string>
     <string name="switchAiHelpVip">切换VIP</string>
 

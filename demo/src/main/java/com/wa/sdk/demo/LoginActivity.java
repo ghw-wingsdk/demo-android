@@ -223,8 +223,8 @@ public class LoginActivity extends BaseActivity {
 //                WACoreProxy.setNickname("wing_test");
                 //pre
                 WACoreProxy.setServerId("server2");
-                WACoreProxy.setGameUserId("server2-role1-59473005");
-                WACoreProxy.setNickname("青铜server2-59473005");
+                WACoreProxy.setGameUserId("server2-role1-"+result.getUserId());
+                WACoreProxy.setNickname("青铜server2-"+result.getUserId());
 
 //                WAEvent event = new WAEvent.Builder()
 //                        .setDefaultEventName(WAEventType.LOGIN)

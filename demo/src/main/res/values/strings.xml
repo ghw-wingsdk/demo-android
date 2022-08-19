@@ -57,7 +57,7 @@
     <string name="update">Update</string>
     <string name="get_update_link">Get update link</string>
     <string name="create_client_id">Create ClientId</string>
-    <string name="open_review">open review</string>
+    <string name="open_review">Open review</string>
 
     <!-- 数据收集 -->
     <string name="parameters">Parameters</string>

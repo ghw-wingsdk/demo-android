@@ -1,11 +1,16 @@
 package com.wa.sdk.demo;
 
+import android.app.AlertDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.view.View;
+import android.widget.Toast;
 
 import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.demo.base.BaseGridActivity;
 import com.wa.sdk.user.WAUserProxy;
-import com.wa.sdk.user.model.WAUserCenterResult;
+import com.wa.sdk.user.model.WAShortUrlResult;
 
 public class UserCenterActivity extends BaseGridActivity {
     private static final String TAG = "UserCenterActivity";
@@ -33,10 +38,24 @@ public class UserCenterActivity extends BaseGridActivity {
      * 获取用户中心数据
      */
     public void getUserCenterData() {
-        WAUserProxy.getUserCenterNotice(new WACallback<WAUserCenterResult>() {
+        WAUserProxy.getUserCenterNotice(this, new WACallback<WAShortUrlResult>() {
             @Override
-            public void onSuccess(int code, String message, WAUserCenterResult result) {
-                showShortToast(result.toString());
+            public void onSuccess(int code, String message, WAShortUrlResult result) {
+                String msg = "信息：" + result.getInfo()
+                        + "\nUID：" + result.getUid()
+                        + "\nCharacterID：" + result.getCharacterId()
+                        + "\n短链：" + result.getShortUrl()                        ;
+                new AlertDialog.Builder(UserCenterActivity.this)
+                        .setTitle("成功")
+                        .setMessage(msg)
+                        .setNegativeButton("关闭", null)
+                        .setPositiveButton("复制CharacterID", (dialog, which) -> {
+                            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                            ClipData clip = ClipData.newPlainText("text", result.getCharacterId());
+                            clipboard.setPrimaryClip(clip);
+                            Toast.makeText(UserCenterActivity.this,"复制成功:"+result.getCharacterId(),Toast.LENGTH_SHORT).show();
+                        })
+                        .show();
             }
 
             @Override
@@ -45,8 +64,13 @@ public class UserCenterActivity extends BaseGridActivity {
             }
 
             @Override
-            public void onError(int code, String message, WAUserCenterResult result, Throwable throwable) {
-                showShortToast(message);
+            public void onError(int code, String message, WAShortUrlResult result, Throwable throwable) {
+                String msg = "短链获取失败：" + code + "  " + message;
+                new AlertDialog.Builder(UserCenterActivity.this)
+                        .setTitle("失败")
+                        .setMessage(msg)
+                        .setNegativeButton("确定", null)
+                        .show();
             }
         });
     }
@@ -55,9 +79,9 @@ public class UserCenterActivity extends BaseGridActivity {
      * 显示用户中心UI
      */
     public void showUserCenterUI() {
-        WAUserProxy.showUserCenterNoticeUI(this, new WACallback<WAUserCenterResult>() {
+        WAUserProxy.showUserCenterNoticeUI(this, new WACallback<WAShortUrlResult>() {
             @Override
-            public void onSuccess(int code, String message, WAUserCenterResult result) {
+            public void onSuccess(int code, String message, WAShortUrlResult result) {
                 // 此方法不会被调用
             }
 
@@ -67,7 +91,7 @@ public class UserCenterActivity extends BaseGridActivity {
             }
 
             @Override
-            public void onError(int code, String message, WAUserCenterResult result, Throwable throwable) {
+            public void onError(int code, String message, WAShortUrlResult result, Throwable throwable) {
                 showShortToast(message);
             }
         });

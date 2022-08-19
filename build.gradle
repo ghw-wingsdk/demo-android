@@ -38,6 +38,6 @@ allprojects {
             url repositoryUrl
             println("RepositoryUrl:$repositoryUrl")
         }
-        maven { url "https://chartboostmobile.bintray.com/Chartboost" }
+//        maven { url "https://chartboostmobile.bintray.com/Chartboost" }
     }
 }

@@ -61,3 +61,23 @@
 
 # Twitter
 -keep class com.twitter.sdk.android.** { *; }
+
+#AiHelp
+-keep class net.aihelp.** {*;}
+
+#Huawei HMS
+-ignorewarnings
+-keepattributes *Annotation*
+-keepattributes Exceptions
+-keepattributes InnerClasses
+-keepattributes Signature
+-keepattributes SourceFile,LineNumberTable
+-keep class com.huawei.updatesdk.**{*;}
+-keep class com.huawei.hms.**{*;}
+-keep class com.hianalytics.android.**{*;}
+-keep class com.huawei.agconnect.**{*;}
+-dontwarn com.huawei.agconnect.**
+-keep interface com.huawei.hms.analytics.type.HAEventType{*;}
+-keep interface com.huawei.hms.analytics.type.HAParamType{*;}
+-keepattributes Exceptions, Signature, InnerClasses, LineNumberTable
+-keep class com.huawei.hianalytics.**{*;}

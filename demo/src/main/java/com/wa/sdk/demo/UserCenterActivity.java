@@ -13,7 +13,7 @@ import com.wa.sdk.user.WAUserProxy;
 import com.wa.sdk.user.model.WAShortUrlResult;
 
 public class UserCenterActivity extends BaseGridActivity {
-    private static final String TAG = "UserCenterActivity";
+    private static final String TAG = "WA_UserCenterActivity";
 
     @Override
     protected void initViews() {
@@ -38,9 +38,12 @@ public class UserCenterActivity extends BaseGridActivity {
      * 获取用户中心数据
      */
     public void getUserCenterData() {
+        if (!isLoginAndTips()) return;
+        showLoadingDialog("请求中...",false,false,null);
         WAUserProxy.getUserCenterNotice(this, new WACallback<WAShortUrlResult>() {
             @Override
             public void onSuccess(int code, String message, WAShortUrlResult result) {
+                dismissLoadingDialog();
                 String msg = "信息：" + result.getInfo()
                         + "\nUID：" + result.getUid()
                         + "\nCharacterID：" + result.getCharacterId()
@@ -60,11 +63,12 @@ public class UserCenterActivity extends BaseGridActivity {
 
             @Override
             public void onCancel() {
-
+                dismissLoadingDialog();
             }
 
             @Override
             public void onError(int code, String message, WAShortUrlResult result, Throwable throwable) {
+                dismissLoadingDialog();
                 String msg = "短链获取失败：" + code + "  " + message;
                 new AlertDialog.Builder(UserCenterActivity.this)
                         .setTitle("失败")
@@ -79,6 +83,7 @@ public class UserCenterActivity extends BaseGridActivity {
      * 显示用户中心UI
      */
     public void showUserCenterUI() {
+        if (!isLoginAndTips()) return;
         WAUserProxy.showUserCenterNoticeUI(this, new WACallback<WAShortUrlResult>() {
             @Override
             public void onSuccess(int code, String message, WAShortUrlResult result) {

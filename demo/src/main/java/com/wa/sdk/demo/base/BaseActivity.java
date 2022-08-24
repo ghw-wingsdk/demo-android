@@ -1,6 +1,8 @@
 package com.wa.sdk.demo.base;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,8 +14,10 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.wa.sdk.core.WASdkProperties;
+import com.wa.sdk.demo.LoginActivity;
+import com.wa.sdk.demo.R;
 import com.wa.sdk.demo.widget.LoadingDialog;
-import com.wa.sdk.track.WATrackProxy;
 
 
 /**
@@ -276,5 +280,33 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
                     | View.SYSTEM_UI_FLAG_FULLSCREEN;
         }
         getWindow().getDecorView().setSystemUiVisibility(flags);
+    }
+
+    protected boolean isLoginAndTips() {
+        boolean isLogin = WASdkProperties.getInstance().isLogin();
+        if (!isLogin)
+            showLoginTips();
+        return isLogin;
+    }
+
+    protected void showLoginTips(){
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.warming)
+                .setMessage(R.string.not_login_yet)
+                .setPositiveButton(R.string.login_now, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(BaseActivity.this, LoginActivity.class);
+                        intent.putExtra("auto_finish", true);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                })
+                .show();
     }
 }

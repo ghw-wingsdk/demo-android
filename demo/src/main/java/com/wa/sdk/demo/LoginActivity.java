@@ -2,11 +2,14 @@ package com.wa.sdk.demo;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import androidx.annotation.NonNull;
 
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.common.WACommonProxy;
@@ -29,6 +32,7 @@ import org.json.JSONObject;
 public class LoginActivity extends BaseActivity {
 
     private TitleBar mTitlebar;
+    private EditText mEdtServerId;
 
     private WASharedPrefHelper mSharedPrefHelper;
 
@@ -164,6 +168,8 @@ public class LoginActivity extends BaseActivity {
         });
         mTitlebar.setTitleTextColor(R.color.color_white);
 
+        mEdtServerId = findViewById(R.id.edt_server_id);
+
         ToggleButton loginFlowType = (ToggleButton) findViewById(R.id.tbtn_login_flow_type);
         int flowType = WASdkDemo.getInstance().getLoginFlowType();
         WAUserProxy.setLoginFlowType(flowType);
@@ -217,25 +223,26 @@ public class LoginActivity extends BaseActivity {
                         + "\nisFistLogin: " + result.isFirstLogin();
 
                 // 数据收集
-                //qa
-                WACoreProxy.setServerId("server2");
-//                WACoreProxy.setGameUserId("server2-role1-59473005");
-//                WACoreProxy.setNickname("wing_test");
-                //pre
-                WACoreProxy.setServerId("server2");
-                WACoreProxy.setGameUserId("server2-role1-"+result.getUserId());
-                WACoreProxy.setNickname("青铜server2-"+result.getUserId());
+                String txServerId = mEdtServerId.getText().toString();
+                String serverId = TextUtils.isEmpty(txServerId) ? "server2" : "server" + txServerId;
+                String gameUserId = serverId + "-role1-" + result.getUserId();
+                String nickname = "青铜" + serverId + "-" + result.getUserId();
+
+                WACoreProxy.setServerId(serverId);
+                WACoreProxy.setGameUserId(gameUserId);
+                WACoreProxy.setNickname(nickname);
 
 //                WAEvent event = new WAEvent.Builder()
 //                        .setDefaultEventName(WAEventType.LOGIN)
 //                        .addDefaultEventValue(WAEventParameterName.LEVEL, 140)
 //                        .build();
 //                event.track(LoginActivity.this);
-
+                LogUtil.i(WAConstants.TAG, "区服：" + serverId + " ; 角色ID：" + gameUserId + " ; 角色名称：" + nickname);
                 mTitlebar.setTitleText("登录(" + result.getPlatform() + ")");
+                mEdtServerId.clearFocus();
             }
 
-            LogUtil.i(LogUtil.TAG, text);
+            LogUtil.i(WAConstants.TAG, text);
             Toast.makeText(LoginActivity.this, text, Toast.LENGTH_LONG).show();
             cancelLoadingDialog();
 

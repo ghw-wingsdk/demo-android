@@ -19,12 +19,12 @@ android {
         minSdkVersion 19
         targetSdkVersion 31
         versionCode 28
-        versionName "3.10.0"
+        versionName "3.10.1"
         signingConfig signingConfigs.config
         multiDexEnabled true
 
         //华为多语种设置
-        resConfigs "en", "zh-rCN", "pt-rBR"
+        resConfigs "en", "zh-rCN", "pt-rBR", "es-rES", "in-rID", "ru", "th-rTH", "zh-rHK", "zh-rTW"
     }
 
     buildTypes {
@@ -115,7 +115,7 @@ dependencies {
     // 基础模块（必选）
     implementation 'com.wa.sdk:wa-sdk-base:3.10.0'
     // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:3.10.0'
+    implementation 'com.wa.sdk:wa-sdk-core:3.10.1'
 //    // AppsFlyer模块（可选）
     implementation 'com.wa.sdk:wa-sdk-appsflyer:3.9.7'
 //    // Chartboost模块（可选）

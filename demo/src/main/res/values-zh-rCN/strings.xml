@@ -240,5 +240,5 @@
     <string name="apk_info">APK信息</string>
     <string name="no_function">暂无功能</string>
     <string name="temp_test">临时测试</string>
-
+    <string name="request_notificaton_permission">通知权限</string>
 </resources>

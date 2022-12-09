@@ -243,7 +243,7 @@ public class LoginActivity extends BaseActivity {
             }
 
             LogUtil.i(WAConstants.TAG, text);
-            Toast.makeText(LoginActivity.this, text, Toast.LENGTH_LONG).show();
+            showLongToast(text);
             cancelLoadingDialog();
 
             WASdkDemo.getInstance().updateLoginAccount(result);
@@ -259,7 +259,7 @@ public class LoginActivity extends BaseActivity {
         public void onCancel() {
             cancelLoadingDialog();
             LogUtil.i(LogUtil.TAG, "Login canceled");
-            Toast.makeText(LoginActivity.this, "Login canceled", Toast.LENGTH_LONG).show();
+            showLongToast("Login canceled");
         }
 
         @Override
@@ -267,7 +267,7 @@ public class LoginActivity extends BaseActivity {
             cancelLoadingDialog();
             String text = "code:" + code + "\nmessage:" + message;
             LogUtil.i(LogUtil.TAG, "Login failed->" + text);
-            Toast.makeText(LoginActivity.this, "Login failed->" + text, Toast.LENGTH_LONG).show();
+            showLongToast("Login failed->" + text);
         }
     };
 
@@ -373,7 +373,7 @@ public class LoginActivity extends BaseActivity {
      * 登出点击
      */
     public void logout() {
-        Toast.makeText(getApplicationContext(), "Logout", Toast.LENGTH_LONG).show();
+        showLongToast("Logout");
         WAUserProxy.logout();
         mTitlebar.setTitleText("登录");
         WASdkDemo.getInstance().logout();

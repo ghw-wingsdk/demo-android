@@ -1,5 +1,8 @@
 <resources>
 
+    <!--  调整Demo的Snackbar显示行数  -->
+    <integer name="design_snackbar_text_max_lines">10</integer>
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->

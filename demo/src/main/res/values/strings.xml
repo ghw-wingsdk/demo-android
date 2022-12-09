@@ -250,5 +250,5 @@
     <string name="apk_info">Apk Info</string>
     <string name="no_function">No Function</string>
     <string name="temp_test">Temp Test</string>
-
+    <string name="request_notificaton_permission">Notificaton Permission</string>
 </resources>

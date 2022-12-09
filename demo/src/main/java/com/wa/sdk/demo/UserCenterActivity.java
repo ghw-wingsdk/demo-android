@@ -13,7 +13,7 @@ import com.wa.sdk.user.WAUserProxy;
 import com.wa.sdk.user.model.WAShortUrlResult;
 
 public class UserCenterActivity extends BaseGridActivity {
-    private static final String TAG = "WA_UserCenterActivity";
+    private static final String TAG = "UserCenterActivity";
 
     @Override
     protected void initViews() {
@@ -56,7 +56,7 @@ public class UserCenterActivity extends BaseGridActivity {
                             ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                             ClipData clip = ClipData.newPlainText("text", result.getCharacterId());
                             clipboard.setPrimaryClip(clip);
-                            Toast.makeText(UserCenterActivity.this,"复制成功:"+result.getCharacterId(),Toast.LENGTH_SHORT).show();
+                            showShortToast("复制成功:"+result.getCharacterId());
                         })
                         .show();
             }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -104,9 +105,9 @@ public class AccountManagerActivity extends BaseActivity {
                                 + "\nuserId:" + currentAccount.getUserId()
                                 + "\ntoken:" + currentAccount.getToken()
                                 + "\nplatformUserId:" + currentAccount.getPlatformUserId()
+                                + "\nplatformToken:" + currentAccount.getPlatformToken()
                                 + "\nisBindAccount: " + currentAccount.getIsBindAccount()
-                                + "\nisGuestAccount: " + currentAccount.getIsGuestAccount()
-                                + "\nplatformToken:" + currentAccount.getPlatformToken();
+                                + "\nisGuestAccount: " + currentAccount.getIsGuestAccount();
 
                         LogUtil.i(LogUtil.TAG, text);
                         showLongToast(text);
@@ -142,7 +143,7 @@ public class AccountManagerActivity extends BaseActivity {
                                 .append("platformToken: ")
                                 .append(result.getAccessToken());
 
-                        LogUtil.i(LogUtil.TAG, sb.toString());
+                        Log.d(WAConstants.TAG,sb.toString());
                         showShortToast(sb.toString());
 
                         if(binding && WACallback.CODE_SUCCESS == result.getCode()) {
@@ -244,7 +245,7 @@ public class AccountManagerActivity extends BaseActivity {
                             @Override
                             public void onSuccess(int code, String message, WABindResult result) {
                                 cancelLoadingDialog();
-                                Toast.makeText(AccountManagerActivity.this, "Binding account success: " + result.getMessage(), Toast.LENGTH_LONG).show();
+                                showLongToast("Binding account success: " + result.getMessage());
                                 if(WAConstants.CHANNEL_FACEBOOK.equals(result.getPlatform())) {
                                     WASocialProxy.inviteInstallReward(AccountManagerActivity.this, WAConstants.CHANNEL_FACEBOOK, new WACallback<WAResult>() {
                                         @Override
@@ -269,14 +270,13 @@ public class AccountManagerActivity extends BaseActivity {
                             @Override
                             public void onCancel() {
                                 cancelLoadingDialog();
-                                Toast.makeText(AccountManagerActivity.this, "Binding canceled", Toast.LENGTH_LONG).show();
+                                showLongToast("Binding canceled");
                             }
 
                             @Override
                             public void onError(int code, String message, WABindResult result, Throwable throwable) {
                                 cancelLoadingDialog();
-                                Toast.makeText(AccountManagerActivity.this, "Binding error: " + message + "->"
-                                        + (null == throwable ? "" : throwable), Toast.LENGTH_LONG).show();
+                                showLongToast("Binding error: " + message + "->" + (null == throwable ? "" : throwable));
                             }
                         });
                     }
@@ -399,8 +399,7 @@ public class AccountManagerActivity extends BaseActivity {
             @Override
             public void onError(int code, String message, WAAccountResult result, Throwable throwable) {
                 cancelLoadingDialog();
-                Toast.makeText(AccountManagerActivity.this, "Query bound account error: " + message + "->"
-                        + (null == throwable ? "" : throwable), Toast.LENGTH_LONG).show();
+                showLongToast("Query bound account error: " + message + "->" + (null == throwable ? "" : throwable));
             }
         });
     }
@@ -460,14 +459,13 @@ public class AccountManagerActivity extends BaseActivity {
                             @Override
                             public void onCancel() {
                                 cancelLoadingDialog();
-                                Toast.makeText(AccountManagerActivity.this, "Cancel to login with google", Toast.LENGTH_LONG).show();
+                                showLongToast("Cancel to login with google");
                             }
 
                             @Override
                             public void onError(int code, String message, WALoginResult result, Throwable throwable) {
                                 cancelLoadingDialog();
-                                Toast.makeText(AccountManagerActivity.this, message + "\n"
-                                        + (null == throwable ? "" : throwable.getMessage()), Toast.LENGTH_LONG).show();
+                                showLongToast(message + "\n" + (null == throwable ? "" : throwable.getMessage()));
                             }
                         });
                     }

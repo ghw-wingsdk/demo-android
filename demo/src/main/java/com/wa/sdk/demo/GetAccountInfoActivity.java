@@ -147,14 +147,13 @@ public class GetAccountInfoActivity extends BaseActivity {
                             @Override
                             public void onCancel() {
                                 cancelLoadingDialog();
-                                Toast.makeText(GetAccountInfoActivity.this, "Cancel to login with google", Toast.LENGTH_LONG).show();
+                                showLongToast("Cancel to login with google");
                             }
 
                             @Override
                             public void onError(int code, String message, WALoginResult result, Throwable throwable) {
                                 cancelLoadingDialog();
-                                Toast.makeText(GetAccountInfoActivity.this, message + "\n"
-                                        + (null == throwable ? "" : throwable.getMessage()), Toast.LENGTH_LONG).show();
+                                showLongToast(message + "\n" + (null == throwable ? "" : throwable.getMessage()));
                             }
                         });
                     }

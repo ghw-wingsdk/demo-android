@@ -140,6 +140,34 @@
                         android:text="@string/instagram_login" />
 
                     <Button
+                        android:id="@+id/btn_huawei_hms_login"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:onClick="onClick"
+                        android:text="@string/huaweihms_login" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <Button
+                        android:id="@+id/btn_ghg_integration_login"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:onClick="onClick"
+                        android:text="@string/ghg_integration_login" />
+
+                    <Button
                         android:id="@+id/btn_login_form"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -155,17 +183,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     android:weightSum="2">
 
                     <Button
-                        android:id="@+id/btn_huawei_hms_login"
+                        android:id="@+id/btn_r2_integration_login"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
                         android:layout_marginRight="5dp"
                         android:layout_weight="1"
                         android:onClick="onClick"
-                        android:text="@string/huaweihms_login" />
+                        android:text="@string/r2_integration_login" />
 
                     <Button
                         android:layout_width="0dp"

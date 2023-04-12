@@ -49,7 +49,7 @@ public class AccountManagerActivity extends BaseActivity {
 
     private TitleBar mTitlebar;
 
-    private String [] mAccountTypeArray = new String [] {"Facebook", "Google", "VK", "Twitter", "Instagram"};
+    private String [] mAccountTypeArray = new String [] {"Facebook", "Google", "VK", "Twitter", "Instagram","GHG","R2"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,12 +127,10 @@ public class AccountManagerActivity extends BaseActivity {
                     public void onBoundAccountChanged(boolean binding, final WABindResult result) {
                         final StringBuilder sb = new StringBuilder();
 
-                        sb.append("-------onBoundAccountChanged------\n")
-                                .append(binding ? "Bind Account" : "Unbind Account")
-                                .append("\n")
-                                .append("code: " + result.getCode())
-                                .append("\n")
-                                .append("message: " + result.getMessage())
+                        sb.append("onBoundAccountChanged 回调：")
+                                .append(binding ? "账号绑定" : "账号解绑")
+                                .append("\n").append("code: ").append(result.getCode())
+                                .append("\n").append("message: ").append(result.getMessage())
                                 .append("\n")
                                 .append("platform: ")
                                 .append(result.getPlatform())
@@ -143,7 +141,7 @@ public class AccountManagerActivity extends BaseActivity {
                                 .append("platformToken: ")
                                 .append(result.getAccessToken());
 
-                        Log.d(WAConstants.TAG,sb.toString());
+                        Log.i(WAConstants.TAG,sb.toString());
                         showShortToast(sb.toString());
 
                         if(binding && WACallback.CODE_SUCCESS == result.getCode()) {
@@ -219,6 +217,12 @@ public class AccountManagerActivity extends BaseActivity {
                             case 4:
                                 platform = WAConstants.CHANNEL_INSTAGRAM;
                                 break;
+                            case 5:
+                                platform = WAConstants.CHANNEL_GHG;
+                                break;
+                            case 6:
+                                platform = WAConstants.CHANNEL_R2;
+                                break;
                             default:
                                 break;
                         }
@@ -245,7 +249,14 @@ public class AccountManagerActivity extends BaseActivity {
                             @Override
                             public void onSuccess(int code, String message, WABindResult result) {
                                 cancelLoadingDialog();
-                                showLongToast("Binding account success: " + result.getMessage());
+                                String msg = "绑定成功:"
+                                        +"\ncode:"+result.getCode()
+                                        +"\nmessage:"+result.getMessage()
+                                        +"\nplatform:"+result.getPlatform()
+                                        +"\naccess_token:"+result.getAccessToken()
+                                        +"\nplatform_uid:"+result.getPlatformUserId();
+                                showLongToast(msg);
+                                Log.i(WAConstants.TAG, msg);
                                 if(WAConstants.CHANNEL_FACEBOOK.equals(result.getPlatform())) {
                                     WASocialProxy.inviteInstallReward(AccountManagerActivity.this, WAConstants.CHANNEL_FACEBOOK, new WACallback<WAResult>() {
                                         @Override
@@ -270,13 +281,17 @@ public class AccountManagerActivity extends BaseActivity {
                             @Override
                             public void onCancel() {
                                 cancelLoadingDialog();
-                                showLongToast("Binding canceled");
+                                String msg = "Binding canceled";
+                                showLongToast(msg);
+                                Log.i(WAConstants.TAG, msg);
                             }
 
                             @Override
                             public void onError(int code, String message, WABindResult result, Throwable throwable) {
                                 cancelLoadingDialog();
-                                showLongToast("Binding error: " + message + "->" + (null == throwable ? "" : throwable));
+                                String msg = "Binding error: " + message + "->" + (null == throwable ? "" : throwable);
+                                showLongToast(msg);
+                                Log.i(WAConstants.TAG, msg);
                             }
                         });
                     }

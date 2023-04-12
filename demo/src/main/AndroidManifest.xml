@@ -20,16 +20,11 @@
         <activity
             android:name=".PermissionActivity"
             android:exported="false" />
-        <meta-data
-            android:name="apms_debug_log_enabled"
-            android:value="true" />
-
         <activity
             android:name=".MainActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:exported="true"
             android:label="@string/app_name">
-            <!--android:screenOrientation="landscape"-->
             <!--android:launchMode="singleTask"-->
             <intent-filter>
                 <action android:name="com.wa.sdk.push.MAIN_ACTIVITY" />
@@ -231,6 +226,9 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="@string/facebook_client_token" />
         <!-- 开启/关闭 Facebook数据收集功能，默认关闭，使用默认配置可不配置此项 -->
         <meta-data
             android:name="com.wa.sdk.track.ENABLE_FACEBOOK"
@@ -253,10 +251,6 @@
         <meta-data
             android:name="com.google.android.gms.games.APP_ID"
             android:value="@string/google_game_app_id" />
-        <!--<activity-->
-        <!--android:name="com.facebook.FacebookActivity"-->
-        <!--android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation" />-->
-
         <!-- Twitter Start -->
         <!-- Consumer Key (API Key)	XVyoEoCH5DnZEfJ911arzF0kV
 Consumer Secret (API Secret)	uLAjbYQ37mcM7xonFPX4y8VBeTHhOaXntYpPEqHp2mJCnDJxK5-->
@@ -336,6 +330,9 @@ Consumer Secret (API Secret)	mQxNdMLMpvWXNR2tJZ9qblHxct7YI3thgYMvxWnA5Tq71py4Ni-
         <meta-data
             android:name="com.wa.sdk.track.ENABLE_FIREBASE"
             android:value="true" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/color_wa_push_notification" />
     </application>
 
 </manifest>

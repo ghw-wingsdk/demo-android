@@ -1,6 +1,7 @@
 package com.wa.sdk.demo;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,6 +13,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.model.WAPermissionCallback;
 import com.wa.sdk.demo.base.BaseActivity;
@@ -37,7 +39,7 @@ public class PermissionActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_request_permission:
-                testRequestPermission();
+                callNotificationPermission(this);
                 break;
             case R.id.btn_notification_permission:
                 testNotificationPermission();
@@ -77,30 +79,6 @@ public class PermissionActivity extends BaseActivity {
             dialog.show();
         }
     }
-
-    private void testRequestPermission() {
-        WACommonProxy.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE, true,
-                "电话权限被拒，为了方便用户查找通讯录好友，请开启该权限",
-                "权限申请:READ_PHONE_STATE 被拒，请到设置中开启该权限。", new WAPermissionCallback() {
-                    @Override
-                    public void onCancel() {
-                        showShortToast("check permission canceled");
-                    }
-
-                    @Override
-                    public void onRequestPermissionResult(String[] permissions, boolean[] grantedResults) {
-                        String msg = "Request permission result:\n";
-                        if (permissions.length > 0) {
-                            for (int i = 0; i < permissions.length; i++) {
-                                msg += permissions[i] + "--" + (grantedResults[i] ? "granted" : "denied");
-                            }
-                        }
-                        showShortToast(msg);
-                        Log.d("zii-", "onRequestPermissionResult: "+msg);
-                    }
-                });
-    }
-
 
     private void testPermissionNative() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
@@ -156,6 +134,39 @@ public class PermissionActivity extends BaseActivity {
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         WACommonProxy.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+    }
+
+    public static void callNotificationPermission(Activity activity) {
+        if (Build.VERSION.SDK_INT >= 33) {
+            WACommonProxy.checkSelfPermission(activity, Manifest.permission.POST_NOTIFICATIONS, true,
+                    "通知权限被拒，为了您方便接收礼包推送消息，请开启通知权限",
+                    "测试权限申请:POST_NOTIFICATIONS，已经被拒绝，请到设置中开启该权限。", new WAPermissionCallback() {
+                        @Override
+                        public void onCancel() {
+                            View view = activity.findViewById(android.R.id.content).getRootView();
+                            Snackbar.make(view,"check permission canceled",Snackbar.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onRequestPermissionResult(String[] permissions, boolean[] grantedResults) {
+                            String msg = "Request permission result:\n";
+                            if (permissions.length > 0) {
+                                for (int i = 0; i < permissions.length; i++) {
+                                    msg += permissions[i] + "--" + (grantedResults[i] ? "granted" : "denied");
+                                }
+                            }
+                            View view = activity.findViewById(android.R.id.content).getRootView();
+                            Snackbar.make(view,msg,Snackbar.LENGTH_SHORT).show();
+                            Log.d("zii-", "onRequestPermissionResult: "+msg);
+                        }
+                    });
+        }else {
+            //系统低于 Android 13 无需授权通知权限。应用默认开启通知
+            AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
+            dialog.setMessage("系统版本低于Android 13，无需授权通知权限");
+            dialog.setPositiveButton("确定", null);
+            dialog.show();
+        }
     }
 
 }

@@ -114,40 +114,6 @@
                     android:tag="true"/>
             </LinearLayout>
 
-
-            <TextView
-                android:visibility="invisible"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="10dip"
-                android:background="#FF00FFFF"
-                android:text="@string/fb_share_open_graph"
-                android:textColor="#FF232323"
-                android:textSize="16sp"/>
-            <LinearLayout
-                android:visibility="invisible"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp">
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/share_use_dialog"
-                    android:onClick="fbShareOpenGraph"
-                    android:tag="false"/>
-                <Button
-                    android:visibility="gone"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/share_use_api"
-                    android:onClick="fbShareOpenGraph"
-                    android:tag="true"/>
-            </LinearLayout>
-
         </LinearLayout>
 
     </ScrollView>

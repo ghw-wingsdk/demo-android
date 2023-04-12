@@ -2,7 +2,6 @@ package com.wa.sdk.demo;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,12 +15,10 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 
-import com.appsflyer.AppsFlyerLib;
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.ad.WAAdProxy;
 import com.wa.sdk.ad.model.WAAdCachedCallback;
@@ -33,7 +30,6 @@ import com.wa.sdk.common.model.WAPermissionCallback;
 import com.wa.sdk.common.model.WAResult;
 import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.common.utils.StringUtil;
-import com.wa.sdk.common.utils.ToastUtils;
 import com.wa.sdk.core.WACoreProxy;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.community.CommunityActivity;
@@ -103,6 +99,8 @@ public class MainActivity extends BaseActivity {
         WACoreProxy.setDebugMode(true);
         WACoreProxy.initialize(this);
 
+        PermissionActivity.callNotificationPermission(this);
+
         // Demo的初始化，跟SDK无关
         WASdkDemo.getInstance().initialize(this);
 
@@ -170,14 +168,6 @@ public class MainActivity extends BaseActivity {
 //        }
 
         showHashKey(this);
-
-//        startActivity(new Intent(this, SplashActivity.class));
-
-//        executeCommand("su");
-
-//        new WAEvent.Builder().setDefaultEventName("lv01")
-//                .build().track(this);
-
 
     }
 

@@ -15,4 +15,6 @@
     <color name="color_white_alpha_4c">#4CFFFFFF</color>
     <color name="color_white_alpha_cc">#CCFFFFFF</color>
 
+    <color name="color_wa_push_notification">#3F51B5</color>
+
 </resources>

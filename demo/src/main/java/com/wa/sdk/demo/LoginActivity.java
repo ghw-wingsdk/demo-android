@@ -148,6 +148,12 @@ public class LoginActivity extends BaseActivity {
                         mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_LOGIN_CACHE, false),
                         mLoginCallback);
                 break;
+            case R.id.btn_ghg_integration_login:
+                ghgIntegrationLogin();
+                break;
+            case R.id.btn_r2_integration_login:
+                r2IntegrationLogin();
+                break;
             case R.id.btn_clear_login_cache:
                 WAUserProxy.clearLoginCache();
                 showShortToast(R.string.clean_login_cache);
@@ -349,6 +355,22 @@ public class LoginActivity extends BaseActivity {
     public void huaweiHmsLogin() {
         showLoadingDialog("正在登录华为Hms", null);
         WAUserProxy.login(this, WAConstants.CHANNEL_HUAWEI_HMS, mLoginCallback, null);
+    }
+
+    /**
+     * GHG集成登录
+     */
+    private void ghgIntegrationLogin() {
+        showLoadingDialog("正在登录GHG", null);
+        WAUserProxy.login(this, WAConstants.CHANNEL_GHG, mLoginCallback, null);
+    }
+
+    /**
+     * GHG集成登录
+     */
+    private void r2IntegrationLogin() {
+        showLoadingDialog("正在登录R2", null);
+        WAUserProxy.login(this, WAConstants.CHANNEL_R2, mLoginCallback, null);
     }
 
     /**

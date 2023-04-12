@@ -10,6 +10,7 @@
     <!--<string name="facebook_app_id">470856513088794</string>-->
     <string name="facebook_app_id">1811388679079227</string>
     <string name="fb_login_protocol_scheme">fb1811388679079227</string>
+    <string name="facebook_client_token">ff0456ba68b2b0be071e28234001d20a</string>
 
     <!-- Google In-app billing public key -->
 <!--    3.9.0已不需要配置billing public key-->
@@ -81,6 +82,8 @@
     <string name="twitter_login">Twitter Login</string>
     <string name="instagram_login">Instagram Login</string>
     <string name="huaweihms_login">Huawei HMS Login</string>
+    <string name="ghg_integration_login">GHG Login</string>
+    <string name="r2_integration_login">R2 Login</string>
     <string name="login_form">Login Form</string>
     <string name="app_login">App Login</string>
     <string name="logout">Logout</string>
@@ -248,7 +251,6 @@
     <string name="get_user_center_data">Get userCenter data</string>
     <string name="show_user_center_ui">show userCenter ui</string>
     <string name="apk_info">Apk Info</string>
-    <string name="no_function">No Function</string>
     <string name="temp_test">Temp Test</string>
     <string name="request_notificaton_permission">Notificaton Permission</string>
 </resources>

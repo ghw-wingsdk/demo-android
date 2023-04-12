@@ -238,7 +238,8 @@
     <string name="get_user_center_data">获取用户中心数据</string>
     <string name="show_user_center_ui">打开用户中心界面</string>
     <string name="apk_info">APK信息</string>
-    <string name="no_function">暂无功能</string>
     <string name="temp_test">临时测试</string>
     <string name="request_notificaton_permission">通知权限</string>
+    <string name="ghg_integration_login">GHG 登录</string>
+    <string name="r2_integration_login">R2 登录</string>
 </resources>

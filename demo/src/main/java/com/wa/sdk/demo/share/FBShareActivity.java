@@ -25,9 +25,6 @@ import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.widget.TitleBar;
 import com.wa.sdk.social.WASocialProxy;
 import com.wa.sdk.social.model.WAShareLinkContent;
-import com.wa.sdk.social.model.WAShareOpenGraphAction;
-import com.wa.sdk.social.model.WAShareOpenGraphContent;
-import com.wa.sdk.social.model.WAShareOpenGraphObject;
 import com.wa.sdk.social.model.WASharePhoto;
 import com.wa.sdk.social.model.WASharePhotoContent;
 import com.wa.sdk.social.model.WAShareResult;
@@ -71,23 +68,21 @@ public class FBShareActivity extends BaseActivity {
         @Override
         public void onSuccess(int code, String message, WAShareResult result) {
 
-            LogUtil.i(TAG, "Code:" + code + "<> Message:" + message + "Result:" + result.toString());
-            Toast.makeText(FBShareActivity.this, "Code:" + code + "<> Message:" + message
-                    + "Result:" + result.toString(), Toast.LENGTH_LONG).show();
+            String msg = "Code:" + code + ", Message:" + message + ", Result:" + result.toString();
+            LogUtil.i(TAG, msg);
+            showLongToast(msg);
         }
 
         @Override
         public void onCancel() {
-            Toast.makeText(FBShareActivity.this, "FacebookShare canceled", Toast.LENGTH_LONG).show();
+            showLongToast("FacebookShare canceled");
         }
 
         @Override
         public void onError(int code, String message, WAShareResult result, Throwable throwable) {
-            String msg1 = "FacebookShare error: Code:" + code + "<>Message:"
-                    + message + (null == throwable ? "" : "<>Throwable:" + throwable.toString());
-            String msg2 = "FacebookShare error: Code:" + code + "<>Message:"
-                    + message + (null == throwable ? "" : "<>Throwable:" + LogUtil.getStackTrace(throwable));
-            Toast.makeText(FBShareActivity.this, msg1, Toast.LENGTH_LONG).show();
+            String msg2 = "FacebookShare error: Code:" + code + ", Message:"
+                    + message + (null == throwable ? "" : ", Throwable:" + LogUtil.getStackTrace(throwable));
+            showLongToast(msg2);
             LogUtil.e(TAG, msg2);
         }
     };
@@ -125,44 +120,6 @@ public class FBShareActivity extends BaseActivity {
     public void fbShareVideo(View view) {
         mShareWithApi = Boolean.valueOf((String) view.getTag());
         pickVideo();
-    }
-
-    /**
-     * 分享OpenGraph
-     *
-     * @param view
-     */
-    public void fbShareOpenGraph(View view) {
-        mShareWithApi = Boolean.valueOf((String) view.getTag());
-
-        // 构建一个OpenGraphObject对象
-        WAShareOpenGraphObject object = new WAShareOpenGraphObject.Builder()
-                .putString("og:type", "com_ghw_sdk:level")
-                .putString("og:title", "A Game of Thrones")
-                .putString("og:description", "In the frozen wastes to the north of Winterfell, sinister and supernatural forces are mustering.")
-//                .putString("books:isbn", "0-553-57340-3")
-                .putString("og:image", "http://pic.miercn.com/uploads/allimg/150907/85-150ZF92058.jpg")
-                .build();
-
-//        WASharePhoto photo = new WASharePhoto.Builder()
-//                .setBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
-//                .setUserGenerated(true)
-//                .build();
-
-        // 构建一个OpenGraphAction对象
-        WAShareOpenGraphAction action = new WAShareOpenGraphAction.Builder()
-                .setActionType("com_ghw_sdk:reach")
-                .putObject("level", object)
-//                .putPhoto("image", photo)
-                .build();
-
-        // 构建一个OpenGraphContent对象
-        WAShareOpenGraphContent content = new WAShareOpenGraphContent.Builder()
-                .setPreviewPropertyName("level")
-                .setAction(action)
-                .build();
-
-        WASocialProxy.share(this, WAConstants.CHANNEL_FACEBOOK, content, mShareWithApi, null, mShareCallback);
     }
 
     @Override

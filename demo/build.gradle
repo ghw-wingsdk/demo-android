@@ -18,8 +18,8 @@ android {
         applicationId "com.ghw.sdk2"
         minSdkVersion 19
         targetSdkVersion 33
-        versionCode 33
-        versionName "3.13.0"
+        versionCode 34
+        versionName "3.14.0"
         signingConfig signingConfigs.config
         multiDexEnabled true
 
@@ -115,9 +115,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
 
     // 基础模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-base:3.13.0'
+    implementation 'com.wa.sdk:wa-sdk-base:3.14.0'
     // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:3.13.0'
+    implementation 'com.wa.sdk:wa-sdk-core:3.14.0'
 //    // AppsFlyer模块（可选）
     implementation 'com.wa.sdk:wa-sdk-appsflyer:3.13.0'
 //    // Chartboost模块（可选）
@@ -125,7 +125,7 @@ dependencies {
     // Facebook模块（可选）
     implementation 'com.wa.sdk:wa-sdk-facebook:3.13.0'
     // Google模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-google:3.12.0'
+    implementation 'com.wa.sdk:wa-sdk-google:3.14.0'
     // Aptoide模块（可选）
     implementation 'com.wa.sdk:wa-sdk-aptoide:3.9.4'
 //    // VK模块（可选）
@@ -147,7 +147,7 @@ dependencies {
 //    wa 客服系统
     implementation 'com.wa.sdk:wa-sdk-aihelp:3.13.0'
     // 网页集成登录，GHG和R2
-    implementation 'com.wa.sdk:wa-sdk-weblogin:3.13.0'
+    implementation 'com.wa.sdk:wa-sdk-weblogin:3.14.0'
 //    华为 HMS
     implementation 'com.wa.sdk:wa-sdk-huaweihms:3.12.0'
 

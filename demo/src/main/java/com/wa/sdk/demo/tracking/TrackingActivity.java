@@ -52,14 +52,8 @@ public class TrackingActivity extends BaseActivity {
         });
         tb.setTitleText(R.string.tracking);
         tb.setTitleTextColor(R.color.color_white);
-
-//        WASharedPrefHelper sharedPrefHelper = WASharedPrefHelper.getInstance(this, WADemoConfig.SP_CONFIG_FILE_DEMO);
-//        if (sharedPrefHelper.getBoolean("enable_logcat", true)) {
-//            Logcat.enableLogcat(this);
-//        }
-//        if (sharedPrefHelper.getBoolean("enable_extend", true)) {
-//            GhwSdkExtend.showEntryFlowIcon(this);
-//        }
+        tb.setRightButtonTextColorResource(R.color.color_white);
+        tb.setRightButtonWithText("模拟", v -> startActivity(new Intent(this,TrackingSimulateActivity.class)));
     }
 
     private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {

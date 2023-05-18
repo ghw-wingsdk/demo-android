@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -41,6 +42,7 @@ import com.wa.sdk.demo.widget.TitleBar;
 import com.wa.sdk.pay.WAPayProxy;
 import com.wa.sdk.pay.model.WAPurchaseResult;
 import com.wa.sdk.user.WAUserProxy;
+import com.wa.sdk.user.model.WAGameReviewCallback;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -439,12 +441,11 @@ public class MainActivity extends BaseActivity {
                 WAUserProxy.openReview(this, new WACallback<Boolean>() {
                     @Override
                     public void onSuccess(int code, String message, Boolean result) {
-                        showShortToast("api调用流程已经完成，无法获取用户是否评分，是否弹出评分框,"+message);
+                        showShortToast("api调用流程已经完成，无法获取用户是否评分，是否弹出评分框," + message);
                     }
 
                     @Override
                     public void onCancel() {
-
                     }
 
                     @Override
@@ -474,8 +475,36 @@ public class MainActivity extends BaseActivity {
                         .setMessage(info)
                         .show();
                 break;
-            case R.id.btn_temp_test:
+            case R.id.btn_open_game_review:
+                WAUserProxy.openGameReview(this, new WAGameReviewCallback() {
+                    @Override
+                    public void onError(int code, String message) {
+                        String text = "打开游戏评价失败：" + code + "," + message;
+                        showShortToast(text);
+                        Log.d(WAConstants.TAG,text);
+                    }
 
+                    @Override
+                    public void onReject() {
+                        String text = "游戏评价结果：不，谢谢！";
+                        showShortToast(text);
+                        Log.d(WAConstants.TAG,text);
+                    }
+
+                    @Override
+                    public void onOpenAiHelp() {
+                        String text = "游戏评价结果：我要提意见";
+                        showShortToast(text);
+                        Log.d(WAConstants.TAG,text);
+                    }
+
+                    @Override
+                    public void onReviewComplete() {
+                        String text = "游戏评价结果：提交好评";
+                        showShortToast(text);
+                        Log.d(WAConstants.TAG,text);
+                    }
+                });
                 break;
             default:
                 break;

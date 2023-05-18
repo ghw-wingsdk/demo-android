@@ -18,8 +18,8 @@ android {
         applicationId "com.ghw.sdk2"
         minSdkVersion 19
         targetSdkVersion 33
-        versionCode 34
-        versionName "3.14.0"
+        versionCode 35
+        versionName "3.15.0"
         signingConfig signingConfigs.config
         multiDexEnabled true
 
@@ -78,7 +78,7 @@ android {
     // 打包自动生成名字
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
-            output.outputFileName = 'DemoSdk_imp_' + variant.productFlavors[0].name + "_" + ('true' == IS_TEST_REPOSITORY ?'测试仓库':'生产仓库') + '_v' + versionName + '_build' + getDate() + '.apk'
+            output.outputFileName = 'DemoSdk_imp_' + variant.productFlavors[0].name + "环境_" + ('true' == IS_TEST_REPOSITORY ?'测试仓库':'生产仓库') + '_build' + getDate() + '.apk'
         }
     }
 
@@ -115,17 +115,17 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
 
     // 基础模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-base:3.14.0'
+    implementation 'com.wa.sdk:wa-sdk-base:3.15.0'
     // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:3.14.0'
+    implementation 'com.wa.sdk:wa-sdk-core:3.15.0'
 //    // AppsFlyer模块（可选）
     implementation 'com.wa.sdk:wa-sdk-appsflyer:3.13.0'
 //    // Chartboost模块（可选）
     implementation 'com.wa.sdk:wa-sdk-chartboost:3.9.7'
     // Facebook模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-facebook:3.13.0'
+    implementation 'com.wa.sdk:wa-sdk-facebook:3.15.0'
     // Google模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-google:3.14.0'
+    implementation 'com.wa.sdk:wa-sdk-google:3.15.0'
     // Aptoide模块（可选）
     implementation 'com.wa.sdk:wa-sdk-aptoide:3.9.4'
 //    // VK模块（可选）
@@ -145,7 +145,7 @@ dependencies {
 //    wa hup模块
 //    implementation 'com.wa.sdk:wa-sdk-hup:3.8.0'
 //    wa 客服系统
-    implementation 'com.wa.sdk:wa-sdk-aihelp:3.13.0'
+    implementation 'com.wa.sdk:wa-sdk-aihelp:3.15.0'
     // 网页集成登录，GHG和R2
     implementation 'com.wa.sdk:wa-sdk-weblogin:3.14.0'
 //    华为 HMS

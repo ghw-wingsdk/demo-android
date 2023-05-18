@@ -385,14 +385,13 @@
                     android:text="@string/apk_info" />
 
                 <Button
-                    android:id="@+id/btn_temp_test"
+                    android:id="@+id/btn_open_game_review"
                     android:layout_width="0dp"
                     android:onClick="onClick"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
-                    android:text="@string/temp_test"
-                    android:visibility="gone" />
+                    android:text="@string/game_review"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

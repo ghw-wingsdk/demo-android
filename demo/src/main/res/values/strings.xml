@@ -22,8 +22,9 @@
     <string name="google_firebaseSenderId">15309153268</string>
 
     <!-- VK app id -->
-    <integer name="com_vk_sdk_AppId">5527303</integer>
-
+    <integer name="com_vk_sdk_AppId">
+        5527303
+    </integer>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="loading">Loading</string>
@@ -252,6 +253,6 @@
     <string name="get_user_center_data">Get userCenter data</string>
     <string name="show_user_center_ui">show userCenter ui</string>
     <string name="apk_info">Apk Info</string>
-    <string name="temp_test">Temp Test</string>
+    <string name="game_review">Open Game Review</string>
     <string name="request_notificaton_permission">Notificaton Permission</string>
 </resources>

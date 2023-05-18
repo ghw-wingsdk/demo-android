@@ -67,7 +67,10 @@
             android:name=".tracking.TrackingSendActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:label="@string/app_name" />
-
+        <activity
+            android:name=".tracking.TrackingSimulateActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/app_name" />
         <!-- Share -->
         <activity
             android:name=".share.ShareActivity"

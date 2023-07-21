@@ -52,6 +52,57 @@
                         android:layout_weight="1"
                         android:onClick="onClick"
                         android:text="@string/openAiHelp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_isOpenGameReviewAiHelp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="onClick"
+                        android:text="@string/isOpenGameReviewAiHelp" />
+
+                    <Button
+                        android:id="@+id/btn_openGameReviewAiHelp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="onClick"
+                        android:text="@string/openGameReviewAiHelp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_switch_language"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="onClick"
+                        android:text="切换语言" />
+
+                    <TextView
+                        android:id="@+id/tv_language"
+                        android:layout_width="0dp"
+                        android:padding="8dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="当前语言:默认"
+                        android:textColor="@color/wa_sdk_color_black_alpha_66"
+                        />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -102,31 +153,6 @@
                     android:gravity="center_vertical"
                     android:hint="当前自定义参数：空" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/btn_switch_language"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:onClick="onClick"
-                        android:text="切换语言" />
-
-                    <TextView
-                        android:id="@+id/tv_language"
-                        android:layout_width="0dp"
-                        android:padding="8dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="当前语言:默认"
-                        android:textColor="@color/wa_sdk_color_black_alpha_66"
-                        />
-
-                </LinearLayout>
             </LinearLayout>
         </ScrollView>
 

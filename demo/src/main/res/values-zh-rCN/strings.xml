@@ -42,7 +42,8 @@
     <string name="hot_update_check">热更新检查</string>
     <string name="update">更新</string>
     <string name="get_update_link">获取更新链接</string>
-    <string name="create_client_id">创建clientId</string>
+    <string name="create_client_id">设置clientId</string>
+    <string name="random_client_id">随机</string>
     <string name="open_review">打开评分</string>
 
     <!-- 数据收集 -->
@@ -63,6 +64,7 @@
     <string name="gg_login">Google登录</string>
     <string name="gg_logout">Google登出</string>
     <string name="anonymous_login">访客登录</string>
+    <string name="winga_login">WINGA登录</string>
     <string name="vk_login">VK登录</string>
     <string name="twitter_login">Twitter登录</string>
     <string name="instagram_login">Instagram登录</string>
@@ -242,4 +244,6 @@
     <string name="request_notificaton_permission">通知权限</string>
     <string name="ghg_integration_login">GHG 登录</string>
     <string name="r2_integration_login">R2 登录</string>
+    <string name="isOpenGameReviewAiHelp">是否开启游戏评价AiHelp</string>
+    <string name="openGameReviewAiHelp">调用openGameReview</string>
 </resources>

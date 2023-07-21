@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -120,10 +119,12 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.btn_gg_login:
                 googleLogin();
-//                aggLogin();
                 break;
             case R.id.btn_anonymous_login:
                 anonymousLogin();
+                break;
+            case R.id.btn_winga_login:
+                wingaLogin();
                 break;
             case R.id.btn_app_login:
                 appLogin();
@@ -272,7 +273,7 @@ public class LoginActivity extends BaseActivity {
         public void onError(int code, String message, WALoginResult result, Throwable throwable) {
             cancelLoadingDialog();
             String text = "code:" + code + "\nmessage:" + message;
-            LogUtil.i(LogUtil.TAG, "Login failed->" + text);
+            LogUtil.w(LogUtil.TAG, "Login failed->" + text);
             showLongToast("Login failed->" + text);
         }
     };
@@ -322,7 +323,7 @@ public class LoginActivity extends BaseActivity {
      */
     public void anonymousLogin() {
         showLoadingDialog("正在匿名登录", null);
-        WAUserProxy.login(this, WAConstants.CHANNEL_WA, mLoginCallback, null);
+        WAUserProxy.login(this, WAConstants.CHANNEL_GUEST, mLoginCallback, null);
     }
 
     /**
@@ -389,6 +390,11 @@ public class LoginActivity extends BaseActivity {
         showLoadingDialog("应用内登录", null);
         WAUserProxy.login(this, WAConstants.CHANNEL_WA, mLoginCallback, extObject.toString());
 //        WAUserProxy.login(this, "APPSELF", mLoginCallback, extObject.toString());
+    }
+
+    private void wingaLogin() {
+        showLoadingDialog("正在登录"+WAConstants.CHANNEL_WA, null);
+        WAUserProxy.login(this, WAConstants.CHANNEL_WA, mLoginCallback, null);
     }
 
     /**

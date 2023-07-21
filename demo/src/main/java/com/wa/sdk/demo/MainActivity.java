@@ -11,6 +11,7 @@ import android.content.pm.Signature;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -64,6 +65,8 @@ public class MainActivity extends BaseActivity {
     private PendingAction mPendingAction = PendingAction.NONE;
 
     private EditText mEtSkuId;
+    private EditText mEdtClientId;
+
     private boolean mPayInitialized = false;
     private Handler handler = new Handler() {
         @Override
@@ -315,82 +318,13 @@ public class MainActivity extends BaseActivity {
                 login(false);
                 break;
             case R.id.btn_account_manager:
-                if (WASdkDemo.getInstance().isLogin()) {
-                    accountManager();
-                } else {
-                    showLongToast("Not loginAccount! Please loginAccount first!");
-                    new AlertDialog.Builder(MainActivity.this)
-                            .setTitle(R.string.warming)
-                            .setMessage(R.string.not_login_yet)
-                            .setPositiveButton(R.string.login_now, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    mPendingAction = PendingAction.GO_ACCOUNT_MANAGER;
-                                    login(true);
-                                }
-                            })
-                            .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.cancel();
-                                }
-                            })
-                            .show();
-                }
+                openAccountManager();
                 break;
             case R.id.btn_pay:
                 payment();
                 break;
             case R.id.btn_static_pay:
-                if (!mPayInitialized) {
-                    showShortToast("Payment not initialize!");
-                    return;
-                }
-                final String skuId = mEtSkuId.getText().toString().trim();
-                if (StringUtil.isEmpty(skuId)) {
-                    showShortToast("Sku id is empty!");
-                    return;
-                }
-                WAPayProxy.payUI(this, skuId, "static payment", new WACallback<WAPurchaseResult>() {
-                    @Override
-                    public void onSuccess(int code, String message, WAPurchaseResult result) {
-                        LogUtil.d(TAG, "pay success");
-                        cancelLoadingDialog();
-                        showLongToast("Payment is successful.");
-                    }
-
-                    @Override
-                    public void onCancel() {
-                        LogUtil.d(TAG, "pay cancel");
-                        cancelLoadingDialog();
-                        showLongToast("Payment has been cancelled.");
-                    }
-
-                    @Override
-                    public void onError(int code, String message, WAPurchaseResult result, Throwable throwable) {
-                        LogUtil.d(TAG, "pay error");
-                        cancelLoadingDialog();
-                        if (WACallback.CODE_NOT_LOGIN == code) {
-                            new AlertDialog.Builder(MainActivity.this)
-                                    .setTitle(R.string.warming)
-                                    .setMessage(R.string.not_login_yet)
-                                    .setPositiveButton(R.string.login_now, new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            login(true);
-                                        }
-                                    })
-                                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.cancel();
-                                        }
-                                    })
-                                    .show();
-                        }
-                        showLongToast(StringUtil.isEmpty(message) ? "Billing service is not available at this moment." : message);
-                    }
-                });
+                staticPay();
                 break;
             case R.id.btn_tracking:
                 testTracking();
@@ -431,10 +365,18 @@ public class MainActivity extends BaseActivity {
             case R.id.btn_user_center:
                 startActivity(new Intent(this, UserCenterActivity.class));
                 break;
-            case R.id.btn_create_client_id:
+            case R.id.btn_random_client_id:
                 String clientId = UUID.randomUUID().toString().replaceAll("-", "");
-                WACoreProxy.setClientId(clientId);
-                showShortToast(clientId);
+                mEdtClientId.setText(clientId);
+                break;
+            case R.id.btn_create_client_id:
+                String strClientId = mEdtClientId.getText().toString();
+                if (TextUtils.isEmpty(strClientId)) {
+                    showShortToast("ClientId不能为空");
+                } else {
+                    WACoreProxy.setClientId(strClientId);
+                    showShortToast("Client设置成功：" + strClientId);
+                }
                 break;
             case R.id.btn_open_review:
                 //不管回掉结果是什么，都需要统一当成成功处理后续逻辑
@@ -476,39 +418,112 @@ public class MainActivity extends BaseActivity {
                         .show();
                 break;
             case R.id.btn_open_game_review:
-                WAUserProxy.openGameReview(this, new WAGameReviewCallback() {
-                    @Override
-                    public void onError(int code, String message) {
-                        String text = "打开游戏评价失败：" + code + "," + message;
-                        showShortToast(text);
-                        Log.d(WAConstants.TAG,text);
-                    }
-
-                    @Override
-                    public void onReject() {
-                        String text = "游戏评价结果：不，谢谢！";
-                        showShortToast(text);
-                        Log.d(WAConstants.TAG,text);
-                    }
-
-                    @Override
-                    public void onOpenAiHelp() {
-                        String text = "游戏评价结果：我要提意见";
-                        showShortToast(text);
-                        Log.d(WAConstants.TAG,text);
-                    }
-
-                    @Override
-                    public void onReviewComplete() {
-                        String text = "游戏评价结果：提交好评";
-                        showShortToast(text);
-                        Log.d(WAConstants.TAG,text);
-                    }
-                });
+                openGameReview();
                 break;
             default:
                 break;
         }
+    }
+
+    private void openAccountManager() {
+        if (WASdkDemo.getInstance().isLogin()) {
+            accountManager();
+        } else {
+            showLongToast("Not loginAccount! Please loginAccount first!");
+            new AlertDialog.Builder(MainActivity.this)
+                    .setTitle(R.string.warming)
+                    .setMessage(R.string.not_login_yet)
+                    .setPositiveButton(R.string.login_now, (dialog, which) -> {
+                        mPendingAction = PendingAction.GO_ACCOUNT_MANAGER;
+                        login(true);
+                    })
+                    .setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel())
+                    .show();
+        }
+    }
+
+    private void staticPay() {
+        if (!mPayInitialized) {
+            showShortToast("Payment not initialize!");
+            return;
+        }
+        final String skuId = mEtSkuId.getText().toString().trim();
+        if (StringUtil.isEmpty(skuId)) {
+            showShortToast("Sku id is empty!");
+            return;
+        }
+        WAPayProxy.payUI(this, skuId, "static payment", new WACallback<WAPurchaseResult>() {
+            @Override
+            public void onSuccess(int code, String message, WAPurchaseResult result) {
+                LogUtil.d(TAG, "pay success");
+                cancelLoadingDialog();
+                showLongToast("Payment is successful.");
+            }
+
+            @Override
+            public void onCancel() {
+                LogUtil.d(TAG, "pay cancel");
+                cancelLoadingDialog();
+                showLongToast("Payment has been cancelled.");
+            }
+
+            @Override
+            public void onError(int code, String message, WAPurchaseResult result, Throwable throwable) {
+                LogUtil.d(TAG, "pay error");
+                cancelLoadingDialog();
+                if (WACallback.CODE_NOT_LOGIN == code) {
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle(R.string.warming)
+                            .setMessage(R.string.not_login_yet)
+                            .setPositiveButton(R.string.login_now, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    login(true);
+                                }
+                            })
+                            .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            })
+                            .show();
+                }
+                showLongToast(StringUtil.isEmpty(message) ? "Billing service is not available at this moment." : message);
+            }
+        });
+    }
+
+    private void openGameReview() {
+        WAUserProxy.openGameReview(this, new WAGameReviewCallback() {
+            @Override
+            public void onError(int code, String message) {
+                String text = "打开游戏评价失败：" + code + "," + message;
+                showShortToast(text);
+                Log.d(WAConstants.TAG,text);
+            }
+
+            @Override
+            public void onReject() {
+                String text = "游戏评价结果：不，谢谢！";
+                showShortToast(text);
+                Log.d(WAConstants.TAG,text);
+            }
+
+            @Override
+            public void onOpenAiHelp() {
+                String text = "游戏评价结果：我要提意见";
+                showShortToast(text);
+                Log.d(WAConstants.TAG,text);
+            }
+
+            @Override
+            public void onReviewComplete() {
+                String text = "游戏评价结果：提交好评";
+                showShortToast(text);
+                Log.d(WAConstants.TAG,text);
+            }
+        });
     }
 
     private void payment() {
@@ -620,6 +635,8 @@ public class MainActivity extends BaseActivity {
         mEtSkuId = (EditText) findViewById(R.id.et_static_pay_sku_id);
         // FIXME 这里可以更改静态设置的购买商品id
         mEtSkuId.setText("123123");
+
+        mEdtClientId = findViewById(R.id.edt_client_id);
     }
 
     private CompoundButton.OnCheckedChangeListener mOnCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {

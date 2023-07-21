@@ -31,7 +31,16 @@ public class GetAccountInfoActivity extends BaseActivity {
     private TextView mTvId;
     private TextView mTvPlatform;
 
-    private String [] mAccountTypeArray = new String [] {"Facebook", "Google", "VK", "Twitter", "Instagram", };
+    private String [] mAccountTypeArray = new String [] {
+            WAConstants.CHANNEL_FACEBOOK,
+            WAConstants.CHANNEL_GOOGLE,
+            WAConstants.CHANNEL_VK,
+            WAConstants.CHANNEL_TWITTER,
+            WAConstants.CHANNEL_INSTAGRAM,
+            WAConstants.CHANNEL_GHG,
+            WAConstants.CHANNEL_R2,
+            WAConstants.CHANNEL_GUEST,
+            WAConstants.CHANNEL_WA};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,64 +108,42 @@ public class GetAccountInfoActivity extends BaseActivity {
     private void switchAccount() {
         new AlertDialog.Builder(this)
                 .setTitle("Choose account type")
-                .setItems(mAccountTypeArray, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String platform = WAConstants.CHANNEL_WA;
-                        switch (which) {
-                            case 0:
-                                platform = WAConstants.CHANNEL_FACEBOOK;
-                                break;
-                            case 1:
-                                platform = WAConstants.CHANNEL_GOOGLE;
-                                break;
-                            case 2:
-                                platform = WAConstants.CHANNEL_VK;
-                                break;
-                            case 3:
-                                platform = WAConstants.CHANNEL_TWITTER;
-                                break;
-                            case 4:
-                                platform = WAConstants.CHANNEL_INSTAGRAM;
-                                break;
-                            default:
-                                break;
+                .setItems(mAccountTypeArray, (dialog, which) -> {
+                    String platform = mAccountTypeArray[which];
+                    showLoadingDialog("Login", null);
+                    WAUserProxy.switchAccount(GetAccountInfoActivity.this, platform, new WACallback<WALoginResult>() {
+                        @Override
+                        public void onSuccess(int code, String message, WALoginResult result) {
+                            if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
+                                mLoadingDialog.dismiss();
+                            }
+                            if (null == result) {
+                                return;
+                            }
+                            String text = "code:" + code + "\nmessage:" + message;
+                            text = "Login success->" + text
+                                    + "\nplatform:" + result.getPlatform()
+                                    + "\nuserId:" + result.getUserId()
+                                    + "\ntoken:" + result.getToken()
+                                    + "\nplatformUserId:" + result.getPlatformUserId()
+                                    + "\nplatformToken:" + result.getPlatformToken();
+                            WASdkDemo.getInstance().updateLoginAccount(result);
+                            cancelLoadingDialog();
+                            showShortToast(text);
                         }
-                        showLoadingDialog("Login", null);
-                        WAUserProxy.switchAccount(GetAccountInfoActivity.this, platform, new WACallback<WALoginResult>() {
-                            @Override
-                            public void onSuccess(int code, String message, WALoginResult result) {
-                                if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
-                                    mLoadingDialog.dismiss();
-                                }
-                                if (null == result) {
-                                    return;
-                                }
-                                String text = "code:" + code + "\nmessage:" + message;
-                                text = "Login success->" + text
-                                        + "\nplatform:" + result.getPlatform()
-                                        + "\nuserId:" + result.getUserId()
-                                        + "\ntoken:" + result.getToken()
-                                        + "\nplatformUserId:" + result.getPlatformUserId()
-                                        + "\nplatformToken:" + result.getPlatformToken();
-                                WASdkDemo.getInstance().updateLoginAccount(result);
-                                cancelLoadingDialog();
-                                showShortToast(text);
-                            }
 
-                            @Override
-                            public void onCancel() {
-                                cancelLoadingDialog();
-                                showLongToast("Cancel to login with google");
-                            }
+                        @Override
+                        public void onCancel() {
+                            cancelLoadingDialog();
+                            showLongToast("Cancel to login with google");
+                        }
 
-                            @Override
-                            public void onError(int code, String message, WALoginResult result, Throwable throwable) {
-                                cancelLoadingDialog();
-                                showLongToast(message + "\n" + (null == throwable ? "" : throwable.getMessage()));
-                            }
-                        });
-                    }
+                        @Override
+                        public void onError(int code, String message, WALoginResult result, Throwable throwable) {
+                            cancelLoadingDialog();
+                            showLongToast(message + "\n" + (null == throwable ? "" : throwable.getMessage()));
+                        }
+                    });
                 })
                 .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override

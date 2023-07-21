@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources translatable="false">
     <string name="app_name">WASdkDemo</string>
 
     <string name="wa_custom_tab_scheme">waf7f9a9d18da611e5a0be000d3a906774</string>
@@ -9,9 +9,9 @@
 
     <!-- com.ghw.sdk2 -->
     <!--<string name="facebook_app_id">470856513088794</string>-->
-    <string name="facebook_app_id">1811388679079227</string>
-    <string name="fb_login_protocol_scheme">fb1811388679079227</string>
-    <string name="facebook_client_token">ff0456ba68b2b0be071e28234001d20a</string>
+    <string name="facebook_app_id">959864665060487</string>
+    <string name="fb_login_protocol_scheme">fb959864665060487</string>
+    <string name="facebook_client_token">507dae1af0c6e3e9ea59e798587e80b3</string>
 
     <!-- Google In-app billing public key -->
 <!--    3.9.0已不需要配置billing public key-->
@@ -59,7 +59,8 @@
     <string name="hot_update_check">Hot update check</string>
     <string name="update">Update</string>
     <string name="get_update_link">Get update link</string>
-    <string name="create_client_id">Create ClientId</string>
+    <string name="create_client_id">Set ClientId</string>
+    <string name="random_client_id">Random</string>
     <string name="open_review">Open review</string>
 
     <!-- 数据收集 -->
@@ -80,6 +81,7 @@
     <string name="gg_login">GG Login</string>
     <string name="gg_logout">GG Logout</string>
     <string name="anonymous_login">Visitor Login</string>
+    <string name="winga_login">WINGA Login</string>
     <string name="vk_login">VK Login</string>
     <string name="twitter_login">Twitter Login</string>
     <string name="instagram_login">Instagram Login</string>
@@ -241,6 +243,8 @@
     <string name="showFAQSection">showFAQSection</string>
     <string name="openAiHelp">Call openAiHelp</string>
     <string name="isOpenAiHelp">Is Open AiHelp</string>
+    <string name="openGameReviewAiHelp">Call openGameReviewAiHelp</string>
+    <string name="isOpenGameReviewAiHelp">Is Open GameReview AiHelp</string>
     <string name="switchAiHelpVip">Switch VIP</string>
 
     <!-- 隐私政策-->

@@ -18,8 +18,8 @@ android {
         applicationId "com.ghw.sdk2"
         minSdkVersion 19
         targetSdkVersion 33
-        versionCode 35
-        versionName "3.15.0"
+        versionCode 38
+        versionName "3.16.0"
         signingConfig signingConfigs.config
         multiDexEnabled true
 
@@ -115,9 +115,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
 
     // 基础模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-base:3.15.0'
+    implementation 'com.wa.sdk:wa-sdk-base:3.16.0'
     // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:3.15.0'
+    implementation 'com.wa.sdk:wa-sdk-core:3.16.0'
 //    // AppsFlyer模块（可选）
     implementation 'com.wa.sdk:wa-sdk-appsflyer:3.13.0'
 //    // Chartboost模块（可选）
@@ -125,13 +125,13 @@ dependencies {
     // Facebook模块（可选）
     implementation 'com.wa.sdk:wa-sdk-facebook:3.15.0'
     // Google模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-google:3.15.0'
+    implementation 'com.wa.sdk:wa-sdk-google:3.16.0'
     // Aptoide模块（可选）
     implementation 'com.wa.sdk:wa-sdk-aptoide:3.9.4'
 //    // VK模块（可选）
     implementation 'com.wa.sdk:wa-sdk-vk:3.9.0'
 //    // 网页支付模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-webpay:3.9.7'
+    implementation 'com.wa.sdk:wa-sdk-webpay:3.16.0'
 //    // 应用墙模块（可选）
     implementation 'com.wa.sdk:wa-sdk-apw:3.8.3'
 //    // 消息推送模块（可选）
@@ -145,7 +145,7 @@ dependencies {
 //    wa hup模块
 //    implementation 'com.wa.sdk:wa-sdk-hup:3.8.0'
 //    wa 客服系统
-    implementation 'com.wa.sdk:wa-sdk-aihelp:3.15.0'
+    implementation 'com.wa.sdk:wa-sdk-aihelp:3.16.0'
     // 网页集成登录，GHG和R2
     implementation 'com.wa.sdk:wa-sdk-weblogin:3.14.0'
 //    华为 HMS

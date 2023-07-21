@@ -142,7 +142,6 @@ public class PaymentActivity extends BaseActivity {
     public void onDestroy() {
         super.onDestroy();
         cancelLoadingDialog();
-        WAPayProxy.onDestroy();
     }
 
 

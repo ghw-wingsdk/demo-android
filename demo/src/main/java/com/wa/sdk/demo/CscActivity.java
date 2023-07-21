@@ -62,6 +62,13 @@ public class CscActivity extends BaseActivity {
             case R.id.btn_isOpenAiHelp:
                 showLongToast(WACscProxy.isOpenAiHelp() ? "已开启" : "未开启");
                 break;
+            case R.id.btn_isOpenGameReviewAiHelp:
+                showLongToast(WACscProxy.isOpenGameReviewAiHelp() ? "已开启" : "未开启");
+                break;
+            case R.id.btn_openGameReviewAiHelp:
+                if (WACscProxy.isOpenGameReviewAiHelp())
+                    WACscProxy.openGameReviewAiHelp();
+                break;
             case R.id.btn_add_custom_data: //添加自定义参数
                 addCustomParams();
                 break;

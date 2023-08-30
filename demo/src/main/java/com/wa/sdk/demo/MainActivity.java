@@ -1,6 +1,5 @@
 package com.wa.sdk.demo;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,8 +8,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -28,7 +25,6 @@ import com.wa.sdk.apw.WAApwProxy;
 import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.WASharedPrefHelper;
 import com.wa.sdk.common.model.WACallback;
-import com.wa.sdk.common.model.WAPermissionCallback;
 import com.wa.sdk.common.model.WAResult;
 import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.common.utils.StringUtil;
@@ -44,15 +40,10 @@ import com.wa.sdk.pay.WAPayProxy;
 import com.wa.sdk.pay.model.WAPurchaseResult;
 import com.wa.sdk.user.WAUserProxy;
 import com.wa.sdk.user.model.WAGameReviewCallback;
+import com.wa.sdk.user.model.WALoginResult;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
 
@@ -68,33 +59,6 @@ public class MainActivity extends BaseActivity {
     private EditText mEdtClientId;
 
     private boolean mPayInitialized = false;
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            WACommonProxy.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE, true,
-                    "如果您不允许WASdkDemo访问你的账户信息，您将无法使用Google登录",
-                    "WASdkDemo需要获取您的联系人信息来登录您的Google账号", new WAPermissionCallback() {
-                        @Override
-                        public void onCancel() {
-                            // TODO 取消授权
-                            showShortToast("check permission canceled");
-                        }
-
-                        @Override
-                        public void onRequestPermissionResult(String[] permissions, boolean[] grantedResults) {
-                            // TODO 处理授权结果，判断是否通过授权
-                            String msg = "Request permission result:\n";
-                            if (permissions.length > 0) {
-                                for (int i = 0; i < permissions.length; i++) {
-                                    msg += permissions[i] + "--" + (grantedResults[i] ? "granted" : "denied");
-                                }
-                            }
-                            showShortToast(msg);
-                        }
-                    });
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,9 +67,6 @@ public class MainActivity extends BaseActivity {
 
         WACoreProxy.setDebugMode(true);
         WACoreProxy.initialize(this);
-
-        PermissionActivity.callNotificationPermission(this);
-
         // Demo的初始化，跟SDK无关
         WASdkDemo.getInstance().initialize(this);
 
@@ -114,7 +75,6 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onSuccess(int code, String message, WAResult result) {
                 LogUtil.d(TAG, "WAPayProxy.initialize success");
-                showLongToast("PayUIActitivy:Payment is successful.");
                 mPayInitialized = true;
             }
 
@@ -173,37 +133,6 @@ public class MainActivity extends BaseActivity {
 //        }
 
         showHashKey(this);
-
-    }
-
-    public static ArrayList<String> executeCommand(String... shellCmd) {
-        String line = null;
-        ArrayList<String> fullResponse = new ArrayList<String>();
-        Process localProcess = null;
-        try {
-            LogUtil.i(LogUtil.TAG, "to shell exec which for find su :");
-            localProcess = Runtime.getRuntime().exec(shellCmd);
-        } catch (Exception e) {
-            return null;
-        }
-        BufferedWriter out = new BufferedWriter(new OutputStreamWriter(localProcess.getOutputStream()));
-        BufferedReader in = new BufferedReader(new InputStreamReader(localProcess.getInputStream()));
-        try {
-            while ((line = in.readLine()) != null) {
-                LogUtil.i(LogUtil.TAG, "–> Line received: " + line);
-                fullResponse.add(line);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                in.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        LogUtil.i(LogUtil.TAG, "–> Full response was: " + fullResponse);
-        return fullResponse;
     }
 
     @Override
@@ -312,7 +241,7 @@ public class MainActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_request_permission:
-                startActivity(new Intent(this,PermissionActivity.class));
+                startActivity(new Intent(this, PermissionActivity.class));
                 break;
             case R.id.btn_login:
                 login(false);
@@ -379,24 +308,10 @@ public class MainActivity extends BaseActivity {
                 }
                 break;
             case R.id.btn_open_review:
-                //不管回掉结果是什么，都需要统一当成成功处理后续逻辑
-                WAUserProxy.openReview(this, new WACallback<Boolean>() {
-                    @Override
-                    public void onSuccess(int code, String message, Boolean result) {
-                        showShortToast("api调用流程已经完成，无法获取用户是否评分，是否弹出评分框," + message);
-                    }
-
-                    @Override
-                    public void onCancel() {
-                    }
-
-                    @Override
-                    public void onError(int code, String message, Boolean result, Throwable throwable) {
-
-
-                    }
-                });
-
+                openReview();
+                break;
+            case R.id.btn_account_deletion:
+                startActivity(new Intent(MainActivity.this, UserDeletionActivity.class));
                 break;
             case R.id.btn_display_app_version_info:
                 //app 信息
@@ -425,20 +340,35 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    private void openReview() {
+        //不管回掉结果是什么，都需要统一当成成功处理后续逻辑
+        WAUserProxy.openReview(this, new WACallback<Boolean>() {
+            @Override
+            public void onSuccess(int code, String message, Boolean result) {
+                showShortToast("api调用流程已经完成，无法获取用户是否评分，是否弹出评分框," + message);
+            }
+
+            @Override
+            public void onCancel() {
+            }
+
+            @Override
+            public void onError(int code, String message, Boolean result, Throwable throwable) {
+
+
+            }
+        });
+    }
+
     private void openAccountManager() {
         if (WASdkDemo.getInstance().isLogin()) {
             accountManager();
         } else {
             showLongToast("Not loginAccount! Please loginAccount first!");
-            new AlertDialog.Builder(MainActivity.this)
-                    .setTitle(R.string.warming)
-                    .setMessage(R.string.not_login_yet)
-                    .setPositiveButton(R.string.login_now, (dialog, which) -> {
-                        mPendingAction = PendingAction.GO_ACCOUNT_MANAGER;
-                        login(true);
-                    })
-                    .setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel())
-                    .show();
+            new AlertDialog.Builder(MainActivity.this).setTitle(R.string.warming).setMessage(R.string.not_login_yet).setPositiveButton(R.string.login_now, (dialog, which) -> {
+                mPendingAction = PendingAction.GO_ACCOUNT_MANAGER;
+                login(true);
+            }).setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel()).show();
         }
     }
 
@@ -472,22 +402,17 @@ public class MainActivity extends BaseActivity {
                 LogUtil.d(TAG, "pay error");
                 cancelLoadingDialog();
                 if (WACallback.CODE_NOT_LOGIN == code) {
-                    new AlertDialog.Builder(MainActivity.this)
-                            .setTitle(R.string.warming)
-                            .setMessage(R.string.not_login_yet)
-                            .setPositiveButton(R.string.login_now, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    login(true);
-                                }
-                            })
-                            .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.cancel();
-                                }
-                            })
-                            .show();
+                    new AlertDialog.Builder(MainActivity.this).setTitle(R.string.warming).setMessage(R.string.not_login_yet).setPositiveButton(R.string.login_now, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            login(true);
+                        }
+                    }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    }).show();
                 }
                 showLongToast(StringUtil.isEmpty(message) ? "Billing service is not available at this moment." : message);
             }
@@ -500,28 +425,28 @@ public class MainActivity extends BaseActivity {
             public void onError(int code, String message) {
                 String text = "打开游戏评价失败：" + code + "," + message;
                 showShortToast(text);
-                Log.d(WAConstants.TAG,text);
+                Log.d(WAConstants.TAG, text);
             }
 
             @Override
             public void onReject() {
                 String text = "游戏评价结果：不，谢谢！";
                 showShortToast(text);
-                Log.d(WAConstants.TAG,text);
+                Log.d(WAConstants.TAG, text);
             }
 
             @Override
             public void onOpenAiHelp() {
                 String text = "游戏评价结果：我要提意见";
                 showShortToast(text);
-                Log.d(WAConstants.TAG,text);
+                Log.d(WAConstants.TAG, text);
             }
 
             @Override
             public void onReviewComplete() {
                 String text = "游戏评价结果：提交好评";
                 showShortToast(text);
-                Log.d(WAConstants.TAG,text);
+                Log.d(WAConstants.TAG, text);
             }
         });
     }
@@ -582,22 +507,17 @@ public class MainActivity extends BaseActivity {
      * 闪退测试
      */
     public void testCrash() {
-        new AlertDialog.Builder(this)
-                .setTitle(R.string.warming)
-                .setMessage(R.string.test_crash_warming)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Util.testCrash();
-                    }
-                })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+        new AlertDialog.Builder(this).setTitle(R.string.warming).setMessage(R.string.test_crash_warming).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Util.testCrash();
+            }
+        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
-                    }
-                })
-                .show();
+            }
+        }).show();
     }
 
     private void clearCampaign() {
@@ -607,7 +527,7 @@ public class MainActivity extends BaseActivity {
 
     private void initView() {
 
-        TitleBar tb = (TitleBar) findViewById(R.id.tb_main);
+        TitleBar tb = findViewById(R.id.tb_main);
         tb.setRightButton(android.R.drawable.ic_menu_close_clear_cancel, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -617,29 +537,29 @@ public class MainActivity extends BaseActivity {
         tb.setTitleText(R.string.app_name);
         tb.setTitleTextColor(R.color.color_white);
 
-        ToggleButton tbtnLogcat = (ToggleButton) findViewById(R.id.tbtn_logcat);
+        ToggleButton tbtnLogcat = findViewById(R.id.tbtn_logcat);
         boolean enableLogcat = mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_LOGCAT, true);
         tbtnLogcat.setChecked(enableLogcat);
         tbtnLogcat.setOnCheckedChangeListener(mOnCheckedChangeListener);
 
-        ToggleButton tbtnExtend = (ToggleButton) findViewById(R.id.tbtn_app_wall);
+        ToggleButton tbtnExtend = findViewById(R.id.tbtn_app_wall);
         boolean enableExtend = mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_APW, true);
         tbtnExtend.setChecked(enableExtend);
         tbtnExtend.setOnCheckedChangeListener(mOnCheckedChangeListener);
 
-        ToggleButton tbtnDebug = (ToggleButton) findViewById(R.id.tbtn_debug);
+        ToggleButton tbtnDebug = findViewById(R.id.tbtn_debug);
         boolean enableDebug = mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_DEBUG, true);
         tbtnDebug.setChecked(enableDebug);
         tbtnDebug.setOnCheckedChangeListener(mOnCheckedChangeListener);
 
-        mEtSkuId = (EditText) findViewById(R.id.et_static_pay_sku_id);
+        mEtSkuId = findViewById(R.id.et_static_pay_sku_id);
         // FIXME 这里可以更改静态设置的购买商品id
         mEtSkuId.setText("123123");
 
         mEdtClientId = findViewById(R.id.edt_client_id);
     }
 
-    private CompoundButton.OnCheckedChangeListener mOnCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
+    private final CompoundButton.OnCheckedChangeListener mOnCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             switch (buttonView.getId()) {
@@ -669,4 +589,26 @@ public class MainActivity extends BaseActivity {
 
         }
     };
+
+    private void loginGuest() {
+        WAUserProxy.login(MainActivity.this, WAConstants.CHANNEL_GUEST, new WACallback<WALoginResult>() {
+            @Override
+            public void onSuccess(int code, String message, WALoginResult result) {
+                showShortToast("游客登录成功:" + result.getUserId());
+                WASdkDemo.getInstance().updateLoginAccount(result);
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(int code, String message, WALoginResult result, Throwable throwable) {
+                if (code == WACallback.CODE_ACCOUNT_IN_DELETION_BUFFER_DAYS) {
+                    WASdkDemo.getInstance().updateLoginAccount(result);
+                }
+            }
+        }, null);
+    }
 }

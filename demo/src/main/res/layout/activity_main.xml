@@ -202,7 +202,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
-
                 <!--礼物功能已被废弃-->
                 <!--<Button-->
                 <!--android:id="@+id/btn_gifting"-->
@@ -214,7 +213,6 @@
                 <!--android:layout_weight="1"-->
                 <!--android:onClick="onClick"-->
                 <!--android:text="@string/gifting" />-->
-
                 <Button
                     android:id="@+id/btn_game_service"
                     android:layout_width="0dp"
@@ -292,7 +290,6 @@
                     android:layout_weight="1"
                     android:onClick="onClick"
                     android:text="@string/test_crash" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -323,7 +320,6 @@
                     android:onClick="onClick"
                     android:text="@string/privacy_and_cookie_policy"
                     android:visibility="visible" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -351,6 +347,47 @@
                     android:layout_weight="1"
                     android:onClick="onClick"
                     android:text="@string/open_review" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_account_deletion"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="@string/account_deletion" />
+
+                <Button
+                    android:id="@+id/btn_open_game_review"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="@string/game_review" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_display_app_version_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="@string/apk_info" />
             </LinearLayout>
 
             <LinearLayout
@@ -389,30 +426,6 @@
                     android:text="@string/create_client_id" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btn_display_app_version_info"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="@string/apk_info" />
-
-                <Button
-                    android:id="@+id/btn_open_game_review"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="@string/game_review"/>
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

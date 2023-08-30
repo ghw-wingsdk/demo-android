@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -32,6 +32,7 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
     protected int mContainerId = 0;
 
     protected LoadingDialog mLoadingDialog = null;
+    protected boolean mEnableToastLog = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +76,6 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
 
     /**
      * 入栈
-     *
      * @param fragment 入栈的Fragment
      */
     public void addFragmentToStack(Fragment fragment) {
@@ -90,7 +90,6 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
 
     /**
      * 带自定义动画的入栈
-     *
      * @param fragment
      * @param enter
      * @param exit
@@ -133,7 +132,6 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
 
     /**
      * 显示LoadingDialog
-     *
      * @param message
      * @param cancelable
      * @param canceledOnTouchOutside
@@ -153,7 +151,6 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
 
     /**
      * 显示LoadingDialog
-     *
      * @param message
      * @param cancelListener
      * @return
@@ -185,51 +182,50 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
 
     /**
      * 显示一个短Toast
-     *
      * @param text
      */
     protected void showShortToast(CharSequence text) {
 //        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
         View view = findViewById(android.R.id.content).getRootView();
-        Snackbar.make(view,text,Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(view, text, Snackbar.LENGTH_SHORT).show();
+        logToast(text.toString());
     }
 
     /**
      * 显示一个短Toast
-     *
      * @param resId
      */
     protected void showShortToast(int resId) {
 //        Toast.makeText(this, resId, Toast.LENGTH_SHORT).show();
         View view = findViewById(android.R.id.content).getRootView();
-        Snackbar.make(view,resId,Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(view, resId, Snackbar.LENGTH_SHORT).show();
+        logToast(getString(resId));
     }
 
     /**
      * 显示一个长Toast
-     *
      * @param text
      */
     protected void showLongToast(CharSequence text) {
 //        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
         View view = findViewById(android.R.id.content).getRootView();
-        Snackbar.make(view,text,Snackbar.LENGTH_LONG).show();
+        Snackbar.make(view, text, Snackbar.LENGTH_LONG).show();
+        logToast(text.toString());
     }
 
     /**
      * 显示一个长Toast
-     *
      * @param resId
      */
     protected void showLongToast(int resId) {
 //        Toast.makeText(this, resId, Toast.LENGTH_LONG).show();
         View view = findViewById(android.R.id.content).getRootView();
-        Snackbar.make(view,resId,Snackbar.LENGTH_LONG).show();
+        Snackbar.make(view, resId, Snackbar.LENGTH_LONG).show();
+        logToast(getString(resId));
     }
 
     /**
      * 获取资源id，如果没有找到，返回0
-     *
      * @param name
      * @param defType
      * @return
@@ -240,7 +236,6 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
 
     /**
      * 获取某个颜色
-     *
      * @param resId
      * @return
      */
@@ -258,7 +253,6 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
 
     /**
      * 获取Resource中的ColorStateList
-     *
      * @param resId
      * @return
      */
@@ -298,24 +292,22 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
         return isLogin;
     }
 
-    protected void showLoginTips(){
+    protected void showLoginTips() {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.warming)
                 .setMessage(R.string.not_login_yet)
-                .setPositiveButton(R.string.login_now, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(BaseActivity.this, LoginActivity.class);
-                        intent.putExtra("auto_finish", true);
-                        startActivity(intent);
-                    }
+                .setPositiveButton(R.string.login_now, (dialog, which) -> {
+                    Intent intent = new Intent(BaseActivity.this, LoginActivity.class);
+                    intent.putExtra("auto_finish", true);
+                    startActivity(intent);
                 })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                })
+                .setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel())
                 .show();
+    }
+
+    private void logToast(String text) {
+        if (mEnableToastLog) {
+            Log.d("Demo", text);
+        }
     }
 }

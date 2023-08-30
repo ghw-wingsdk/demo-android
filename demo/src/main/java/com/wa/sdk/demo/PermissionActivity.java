@@ -68,7 +68,6 @@ public class PermissionActivity extends BaseActivity {
                                 }
                             }
                             showShortToast(msg);
-                            Log.d("zii-", "onRequestPermissionResult: "+msg);
                         }
                     });
         }else {
@@ -111,7 +110,6 @@ public class PermissionActivity extends BaseActivity {
         }
         dialog.show();
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -157,7 +155,6 @@ public class PermissionActivity extends BaseActivity {
                             }
                             View view = activity.findViewById(android.R.id.content).getRootView();
                             Snackbar.make(view,msg,Snackbar.LENGTH_SHORT).show();
-                            Log.d("zii-", "onRequestPermissionResult: "+msg);
                         }
                     });
         }else {

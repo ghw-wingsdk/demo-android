@@ -179,11 +179,13 @@
     <string name="sign_out">登出</string>
     <string name="need_sign_in">你还没有登录Google游戏</string>
     <string name="display_achievements">展示成就</string>
+    <string name="reveal_achievements">展示隐藏成就</string>
     <string name="hint_input_achievement_id">请输入成就id</string>
     <string name="unlock_achievements">解锁成就</string>
     <string name="increase_achievements">增加成就进度</string>
-    <string name="hint_input_increase_num_steps">请输入增加的进度数</string>
-
+    <string name="step_achievements">进度成就</string>
+    <string name="set_steps_achievements">设置成就进度（小于当前进度无效）</string>
+    <string name="hint_input_num_steps">请输入进度数</string>
     <!-- Community -->
     <string name="community">社区</string>
     <string name="vk_community">VK社区</string>
@@ -246,4 +248,11 @@
     <string name="r2_integration_login">R2 登录</string>
     <string name="isOpenGameReviewAiHelp">是否开启游戏评价AiHelp</string>
     <string name="openGameReviewAiHelp">调用openGameReview</string>
+    <!--  账号删除  -->
+    <string name="account_deletion">账号删除</string>
+    <string name="account_deletion_request_ui">申请账号删除UI</string>
+    <string name="account_deletion_request">申请账号删除</string>
+    <string name="account_deletion_cancel">取消申请</string>
+    <string name="account_deletion_can_identify">是否可身份确认</string>
+    <string name="account_deletion_identify_account">身份确认</string>
 </resources>

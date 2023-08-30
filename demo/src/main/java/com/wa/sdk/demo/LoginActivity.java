@@ -1,5 +1,6 @@
 package com.wa.sdk.demo;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -44,7 +45,6 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         // Demo的初始化，跟SDK无关
         WASdkDemo.getInstance().initialize(this);
 
@@ -57,7 +57,6 @@ public class LoginActivity extends BaseActivity {
         }
 
         initView();
-
 
         Bundle metaData = null;
         boolean apiKey;
@@ -275,6 +274,17 @@ public class LoginActivity extends BaseActivity {
             String text = "code:" + code + "\nmessage:" + message;
             LogUtil.w(LogUtil.TAG, "Login failed->" + text);
             showLongToast("Login failed->" + text);
+            if (code == WACallback.CODE_ACCOUNT_IN_DELETION_BUFFER_DAYS) {
+                // 正在删除中的账号，会返回删除状态，删除时间，及UserID
+                WASdkDemo.getInstance().updateLoginAccount(result);
+                String message1 = "code:" + code
+                        + "\nmessage:" + message
+                        + "\nuserId:" + result.getUserId()
+                        + "\ndeleteDate:" + result.getDeleteDate();
+                // 正在删除中的账号，会返回删除状态，删除时间，及UserID
+                WASdkDemo.getInstance().updateLoginAccount(result);
+                new AlertDialog.Builder(LoginActivity.this).setMessage(message1).show();
+            }
         }
     };
 

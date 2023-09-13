@@ -116,7 +116,7 @@ public class PaymentActivity extends BaseActivity {
                 LogUtil.d(TAG, "pay success");
                 LogUtil.d(TAG, result.toString());
                 cancelLoadingDialog();
-                showLongToast("Payment is successful.");
+                showLongToast("Payment is successful.  " + result.getWAProductId());
             }
 
             @Override

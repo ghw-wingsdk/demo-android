@@ -387,7 +387,7 @@ public class MainActivity extends BaseActivity {
             public void onSuccess(int code, String message, WAPurchaseResult result) {
                 LogUtil.d(TAG, "pay success");
                 cancelLoadingDialog();
-                showLongToast("Payment is successful.");
+                showLongToast("Payment is successful..." + result.getWAProductId());
             }
 
             @Override

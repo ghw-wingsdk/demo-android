@@ -398,7 +398,7 @@ public class LoginActivity extends BaseActivity {
             e.printStackTrace();
         }
         showLoadingDialog("应用内登录", null);
-        WAUserProxy.login(this, WAConstants.CHANNEL_WA, mLoginCallback, extObject.toString());
+        WAUserProxy.login(this, WAConstants.CHANNEL_APPSELF, mLoginCallback, extObject.toString());
 //        WAUserProxy.login(this, "APPSELF", mLoginCallback, extObject.toString());
     }
 

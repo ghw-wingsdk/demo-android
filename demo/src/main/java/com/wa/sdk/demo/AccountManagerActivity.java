@@ -275,18 +275,10 @@ public class AccountManagerActivity extends BaseActivity {
                 adapter.addAll(boundAccounts, true);
                 new AlertDialog.Builder(AccountManagerActivity.this)
                         .setTitle(R.string.bound_accounts)
-                        .setAdapter(adapter, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                        .setAdapter(adapter, (dialog, which) -> {
 
-                            }
                         })
-                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        })
+                        .setPositiveButton(R.string.ok, (dialog, which) -> dialog.cancel())
                         .show();
             }
 
@@ -394,6 +386,8 @@ public class AccountManagerActivity extends BaseActivity {
                         .append("\n").append("message: ").append(result.getMessage())
                         .append("\n").append("platform: ").append(result.getPlatform())
                         .append("\n").append("platformUserId: ").append(result.getPlatformUserId())
+                        .append("\n").append("email: ").append(result.getEmail())
+                        .append("\n").append("mobile: ").append(result.getMobile())
                         .append("\n").append("platformToken: ").append(result.getAccessToken());
 
                 Log.i(WAConstants.TAG,sb.toString());

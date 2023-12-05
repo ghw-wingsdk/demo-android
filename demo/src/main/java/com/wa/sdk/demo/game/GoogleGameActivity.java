@@ -155,6 +155,7 @@ public class GoogleGameActivity extends BaseActivity {
 
             @Override
             public void onError(int code, String message, WAPlayer result, Throwable throwable) {
+                showShortToast(message);
                 dismissLoadingDialog();
             }
         });

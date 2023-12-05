@@ -18,8 +18,8 @@ android {
         applicationId "com.ghw.sdk2"
         minSdkVersion 19
         targetSdkVersion 33
-        versionCode 40
-        versionName "3.18.0"
+        versionCode 41
+        versionName "3.18.1"
         signingConfig signingConfigs.config
         multiDexEnabled true
 
@@ -115,9 +115,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
 
     // 基础模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-base:3.18.0'
+    implementation 'com.wa.sdk:wa-sdk-base:3.18.1'
     // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:3.18.0'
+    implementation 'com.wa.sdk:wa-sdk-core:3.18.1'
 //    // AppsFlyer模块（可选）
     implementation 'com.wa.sdk:wa-sdk-appsflyer:3.17.0'
 //    // Chartboost模块（可选）

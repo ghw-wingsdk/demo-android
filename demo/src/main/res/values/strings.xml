@@ -14,6 +14,7 @@
     <!--    <string name="google_base64EncodedPublicKey">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAo2hffcW70PvVzmvzcmNE+9HrZdaUgTfiWVdh9Pgxa5eaGij/8QWi2NRTDMR0z+ilJ5qu0Iqhu9SJK4BcQKLLjB2bl+UGreaxDhrx1Pk219wdCsn9yQ4CtdR64WLGcfL/JwDGW1Via/hLKLw70flKyxXyyaryp4zkrz4vcaghtrg5PBPSPXsOWP6XBy43VbCOiFgyS75uXhcikija5jFJrt3aIfjubi65dkNyeKDgiFP5P2ACekk3LsAaqd+sfKhcCNOpzoOlpiEKsYXyBoikoQn9Y5vgM8T5Wr7QVaBf8p45uTxYAPKxAEt1bP818HGDiY5vYYftqQEzBPI+bwX9xQIDAQAB</string>-->
     <!-- Google Web application type OAuth 2.0 client ID -->
     <string name="google_server_client_id">15309153268-vnpucgn8cvbna2sseegrg2ofogrf8n17.apps.googleusercontent.com</string>
+    <string name="google_game_app_id">15309153268</string>
     <!--<string name="google_server_client_id">1068848780812-18mn438fjr7bim2dlmq31g0u5gq9sjlg.apps.googleusercontent.com</string>-->
     <string name="google_firebaseSenderId">15309153268</string>
     <!-- VK app id -->

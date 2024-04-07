@@ -255,4 +255,7 @@
     <string name="account_deletion_cancel">取消申请</string>
     <string name="account_deletion_can_identify">是否可身份确认</string>
     <string name="account_deletion_identify_account">身份确认</string>
+    <!--  其他  -->
+    <string name="rare_function">不常用功能</string>
+    <string name="show_open_url">打开链接</string>
 </resources>

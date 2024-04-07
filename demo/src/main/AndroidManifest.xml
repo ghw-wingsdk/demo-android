@@ -16,6 +16,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".RareFunctionActivity"
+            android:exported="false" />
+        <activity
             android:name=".UserDeletionActivity"
             android:exported="false" />
         <activity
@@ -27,13 +30,16 @@
             android:exported="true"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan">
+
             <!-- android:launchMode="singleTask" -->
             <intent-filter>
                 <action android:name="com.wa.sdk.push.MAIN_ACTIVITY" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -72,19 +78,15 @@
         <activity
             android:name=".share.ShareActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" />
-        <!-- Facebook Share -->
+            android:label="@string/app_name" /> <!-- Facebook Share -->
         <activity
             android:name=".share.FBShareActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" />
-
-        <!-- Invite -->
+            android:label="@string/app_name" /> <!-- Invite -->
         <activity
             android:name=".invite.InviteActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" />
-        <!-- Facebook Invite -->
+            android:label="@string/app_name" /> <!-- Facebook Invite -->
         <activity
             android:name=".invite.FBInviteActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
@@ -116,27 +118,19 @@
         <activity
             android:name=".PaymentActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" />
-
-        <!-- Game Service -->
+            android:label="@string/app_name" /> <!-- Game Service -->
         <activity
             android:name=".game.GameServiceActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" />
-        <!-- Google Game -->
+            android:label="@string/app_name" /> <!-- Google Game -->
         <activity
             android:name=".game.GoogleGameActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" />
-
-
-        <!-- Hot Update -->
+            android:label="@string/app_name" /> <!-- Hot Update -->
         <activity
             android:name=".UpdateActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" />
-
-        <!-- Community -->
+            android:label="@string/app_name" /> <!-- Community -->
         <activity
             android:name=".community.CommunityActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
@@ -152,8 +146,7 @@
         <activity
             android:name=".VideoAdActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" />
-        <!--android:screenOrientation="landscape"-->
+            android:label="@string/app_name" /> <!-- android:screenOrientation="landscape" -->
         <activity
             android:name=".UserCenterActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
@@ -165,72 +158,56 @@
             <intent-filter>
                 <action android:name="com.wa.sdk.push.intent.NOTIFICATION_OPENED" />
             </intent-filter>
-        </receiver>
-
-        <!-- AppsFlyer SDK START -->
+        </receiver> <!-- AppsFlyer SDK START -->
         <!-- AppsFlyer AppKey(需要自己申请) -->
         <meta-data
             android:name="com.wa.sdk.track.APPSFLYER_APP_KEY"
-            android:value="922wXRJwEns6Qj4MfMt4Gg" />
-        <!-- AppsFlyer Channel -->
+            android:value="922wXRJwEns6Qj4MfMt4Gg" /> <!-- AppsFlyer Channel -->
         <meta-data
             android:name="CHANNEL"
-            android:value="GOOGLE" />
-        <!-- 开启/关闭 AppsFlyer数据收集功能，默认开启，使用默认配置可不配置此项 -->
+            android:value="GOOGLE" /> <!-- 开启/关闭 AppsFlyer数据收集功能，默认开启，使用默认配置可不配置此项 -->
         <meta-data
             android:name="com.wa.sdk.track.ENABLE_APPSFLYER"
-            android:value="true" />
-        <!-- AppsFlyer SDK END -->
-
+            android:value="true" /> <!-- AppsFlyer SDK END -->
         <!-- sdk的appid -->
         <meta-data
             android:name="com.wa.sdk.APP_ID"
-            android:value="f7f9a9d18da611e5a0be000d3a906774" />
-        <!-- sdk的appkey -->
+            android:value="f7f9a9d18da611e5a0be000d3a906774" /> <!-- sdk的appkey -->
         <meta-data
             android:name="com.wa.sdk.APP_KEY"
-            android:value="CFHF7nQCCaojCX6Sm4eT1GEIWRprimgX" />
-
-
-        <!-- sdk平台请求的host地址，所有请求的前面公共部分 -->
+            android:value="CFHF7nQCCaojCX6Sm4eT1GEIWRprimgX" /> <!-- sdk平台请求的host地址，所有请求的前面公共部分 -->
         <meta-data
             android:name="com.wa.sdk.HTTP_BASE_URL"
-            android:value="${SDK_HTTP_BASE_URL}" />
-        <!-- PCL request http url（PCL数据收集相关请求的url，这个必须配置，以支持不同版本的api请求） -->
+            android:value="${SDK_HTTP_BASE_URL}" /> <!-- PCL request http url（PCL数据收集相关请求的url，这个必须配置，以支持不同版本的api请求） -->
         <meta-data
             android:name="com.wa.sdk.track.BASE_URL"
-            android:value="${SDK_TRACKING_HTTP_BASE_URL}" />
-
-        <!-- Chartboost SDK START -->
+            android:value="${SDK_TRACKING_HTTP_BASE_URL}" /> <!-- Chartboost SDK START -->
         <!-- Chartboost app id -->
         <meta-data
             android:name="com.wa.sdk.track.CHARTBOOST_APP_ID"
-            android:value="5ecf154cb8730209d26e1e4e" />
-        <!-- Chartboost app signature -->
+            android:value="5ecf154cb8730209d26e1e4e" /> <!-- Chartboost app signature -->
         <meta-data
             android:name="com.wa.sdk.track.CHARTBOOST_APP_SIGNATURE"
-            android:value="c11187ca183d21c88ce22a6817784ad9d15508c3" />
-        <!-- 开启/关闭 Chartboost数据收集功能，默认关闭，使用默认配置可不配置此项 -->
+            android:value="c11187ca183d21c88ce22a6817784ad9d15508c3" /> <!-- 开启/关闭 Chartboost数据收集功能，默认关闭，使用默认配置可不配置此项 -->
         <meta-data
             android:name="com.wa.sdk.track.ENABLE_CHARTBOOST"
-            android:value="true" />
-        <!-- Chartboost SDK END -->
-
+            android:value="true" /> <!-- Chartboost SDK END -->
         <!-- Facebook Start -->
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider959864665060487"
             android:exported="true" />
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
         <meta-data
             android:name="com.facebook.sdk.ClientToken"
-            android:value="@string/facebook_client_token" />
-        <!-- 开启/关闭 Facebook数据收集功能，默认关闭，使用默认配置可不配置此项 -->
+            android:value="@string/facebook_client_token" /> <!-- 开启/关闭 Facebook数据收集功能，默认关闭，使用默认配置可不配置此项 -->
         <meta-data
             android:name="com.wa.sdk.track.ENABLE_FACEBOOK"
             android:value="true" />
+
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
@@ -242,70 +219,59 @@
 
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
-        </activity>
-
-        <!-- Facebook End -->
-
+        </activity> <!-- Facebook End -->
         <meta-data
             android:name="com.google.android.gms.games.APP_ID"
-            android:value="@string/google_game_app_id" />
-        <!-- Twitter Start -->
-        <!-- Consumer Key (API Key)	XVyoEoCH5DnZEfJ911arzF0kV
-Consumer Secret (API Secret)	uLAjbYQ37mcM7xonFPX4y8VBeTHhOaXntYpPEqHp2mJCnDJxK5-->
-        <!--consumerKey: SPRwO9pH5p9bJCAbUHaiV8oQY-->
-        <!--consumerSecret:9i6bo6KjPNl0k08kVPR29qjoaBLwbFWPZzYoBZ6jS7JuQZEPCa-->
-        <!-- Consumer Key (API Key)	SLTsEh1c61Um0gRArM8MMYNdk
-Consumer Secret (API Secret)	mQxNdMLMpvWXNR2tJZ9qblHxct7YI3thgYMvxWnA5Tq71py4Ni-->
+            android:value="@string/google_game_app_id" /> <!-- Twitter Start -->
+        <!--
+ Consumer Key (API Key)	XVyoEoCH5DnZEfJ911arzF0kV
+Consumer Secret (API Secret)	uLAjbYQ37mcM7xonFPX4y8VBeTHhOaXntYpPEqHp2mJCnDJxK5
+        -->
+        <!-- consumerKey: SPRwO9pH5p9bJCAbUHaiV8oQY -->
+        <!-- consumerSecret:9i6bo6KjPNl0k08kVPR29qjoaBLwbFWPZzYoBZ6jS7JuQZEPCa -->
+        <!--
+ Consumer Key (API Key)	SLTsEh1c61Um0gRArM8MMYNdk
+Consumer Secret (API Secret)	mQxNdMLMpvWXNR2tJZ9qblHxct7YI3thgYMvxWnA5Tq71py4Ni
+        -->
         <!-- Fabric api key，需要到Fabric后台申请 -->
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="0851e13e347797a5afa8b6ba407007f0ac0e4adc" />
-        <!-- Twitter consumer key，需要到Twitter后台申请 -->
-
+            android:value="0851e13e347797a5afa8b6ba407007f0ac0e4adc" /> <!-- Twitter consumer key，需要到Twitter后台申请 -->
         <meta-data
             android:name="com.wa.sdk.TWITTER_CONSUMER_KEY"
-            android:value="FXJ0BYeSakTGtm0Bh5OO62U9X" />
-        <!-- Twitter consumer secret，需要到Twitter后台申请 -->
+            android:value="FXJ0BYeSakTGtm0Bh5OO62U9X" /> <!-- Twitter consumer secret，需要到Twitter后台申请 -->
         <meta-data
             android:name="com.wa.sdk.TWITTER_CONSUMER_SECRET"
-            android:value="Uo9Es3m8FNBLtcGjzrU3oyoBOczkqzga8sgPoOsERJ8dDWScf4" />
-        <!-- Twitter End -->
-
+            android:value="Uo9Es3m8FNBLtcGjzrU3oyoBOczkqzga8sgPoOsERJ8dDWScf4" /> <!-- Twitter End -->
         <!-- Instagram Start -->
         <!-- Instagram client id，需要到Instagram后台申请 -->
-        <!--        <meta-data-->
-        <!--            android:name="com.ghw.sdk.INSTAGRAM_CLIENT_ID"-->
-        <!--            android:value="5678398c241341f881934f43dfdc157f" />-->
-        <!--        &lt;!&ndash; Instagram client secret，需要到Instagram后台申请 &ndash;&gt;-->
-        <!--        <meta-data-->
-        <!--            android:name="com.ghw.sdk.INSTAGRAM_CLIENT_SECRET"-->
-        <!--            android:value="b8cebfb9d70c4b7dbaf99d3401f4efb5" />-->
-
+        <!-- <meta-data -->
+        <!-- android:name="com.ghw.sdk.INSTAGRAM_CLIENT_ID" -->
+        <!-- android:value="5678398c241341f881934f43dfdc157f" /> -->
+        <!-- &lt;!&ndash; Instagram client secret，需要到Instagram后台申请 &ndash;&gt; -->
+        <!-- <meta-data -->
+        <!-- android:name="com.ghw.sdk.INSTAGRAM_CLIENT_SECRET" -->
+        <!-- android:value="b8cebfb9d70c4b7dbaf99d3401f4efb5" /> -->
         <meta-data
             android:name="com.ghw.sdk.INSTAGRAM_CLIENT_ID"
-            android:value="9b5eddd42ee048179f414a2c038365e4" />
-        <!-- Instagram client secret，需要到Instagram后台申请 -->
+            android:value="9b5eddd42ee048179f414a2c038365e4" /> <!-- Instagram client secret，需要到Instagram后台申请 -->
         <meta-data
             android:name="com.ghw.sdk.INSTAGRAM_CLIENT_SECRET"
             android:value="83d4468b062a427780bda2ad568e5be0" />
-
         <meta-data
             android:name="com.ghw.sdk.INSTAGRAM_REDIRECT_URI"
-            android:value="http://blog.wing-analytics.com/" />
-        <!-- Instagram End -->
-
-        <!--系统本地-->
-        <!--        <meta-data-->
-        <!--            android:name="com.wa.sdk.AIHelp_appKey"-->
-        <!--            android:value="GameHollywoodcompany_app_bd0fce60951445c780adff91fe0d456b" />-->
-        <!--        <meta-data-->
-        <!--            android:name="com.wa.sdk.AIHelp_domain"-->
-        <!--            android:value="GameHollywoodcompany@aihelp.net" />-->
-        <!--        <meta-data-->
-        <!--            android:name="com.wa.sdk.AIHelp_appId"-->
-        <!--            android:value="GameHollywoodcompany_platform_27c19a34-35a2-45da-891e-c26ec7c0d305" />-->
-
-        <!--aihelp-->
+            android:value="http://blog.wing-analytics.com/" /> <!-- Instagram End -->
+        <!-- 系统本地 -->
+        <!-- <meta-data -->
+        <!-- android:name="com.wa.sdk.AIHelp_appKey" -->
+        <!-- android:value="GameHollywoodcompany_app_bd0fce60951445c780adff91fe0d456b" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="com.wa.sdk.AIHelp_domain" -->
+        <!-- android:value="GameHollywoodcompany@aihelp.net" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="com.wa.sdk.AIHelp_appId" -->
+        <!-- android:value="GameHollywoodcompany_platform_27c19a34-35a2-45da-891e-c26ec7c0d305" /> -->
+        <!-- aihelp -->
         <meta-data
             android:name="com.wa.sdk.AIHelp_appKey"
             android:value="GAMEHOLLYWOODHK_app_6ff2af7846a245e8a56c74d2331ede73" />
@@ -315,13 +281,9 @@ Consumer Secret (API Secret)	mQxNdMLMpvWXNR2tJZ9qblHxct7YI3thgYMvxWnA5Tq71py4Ni-
         <meta-data
             android:name="com.wa.sdk.AIHelp_appId"
             android:value="gamehollywoodhk_platform_598ee350-adbf-4a70-bef6-6d11232b7301" />
-
-
         <meta-data
             android:name="com.wa.sdk.interface.ENABLE_IM"
             android:value="true" />
-
-
         <meta-data
             android:name="com.wa.sdk.track.ENABLE_HUAWEIHMS"
             android:value="true" />

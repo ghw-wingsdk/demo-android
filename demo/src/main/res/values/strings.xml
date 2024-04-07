@@ -247,4 +247,7 @@
     <string name="account_deletion_cancel">Cancel Account Deletion</string>
     <string name="account_deletion_can_identify">Can Identify</string>
     <string name="account_deletion_identify_account">Identify Account</string>
+    <!--  其他  -->
+    <string name="rare_function">Rare Function</string>
+    <string name="show_open_url">Show OpenUrl</string>
 </resources>

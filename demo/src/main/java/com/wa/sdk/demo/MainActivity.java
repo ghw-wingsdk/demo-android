@@ -30,9 +30,7 @@ import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.common.utils.StringUtil;
 import com.wa.sdk.core.WACoreProxy;
 import com.wa.sdk.demo.base.BaseActivity;
-import com.wa.sdk.demo.community.CommunityActivity;
 import com.wa.sdk.demo.game.GameServiceActivity;
-import com.wa.sdk.demo.invite.InviteActivity;
 import com.wa.sdk.demo.share.ShareActivity;
 import com.wa.sdk.demo.tracking.TrackingActivity;
 import com.wa.sdk.demo.widget.TitleBar;
@@ -259,31 +257,10 @@ public class MainActivity extends BaseActivity {
                 testTracking();
                 break;
             case R.id.btn_share:
-                testShare();
-                break;
-            case R.id.btn_invite:
-                invite();
-                break;
-//            case R.id.btn_gifting: // 礼物  //礼物功能已被废弃
-//                startActivity(new Intent(this, GiftingActivity.class));
-//                break;
-            case R.id.btn_test_crash:
-                testCrash();
-                break;
-            case R.id.btn_clear_campaign:
-                clearCampaign();
+                startActivity(new Intent(this, ShareActivity.class));
                 break;
             case R.id.btn_game_service:
                 startActivity(new Intent(MainActivity.this, GameServiceActivity.class));
-                break;
-            case R.id.btn_update:
-                startActivity(new Intent(this, UpdateActivity.class));
-                break;
-            case R.id.btn_community:
-                startActivity(new Intent(this, CommunityActivity.class));
-                break;
-            case R.id.btn_video_ad:
-                startActivity(new Intent(this, VideoAdActivity.class));
                 break;
             case R.id.btn_csc:
                 startActivity(new Intent(this, CscActivity.class));
@@ -334,6 +311,27 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.btn_open_game_review:
                 openGameReview();
+                break;
+            case R.id.btn_show_open_url:
+                WACoreProxy.showOpenUrl(this, new WACallback<WAResult>() {
+                    @Override
+                    public void onSuccess(int code, String message, WAResult result) {
+                        showShortToast("打开链接成功");
+                    }
+
+                    @Override
+                    public void onCancel() {
+
+                    }
+
+                    @Override
+                    public void onError(int code, String message, WAResult result, Throwable throwable) {
+                        showShortToast("打开链接失败：" + code + "," + message);
+                    }
+                });
+                break;
+            case R.id.btn_rare_function:
+                startActivity(new Intent(this, RareFunctionActivity.class));
                 break;
             default:
                 break;
@@ -486,43 +484,6 @@ public class MainActivity extends BaseActivity {
      */
     public void testTracking() {
         startActivity(new Intent(this, TrackingActivity.class));
-    }
-
-    /**
-     * Facebook邀请点击
-     */
-    public void invite() {
-        startActivity(new Intent(this, InviteActivity.class));
-    }
-
-    /**
-     * Facebook分享
-     */
-    public void testShare() {
-        startActivity(new Intent(this, ShareActivity.class));
-    }
-
-
-    /**
-     * 闪退测试
-     */
-    public void testCrash() {
-        new AlertDialog.Builder(this).setTitle(R.string.warming).setMessage(R.string.test_crash_warming).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Util.testCrash();
-            }
-        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        }).show();
-    }
-
-    private void clearCampaign() {
-//        GhwCampaignHelper.getInstance().clearCache(this);
-//        Toast.makeText(this, "Campaign report cache clear success", Toast.LENGTH_SHORT).show();
     }
 
     private void initView() {

@@ -186,34 +186,6 @@
                     android:text="@string/share" />
 
                 <Button
-                    android:id="@+id/btn_invite"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="@string/invite" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-                <!--礼物功能已被废弃-->
-                <!--<Button-->
-                <!--android:id="@+id/btn_gifting"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="center_horizontal"-->
-                <!--android:layout_marginEnd="5dp"-->
-                <!--android:layout_marginRight="5dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:onClick="onClick"-->
-                <!--android:text="@string/gifting" />-->
-                <Button
                     android:id="@+id/btn_game_service"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -224,72 +196,6 @@
                     android:onClick="onClick"
                     android:text="@string/game_service" />
 
-                <Button
-                    android:id="@+id/btn_community"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="@string/community" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btn_update"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="@string/update" />
-
-                <Button
-                    android:id="@+id/btn_clear_campaign"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="@string/clear_install_campaign_cache" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btn_video_ad"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="@string/wa_video_ad" />
-
-                <Button
-                    android:id="@+id/btn_test_crash"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="@string/test_crash" />
             </LinearLayout>
 
             <LinearLayout
@@ -372,6 +278,31 @@
                     android:layout_weight="1"
                     android:onClick="onClick"
                     android:text="@string/game_review" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_show_open_url"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="@string/show_open_url" />
+
+                <Button
+                    android:id="@+id/btn_rare_function"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="@string/rare_function" />
             </LinearLayout>
 
             <LinearLayout

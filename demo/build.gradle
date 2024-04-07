@@ -19,7 +19,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 33
         versionCode 41
-        versionName "3.18.1"
+        versionName "3.20.0"
         signingConfig signingConfigs.config
         multiDexEnabled true
 
@@ -115,9 +115,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
 
     // 基础模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-base:3.18.1'
+    implementation 'com.wa.sdk:wa-sdk-base:3.20.0'
     // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:3.18.1'
+    implementation 'com.wa.sdk:wa-sdk-core:3.20.0'
 //    // AppsFlyer模块（可选）
     implementation 'com.wa.sdk:wa-sdk-appsflyer:3.17.0'
 //    // Chartboost模块（可选）
@@ -125,7 +125,7 @@ dependencies {
     // Facebook模块（可选）
     implementation 'com.wa.sdk:wa-sdk-facebook:3.15.0'
     // Google模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-google:3.18.0'
+    implementation 'com.wa.sdk:wa-sdk-google:3.20.0'
     // Aptoide模块（可选）
     implementation 'com.wa.sdk:wa-sdk-aptoide:3.18.0'
 //    // VK模块（可选）

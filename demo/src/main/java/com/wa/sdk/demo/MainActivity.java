@@ -8,6 +8,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -22,6 +23,7 @@ import com.wa.sdk.WAConstants;
 import com.wa.sdk.ad.WAAdProxy;
 import com.wa.sdk.ad.model.WAAdCachedCallback;
 import com.wa.sdk.apw.WAApwProxy;
+import com.wa.sdk.cmp.WACmpProxy;
 import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.WASharedPrefHelper;
 import com.wa.sdk.common.model.WACallback;
@@ -62,11 +64,14 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Demo的初始化，跟SDK无关
+        WASdkDemo.getInstance().initialize(this);
 
         WACoreProxy.setDebugMode(true);
         WACoreProxy.initialize(this);
-        // Demo的初始化，跟SDK无关
-        WASdkDemo.getInstance().initialize(this);
+
+        // 延迟 n 秒后调用登录弹窗
+        delayLoginUI(-1);
 
         WAPayProxy.initialize(this, new WACallback<WAResult>() {
 
@@ -131,6 +136,43 @@ public class MainActivity extends BaseActivity {
 //        }
 
         showHashKey(this);
+    }
+
+    private void delayLoginUI(int second) {
+        if (second < 0) return;
+
+        new Handler().postDelayed(() -> WAUserProxy.loginUI(MainActivity.this, false, new WACallback<WALoginResult>() {
+            @Override
+            public void onSuccess(int code, String message, WALoginResult result) {
+                String text = "code:" + code + "\nmessage:" + message;
+                if (null == result) {
+                    text = "Login failed->" + text;
+                } else {
+                    text = "Login success->" + text
+                            + "\nplatform:" + result.getPlatform()
+                            + "\nuserId:" + result.getUserId()
+                            + "\ntoken:" + result.getToken()
+                            + "\nplatformUserId:" + result.getPlatformUserId()
+                            + "\nplatformToken:" + result.getPlatformToken()
+                            + "\nisBindMobile: " + result.isBindMobile()
+                            + "\nisBindAccount: " + result.getIsBindAccount()
+                            + "\nisGuestAccount: " + result.getIsGuestAccount()
+                            + "\nisFistLogin: " + result.isFirstLogin();
+                }
+                LogUtil.i(TAG, text);
+                showLongToast(text);
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(int code, String message, WALoginResult result, Throwable throwable) {
+
+            }
+        }), second * 1000L);
     }
 
     @Override
@@ -329,6 +371,9 @@ public class MainActivity extends BaseActivity {
                         showShortToast("打开链接失败：" + code + "," + message);
                     }
                 });
+                break;
+            case R.id.btn_show_consent_preferences:
+                WACmpProxy.showConsentPreferences(this);
                 break;
             case R.id.btn_rare_function:
                 startActivity(new Intent(this, RareFunctionActivity.class));

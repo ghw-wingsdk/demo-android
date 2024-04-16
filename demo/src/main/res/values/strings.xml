@@ -250,4 +250,6 @@
     <!--  其他  -->
     <string name="rare_function">Rare Function</string>
     <string name="show_open_url">Show OpenUrl</string>
+    <string name="show_consent_preferences">Show Consent Preferences</string>
+
 </resources>

@@ -18,8 +18,8 @@ android {
         applicationId "com.ghw.sdk2"
         minSdkVersion 19
         targetSdkVersion 33
-        versionCode 41
-        versionName "3.20.0"
+        versionCode 42
+        versionName "3.21.0"
         signingConfig signingConfigs.config
         multiDexEnabled true
 
@@ -115,15 +115,15 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
 
     // 基础模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-base:3.20.0'
+    implementation 'com.wa.sdk:wa-sdk-base:3.21.0'
     // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:3.20.0'
+    implementation 'com.wa.sdk:wa-sdk-core:3.21.0'
 //    // AppsFlyer模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-appsflyer:3.17.0'
+    implementation 'com.wa.sdk:wa-sdk-appsflyer:3.21.0'
 //    // Chartboost模块（可选）
     implementation 'com.wa.sdk:wa-sdk-chartboost:3.9.7'
     // Facebook模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-facebook:3.15.0'
+    implementation 'com.wa.sdk:wa-sdk-facebook:3.21.0'
     // Google模块（可选）
     implementation 'com.wa.sdk:wa-sdk-google:3.20.0'
     // Aptoide模块（可选）
@@ -135,7 +135,7 @@ dependencies {
 //    // 应用墙模块（可选）
     implementation 'com.wa.sdk:wa-sdk-apw:3.8.3'
 //    // 消息推送模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-firebase:3.13.0'
+    implementation 'com.wa.sdk:wa-sdk-firebase:3.21.0'
 //    // Twitter推送模块（可选）
     implementation 'com.wa.sdk:wa-sdk-twitter:3.9.0'
 //    // Instagram推送模块（可选）
@@ -149,7 +149,7 @@ dependencies {
     // 网页集成登录，GHG和R2
     implementation 'com.wa.sdk:wa-sdk-weblogin:3.14.0'
 //    华为 HMS
-    implementation 'com.wa.sdk:wa-sdk-huaweihms:3.18.0'
+//    implementation 'com.wa.sdk:wa-sdk-huaweihms:3.18.0'
 
 }
 
@@ -157,7 +157,7 @@ dependencies {
 apply plugin: 'com.google.gms.google-services'
 
 //华为
-apply plugin: 'com.huawei.agconnect'
-agcp{
-    enableAPMS true
-}
+//apply plugin: 'com.huawei.agconnect'
+//agcp{
+//    enableAPMS true
+//}

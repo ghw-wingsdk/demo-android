@@ -293,6 +293,10 @@ Consumer Secret (API Secret)	mQxNdMLMpvWXNR2tJZ9qblHxct7YI3thgYMvxWnA5Tq71py4Ni
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/color_wa_push_notification" />
+
+        <meta-data
+            android:name="com.wa.sdk.CONSENT_NOTICE_ID"
+            android:value="MCheVkM3" />
     </application>
 
 </manifest>

@@ -296,11 +296,37 @@
                     android:text="@string/show_open_url" />
 
                 <Button
+                    android:id="@+id/btn_show_consent_preferences"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="@string/show_consent_preferences" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Button
                     android:id="@+id/btn_rare_function"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="@string/rare_function" />
+
+                <Button
+                    android:id="@+id/btn_"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:visibility="invisible"
                     android:onClick="onClick"
                     android:text="@string/rare_function" />
             </LinearLayout>

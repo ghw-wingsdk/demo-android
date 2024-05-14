@@ -255,6 +255,18 @@
     <string name="account_deletion_cancel">取消申请</string>
     <string name="account_deletion_can_identify">是否可身份确认</string>
     <string name="account_deletion_identify_account">身份确认</string>
+    <!--  AdMob  -->
+    <string name="admob">AdMob</string>
+    <string name="check_interstitial_ad">检查插页广告</string>
+    <string name="show_interstitial_ad">显示插页广告</string>
+    <string name="check_app_open_ad">检查开屏广告</string>
+    <string name="show_app_open_ad">显示开屏广告</string>
+    <string name="hint_rewarded_ad_name">激励广告名称</string>
+    <string name="show_rewarded_ad">显示激励广告</string>
+    <string name="enable_app_open_ad">开屏广告:开启</string>
+    <string name="disable_app_open_ad">开屏广告:关闭</string>
+    <string name="check_ump_options">检查配置</string>
+    <string name="show_ump_options">打开配置</string>
     <!--  其他  -->
     <string name="rare_function">不常用功能</string>
     <string name="show_open_url">打开链接</string>

@@ -312,21 +312,20 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btn_rare_function"
+                    android:id="@+id/btn_admob"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:onClick="onClick"
-                    android:text="@string/rare_function" />
+                    android:text="@string/admob" />
 
                 <Button
-                    android:id="@+id/btn_"
+                    android:id="@+id/btn_rare_function"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
-                    android:visibility="invisible"
                     android:onClick="onClick"
                     android:text="@string/rare_function" />
             </LinearLayout>

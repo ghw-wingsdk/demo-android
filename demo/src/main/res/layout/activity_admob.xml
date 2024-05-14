@@ -1,0 +1,177 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.wa.sdk.demo.widget.TitleBar
+        android:id="@+id/tb_admob"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_black_alpha_bb" />
+
+    <FrameLayout
+        android:id="@+id/container_admob_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_check_interstitial_ad"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="@string/check_interstitial_ad" />
+
+                <Button
+                    android:id="@+id/btn_show_interstitial_ad"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="@string/show_interstitial_ad" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_check_app_open_ad"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="@string/check_app_open_ad" />
+
+                <Button
+                    android:id="@+id/btn_show_app_open_ad"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="@string/show_app_open_ad" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/edt_rewarded_ad_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="Rewarded_1"
+                    android:hint="@string/hint_rewarded_ad_name" />
+
+                <Button
+                    android:id="@+id/btn_show_rewarded_ad"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="2"
+                    android:onClick="onClick"
+                    android:text="@string/show_rewarded_ad" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <ToggleButton
+                    android:id="@+id/btn_enable_app_open_ad"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:checked="false"
+                    android:textOff="@string/disable_app_open_ad"
+                    android:textOn="@string/enable_app_open_ad" />
+
+                <Button
+                    android:id="@+id/btn_"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="@string/show_rewarded_ad"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_check_ump_options"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="@string/check_ump_options" />
+
+                <Button
+                    android:id="@+id/btn_show_ump_options"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="@string/show_ump_options" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

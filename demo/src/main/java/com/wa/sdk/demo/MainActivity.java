@@ -1,16 +1,14 @@
 package com.wa.sdk.demo;
 
+import static com.wa.sdk.demo.AdMobActivity.DEFAULT_APP_OPEN_AD_STATE;
+import static com.wa.sdk.demo.AdMobActivity.DEFAULT_TEST;
+
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -22,6 +20,7 @@ import androidx.annotation.NonNull;
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.ad.WAAdProxy;
 import com.wa.sdk.ad.model.WAAdCachedCallback;
+import com.wa.sdk.admob.core.WAAdMobProxy;
 import com.wa.sdk.apw.WAApwProxy;
 import com.wa.sdk.cmp.WACmpProxy;
 import com.wa.sdk.common.WACommonProxy;
@@ -42,14 +41,12 @@ import com.wa.sdk.user.WAUserProxy;
 import com.wa.sdk.user.model.WAGameReviewCallback;
 import com.wa.sdk.user.model.WALoginResult;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Set;
 import java.util.UUID;
 
 
 public class MainActivity extends BaseActivity {
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "DemoSdk2";
 
     private WASharedPrefHelper mSharedPrefHelper;
 
@@ -67,12 +64,18 @@ public class MainActivity extends BaseActivity {
         // Demo的初始化，跟SDK无关
         WASdkDemo.getInstance().initialize(this);
 
-        WACoreProxy.setDebugMode(true);
+        mSharedPrefHelper = WASharedPrefHelper.newInstance(this, WADemoConfig.SP_CONFIG_FILE_DEMO);
+        WACoreProxy.setDebugMode(mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_DEBUG, true));
+
+        boolean isEnableAppOpenAd = mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_APP_OPEN_AD, DEFAULT_APP_OPEN_AD_STATE);
+        // 避免与开屏页重复初始化，如果未打开开屏广告，才进行初始化
+        if (!isEnableAppOpenAd) {
+            WAAdMobProxy.setTest(DEFAULT_TEST);
+            // SDK初始化
         WACoreProxy.initialize(this);
+        }
 
-        // 延迟 n 秒后调用登录弹窗
-        delayLoginUI(-1);
-
+        // 支付初始化
         WAPayProxy.initialize(this, new WACallback<WAResult>() {
 
             @Override
@@ -83,25 +86,26 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onCancel() {
-                LogUtil.d(TAG, "PayUIActitivy:WAPayProxy.initialize has been cancelled.");
+                LogUtil.d(TAG, "WAPayProxy.initialize has been cancelled.");
                 mPayInitialized = false;
             }
 
             @Override
             public void onError(int code, String message, WAResult result, Throwable throwable) {
                 LogUtil.d(TAG, "WAPayProxy.initialize error");
-                showLongToast("PayUIActitivy:Payment initialization fail.");
+                showLongToast("Payment initialization fail.");
                 mPayInitialized = false;
             }
         });
 
-        mSharedPrefHelper = WASharedPrefHelper.newInstance(this, WADemoConfig.SP_CONFIG_FILE_DEMO);
-        WACoreProxy.setDebugMode(mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_DEBUG, true));
+        // 延迟 n 秒后调用登录弹窗
+        delayLoginUI(-1);
 
         setContentView(R.layout.activity_main);
 
         initView();
 
+        // 调试入口
         if (mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_LOGCAT, true)) {
             WACommonProxy.enableLogcat(this);
         } else {
@@ -135,7 +139,7 @@ public class MainActivity extends BaseActivity {
 //            showLongToast("App Link Target URL: " + targetUrl.toString());
 //        }
 
-        showHashKey(this);
+        Util.showHashKey(this);
     }
 
     private void delayLoginUI(int second) {
@@ -185,7 +189,7 @@ public class MainActivity extends BaseActivity {
         if (null != bundle) {
             Set<String> keys = bundle.keySet();
             for (String key : keys) {
-                LogUtil.e("MainActivity", "Key-------" + key);
+                LogUtil.e(TAG, "onNewIntent - Key :" + key);
             }
         }
     }
@@ -196,31 +200,6 @@ public class MainActivity extends BaseActivity {
         WACommonProxy.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
 
-    @Override
-    public void onBackPressed() {
-        finish();
-    }
-
-    public void showHashKey(Context context) {
-
-        try {
-            PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES); //Your            package name here
-//            PackageInfo info = context.getPackageManager().getPackageInfo("com.proficientcity.nyjjh", PackageManager.GET_SIGNATURES); //Your            package name here
-
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                LogUtil.e("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            // do nothing
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            // do nothing
-            e.printStackTrace();
-        }
-
-    }
 
     @Override
     protected void onStart() {
@@ -243,11 +222,14 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        LogUtil.i(TAG, "---onStop---");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        LogUtil.i(TAG, "---onDestroy---");
+        LogUtil.i(WAConstants.TAG, "---onDestroy---");
     }
 
     @Override
@@ -374,6 +356,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.btn_show_consent_preferences:
                 WACmpProxy.showConsentPreferences(this);
+                break;
+            case R.id.btn_admob:
+                startActivity(new Intent(this, AdMobActivity.class));
                 break;
             case R.id.btn_rare_function:
                 startActivity(new Intent(this, RareFunctionActivity.class));

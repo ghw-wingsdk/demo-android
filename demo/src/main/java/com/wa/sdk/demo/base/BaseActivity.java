@@ -26,6 +26,8 @@ import com.wa.sdk.demo.widget.LoadingDialog;
  * Created by yinglovezhuzhu@gmail.com on 2015/12/28.
  */
 public class BaseActivity extends FragmentActivity implements View.OnClickListener {
+    protected static final String TAG = "DemoSdk2";
+
 
     protected FragmentManager mFragmentManager;
 
@@ -305,9 +307,9 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
                 .show();
     }
 
-    private void logToast(String text) {
+    protected void logToast(String text) {
         if (mEnableToastLog) {
-            Log.d("Demo", text);
+            Log.d("DemoSdk2", text);
         }
     }
 }

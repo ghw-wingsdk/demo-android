@@ -247,6 +247,18 @@
     <string name="account_deletion_cancel">Cancel Account Deletion</string>
     <string name="account_deletion_can_identify">Can Identify</string>
     <string name="account_deletion_identify_account">Identify Account</string>
+    <!--  AdMob  -->
+    <string name="admob">AdMob</string>
+    <string name="check_interstitial_ad">Check Interstitial Ad</string>
+    <string name="show_interstitial_ad">Show Interstitial Ad</string>
+    <string name="check_app_open_ad">Check AppOpen Ad</string>
+    <string name="show_app_open_ad">Show AppOpen Ad</string>
+    <string name="hint_rewarded_ad_name">Rewarded Ad Name</string>
+    <string name="show_rewarded_ad">Show Rewarded Ad</string>
+    <string name="enable_app_open_ad">AppOpen Ad: Enable</string>
+    <string name="disable_app_open_ad">AppOpen Ad: Disable</string>
+    <string name="check_ump_options">Check Options</string>
+    <string name="show_ump_options">Show Options</string>
     <!--  其他  -->
     <string name="rare_function">Rare Function</string>
     <string name="show_open_url">Show OpenUrl</string>

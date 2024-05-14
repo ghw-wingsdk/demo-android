@@ -18,6 +18,8 @@ public class WADemoConfig {
 
     public static final String SP_KEY_ENABLE_LOGIN_CACHE = "enable_login_cache";
 
+    public static final String SP_KEY_ENABLE_APP_OPEN_AD = "enable_app_open_ad";
+
 
 
     public static final String EXTRA_DATA = "extra_data";

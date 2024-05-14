@@ -1,7 +1,13 @@
 package com.wa.sdk.demo;
 
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.text.InputType;
+import android.util.Base64;
 
+import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.track.WAEventParameterName;
 
 import java.io.IOException;
@@ -51,7 +57,26 @@ public class Util {
         return InputType.TYPE_CLASS_TEXT;
     }
 
+    public static void showHashKey(Context context) {
 
+        try {
+            PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES); //Your            package name here
+//            PackageInfo info = context.getPackageManager().getPackageInfo("com.proficientcity.nyjjh", PackageManager.GET_SIGNATURES); //Your            package name here
+
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                LogUtil.e("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            // do nothing
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            // do nothing
+            e.printStackTrace();
+        }
+
+    }
 
     public static String getMD5(InputStream is) throws IOException, NoSuchAlgorithmException {
 

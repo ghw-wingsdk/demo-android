@@ -26,6 +26,7 @@ import org.json.JSONObject;
 
 public class AdMobActivity extends BaseActivity {
     public static boolean DEFAULT_APP_OPEN_AD_STATE = true; //开屏广告默认状态
+    public static boolean DEFAULT_MAIN_BANNER_AD_STATE = true; //主页面横幅广告默认状态
     public static boolean DEFAULT_TEST = true; //客户端强制测试广告
     public static boolean IS_LOADING_AD = false;
 

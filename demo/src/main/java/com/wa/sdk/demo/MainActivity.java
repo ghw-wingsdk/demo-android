@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -46,8 +47,6 @@ import java.util.UUID;
 
 
 public class MainActivity extends BaseActivity {
-    private static final String TAG = "DemoSdk2";
-
     private WASharedPrefHelper mSharedPrefHelper;
 
     private PendingAction mPendingAction = PendingAction.NONE;
@@ -60,69 +59,48 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         // Demo的初始化，跟SDK无关
         WASdkDemo.getInstance().initialize(this);
 
         mSharedPrefHelper = WASharedPrefHelper.newInstance(this, WADemoConfig.SP_CONFIG_FILE_DEMO);
-        WACoreProxy.setDebugMode(mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_DEBUG, true));
+        initView();
 
         boolean isEnableAppOpenAd = mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_APP_OPEN_AD, DEFAULT_APP_OPEN_AD_STATE);
         // 避免与开屏页重复初始化，如果未打开开屏广告，才进行初始化
         if (!isEnableAppOpenAd) {
+            // AdMob强制测试
             WAAdMobProxy.setTest(DEFAULT_TEST);
+            // 开启日志
+            WACoreProxy.setDebugMode(mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_DEBUG, true));
+            showLoadingDialog("初始化中", false, false, null);
             // SDK初始化
-        WACoreProxy.initialize(this);
-        }
-
-        // 支付初始化
-        WAPayProxy.initialize(this, new WACallback<WAResult>() {
-
+            WACoreProxy.initialize(this, new WACallback<Void>() {
             @Override
-            public void onSuccess(int code, String message, WAResult result) {
-                LogUtil.d(TAG, "WAPayProxy.initialize success");
-                mPayInitialized = true;
+                public void onSuccess(int code, String message, Void result) {
+                    cancelLoadingDialog();
+                    doAfterInitSuccess();
             }
 
             @Override
             public void onCancel() {
-                LogUtil.d(TAG, "WAPayProxy.initialize has been cancelled.");
-                mPayInitialized = false;
+
             }
 
             @Override
-            public void onError(int code, String message, WAResult result, Throwable throwable) {
-                LogUtil.d(TAG, "WAPayProxy.initialize error");
-                showLongToast("Payment initialization fail.");
-                mPayInitialized = false;
+                public void onError(int code, String message, Void result, Throwable throwable) {
+                    cancelLoadingDialog();
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setCancelable(false)
+                            .setMessage("初始化失败，请退出应用重新进入")
+                            .setPositiveButton("退出", (dialog, which) -> finish())
+                            .show();
             }
         });
-
-        // 延迟 n 秒后调用登录弹窗
-        delayLoginUI(-1);
-
-        setContentView(R.layout.activity_main);
-
-        initView();
-
-        // 调试入口
-        if (mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_LOGCAT, true)) {
-            WACommonProxy.enableLogcat(this);
         } else {
-            WACommonProxy.disableLogcat(this);
+            doAfterInitSuccess();
         }
-        if (mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_APW, true)) {
-            WAApwProxy.showEntryFlowIcon(this);
-        }
-
-        WAAdProxy.setAdCachedCallback(new WAAdCachedCallback() {
-            @Override
-            public void onVideoCached(int validVideoCount) {
-                String text = "有新的广告缓存成功，当前可用广告数： " + validVideoCount;
-                LogUtil.e(WAConstants.TAG, text);
-                showShortToast(text);
-            }
-        });
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -179,6 +157,57 @@ public class MainActivity extends BaseActivity {
         }), second * 1000L);
     }
 
+    private void doAfterInitSuccess(){
+        if (AdMobActivity.DEFAULT_MAIN_BANNER_AD_STATE) {
+            WAAdMobProxy.bindBannerAd(this,((FrameLayout) findViewById(R.id.layout_bannerAd)));
+        }
+
+        // 支付初始化
+        WAPayProxy.initialize(this, new WACallback<WAResult>() {
+
+            @Override
+            public void onSuccess(int code, String message, WAResult result) {
+                LogUtil.d(TAG, "WAPayProxy.initialize success");
+                mPayInitialized = true;
+            }
+
+            @Override
+            public void onCancel() {
+                LogUtil.d(TAG, "WAPayProxy.initialize has been cancelled.");
+                mPayInitialized = false;
+            }
+
+            @Override
+            public void onError(int code, String message, WAResult result, Throwable throwable) {
+                LogUtil.d(TAG, "WAPayProxy.initialize error");
+                showLongToast("Payment initialization fail.");
+                mPayInitialized = false;
+            }
+        });
+
+        // 延迟 n 秒后调用登录弹窗
+        delayLoginUI(-1);
+
+        // 调试入口
+        if (mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_LOGCAT, true)) {
+            WACommonProxy.enableLogcat(this);
+        } else {
+            WACommonProxy.disableLogcat(this);
+        }
+        if (mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_APW, true)) {
+            WAApwProxy.showEntryFlowIcon(this);
+        }
+
+        WAAdProxy.setAdCachedCallback(new WAAdCachedCallback() {
+            @Override
+            public void onVideoCached(int validVideoCount) {
+                String text = "有新的广告缓存成功，当前可用广告数： " + validVideoCount;
+                LogUtil.e(WAConstants.TAG, text);
+                showShortToast(text);
+            }
+        });
+    }
+
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -229,7 +258,6 @@ public class MainActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         LogUtil.i(TAG, "---onDestroy---");
-        LogUtil.i(WAConstants.TAG, "---onDestroy---");
     }
 
     @Override
@@ -316,22 +344,7 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.btn_display_app_version_info:
                 //app 信息
-                String info;
-                String versionName = "版本名称：" + BuildConfig.VERSION_NAME;
-                String versionCode = "代码版本：" + BuildConfig.VERSION_CODE;
-                String buildType = "打包类型：" + BuildConfig.FLAVOR + "_" + BuildConfig.BUILD_TYPE;
-                String buildTime = "打包时间：" + BuildConfig.DEMO_BUILD_TIME;
-                String isTestRepository = "是否测试仓库包：" + (BuildConfig.IS_TEST_REPOSITORY ? "是" : "否");
-
-                info = versionName + "\n"
-                        + versionCode + "\n"
-                        + buildType + "\n"
-                        + buildTime + "\n"
-                        + isTestRepository + "\n"
-                ;
-                new AlertDialog.Builder(this)
-                        .setMessage(info)
-                        .show();
+                new AlertDialog.Builder(this).setMessage(Util.getApkBuildInfo(this)).show();
                 break;
             case R.id.btn_open_game_review:
                 openGameReview();
@@ -519,12 +532,7 @@ public class MainActivity extends BaseActivity {
     private void initView() {
 
         TitleBar tb = findViewById(R.id.tb_main);
-        tb.setRightButton(android.R.drawable.ic_menu_close_clear_cancel, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        tb.setRightButton(android.R.drawable.ic_menu_close_clear_cancel, v -> finish());
         tb.setTitleText(R.string.app_name);
         tb.setTitleTextColor(R.color.color_white);
 

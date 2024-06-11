@@ -1,9 +1,11 @@
 package com.wa.sdk.demo;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.os.Bundle;
 import android.text.InputType;
 import android.util.Base64;
 
@@ -106,5 +108,40 @@ public class Util {
         }
 
         return sb.toString();
+    }
+
+    public static Bundle getMataDatasFromManifest(Context context) {
+        try {
+            ApplicationInfo ai = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
+            return ai.metaData;
+        } catch (PackageManager.NameNotFoundException e) {
+            LogUtil.e("DemoSdk2", "Failed to load meta-data, NameNotFound: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public static String getApkBuildInfo(Context context) {
+        String versionName = "版本名称：" + BuildConfig.VERSION_NAME;
+        String versionCode = "代码版本：" + BuildConfig.VERSION_CODE;
+        String buildType = "打包类型：" + BuildConfig.FLAVOR + "_" + BuildConfig.BUILD_TYPE;
+        String buildTime = "打包时间：" + BuildConfig.DEMO_BUILD_TIME;
+        String isTestRepository = "测试仓库：" + (BuildConfig.IS_TEST_REPOSITORY ? "是" : "否");
+        String lineNew = "\n";
+
+
+        Bundle manifest = Util.getMataDatasFromManifest(context);
+        boolean isOfficialPackage = false;
+        if (null != manifest && !manifest.isEmpty() && manifest.containsKey("com.wa.sdk.OFFICIAL_PACKAGE")) {
+            isOfficialPackage = manifest.getBoolean("com.wa.sdk.OFFICIAL_PACKAGE", false);
+        }
+        String officialPackage = "官网包：" + (isOfficialPackage ? "是" : "否");
+
+        return versionName + lineNew
+                + versionCode + lineNew
+                + officialPackage + lineNew
+                + buildType + lineNew
+                + buildTime + lineNew
+                + isTestRepository + lineNew
+                ;
     }
 }

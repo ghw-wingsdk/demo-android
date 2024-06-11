@@ -18,8 +18,8 @@ android {
         applicationId "com.ghw.sdk2"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode 50
-        versionName "4.0.0"
+        versionCode 60
+        versionName "4.1.0"
         signingConfig signingConfigs.config
 
         //华为多语种设置
@@ -108,19 +108,19 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
 
     // 基础模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-base:4.0.0'
+    implementation 'com.wa.sdk:wa-sdk-base:4.1.0'
     // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:4.0.0'
+    implementation 'com.wa.sdk:wa-sdk-core:4.1.0'
 //    // AppsFlyer模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-appsflyer:3.21.0'
+    implementation 'com.wa.sdk:wa-sdk-appsflyer:4.1.0'
 //    // Chartboost模块（可选）
     implementation 'com.wa.sdk:wa-sdk-chartboost:3.9.7'
     // Facebook模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-facebook:3.21.0'
+    implementation 'com.wa.sdk:wa-sdk-facebook:4.1.0'
     // Google模块（可选）
     implementation 'com.wa.sdk:wa-sdk-google:3.20.0'
     // AdMob模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-admob:4.0.0'
+    implementation 'com.wa.sdk:wa-sdk-admob:4.1.0'
     // Aptoide模块（可选）
     implementation 'com.wa.sdk:wa-sdk-aptoide:3.18.0'
 //    // VK模块（可选）
@@ -130,7 +130,7 @@ dependencies {
 //    // 应用墙模块（可选）
     implementation 'com.wa.sdk:wa-sdk-apw:3.8.3'
 //    // 消息推送模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-firebase:3.21.0'
+    implementation 'com.wa.sdk:wa-sdk-firebase:4.1.0'
 //    // Twitter推送模块（可选）
     implementation 'com.wa.sdk:wa-sdk-twitter:3.9.0'
 //    // Instagram推送模块（可选）
@@ -142,7 +142,7 @@ dependencies {
 //    wa 客服系统
     implementation 'com.wa.sdk:wa-sdk-aihelp:3.16.0'
     // 网页集成登录，GHG和R2
-    implementation 'com.wa.sdk:wa-sdk-weblogin:3.14.0'
+    implementation 'com.wa.sdk:wa-sdk-weblogin:4.1.0'
 //    华为 HMS
 //    implementation 'com.wa.sdk:wa-sdk-huaweihms:3.18.0'
 

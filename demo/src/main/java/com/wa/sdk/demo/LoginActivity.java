@@ -243,7 +243,6 @@ public class LoginActivity extends BaseActivity {
 //                        .addDefaultEventValue(WAEventParameterName.LEVEL, 140)
 //                        .build();
 //                event.track(LoginActivity.this);
-                LogUtil.i(WAConstants.TAG, "区服：" + serverId + " ; 角色ID：" + gameUserId + " ; 角色名称：" + nickname);
                 mTitlebar.setTitleText("登录(" + result.getPlatform() + ")");
                 mEdtServerId.clearFocus();
             }
@@ -404,7 +403,7 @@ public class LoginActivity extends BaseActivity {
 
     private void wingaLogin() {
         showLoadingDialog("正在登录"+WAConstants.CHANNEL_WA, null);
-        WAUserProxy.login(this, WAConstants.CHANNEL_WA, mLoginCallback, null);
+        WAUserProxy.login(this, WAConstants.CHANNEL_WA, mLoginCallback, "拓展参数");
     }
 
     /**

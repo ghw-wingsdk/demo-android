@@ -9,6 +9,7 @@
 
     <application
         android:name=".DemoApp"
+        android:hardwareAccelerated="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:localeConfig="@xml/locales_config"
@@ -31,7 +32,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -297,7 +297,12 @@ Consumer Secret (API Secret)	mQxNdMLMpvWXNR2tJZ9qblHxct7YI3thgYMvxWnA5Tq71py4Ni
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3512615046087076~6119035746"/>
-
+        <meta-data
+            android:name="com.wa.sdk.OFFICIAL_PACKAGE"
+            android:value="true"/>
+        <meta-data
+            android:name="com.wa.sdk.UMP_ENABLE"
+            android:value="true"/>
     </application>
 
 </manifest>

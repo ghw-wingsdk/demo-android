@@ -18,8 +18,8 @@ android {
         applicationId "com.ghw.sdk2"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode 60
-        versionName "4.1.0"
+        versionCode 61
+        versionName "4.1.1"
         signingConfig signingConfigs.config
 
         //华为多语种设置
@@ -108,9 +108,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
 
     // 基础模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-base:4.1.0'
+    implementation 'com.wa.sdk:wa-sdk-base:4.1.1'
     // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:4.1.0'
+    implementation 'com.wa.sdk:wa-sdk-core:4.1.1'
 //    // AppsFlyer模块（可选）
     implementation 'com.wa.sdk:wa-sdk-appsflyer:4.1.0'
 //    // Chartboost模块（可选）
@@ -126,7 +126,7 @@ dependencies {
 //    // VK模块（可选）
     implementation 'com.wa.sdk:wa-sdk-vk:3.9.0'
 //    // 网页支付模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-webpay:3.18.0'
+    implementation 'com.wa.sdk:wa-sdk-webpay:4.1.1'
 //    // 应用墙模块（可选）
     implementation 'com.wa.sdk:wa-sdk-apw:3.8.3'
 //    // 消息推送模块（可选）

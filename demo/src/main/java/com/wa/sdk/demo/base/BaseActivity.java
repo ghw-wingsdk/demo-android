@@ -4,10 +4,12 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -39,9 +41,7 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        hideNavigationBar();
-
+        setFullScreen();
         mFragmentManager = getSupportFragmentManager();
     }
 
@@ -285,6 +285,19 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
                     | View.SYSTEM_UI_FLAG_FULLSCREEN;
         }
         getWindow().getDecorView().setSystemUiVisibility(flags);
+    }
+
+    /**
+     * 设置全屏，兼容刘海屏
+     */
+    private void setFullScreen() {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
+                && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE
+        ) {
+            getWindow().getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
     }
 
     protected boolean isLoginAndTips() {

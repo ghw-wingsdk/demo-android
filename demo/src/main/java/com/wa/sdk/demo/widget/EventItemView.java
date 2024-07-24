@@ -48,14 +48,10 @@ public class EventItemView extends ALinearLayout implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_item_event_delete:
-                if(null != mOnDeleteListener) {
-                    mOnDeleteListener.onDelete(EventItemView.this);
-                }
-                break;
-            default:
-                break;
+        if (v.getId() == R.id.btn_item_event_delete) {
+            if (null != mOnDeleteListener) {
+                mOnDeleteListener.onDelete(EventItemView.this);
+            }
         }
     }
 

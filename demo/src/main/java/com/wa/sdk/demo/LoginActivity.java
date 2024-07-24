@@ -112,54 +112,38 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_fb_login:
-                fbLogin();
-                break;
-            case R.id.btn_gg_login:
-                googleLogin();
-                break;
-            case R.id.btn_anonymous_login:
-                anonymousLogin();
-                break;
-            case R.id.btn_winga_login:
-                wingaLogin();
-                break;
-            case R.id.btn_app_login:
-                appLogin();
-                break;
-            case R.id.btn_vk_login:
-                vkLogin();
-                break;
-            case R.id.btn_twitter_login:
-                twitterLogin();
-                break;
-            case R.id.btn_instagram_login:
-                instagramLogin();
-                break;
-            case R.id.btn_huawei_hms_login:
-                huaweiHmsLogin();
-                break;
-            case R.id.btn_logout:
-                logout();
-                break;
-            case R.id.btn_login_form:
-                WAUserProxy.loginUI(LoginActivity.this,
-                        mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_LOGIN_CACHE, false),
-                        mLoginCallback);
-                break;
-            case R.id.btn_ghg_integration_login:
-                ghgIntegrationLogin();
-                break;
-            case R.id.btn_r2_integration_login:
-                r2IntegrationLogin();
-                break;
-            case R.id.btn_clear_login_cache:
-                WAUserProxy.clearLoginCache();
-                showShortToast(R.string.clean_login_cache);
-                break;
-            default:
-                break;
+        int id = v.getId();
+        if (id == R.id.btn_fb_login) {
+            fbLogin();
+        } else if (id == R.id.btn_gg_login) {
+            googleLogin();
+        } else if (id == R.id.btn_anonymous_login) {
+            anonymousLogin();
+        } else if (id == R.id.btn_winga_login) {
+            wingaLogin();
+        } else if (id == R.id.btn_app_login) {
+            appLogin();
+        } else if (id == R.id.btn_vk_login) {
+            vkLogin();
+        } else if (id == R.id.btn_twitter_login) {
+            twitterLogin();
+        } else if (id == R.id.btn_instagram_login) {
+            instagramLogin();
+        } else if (id == R.id.btn_huawei_hms_login) {
+            huaweiHmsLogin();
+        } else if (id == R.id.btn_logout) {
+            logout();
+        } else if (id == R.id.btn_login_form) {
+            WAUserProxy.loginUI(LoginActivity.this,
+                    mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_LOGIN_CACHE, false),
+                    mLoginCallback);
+        } else if (id == R.id.btn_ghg_integration_login) {
+            ghgIntegrationLogin();
+        } else if (id == R.id.btn_r2_integration_login) {
+            r2IntegrationLogin();
+        } else if (id == R.id.btn_clear_login_cache) {
+            WAUserProxy.clearLoginCache();
+            showShortToast(R.string.clean_login_cache);
         }
     }
 
@@ -195,16 +179,12 @@ public class LoginActivity extends BaseActivity {
     private CompoundButton.OnCheckedChangeListener mOnCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            switch (buttonView.getId()) {
-                case R.id.tbtn_login_flow_type:
-                    int flowType = isChecked ? WAConstants.LOGIN_FLOW_TYPE_REBIND : WAConstants.LOGIN_FLOW_TYPE_DEFAULT;
-                    WASdkDemo.getInstance().setLoginFlowType(flowType);
-                    break;
-                case R.id.tbtn_enable_login_cache:
-                    mSharedPrefHelper.saveBoolean(WADemoConfig.SP_KEY_ENABLE_LOGIN_CACHE, isChecked);
-                    break;
-                default:
-                    break;
+            int id = buttonView.getId();
+            if (id == R.id.tbtn_login_flow_type) {
+                int flowType = isChecked ? WAConstants.LOGIN_FLOW_TYPE_REBIND : WAConstants.LOGIN_FLOW_TYPE_DEFAULT;
+                WASdkDemo.getInstance().setLoginFlowType(flowType);
+            } else if (id == R.id.tbtn_enable_login_cache) {
+                mSharedPrefHelper.saveBoolean(WADemoConfig.SP_KEY_ENABLE_LOGIN_CACHE, isChecked);
             }
 
         }

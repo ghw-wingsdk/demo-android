@@ -1,8 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 33
-    buildToolsVersion = '30.0.2'
+    namespace "com.wa.sdk.demo"
 
     signingConfigs {
         config {
@@ -17,11 +16,12 @@ android {
 
         applicationId "com.ghw.sdk2"
         minSdkVersion 21
-        targetSdkVersion 33
-        versionCode 61
-        versionName "4.1.1"
+        targetSdkVersion 34
+        versionCode 62
+        versionName "4.2.0"
         signingConfig signingConfigs.config
 
+        compileSdk 34
         //华为多语种设置
         resConfigs "en", "zh-rCN", "pt-rBR", "es-rES", "in-rID", "ru", "th-rTH", "zh-rHK", "zh-rTW"
     }
@@ -54,40 +54,34 @@ android {
     productFlavors {
 
         qa{
-            dimension "server"
             /**qa环境**/
             manifestPlaceholders.putAll([SDK_HTTP_BASE_URL         : 'http://172.16.100.53/sdk_bkd_qa/sdkapi/',
                                          SDK_TRACKING_HTTP_BASE_URL: 'http://172.16.100.58/data_collection_qa/data'])
         }
 
         pre {
-            dimension "server"
             /**pre环境**/
             manifestPlaceholders.putAll([SDK_HTTP_BASE_URL         : 'http://sdk-test1.gamehollywood.com/sdk_bkd_qa/sdkapi',
                                          SDK_TRACKING_HTTP_BASE_URL: 'http://sdk-test2.gamehollywood.com/data_collection_qa/data/forward'])
         }
 
         pro{
-            dimension "server"
+            isDefault = true
             manifestPlaceholders.putAll([SDK_HTTP_BASE_URL         : 'https://api.wingsdk.com/sdkapi',
                                          SDK_TRACKING_HTTP_BASE_URL: 'https://api.wingsdk.com/data'])
         }
     }
 
     // 打包自动生成名字
-    applicationVariants.all { variant ->
+    applicationVariants.configureEach { variant ->
         variant.outputs.each { output ->
-            output.outputFileName = 'DemoSdk_imp_' + variant.productFlavors[0].name + "环境_" + ('true' == IS_TEST_REPOSITORY ?'测试仓库':'生产仓库') + '_build' + getDate() + '.apk'
+            output.outputFileName = 'DemoSdk_imp_' + variant.productFlavors[0].name + "_" + ('true' == IS_TEST_REPOSITORY ?'test':'live') + '_build' + getDate() + '.apk'
         }
     }
 
     lintOptions {
         checkReleaseBuilds false
         abortOnError false
-    }
-
-    dexOptions {
-        javaMaxHeapSize "4g"
     }
 
     compileOptions {
@@ -108,44 +102,45 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
 
     // 基础模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-base:4.1.1'
+    implementation 'com.wa.sdk:wa-sdk-base:4.2.0'
     // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:4.1.1'
-//    // AppsFlyer模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-appsflyer:4.1.0'
-//    // Chartboost模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-chartboost:3.9.7'
+    implementation 'com.wa.sdk:wa-sdk-core:4.2.0'
+    // wa 客服系统（一般必接）
+    implementation 'com.wa.sdk:wa-sdk-aihelp:4.2.0'
+    // AppsFlyer模块（一般必接）
+    implementation 'com.wa.sdk:wa-sdk-appsflyer:4.2.0'
+    // 消息推送模块（可选）
+    implementation 'com.wa.sdk:wa-sdk-firebase:4.2.0'
     // Facebook模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-facebook:4.1.0'
+    implementation 'com.wa.sdk:wa-sdk-facebook:4.2.0'
     // Google模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-google:3.20.0'
+    implementation 'com.wa.sdk:wa-sdk-google:4.2.0'
     // AdMob模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-admob:4.1.0'
-    // Aptoide模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-aptoide:3.18.0'
-//    // VK模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-vk:3.9.0'
-//    // 网页支付模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-webpay:4.1.1'
-//    // 应用墙模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-apw:3.8.3'
-//    // 消息推送模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-firebase:4.1.0'
-//    // Twitter推送模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-twitter:3.9.0'
-//    // Instagram推送模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-instagram:3.8.4'
-//    // WA广告模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-ad:3.8.3'
-//    wa hup模块
-//    implementation 'com.wa.sdk:wa-sdk-hup:3.8.0'
-//    wa 客服系统
-    implementation 'com.wa.sdk:wa-sdk-aihelp:3.16.0'
-    // 网页集成登录，GHG和R2
-    implementation 'com.wa.sdk:wa-sdk-weblogin:4.1.0'
+    implementation 'com.wa.sdk:wa-sdk-admob:4.2.0'
+    // 网页集成登录，GHG和R2 （可选）
+    implementation 'com.wa.sdk:wa-sdk-weblogin:4.2.0'
+    // 网页支付模块（可选）
+    implementation 'com.wa.sdk:wa-sdk-webpay:4.2.0'
+
+
 //    华为 HMS
 //    implementation 'com.wa.sdk:wa-sdk-huaweihms:3.18.0'
-
+    // Aptoide模块（可选）
+    implementation 'com.wa.sdk:wa-sdk-aptoide:3.18.0'
+//    wa hup模块
+//    implementation 'com.wa.sdk:wa-sdk-hup:3.8.0'
+    // 应用墙模块（可选）
+//    implementation 'com.wa.sdk:wa-sdk-apw:3.8.3'
+    // WA广告模块（可选）
+//    implementation 'com.wa.sdk:wa-sdk-ad:3.8.3'
+    // Chartboost模块（可选）
+    implementation 'com.wa.sdk:wa-sdk-chartboost:3.9.7'
+    // Twitter推送模块（可选）
+    implementation 'com.wa.sdk:wa-sdk-twitter:3.9.0'
+    // Instagram推送模块（可选）
+    implementation 'com.wa.sdk:wa-sdk-instagram:3.8.4'
+    // VK模块（可选）
+    implementation 'com.wa.sdk:wa-sdk-vk:3.9.0'
 }
 
 //谷歌推送

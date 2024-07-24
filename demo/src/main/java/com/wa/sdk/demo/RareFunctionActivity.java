@@ -34,25 +34,19 @@ public class RareFunctionActivity extends BaseActivity {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_community:
-                startActivity(new Intent(this, CommunityActivity.class));
-                break;
-            case R.id.btn_invite:
-                startActivity(new Intent(this, InviteActivity.class));
-                break;
-            case R.id.btn_update:
-                startActivity(new Intent(this, UpdateActivity.class));
-                break;
-            case R.id.btn_test_crash:
-                testCrash();
-                break;
-            case R.id.btn_clear_campaign:
-                clearCampaign();
-                break;
-            case R.id.btn_video_ad:
-                startActivity(new Intent(this, VideoAdActivity.class));
-                break;
+        int id = v.getId();
+        if (id == R.id.btn_community) {
+            startActivity(new Intent(this, CommunityActivity.class));
+        } else if (id == R.id.btn_invite) {
+            startActivity(new Intent(this, InviteActivity.class));
+        } else if (id == R.id.btn_update) {
+            startActivity(new Intent(this, UpdateActivity.class));
+        } else if (id == R.id.btn_test_crash) {
+            testCrash();
+        } else if (id == R.id.btn_clear_campaign) {
+            clearCampaign();
+        } else if (id == R.id.btn_video_ad) {
+            startActivity(new Intent(this, VideoAdActivity.class));
         }
     }
 

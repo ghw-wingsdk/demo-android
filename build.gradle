@@ -1,6 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 apply from: rootProject.file('dependencies.gradle')
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
 buildscript {
     repositories {
         maven { url "https://maven.aliyun.com/repository/public" }
@@ -9,11 +10,11 @@ buildscript {
         maven { url 'https://developer.huawei.com/repo/' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.2'
+        classpath 'com.android.tools.build:gradle:8.1.4'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-        classpath 'com.google.gms:google-services:4.3.10'
+        classpath 'com.google.gms:google-services:4.4.2'
 
 //        classpath 'com.huawei.agconnect:agcp:1.6.1.300'
 //        classpath 'com.huawei.agconnect:agconnect-core:1.6.1.300'
@@ -26,7 +27,6 @@ allprojects {
         maven { url "https://maven.aliyun.com/repository/public" }
         google()
         maven { url "https://maven.google.com" }
-        jcenter()
         mavenCentral()
 
         maven { url 'https://developer.huawei.com/repo/' }
@@ -37,7 +37,7 @@ allprojects {
                     : "http://git.wingsdk.cn:8081/repository/winga-group/";
             url repositoryUrl
             println("RepositoryUrl:$repositoryUrl")
+            allowInsecureProtocol = true
         }
-//        maven { url "https://chartboostmobile.bintray.com/Chartboost" }
     }
 }

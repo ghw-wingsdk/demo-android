@@ -55,73 +55,69 @@ public class VideoAdActivity extends BaseActivity {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_get_cached_video_amount:
-                mTvAmount.setText(String.format(Locale.getDefault(), mAmountFormat, WAAdProxy.checkRewardedVideo()));
-                break;
-            case R.id.btn_display_video_ad:
-                WAAdProxy.displayRewardedVideo(VideoAdActivity.this, new WAAdCallback() {
-                    @Override
-                    public void onPreDisplayRewardedVideo(String campaignId, String adSetId, int rewardAmount, String rewardType, String extra) {
-                        String text = "进入广告页面(播放视频前)--onPreDisplayRewardedVideo()"
-                                + "\ncampaignId = " + campaignId
-                                + "\nadSetId = " + adSetId
-                                + "\nrewardType = " + rewardType
-                                + "\nrewardAmount = " + rewardAmount
-                                + "\nextra = " + extra + "\n";
-                        LogUtil.e(WAConstants.TAG, text);
-                        showShortToast(text);
-                    }
+        int id = v.getId();
+        if (id == R.id.btn_get_cached_video_amount) {
+            mTvAmount.setText(String.format(Locale.getDefault(), mAmountFormat, WAAdProxy.checkRewardedVideo()));
+        } else if (id == R.id.btn_display_video_ad) {
+            WAAdProxy.displayRewardedVideo(VideoAdActivity.this, new WAAdCallback() {
+                @Override
+                public void onPreDisplayRewardedVideo(String campaignId, String adSetId, int rewardAmount, String rewardType, String extra) {
+                    String text = "进入广告页面(播放视频前)--onPreDisplayRewardedVideo()"
+                            + "\ncampaignId = " + campaignId
+                            + "\nadSetId = " + adSetId
+                            + "\nrewardType = " + rewardType
+                            + "\nrewardAmount = " + rewardAmount
+                            + "\nextra = " + extra + "\n";
+                    LogUtil.e(WAConstants.TAG, text);
+                    showShortToast(text);
+                }
 
-                    @Override
-                    public void onDisplayRewardedVideo(String campaignId, String adSetId, int rewardAmount, String rewardType, String extra) {
-                        String text = "播放广告视频结束--onDisplayRewardedVideo()"
-                                + "\ncampaignId = " + campaignId
-                                + "\nadSetId = " + adSetId
-                                + "\nrewardType = " + rewardType
-                                + "\nrewardAmount = " + rewardAmount
-                                + "\nextra = " + extra + "\n";
-                        LogUtil.e(WAConstants.TAG, text);
-                        showShortToast(text);
-                    }
+                @Override
+                public void onDisplayRewardedVideo(String campaignId, String adSetId, int rewardAmount, String rewardType, String extra) {
+                    String text = "播放广告视频结束--onDisplayRewardedVideo()"
+                            + "\ncampaignId = " + campaignId
+                            + "\nadSetId = " + adSetId
+                            + "\nrewardType = " + rewardType
+                            + "\nrewardAmount = " + rewardAmount
+                            + "\nextra = " + extra + "\n";
+                    LogUtil.e(WAConstants.TAG, text);
+                    showShortToast(text);
+                }
 
-                    @Override
-                    public void onCancelRewardedVideo(int process, String campaignId, String adSetId, String extra) {
-                        String text = process == 0 ? "播放视频前页面关闭广告" : "播放视频过程中关闭广告";
-                        text += "--onCancelRewardedVideo()"
-                                + "\nprocess = " + process
-                                + "\ncampaignId = " + campaignId
-                                + "\nadSetId = " + adSetId
-                                + "\nextra = " + extra + "\n";
-                        LogUtil.e(WAConstants.TAG, text);
-                        showShortToast(text);
-                    }
+                @Override
+                public void onCancelRewardedVideo(int process, String campaignId, String adSetId, String extra) {
+                    String text = process == 0 ? "播放视频前页面关闭广告" : "播放视频过程中关闭广告";
+                    text += "--onCancelRewardedVideo()"
+                            + "\nprocess = " + process
+                            + "\ncampaignId = " + campaignId
+                            + "\nadSetId = " + adSetId
+                            + "\nextra = " + extra + "\n";
+                    LogUtil.e(WAConstants.TAG, text);
+                    showShortToast(text);
+                }
 
-                    @Override
-                    public void onLoadRewardedVideoFail(String campaignId, String adSetId, String extra) {
-                        String text = "加载广告视频失败--onLoadRewardedVideoFail()"
-                                + "\ncampaignId = " + campaignId
-                                + "\nadSetId = " + adSetId
-                                + "\nextra = " + extra + "\n";
-                        LogUtil.e(WAConstants.TAG,  text);
-                        showShortToast(text);
-                    }
+                @Override
+                public void onLoadRewardedVideoFail(String campaignId, String adSetId, String extra) {
+                    String text = "加载广告视频失败--onLoadRewardedVideoFail()"
+                            + "\ncampaignId = " + campaignId
+                            + "\nadSetId = " + adSetId
+                            + "\nextra = " + extra + "\n";
+                    LogUtil.e(WAConstants.TAG, text);
+                    showShortToast(text);
+                }
 
-                    @Override
-                    public void onClickRewardedVideo(String campaignId, String adSetId, int rewardAmount, String rewardType, String extra) {
-                        String text = "点击广告推广信息链接--onClickRewardedVideo()"
-                                + "\ncampaignId = " + campaignId
-                                + "\nadSetId = " + adSetId
-                                + "\nrewardType = " + rewardType
-                                + "\nrewardAmount = " + rewardAmount
-                                + "\nextra = " + extra + "\n";
-                        LogUtil.e(WAConstants.TAG, text);
-                        showShortToast(text);
-                    }
-                }, "extra");
-                break;
-            default:
-                break;
+                @Override
+                public void onClickRewardedVideo(String campaignId, String adSetId, int rewardAmount, String rewardType, String extra) {
+                    String text = "点击广告推广信息链接--onClickRewardedVideo()"
+                            + "\ncampaignId = " + campaignId
+                            + "\nadSetId = " + adSetId
+                            + "\nrewardType = " + rewardType
+                            + "\nrewardAmount = " + rewardAmount
+                            + "\nextra = " + extra + "\n";
+                    LogUtil.e(WAConstants.TAG, text);
+                    showShortToast(text);
+                }
+            }, "extra");
         }
     }
 

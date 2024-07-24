@@ -26,12 +26,8 @@ public class CommunityActivity extends BaseActivity {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()) {
-            case R.id.btn_vk_community:
-                startActivity(new Intent(this, VKCommunityActivity.class));
-                break;
-            default:
-                break;
+        if (v.getId() == R.id.btn_vk_community) {
+            startActivity(new Intent(this, VKCommunityActivity.class));
         }
     }
 

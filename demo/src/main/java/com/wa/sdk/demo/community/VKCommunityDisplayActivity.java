@@ -89,19 +89,15 @@ public class VKCommunityDisplayActivity extends BaseActivity {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()) {
-            case R.id.ibtn_vk_community_display_search:
-                switch (mType) {
-                    case TYPE_SEARCH_BY_ID:
-                    case TYPE_SEARCH_CHOOSE:
-                        searchById();
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            default:
-                break;
+        if (v.getId() == R.id.ibtn_vk_community_display_search) {
+            switch (mType) {
+                case TYPE_SEARCH_BY_ID:
+                case TYPE_SEARCH_CHOOSE:
+                    searchById();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 

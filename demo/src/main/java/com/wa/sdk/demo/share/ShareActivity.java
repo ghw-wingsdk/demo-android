@@ -21,12 +21,8 @@ public class ShareActivity extends BaseGridActivity {
     public void onClick(View v) {
         int tag = (int) v.getTag();
 
-        switch (tag) {
-            case R.string.fb_share:
-                startActivity(new Intent(this, FBShareActivity.class));
-                break;
-            default:
-                break;
+        if (tag == R.string.fb_share) {
+            startActivity(new Intent(this, FBShareActivity.class));
         }
     }
 }

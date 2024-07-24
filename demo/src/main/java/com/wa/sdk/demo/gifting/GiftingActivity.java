@@ -7,7 +7,6 @@ import android.view.View;
 import com.wa.sdk.demo.R;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.widget.TitleBar;
-import com.wa.sdk.track.WATrackProxy;
 
 /**
  * 礼物总入口
@@ -40,12 +39,8 @@ public class GiftingActivity extends BaseActivity {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()) {
-            case R.id.btn_fb_gifting: //
-                startActivity(new Intent(this, FBGiftingActivity.class));
-                break;
-            default:
-                break;
+        if (v.getId() == R.id.btn_fb_gifting) { //
+            startActivity(new Intent(this, FBGiftingActivity.class));
         }
     }
 

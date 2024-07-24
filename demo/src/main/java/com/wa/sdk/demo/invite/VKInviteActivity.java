@@ -6,12 +6,10 @@ import android.view.View;
 
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.common.WACommonProxy;
-import com.wa.sdk.common.WASharedPrefHelper;
 import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.model.WAResult;
 import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.demo.R;
-import com.wa.sdk.demo.WADemoConfig;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.widget.TitleBar;
 import com.wa.sdk.social.WASocialProxy;
@@ -50,20 +48,14 @@ public class VKInviteActivity extends BaseActivity {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_vk_app_invite:
-                break;
-            case R.id.btn_vk_game_service_invite:
-                startActivity(new Intent(VKInviteActivity.this, VKInviteFriendsActivity.class));
-                break;
-            case R.id.btn_vk_invite_install_reward:
-                inviteInstallReward();
-                break;
-            case R.id.btn_vk_invite_event_reward:
-                inviteEventReward();
-                break;
-            default:
-                break;
+        int id = v.getId();
+        if (id == R.id.btn_vk_app_invite) {
+        } else if (id == R.id.btn_vk_game_service_invite) {
+            startActivity(new Intent(VKInviteActivity.this, VKInviteFriendsActivity.class));
+        } else if (id == R.id.btn_vk_invite_install_reward) {
+            inviteInstallReward();
+        } else if (id == R.id.btn_vk_invite_event_reward) {
+            inviteEventReward();
         }
     }
 

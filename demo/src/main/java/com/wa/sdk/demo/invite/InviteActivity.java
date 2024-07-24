@@ -4,10 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.wa.sdk.common.WACommonProxy;
-import com.wa.sdk.common.WASharedPrefHelper;
 import com.wa.sdk.demo.R;
-import com.wa.sdk.demo.WADemoConfig;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.widget.TitleBar;
 
@@ -38,15 +35,11 @@ public class InviteActivity extends BaseActivity {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_fb_invite:
-                startActivity(new Intent(this, FBInviteActivity.class));
-                break;
-            case R.id.btn_vk_invite:
-                startActivity(new Intent(this, VKInviteActivity.class));
-                break;
-            default:
-                break;
+        int id = v.getId();
+        if (id == R.id.btn_fb_invite) {
+            startActivity(new Intent(this, FBInviteActivity.class));
+        } else if (id == R.id.btn_vk_invite) {
+            startActivity(new Intent(this, VKInviteActivity.class));
         }
     }
 }

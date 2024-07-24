@@ -2,19 +2,17 @@ package com.wa.sdk.demo;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.wa.sdk.csc.WACscProxy;
+import androidx.annotation.NonNull;
+
 import com.wa.sdk.common.WACommonProxy;
+import com.wa.sdk.csc.WACscProxy;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.widget.TitleBar;
-import com.wa.sdk.wa.core.WASdkOnlineParameter;
-import com.wa.sdk.wa.core.model.WAParameterResult;
 
 import java.util.HashMap;
 
@@ -50,36 +48,29 @@ public class CscActivity extends BaseActivity {
         mTvLanguage = findViewById(R.id.tv_language);
         mTitlebar.setLeftButton(android.R.drawable.ic_menu_revert, v -> exit());
         mTitlebar.setTitleTextColor(R.color.color_white);
-        }
+    }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_openAiHelp:
-                if (WACscProxy.isOpenAiHelp())
-                    WACscProxy.openAiHelpV2();
-                break;
-            case R.id.btn_isOpenAiHelp:
-                showLongToast(WACscProxy.isOpenAiHelp() ? "已开启" : "未开启");
-                break;
-            case R.id.btn_isOpenGameReviewAiHelp:
-                showLongToast(WACscProxy.isOpenGameReviewAiHelp() ? "已开启" : "未开启");
-                break;
-            case R.id.btn_openGameReviewAiHelp:
-                if (WACscProxy.isOpenGameReviewAiHelp())
-                    WACscProxy.openGameReviewAiHelp();
-                break;
-            case R.id.btn_add_custom_data: //添加自定义参数
-                addCustomParams();
-                break;
-            case R.id.btn_reset_custom_data: //重置自定义参数
-                customData.clear();
-                mTvCustomData.setText(null);
-                break;
-            case R.id.btn_switch_language: //切换语言
-                switchLanguage();
-                break;
-            }
+        int id = v.getId();
+        if (id == R.id.btn_openAiHelp) {
+            if (WACscProxy.isOpenAiHelp())
+                WACscProxy.openAiHelpV2();
+        } else if (id == R.id.btn_isOpenAiHelp) {
+            showLongToast(WACscProxy.isOpenAiHelp() ? "已开启" : "未开启");
+        } else if (id == R.id.btn_isOpenGameReviewAiHelp) {
+            showLongToast(WACscProxy.isOpenGameReviewAiHelp() ? "已开启" : "未开启");
+        } else if (id == R.id.btn_openGameReviewAiHelp) {
+            if (WACscProxy.isOpenGameReviewAiHelp())
+                WACscProxy.openGameReviewAiHelp();
+        } else if (id == R.id.btn_add_custom_data) { //添加自定义参数
+            addCustomParams();
+        } else if (id == R.id.btn_reset_custom_data) { //重置自定义参数
+            customData.clear();
+            mTvCustomData.setText(null);
+        } else if (id == R.id.btn_switch_language) { //切换语言
+            switchLanguage();
+        }
     }
 
     private void switchLanguage() {
@@ -109,10 +100,10 @@ public class CscActivity extends BaseActivity {
         finish();
     }
 
-            @Override
+    @Override
     public void onBackPressed() {
-                exit();
-            }
+        exit();
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

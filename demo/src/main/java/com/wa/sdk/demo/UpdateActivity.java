@@ -34,23 +34,17 @@ public class UpdateActivity extends BaseActivity {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()) {
-            case R.id.btn_check_hot_update:
-                checkHotUpdate();
-                break;
-            case R.id.btn_download_patch:
-//                downloadPatch();
-                showShortToast("检查更新后自动下载，无需手动调用下载");
+        int id = v.getId();
+        if (id == R.id.btn_check_hot_update) {
+            checkHotUpdate();
+        } else if (id == R.id.btn_download_patch) {//                downloadPatch();
+            showShortToast("检查更新后自动下载，无需手动调用下载");
 //                File file = Environment.getExternalStorageDirectory();
 //                WAUpdateInfo info = new WAUpdateInfo();
 //                info.setDownloadUrl(new File(file, "patch_v1.apatch").getPath());
 //                WAHupProxy.startUpdate(info, null);
-                break;
-            case R.id.btn_get_update_link:
-                getUpdateLink();
-                break;
-            default:
-                break;
+        } else if (id == R.id.btn_get_update_link) {
+            getUpdateLink();
         }
     }
 

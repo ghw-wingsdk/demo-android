@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -37,15 +36,11 @@ public class PermissionActivity extends BaseActivity {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_request_permission:
-                callNotificationPermission(this);
-                break;
-            case R.id.btn_notification_permission:
-                testNotificationPermission();
-                break;
-            default:
-                break;
+        int id = v.getId();
+        if (id == R.id.btn_request_permission) {
+            callNotificationPermission(this);
+        } else if (id == R.id.btn_notification_permission) {
+            testNotificationPermission();
         }
     }
 

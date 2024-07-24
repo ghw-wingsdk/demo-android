@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--    <uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
@@ -17,18 +17,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".AdMobActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RareFunctionActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UserDeletionActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PermissionActivity"
-            android:exported="false" />
-        <activity android:name=".SplashActivity"
+            android:name=".SplashActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,116 +29,132 @@
             android:name=".MainActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:exported="true"
-            android:label="@string/app_name"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".LoginActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:screenOrientation="behind" />
         <activity
             android:name=".CscActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:screenOrientation="behind" />
         <activity
             android:name=".PrivacyActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:screenOrientation="behind" />
         <activity
             android:name=".AccountManagerActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:screenOrientation="behind" />
         <activity
             android:name=".GetAccountInfoActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:screenOrientation="behind" />
         <activity
             android:name=".tracking.TrackingActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:screenOrientation="behind" />
         <activity
             android:name=".tracking.TrackingSendActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" /> <!-- Share -->
+            android:screenOrientation="behind" />
         <activity
             android:name=".tracking.TrackingSimulateActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" /> <!-- Share -->
+            android:screenOrientation="behind" />
         <activity
             android:name=".share.ShareActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" /> <!-- Facebook Share -->
+            android:screenOrientation="behind" />
         <activity
             android:name=".share.FBShareActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" /> <!-- Invite -->
+            android:screenOrientation="behind" />
         <activity
             android:name=".invite.InviteActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" /> <!-- Facebook Invite -->
+            android:screenOrientation="behind" />
         <activity
             android:name=".invite.FBInviteActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:screenOrientation="behind" />
         <activity
             android:name=".invite.FBInviteFriendsActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:screenOrientation="behind" />
         <activity
             android:name=".invite.VKInviteActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:screenOrientation="behind" />
         <activity
             android:name=".invite.VKInviteFriendsActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:screenOrientation="behind" />
         <activity
             android:name=".gifting.GiftingActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:screenOrientation="behind" />
         <activity
             android:name=".gifting.FBGiftingActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:screenOrientation="behind" />
         <activity
             android:name=".gifting.FBGiftChooserActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:screenOrientation="behind" />
         <activity
             android:name=".PaymentActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" /> <!-- Game Service -->
+            android:screenOrientation="behind" />
+        <!-- Game Service -->
         <activity
             android:name=".game.GameServiceActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" /> <!-- Google Game -->
+            android:screenOrientation="behind" />
         <activity
             android:name=".game.GoogleGameActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" /> <!-- Hot Update -->
+            android:screenOrientation="behind" />
         <activity
             android:name=".UpdateActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" /> <!-- Community -->
+            android:screenOrientation="behind" />
         <activity
             android:name=".community.CommunityActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:screenOrientation="behind" />
         <activity
             android:name=".community.VKCommunityActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:screenOrientation="behind" />
         <activity
             android:name=".community.VKCommunityDisplayActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:screenOrientation="behind" />
         <activity
             android:name=".VideoAdActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" /> <!-- android:screenOrientation="landscape" -->
+            android:screenOrientation="behind" />
         <activity
             android:name=".UserCenterActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:screenOrientation="behind" />
+        <activity
+            android:name=".AdMobActivity"
+            android:exported="false"
+            android:screenOrientation="behind" />
+        <activity
+            android:name=".RareFunctionActivity"
+            android:exported="false"
+            android:screenOrientation="behind" />
+        <activity
+            android:name=".UserDeletionActivity"
+            android:exported="false"
+            android:screenOrientation="behind" />
+        <activity
+            android:name=".PermissionActivity"
+            android:exported="false"
+            android:screenOrientation="behind" />
 
         <receiver
             android:name=".receiver.PushReceiver"
@@ -156,40 +162,50 @@
             <intent-filter>
                 <action android:name="com.wa.sdk.push.intent.NOTIFICATION_OPENED" />
             </intent-filter>
-        </receiver> <!-- AppsFlyer SDK START -->
-        <!-- AppsFlyer AppKey(需要自己申请) -->
+        </receiver>
+        <!-- AppsFlyer SDK START -->
         <meta-data
             android:name="com.wa.sdk.track.APPSFLYER_APP_KEY"
-            android:value="922wXRJwEns6Qj4MfMt4Gg" /> <!-- AppsFlyer Channel -->
+            android:value="922wXRJwEns6Qj4MfMt4Gg" />
+        <!-- AppsFlyer Channel -->
         <meta-data
             android:name="CHANNEL"
-            android:value="GOOGLE" /> <!-- 开启/关闭 AppsFlyer数据收集功能，默认开启，使用默认配置可不配置此项 -->
+            android:value="GOOGLE" />
+        <!-- 开启/关闭 AppsFlyer数据收集功能，默认开启，使用默认配置可不配置此项 -->
         <meta-data
             android:name="com.wa.sdk.track.ENABLE_APPSFLYER"
-            android:value="true" /> <!-- AppsFlyer SDK END -->
+            android:value="true" />
+        <!-- AppsFlyer SDK END -->
         <!-- sdk的appid -->
         <meta-data
             android:name="com.wa.sdk.APP_ID"
-            android:value="f7f9a9d18da611e5a0be000d3a906774" /> <!-- sdk的appkey -->
+            android:value="f7f9a9d18da611e5a0be000d3a906774" />
+        <!-- sdk的appkey -->
         <meta-data
             android:name="com.wa.sdk.APP_KEY"
-            android:value="CFHF7nQCCaojCX6Sm4eT1GEIWRprimgX" /> <!-- sdk平台请求的host地址，所有请求的前面公共部分 -->
+            android:value="CFHF7nQCCaojCX6Sm4eT1GEIWRprimgX" />
+        <!-- sdk平台请求的host地址，所有请求的前面公共部分 -->
         <meta-data
             android:name="com.wa.sdk.HTTP_BASE_URL"
-            android:value="${SDK_HTTP_BASE_URL}" /> <!-- PCL request http url（PCL数据收集相关请求的url，这个必须配置，以支持不同版本的api请求） -->
+            android:value="${SDK_HTTP_BASE_URL}" />
+        <!-- PCL request http url（PCL数据收集相关请求的url，这个必须配置，以支持不同版本的api请求） -->
         <meta-data
             android:name="com.wa.sdk.track.BASE_URL"
-            android:value="${SDK_TRACKING_HTTP_BASE_URL}" /> <!-- Chartboost SDK START -->
+            android:value="${SDK_TRACKING_HTTP_BASE_URL}" />
+        <!-- Chartboost SDK START -->
         <!-- Chartboost app id -->
         <meta-data
             android:name="com.wa.sdk.track.CHARTBOOST_APP_ID"
-            android:value="5ecf154cb8730209d26e1e4e" /> <!-- Chartboost app signature -->
+            android:value="5ecf154cb8730209d26e1e4e" />
+        <!-- Chartboost app signature -->
         <meta-data
             android:name="com.wa.sdk.track.CHARTBOOST_APP_SIGNATURE"
-            android:value="c11187ca183d21c88ce22a6817784ad9d15508c3" /> <!-- 开启/关闭 Chartboost数据收集功能，默认关闭，使用默认配置可不配置此项 -->
+            android:value="c11187ca183d21c88ce22a6817784ad9d15508c3" />
+        <!-- 开启/关闭 Chartboost数据收集功能，默认关闭，使用默认配置可不配置此项 -->
         <meta-data
             android:name="com.wa.sdk.track.ENABLE_CHARTBOOST"
-            android:value="true" /> <!-- Chartboost SDK END -->
+            android:value="true" />
+        <!-- Chartboost SDK END -->
         <!-- Facebook Start -->
         <provider
             android:name="com.facebook.FacebookContentProvider"
@@ -201,14 +217,16 @@
             android:value="@string/facebook_app_id" />
         <meta-data
             android:name="com.facebook.sdk.ClientToken"
-            android:value="@string/facebook_client_token" /> <!-- 开启/关闭 Facebook数据收集功能，默认关闭，使用默认配置可不配置此项 -->
+            android:value="@string/facebook_client_token" />
+        <!-- 开启/关闭 Facebook数据收集功能，默认关闭，使用默认配置可不配置此项 -->
         <meta-data
             android:name="com.wa.sdk.track.ENABLE_FACEBOOK"
             android:value="true" />
 
         <activity
             android:name="com.facebook.CustomTabActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="behind">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -234,13 +252,16 @@ Consumer Secret (API Secret)	mQxNdMLMpvWXNR2tJZ9qblHxct7YI3thgYMvxWnA5Tq71py4Ni
         <!-- Fabric api key，需要到Fabric后台申请 -->
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="0851e13e347797a5afa8b6ba407007f0ac0e4adc" /> <!-- Twitter consumer key，需要到Twitter后台申请 -->
+            android:value="0851e13e347797a5afa8b6ba407007f0ac0e4adc" />
+        <!-- Twitter consumer key，需要到Twitter后台申请 -->
         <meta-data
             android:name="com.wa.sdk.TWITTER_CONSUMER_KEY"
-            android:value="FXJ0BYeSakTGtm0Bh5OO62U9X" /> <!-- Twitter consumer secret，需要到Twitter后台申请 -->
+            android:value="FXJ0BYeSakTGtm0Bh5OO62U9X" />
+        <!-- Twitter consumer secret，需要到Twitter后台申请 -->
         <meta-data
             android:name="com.wa.sdk.TWITTER_CONSUMER_SECRET"
-            android:value="Uo9Es3m8FNBLtcGjzrU3oyoBOczkqzga8sgPoOsERJ8dDWScf4" /> <!-- Twitter End -->
+            android:value="Uo9Es3m8FNBLtcGjzrU3oyoBOczkqzga8sgPoOsERJ8dDWScf4" />
+        <!-- Twitter End -->
         <!-- Instagram Start -->
         <!-- Instagram client id，需要到Instagram后台申请 -->
         <!-- <meta-data -->
@@ -252,13 +273,15 @@ Consumer Secret (API Secret)	mQxNdMLMpvWXNR2tJZ9qblHxct7YI3thgYMvxWnA5Tq71py4Ni
         <!-- android:value="b8cebfb9d70c4b7dbaf99d3401f4efb5" /> -->
         <meta-data
             android:name="com.ghw.sdk.INSTAGRAM_CLIENT_ID"
-            android:value="9b5eddd42ee048179f414a2c038365e4" /> <!-- Instagram client secret，需要到Instagram后台申请 -->
+            android:value="9b5eddd42ee048179f414a2c038365e4" />
+        <!-- Instagram client secret，需要到Instagram后台申请 -->
         <meta-data
             android:name="com.ghw.sdk.INSTAGRAM_CLIENT_SECRET"
             android:value="83d4468b062a427780bda2ad568e5be0" />
         <meta-data
             android:name="com.ghw.sdk.INSTAGRAM_REDIRECT_URI"
-            android:value="http://blog.wing-analytics.com/" /> <!-- Instagram End -->
+            android:value="http://blog.wing-analytics.com/" />
+        <!-- Instagram End -->
         <!-- 系统本地 -->
         <!-- <meta-data -->
         <!-- android:name="com.wa.sdk.AIHelp_appKey" -->
@@ -291,18 +314,18 @@ Consumer Secret (API Secret)	mQxNdMLMpvWXNR2tJZ9qblHxct7YI3thgYMvxWnA5Tq71py4Ni
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/color_wa_push_notification" />
-<!--        <meta-data-->
-<!--            android:name="com.wa.sdk.CONSENT_NOTICE_ID"-->
-<!--            android:value="MCheVkM3" />-->
+        <meta-data
+            android:name="com.wa.sdk.CONSENT_NOTICE_ID"
+            android:value="3gFPBy7K" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3512615046087076~6119035746"/>
-        <meta-data
-            android:name="com.wa.sdk.OFFICIAL_PACKAGE"
-            android:value="true"/>
-        <meta-data
-            android:name="com.wa.sdk.UMP_ENABLE"
-            android:value="true"/>
+            android:value="ca-app-pub-3512615046087076~6119035746" />
+        <!--        <meta-data-->
+        <!--            android:name="com.wa.sdk.OFFICIAL_PACKAGE"-->
+        <!--            android:value="true" />-->
+        <!--        <meta-data-->
+        <!--            android:name="com.wa.sdk.UMP_ENABLE"-->
+        <!--            android:value="true" />-->
     </application>
 
 </manifest>

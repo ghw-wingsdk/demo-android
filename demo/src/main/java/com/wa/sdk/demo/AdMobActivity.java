@@ -25,7 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class AdMobActivity extends BaseActivity {
-    public static boolean DEFAULT_APP_OPEN_AD_STATE = true; //开屏广告默认状态
+    public static boolean DEFAULT_APP_OPEN_AD_STATE = false; //开屏广告默认状态
     public static boolean DEFAULT_MAIN_BANNER_AD_STATE = true; //主页面横幅广告默认状态
     public static boolean DEFAULT_TEST = true; //客户端强制测试广告
     public static boolean IS_LOADING_AD = false;
@@ -108,59 +108,52 @@ public class AdMobActivity extends BaseActivity {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_check_interstitial_ad:
-                boolean isInterstitialReady = WAAdMobProxy.checkInterstitialAdReady();
-                showShortToast("插页广告Ready：" + isInterstitialReady);
-                break;
-            case R.id.btn_show_interstitial_ad:
-                IS_LOADING_AD = true;
-                WAAdMobProxy.showInterstitialAd(this, mCallbackInterstitial);
-                break;
-            case R.id.btn_check_app_open_ad:
-                boolean isAppOpenReady = WAAdMobProxy.checkAppOpenAdReady();
-                showShortToast("开屏广告Ready：" + isAppOpenReady);
-                break;
-            case R.id.btn_show_app_open_ad:
-                IS_LOADING_AD = true;
-                WAAdMobProxy.showAppOpenAd(this, mCallbackAppOpen);
-                break;
-            case R.id.btn_show_rewarded_ad:
-                IS_LOADING_AD = true;
-                String adName = mEdtRewardedName.getText().toString();
-                String extInfo = "";
-                JSONObject object = new JSONObject();
-                try {
-                    object.put("cpKey", "abcdefghiklmn");
-                    object.put("cpValue", "AAAA2222BBBB");
-                    extInfo = object.toString();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+        int id = v.getId();
+        if (id == R.id.btn_check_interstitial_ad) {
+            boolean isInterstitialReady = WAAdMobProxy.checkInterstitialAdReady();
+            showShortToast("插页广告Ready：" + isInterstitialReady);
+        } else if (id == R.id.btn_show_interstitial_ad) {
+            IS_LOADING_AD = true;
+            WAAdMobProxy.showInterstitialAd(this, mCallbackInterstitial);
+        } else if (id == R.id.btn_check_app_open_ad) {
+            boolean isAppOpenReady = WAAdMobProxy.checkAppOpenAdReady();
+            showShortToast("开屏广告Ready：" + isAppOpenReady);
+        } else if (id == R.id.btn_show_app_open_ad) {
+            IS_LOADING_AD = true;
+            WAAdMobProxy.showAppOpenAd(this, mCallbackAppOpen);
+        } else if (id == R.id.btn_show_rewarded_ad) {
+            IS_LOADING_AD = true;
+            String adName = mEdtRewardedName.getText().toString();
+            String extInfo = "";
+            JSONObject object = new JSONObject();
+            try {
+                object.put("cpKey", "abcdefghiklmn");
+                object.put("cpValue", "AAAA2222BBBB");
+                extInfo = object.toString();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            WAAdMobProxy.showRewardedAd(this, adName, extInfo, mCallbackRewarded);
+        } else if (id == R.id.btn_check_ump_options) {
+            showShortToast("检查UMP配置：" + WAAdMobProxy.checkUmpOptions());
+        } else if (id == R.id.btn_show_ump_options) {
+            WAAdMobProxy.showUmpOptions(this, new WACallback() {
+                @Override
+                public void onSuccess(int code, String message, Object result) {
+                    showShortToast(message);
+                    logTcfString(AdMobActivity.this);
                 }
-                WAAdMobProxy.showRewardedAd(this, adName, extInfo, mCallbackRewarded);
-                break;
-            case R.id.btn_check_ump_options:
-                showShortToast("检查UMP配置：" + WAAdMobProxy.checkUmpOptions());
-                break;
-            case R.id.btn_show_ump_options:
-                WAAdMobProxy.showUmpOptions(this, new WACallback() {
-                    @Override
-                    public void onSuccess(int code, String message, Object result) {
-                        showShortToast(message);
-                        logTcfString(AdMobActivity.this);
-                    }
 
-                    @Override
-                    public void onCancel() {
+                @Override
+                public void onCancel() {
 
-                    }
+                }
 
-                    @Override
-                    public void onError(int code, String message, Object result, Throwable throwable) {
-                        showShortToast("showUmpOptions error: " + code + " - " + message);
-                    }
-                });
-                break;
+                @Override
+                public void onError(int code, String message, Object result, Throwable throwable) {
+                    showShortToast("showUmpOptions error: " + code + " - " + message);
+                }
+            });
         }
     }
 

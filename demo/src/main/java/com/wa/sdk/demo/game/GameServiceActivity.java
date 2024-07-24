@@ -26,12 +26,8 @@ public class GameServiceActivity extends BaseActivity {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()) {
-            case R.id.btn_gg_game_service:
-                startActivity(new Intent(this, GoogleGameActivity.class));
-                break;
-            default:
-                break;
+        if (v.getId() == R.id.btn_gg_game_service) {
+            startActivity(new Intent(this, GoogleGameActivity.class));
         }
     }
 

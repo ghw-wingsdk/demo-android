@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.common.WACommonProxy;
@@ -61,27 +60,19 @@ public class GetAccountInfoActivity extends BaseActivity {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()) {
-            case R.id.btn_get_account_info_switch_account:
-                switchAccount();
-                break;
-            case R.id.btn_get_facebook_account:
-                getAccountInfo(WAConstants.CHANNEL_FACEBOOK);
-                break;
-            case R.id.btn_get_google_account:
-                getAccountInfo(WAConstants.CHANNEL_GOOGLE);
-                break;
-            case R.id.btn_get_vk_account:
-                getAccountInfo(WAConstants.CHANNEL_VK);
-                break;
-            case R.id.btn_get_twitter_account:
-                getAccountInfo(WAConstants.CHANNEL_TWITTER);
-                break;
-            case R.id.btn_get_instagram_account:
-                getAccountInfo(WAConstants.CHANNEL_INSTAGRAM);
-                break;
-            default:
-                break;
+        int id = v.getId();
+        if (id == R.id.btn_get_account_info_switch_account) {
+            switchAccount();
+        } else if (id == R.id.btn_get_facebook_account) {
+            getAccountInfo(WAConstants.CHANNEL_FACEBOOK);
+        } else if (id == R.id.btn_get_google_account) {
+            getAccountInfo(WAConstants.CHANNEL_GOOGLE);
+        } else if (id == R.id.btn_get_vk_account) {
+            getAccountInfo(WAConstants.CHANNEL_VK);
+        } else if (id == R.id.btn_get_twitter_account) {
+            getAccountInfo(WAConstants.CHANNEL_TWITTER);
+        } else if (id == R.id.btn_get_instagram_account) {
+            getAccountInfo(WAConstants.CHANNEL_INSTAGRAM);
         }
     }
 

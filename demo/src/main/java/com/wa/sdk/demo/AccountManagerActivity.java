@@ -75,27 +75,19 @@ public class AccountManagerActivity extends BaseActivity {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_bind_account:
-                bindAccount();
-                break;
-            case R.id.btn_create_account:
-                createAccount();
-                break;
-            case R.id.btn_switch_account:
-                switchAccount();
-                break;
-            case R.id.btn_query_bound_account:
-                queryBoundAccount();
-                break;
-            case R.id.btn_get_account_info:
-                startActivity(new Intent(this, GetAccountInfoActivity.class));
-                break;
-            case R.id.btn_account_manager_page:
-                openAccountManager();
-                break;
-            default:
-                break;
+        int id = v.getId();
+        if (id == R.id.btn_bind_account) {
+            bindAccount();
+        } else if (id == R.id.btn_create_account) {
+            createAccount();
+        } else if (id == R.id.btn_switch_account) {
+            switchAccount();
+        } else if (id == R.id.btn_query_bound_account) {
+            queryBoundAccount();
+        } else if (id == R.id.btn_get_account_info) {
+            startActivity(new Intent(this, GetAccountInfoActivity.class));
+        } else if (id == R.id.btn_account_manager_page) {
+            openAccountManager();
         }
     }
 

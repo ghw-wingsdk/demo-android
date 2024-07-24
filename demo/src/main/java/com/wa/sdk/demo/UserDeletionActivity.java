@@ -24,8 +24,6 @@ public class UserDeletionActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_deletion);
 
-        mEnableToastLog = true;
-
         TitleBar titleBar = findViewById(R.id.titlebar);
         titleBar.setTitleText("账号删除");
         titleBar.setLeftButton(android.R.drawable.ic_menu_revert, v -> finish());
@@ -123,7 +121,7 @@ public class UserDeletionActivity extends BaseActivity {
         }
         new AlertDialog.Builder(this)
                 .setMessage("该账号将在 " + loginAccount.getDeleteDate() + " 进行账号删除，是否继续取消？")
-                .setPositiveButton(R.string.wa_sdk_wp_continue, (dialog, which) ->
+                .setPositiveButton(com.wa.sdk.webpay.R.string.wa_sdk_wp_continue, (dialog, which) ->
                         // 申请取消账号删除
                         WAUserProxy.cancelRequestDeleteAccount(loginAccount.getUserId(), new WACallback<WAResult>() {
                             @Override

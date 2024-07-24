@@ -75,12 +75,8 @@ public class DefaultEventFragment extends BaseFragment {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_add_parameter:
-                addParameterItemView(null, null, true, true);
-                break;
-            default:
-                break;
+        if (v.getId() == R.id.btn_add_parameter) {
+            addParameterItemView(null, null, true, true);
         }
     }
 

@@ -3,6 +3,7 @@ package com.wa.sdk.demo.base;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -10,16 +11,20 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.wa.sdk.common.WASharedPrefHelper;
 import com.wa.sdk.core.WASdkProperties;
 import com.wa.sdk.demo.LoginActivity;
 import com.wa.sdk.demo.R;
+import com.wa.sdk.demo.WADemoConfig;
 import com.wa.sdk.demo.widget.LoadingDialog;
 
 
@@ -29,14 +34,12 @@ import com.wa.sdk.demo.widget.LoadingDialog;
  */
 public class BaseActivity extends FragmentActivity implements View.OnClickListener {
     protected static final String TAG = "DemoSdk2";
-
-
     protected FragmentManager mFragmentManager;
-
     protected int mContainerId = 0;
-
     protected LoadingDialog mLoadingDialog = null;
     protected boolean mEnableToastLog = false;
+
+    private static final boolean isUseToast = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +81,7 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
 
     /**
      * 入栈
+     *
      * @param fragment 入栈的Fragment
      */
     public void addFragmentToStack(Fragment fragment) {
@@ -92,6 +96,7 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
 
     /**
      * 带自定义动画的入栈
+     *
      * @param fragment
      * @param enter
      * @param exit
@@ -134,6 +139,7 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
 
     /**
      * 显示LoadingDialog
+     *
      * @param message
      * @param cancelable
      * @param canceledOnTouchOutside
@@ -153,6 +159,7 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
 
     /**
      * 显示LoadingDialog
+     *
      * @param message
      * @param cancelListener
      * @return
@@ -184,50 +191,67 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
 
     /**
      * 显示一个短Toast
+     *
      * @param text
      */
     protected void showShortToast(CharSequence text) {
-//        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
-        View view = findViewById(android.R.id.content).getRootView();
-        Snackbar.make(view, text, Snackbar.LENGTH_SHORT).show();
+        if (isUseToast) {
+            Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+        } else {
+            View view = findViewById(android.R.id.content).getRootView();
+            Snackbar.make(view, text, Snackbar.LENGTH_SHORT).show();
+        }
         logToast(text.toString());
     }
 
     /**
      * 显示一个短Toast
+     *
      * @param resId
      */
     protected void showShortToast(int resId) {
-//        Toast.makeText(this, resId, Toast.LENGTH_SHORT).show();
-        View view = findViewById(android.R.id.content).getRootView();
-        Snackbar.make(view, resId, Snackbar.LENGTH_SHORT).show();
+        if (isUseToast) {
+            Toast.makeText(this, resId, Toast.LENGTH_SHORT).show();
+        } else {
+            View view = findViewById(android.R.id.content).getRootView();
+            Snackbar.make(view, resId, Snackbar.LENGTH_SHORT).show();
+        }
         logToast(getString(resId));
     }
 
     /**
      * 显示一个长Toast
+     *
      * @param text
      */
     protected void showLongToast(CharSequence text) {
-//        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
-        View view = findViewById(android.R.id.content).getRootView();
-        Snackbar.make(view, text, Snackbar.LENGTH_LONG).show();
+        if (isUseToast) {
+            Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+        } else {
+            View view = findViewById(android.R.id.content).getRootView();
+            Snackbar.make(view, text, Snackbar.LENGTH_LONG).show();
+        }
         logToast(text.toString());
     }
 
     /**
      * 显示一个长Toast
+     *
      * @param resId
      */
     protected void showLongToast(int resId) {
-//        Toast.makeText(this, resId, Toast.LENGTH_LONG).show();
-        View view = findViewById(android.R.id.content).getRootView();
-        Snackbar.make(view, resId, Snackbar.LENGTH_LONG).show();
+        if (isUseToast) {
+            Toast.makeText(this, resId, Toast.LENGTH_LONG).show();
+        } else {
+            View view = findViewById(android.R.id.content).getRootView();
+            Snackbar.make(view, resId, Snackbar.LENGTH_LONG).show();
+        }
         logToast(getString(resId));
     }
 
     /**
      * 获取资源id，如果没有找到，返回0
+     *
      * @param name
      * @param defType
      * @return
@@ -238,6 +262,7 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
 
     /**
      * 获取某个颜色
+     *
      * @param resId
      * @return
      */
@@ -255,6 +280,7 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
 
     /**
      * 获取Resource中的ColorStateList
+     *
      * @param resId
      * @return
      */
@@ -323,6 +349,22 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
     protected void logToast(String text) {
         if (mEnableToastLog) {
             Log.d("DemoSdk2", text);
+        }
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        setFullScreen();
+    }
+
+    protected void setScreenOrientation() {
+        WASharedPrefHelper sp = WASharedPrefHelper.newInstance(this, WADemoConfig.SP_CONFIG_FILE_DEMO);
+        int orientation = sp.getInt(WADemoConfig.SP_KEY_SETTING_ORIENTATION, 0);
+        if (orientation == 1) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        } else if (orientation == 2) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         }
     }
 }

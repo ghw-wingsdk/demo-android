@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -48,22 +49,21 @@ import java.util.UUID;
 
 public class MainActivity extends BaseActivity {
     private WASharedPrefHelper mSharedPrefHelper;
-
     private PendingAction mPendingAction = PendingAction.NONE;
-
     private EditText mEtSkuId;
     private EditText mEdtClientId;
+    private TextView mTvScreenOrientation;
 
     private boolean mPayInitialized = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setScreenOrientation();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         // Demo的初始化，跟SDK无关
         WASdkDemo.getInstance().initialize(this);
-
         mSharedPrefHelper = WASharedPrefHelper.newInstance(this, WADemoConfig.SP_CONFIG_FILE_DEMO);
         initView();
 
@@ -77,18 +77,18 @@ public class MainActivity extends BaseActivity {
             showLoadingDialog("初始化中", false, false, null);
             // SDK初始化
             WACoreProxy.initialize(this, new WACallback<Void>() {
-            @Override
+                @Override
                 public void onSuccess(int code, String message, Void result) {
                     cancelLoadingDialog();
                     doAfterInitSuccess();
-            }
+                }
 
-            @Override
-            public void onCancel() {
+                @Override
+                public void onCancel() {
 
-            }
+                }
 
-            @Override
+                @Override
                 public void onError(int code, String message, Void result, Throwable throwable) {
                     cancelLoadingDialog();
                     new AlertDialog.Builder(MainActivity.this)
@@ -96,8 +96,8 @@ public class MainActivity extends BaseActivity {
                             .setMessage("初始化失败，请退出应用重新进入")
                             .setPositiveButton("退出", (dialog, which) -> finish())
                             .show();
-            }
-        });
+                }
+            });
         } else {
             doAfterInitSuccess();
         }
@@ -107,15 +107,9 @@ public class MainActivity extends BaseActivity {
         if (null != bundle) {
             Set<String> keys = bundle.keySet();
             for (String key : keys) {
-                LogUtil.e("MainActivity", "Key-------" + key);
+                LogUtil.e(TAG, "Key-------" + key);
             }
         }
-
-//        Uri targetUrl = AppLinks.getTargetUrlFromInboundIntent(this, getIntent());
-//        if (targetUrl != null) {
-//            Log.i("Activity", "App Link Target URL: " + targetUrl.toString());
-//            showLongToast("App Link Target URL: " + targetUrl.toString());
-//        }
 
         Util.showHashKey(this);
     }
@@ -123,7 +117,7 @@ public class MainActivity extends BaseActivity {
     private void delayLoginUI(int second) {
         if (second < 0) return;
 
-        new Handler().postDelayed(() -> WAUserProxy.loginUI(MainActivity.this, false, new WACallback<WALoginResult>() {
+        new Handler().postDelayed(() -> WAUserProxy.loginUI(MainActivity.this, true, new WACallback<WALoginResult>() {
             @Override
             public void onSuccess(int code, String message, WALoginResult result) {
                 String text = "code:" + code + "\nmessage:" + message;
@@ -140,7 +134,18 @@ public class MainActivity extends BaseActivity {
                             + "\nisBindAccount: " + result.getIsBindAccount()
                             + "\nisGuestAccount: " + result.getIsGuestAccount()
                             + "\nisFistLogin: " + result.isFirstLogin();
+
+                    // 数据收集
+                    String txServerId = "2";
+                    String serverId = TextUtils.isEmpty(txServerId) ? "server2" : "server" + txServerId;
+                    String gameUserId = serverId + "-role1-" + result.getUserId();
+                    String nickname = "青铜" + serverId + "-" + result.getUserId();
+
+                    WACoreProxy.setServerId(serverId);
+                    WACoreProxy.setGameUserId(gameUserId);
+                    WACoreProxy.setNickname(nickname);
                 }
+                WASdkDemo.getInstance().updateLoginAccount(result);
                 LogUtil.i(TAG, text);
                 showLongToast(text);
             }
@@ -152,7 +157,9 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onError(int code, String message, WALoginResult result, Throwable throwable) {
-
+                String text = "code:" + code + "\nmessage:" + message;
+                LogUtil.w(LogUtil.TAG, "Login failed->" + text);
+                showLongToast("Login failed->" + text);
             }
         }), second * 1000L);
     }
@@ -186,7 +193,7 @@ public class MainActivity extends BaseActivity {
         });
 
         // 延迟 n 秒后调用登录弹窗
-        delayLoginUI(-1);
+        delayLoginUI(1);
 
         // 调试入口
         if (mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_LOGCAT, true)) {
@@ -289,95 +296,88 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_request_permission:
-                startActivity(new Intent(this, PermissionActivity.class));
-                break;
-            case R.id.btn_login:
-                login(false);
-                break;
-            case R.id.btn_account_manager:
-                openAccountManager();
-                break;
-            case R.id.btn_pay:
-                payment();
-                break;
-            case R.id.btn_static_pay:
-                staticPay();
-                break;
-            case R.id.btn_tracking:
-                testTracking();
-                break;
-            case R.id.btn_share:
-                startActivity(new Intent(this, ShareActivity.class));
-                break;
-            case R.id.btn_game_service:
-                startActivity(new Intent(MainActivity.this, GameServiceActivity.class));
-                break;
-            case R.id.btn_csc:
-                startActivity(new Intent(this, CscActivity.class));
-                break;
-            case R.id.btn_privacy:
-                startActivity(new Intent(this, PrivacyActivity.class));
-                break;
-            case R.id.btn_user_center:
-                startActivity(new Intent(this, UserCenterActivity.class));
-                break;
-            case R.id.btn_random_client_id:
-                String clientId = UUID.randomUUID().toString().replaceAll("-", "");
-                mEdtClientId.setText(clientId);
-                break;
-            case R.id.btn_create_client_id:
-                String strClientId = mEdtClientId.getText().toString();
-                if (TextUtils.isEmpty(strClientId)) {
-                    showShortToast("ClientId不能为空");
-                } else {
-                    WACoreProxy.setClientId(strClientId);
-                    showShortToast("Client设置成功：" + strClientId);
+        int id = v.getId();
+        if (id == R.id.btn_request_permission) {
+            startActivity(new Intent(this, PermissionActivity.class));
+        } else if (id == R.id.btn_login) {
+            login(false);
+        } else if (id == R.id.btn_account_manager) {
+            openAccountManager();
+        } else if (id == R.id.btn_pay) {
+            payment();
+        } else if (id == R.id.btn_static_pay) {
+            staticPay();
+        } else if (id == R.id.btn_tracking) {
+            testTracking();
+        } else if (id == R.id.btn_share) {
+            startActivity(new Intent(this, ShareActivity.class));
+        } else if (id == R.id.btn_game_service) {
+            startActivity(new Intent(MainActivity.this, GameServiceActivity.class));
+        } else if (id == R.id.btn_csc) {
+            startActivity(new Intent(this, CscActivity.class));
+        } else if (id == R.id.btn_privacy) {
+            startActivity(new Intent(this, PrivacyActivity.class));
+        } else if (id == R.id.btn_user_center) {
+            startActivity(new Intent(this, UserCenterActivity.class));
+        } else if (id == R.id.btn_random_client_id) {
+            String clientId = UUID.randomUUID().toString().replaceAll("-", "");
+            mEdtClientId.setText(clientId);
+        } else if (id == R.id.btn_create_client_id) {
+            String strClientId = mEdtClientId.getText().toString();
+            if (TextUtils.isEmpty(strClientId)) {
+                showShortToast("ClientId不能为空");
+            } else {
+                WACoreProxy.setClientId(strClientId);
+                showShortToast("Client设置成功：" + strClientId);
+            }
+        } else if (id == R.id.btn_open_review) {
+            openReview();
+        } else if (id == R.id.btn_account_deletion) {
+            startActivity(new Intent(MainActivity.this, UserDeletionActivity.class));
+        } else if (id == R.id.btn_display_app_version_info) {//app 信息
+            new AlertDialog.Builder(this).setMessage(Util.getApkBuildInfo(this)).show();
+        } else if (id == R.id.btn_switch_orientation) {
+            int orientation = mSharedPrefHelper.getInt(WADemoConfig.SP_KEY_SETTING_ORIENTATION, 0);
+            orientation++;
+            if (orientation>2) orientation = 0;
+            mSharedPrefHelper.saveInt(WADemoConfig.SP_KEY_SETTING_ORIENTATION,orientation);
+            updateScreenOrientationText();
+        } else if (id == R.id.btn_open_game_review) {
+            openGameReview();
+        } else if (id == R.id.btn_show_open_url) {
+            WACoreProxy.showOpenUrl(this, new WACallback<WAResult>() {
+                @Override
+                public void onSuccess(int code, String message, WAResult result) {
+                    showShortToast("打开链接成功");
                 }
-                break;
-            case R.id.btn_open_review:
-                openReview();
-                break;
-            case R.id.btn_account_deletion:
-                startActivity(new Intent(MainActivity.this, UserDeletionActivity.class));
-                break;
-            case R.id.btn_display_app_version_info:
-                //app 信息
-                new AlertDialog.Builder(this).setMessage(Util.getApkBuildInfo(this)).show();
-                break;
-            case R.id.btn_open_game_review:
-                openGameReview();
-                break;
-            case R.id.btn_show_open_url:
-                WACoreProxy.showOpenUrl(this, new WACallback<WAResult>() {
-                    @Override
-                    public void onSuccess(int code, String message, WAResult result) {
-                        showShortToast("打开链接成功");
-                    }
 
-                    @Override
-                    public void onCancel() {
+                @Override
+                public void onCancel() {
 
-                    }
+                }
 
-                    @Override
-                    public void onError(int code, String message, WAResult result, Throwable throwable) {
-                        showShortToast("打开链接失败：" + code + "," + message);
-                    }
-                });
-                break;
-            case R.id.btn_show_consent_preferences:
-                WACmpProxy.showConsentPreferences(this);
-                break;
-            case R.id.btn_admob:
-                startActivity(new Intent(this, AdMobActivity.class));
-                break;
-            case R.id.btn_rare_function:
-                startActivity(new Intent(this, RareFunctionActivity.class));
-                break;
-            default:
-                break;
+                @Override
+                public void onError(int code, String message, WAResult result, Throwable throwable) {
+                    showShortToast("打开链接失败：" + code + "," + message);
+                }
+            });
+        } else if (id == R.id.btn_show_consent_preferences) {
+            WACmpProxy.showConsentPreferences(this);
+        } else if (id == R.id.btn_admob) {
+            startActivity(new Intent(this, AdMobActivity.class));
+        } else if (id == R.id.btn_rare_function) {
+            startActivity(new Intent(this, RareFunctionActivity.class));
+        }
+    }
+
+    private void updateScreenOrientationText() {
+        int orientation = mSharedPrefHelper.getInt(WADemoConfig.SP_KEY_SETTING_ORIENTATION, 0);
+        if (orientation == 1) {
+            mTvScreenOrientation.setText("强制竖屏");
+        } else if (orientation == 2) {
+            mTvScreenOrientation.setText("强制横屏");
+        } else {
+            mTvScreenOrientation.setText("默认");
         }
     }
 
@@ -556,34 +556,31 @@ public class MainActivity extends BaseActivity {
         mEtSkuId.setText("123123");
 
         mEdtClientId = findViewById(R.id.edt_client_id);
+        mTvScreenOrientation = findViewById(R.id.tv_screen_orientation);
+        updateScreenOrientationText();
     }
 
     private final CompoundButton.OnCheckedChangeListener mOnCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            switch (buttonView.getId()) {
-                case R.id.tbtn_logcat:
-                    mSharedPrefHelper.saveBoolean(WADemoConfig.SP_KEY_ENABLE_LOGCAT, isChecked);
-                    if (isChecked) {
-                        WACommonProxy.enableLogcat(MainActivity.this);
-                    } else {
-                        WACommonProxy.disableLogcat(MainActivity.this);
-                    }
-                    break;
-                case R.id.tbtn_app_wall:
-                    mSharedPrefHelper.saveBoolean(WADemoConfig.SP_KEY_ENABLE_APW, isChecked);
-                    if (isChecked) {
-                        WAApwProxy.showEntryFlowIcon(MainActivity.this);
-                    } else {
-                        WAApwProxy.hideEntryFlowIcon(MainActivity.this);
-                    }
-                    break;
-                case R.id.tbtn_debug:
-                    mSharedPrefHelper.saveBoolean(WADemoConfig.SP_KEY_ENABLE_DEBUG, isChecked);
-                    WACoreProxy.setDebugMode(isChecked);
-                    break;
-                default:
-                    break;
+            int id = buttonView.getId();
+            if (id == R.id.tbtn_logcat) {
+                mSharedPrefHelper.saveBoolean(WADemoConfig.SP_KEY_ENABLE_LOGCAT, isChecked);
+                if (isChecked) {
+                    WACommonProxy.enableLogcat(MainActivity.this);
+                } else {
+                    WACommonProxy.disableLogcat(MainActivity.this);
+                }
+            } else if (id == R.id.tbtn_app_wall) {
+                mSharedPrefHelper.saveBoolean(WADemoConfig.SP_KEY_ENABLE_APW, isChecked);
+                if (isChecked) {
+                    WAApwProxy.showEntryFlowIcon(MainActivity.this);
+                } else {
+                    WAApwProxy.hideEntryFlowIcon(MainActivity.this);
+                }
+            } else if (id == R.id.tbtn_debug) {
+                mSharedPrefHelper.saveBoolean(WADemoConfig.SP_KEY_ENABLE_DEBUG, isChecked);
+                WACoreProxy.setDebugMode(isChecked);
             }
 
         }

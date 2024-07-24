@@ -50,30 +50,21 @@ public class GoogleGameActivity extends BaseActivity {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()) {
-            case R.id.btn_google_game_sign:
-                signIn();
-                break;
-            case R.id.btn_google_game_display_achievements:
-                displayAchievement();
-                break;
-            case R.id.btn_google_game_reveal_achievement:
-                revealAchievement();
-                break;
-            case R.id.btn_google_game_unlock_achievements:
-                unlockAchievement();
-                break;
-            case R.id.btn_google_game_increase_achievements:
-                increaseAchievement();
-                break;
-            case R.id.btn_google_game_set_steps_achievements:
-                setStepsAchievement();
-                break;
-            case R.id.load_achievement:
-                loadAchievements();
-                break;
-            default:
-                break;
+        int id = v.getId();
+        if (id == R.id.btn_google_game_sign) {
+            signIn();
+        } else if (id == R.id.btn_google_game_display_achievements) {
+            displayAchievement();
+        } else if (id == R.id.btn_google_game_reveal_achievement) {
+            revealAchievement();
+        } else if (id == R.id.btn_google_game_unlock_achievements) {
+            unlockAchievement();
+        } else if (id == R.id.btn_google_game_increase_achievements) {
+            increaseAchievement();
+        } else if (id == R.id.btn_google_game_set_steps_achievements) {
+            setStepsAchievement();
+        } else if (id == R.id.load_achievement) {
+            loadAchievements();
         }
     }
 

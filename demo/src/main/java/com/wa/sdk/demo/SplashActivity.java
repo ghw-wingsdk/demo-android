@@ -37,6 +37,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setScreenOrientation();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 

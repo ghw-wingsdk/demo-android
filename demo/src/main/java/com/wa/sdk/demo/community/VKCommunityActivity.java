@@ -48,24 +48,17 @@ public class VKCommunityActivity extends BaseActivity {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()) {
-            case R.id.btn_vk_community_get_account_info:
-                getAccountInfo();
-                break;
-            case R.id.btn_vk_community_search_by_id:
-                searchById();
-                break;
-            case R.id.btn_vk_community_app_linked:
-                appLinkedGroup();
-                break;
-            case R.id.btn_vk_community_user_group:
-                currentUserGroup();
-                break;
-            case R.id.btn_vk_community_is_member:
-                currentUserIsMemberOfGroup();
-                break;
-            default:
-                break;
+        int id = v.getId();
+        if (id == R.id.btn_vk_community_get_account_info) {
+            getAccountInfo();
+        } else if (id == R.id.btn_vk_community_search_by_id) {
+            searchById();
+        } else if (id == R.id.btn_vk_community_app_linked) {
+            appLinkedGroup();
+        } else if (id == R.id.btn_vk_community_user_group) {
+            currentUserGroup();
+        } else if (id == R.id.btn_vk_community_is_member) {
+            currentUserIsMemberOfGroup();
         }
     }
 

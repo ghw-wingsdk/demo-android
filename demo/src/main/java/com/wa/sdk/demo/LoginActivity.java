@@ -2,6 +2,7 @@ package com.wa.sdk.demo;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -90,6 +91,10 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 1005 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            loginUi(); // nowgg 授权后，再次调用登录
+            return;
+        }
         if (WACommonProxy.onRequestPermissionsResult(this, requestCode, permissions, grantResults)) {
             return;
         }
@@ -136,13 +141,14 @@ public class LoginActivity extends BaseActivity {
         } else if (id == R.id.btn_logout) {
             logout();
         } else if (id == R.id.btn_login_form) {
-            WAUserProxy.loginUI(LoginActivity.this,
-                    mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_LOGIN_CACHE, false),
-                    mLoginCallback);
+            loginUi();
         } else if (id == R.id.btn_ghg_integration_login) {
             ghgIntegrationLogin();
         } else if (id == R.id.btn_r2_integration_login) {
             r2IntegrationLogin();
+        } else if (id == R.id.btn_nowgg_login) {
+            showLoadingDialog("正在登录 now.gg", null);
+            WAUserProxy.login(this, WAConstants.CHANNEL_NOWGG, mLoginCallback, null);
         } else if (id == R.id.btn_clear_login_cache) {
             WAUserProxy.clearLoginCache();
             showShortToast(R.string.clean_login_cache);
@@ -271,6 +277,11 @@ public class LoginActivity extends BaseActivity {
         finish();
     }
 
+    private void loginUi() {
+        WAUserProxy.loginUI(LoginActivity.this,
+                mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_LOGIN_CACHE, false),
+                mLoginCallback);
+    }
 
     /**
      * Facebook登陆点击

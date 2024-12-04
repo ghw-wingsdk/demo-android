@@ -7,6 +7,7 @@ import static com.wa.sdk.demo.AdMobActivity.DEFAULT_TEST;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -181,6 +182,7 @@ public class MainActivity extends BaseActivity {
             public void onSuccess(int code, String message, WAResult result) {
                 LogUtil.d(TAG, "WAPayProxy.initialize success");
                 mPayInitialized = true;
+                WAPayProxy.queryInventory(null);
             }
 
             @Override
@@ -239,6 +241,9 @@ public class MainActivity extends BaseActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         WACommonProxy.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+        if (requestCode == 1005 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            delayLoginUI(0); // nowgg 授权成功后，再次调用登录
+        }
     }
 
 
@@ -445,7 +450,7 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onError(int code, String message, WAPurchaseResult result, Throwable throwable) {
-                LogUtil.d(TAG, "pay error");
+                LogUtil.d(TAG, "pay error, code:" + code + ", msg:" + message);
                 cancelLoadingDialog();
                 if (WACallback.CODE_NOT_LOGIN == code) {
                     new AlertDialog.Builder(MainActivity.this).setTitle(R.string.warming).setMessage(R.string.not_login_yet).setPositiveButton(R.string.login_now, new DialogInterface.OnClickListener() {
@@ -557,7 +562,7 @@ public class MainActivity extends BaseActivity {
         tbtnDebug.setOnCheckedChangeListener(mOnCheckedChangeListener);
 
         mEtSkuId = findViewById(R.id.et_static_pay_sku_id);
-        mEtSkuId.setText("123123");
+        mEtSkuId.setText("1");
 
         mEdtClientId = findViewById(R.id.edt_client_id);
         mTvScreenOrientation = findViewById(R.id.tv_screen_orientation);

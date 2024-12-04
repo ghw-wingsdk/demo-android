@@ -71,6 +71,7 @@
     <string name="huaweihms_login">华为HMS登录</string>
     <string name="login_form">登录窗口</string>
     <string name="app_login">应用内登录</string>
+    <string name="nowgg_login">Login with now.gg</string>
     <string name="logout">登出</string>
     <string name="rebind_account_with_device">登录时重新绑定设备</string>
     <string name="do_not_rebind_account_with_device">登录时不重新绑定设备</string>

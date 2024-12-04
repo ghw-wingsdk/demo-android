@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!--    <uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <!--  官网包才需要声明这个权限  -->
@@ -22,7 +21,7 @@
         <!--    官网包才需要    -->
         <!--        <provider-->
         <!--            android:name="com.wa.sdk.wa.core.sdkadid.WASdkAdIdProvider"-->
-        <!--            android:authorities="com.wa.provider.ad.sdk2"-->
+        <!--            android:authorities="com.wa.provider.ad.sdk2ghg"-->
         <!--            android:exported="true" />-->
 
         <activity
@@ -325,11 +324,20 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3512615046087076~6119035746" />
         <!--        <meta-data-->
-        <!--            android:name="com.wa.sdk.OFFICIAL_PACKAGE"-->
-        <!--            android:value="true" />-->
-        <!--        <meta-data-->
         <!--            android:name="com.wa.sdk.UMP_ENABLE"-->
         <!--            android:value="true" />-->
+        <!--        官网包标志-->
+        <!--        <meta-data-->
+        <!--            android:name="com.wa.sdk.OFFICIAL_PACKAGE"-->
+        <!--            android:value="true" />-->
+
+        <!--    now.gg 配置    -->
+        <meta-data
+            android:name="com.wa.sdk.nowgg.CLIENT_ID"
+            android:value="qjFlYAorUYEymZdx2Psq$$01J8HC3HDQEZ9WA4HV6DB3P29M" />
+        <meta-data
+            android:name="com.wa.sdk.nowgg.PAYMENT_ID"
+            android:value="8849" />
     </application>
 
 </manifest>

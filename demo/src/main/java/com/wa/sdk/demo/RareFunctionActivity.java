@@ -15,7 +15,6 @@ import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.community.CommunityActivity;
 import com.wa.sdk.demo.invite.InviteActivity;
 import com.wa.sdk.demo.widget.TitleBar;
-import com.wa.sdk.wa.core.sdkadid.WASdkAdIdHelper;
 
 /**
  * 使用频率较低的功能
@@ -54,16 +53,9 @@ public class RareFunctionActivity extends BaseActivity {
         } else if (id == R.id.btn_video_ad) {
             startActivity(new Intent(this, VideoAdActivity.class));
         } else if (id == R.id.btn_clear_adid) {
-            WASdkAdIdHelper.clear(this);
         } else if (id == R.id.btn_read_adid) {
-            String sdkAdId = WASdkAdIdHelper.readSdkAdId(this);
-            LogUtil.i(WAConstants.TAG, "自身:" + sdkAdId);
         } else if (id == R.id.btn_read_other_adid) {
-            String otherApp = WASdkAdIdHelper.readOtherApp(this);
-            LogUtil.i(WAConstants.TAG, "其他:" + otherApp);
         } else if (id == R.id.btn_write_adid) {
-            boolean isSuccess = WASdkAdIdHelper.writeSdkAppId(this);
-            LogUtil.i(WAConstants.TAG, "写入:" + isSuccess);
         } else if (id == R.id.btn_upload_install) {
             // 清除，上报
             final WASharedPrefHelper helper = WASharedPrefHelper.newInstance(this, "sp_campaign_cache");

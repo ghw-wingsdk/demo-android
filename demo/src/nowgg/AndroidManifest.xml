@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wa.sdk.demo">
+
+    <application>
+        <!--    now.gg 配置    -->
+        <meta-data
+            android:name="com.wa.sdk.nowgg.CLIENT_ID"
+            android:value="qjFlYAorUYEymZdx2Psq$$01J8HC3HDQEZ9WA4HV6DB3P29M" />
+        <meta-data
+            android:name="com.wa.sdk.nowgg.PAYMENT_ID"
+            android:value="8849" />
+    </application>
+
+</manifest>

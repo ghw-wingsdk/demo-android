@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources translatable="false">
-    <string name="app_name">WASdkDemo</string>
-    <!--  接入web_login模块登录需要, 内容：wa + SdkAppID  -->
+    <!--  接入web_ghgl模块登录需要, 内容：wa + SdkAppID  -->
     <string name="wa_custom_tab_scheme">waf7f9a9d18da611e5a0be000d3a906774</string>
     <!--  Facebook  -->
     <string name="facebook_app_id">959864665060487</string>

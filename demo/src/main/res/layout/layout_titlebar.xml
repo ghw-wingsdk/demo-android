@@ -1,73 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@android:color/black"
+    android:orientation="vertical">
+
     <LinearLayout
-        android:orientation="horizontal"
+        android:id="@+id/titlebar_main_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingLeft="8dp"
-        android:paddingRight="8dp"
         android:paddingTop="2dp"
-        android:paddingBottom="2dp"
-        android:gravity="center_vertical">
+        android:paddingRight="8dp"
+        android:paddingBottom="2dp">
 
         <Button
             android:id="@+id/btn_titlebar_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:gravity="center"
             android:minWidth="40dp"
             android:minHeight="40dp"
-            android:gravity="center"
-            android:background="@android:color/transparent"
             android:textSize="@dimen/textSize_level3"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            tools:background="@android:drawable/ic_menu_revert"
+            tools:visibility="visible" />
+
         <View
             android:id="@+id/view_left_divider"
             android:layout_width="1dp"
             android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"
             android:background="@color/color_white_alpha_4c"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
+
         <TextView
             android:id="@+id/tv_titlebar_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
-            android:gravity="center"
-            android:textSize="@dimen/textSize_level1"/>
+            tools:text="主页"
+            tools:textColor="@android:color/white"
+            android:textSize="@dimen/textSize_level1" />
 
         <View
             android:id="@+id/view_right_divider"
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginRight="5dp"
             android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="8dp"
             android:background="@color/color_white_alpha_4c"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
+
         <Button
             android:id="@+id/btn_titlebar_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:gravity="center"
             android:minWidth="40dp"
             android:minHeight="40dp"
-            android:gravity="center"
-            android:background="@android:color/transparent"
             android:textSize="@dimen/textSize_level3"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            tools:background="@android:drawable/ic_menu_close_clear_cancel"
+            tools:visibility="visible" />
 
     </LinearLayout>
+
     <View
         android:id="@+id/view_titlebar_divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/color_white_alpha_4c"/>
+        android:background="@color/color_white_alpha_4c" />
 </LinearLayout>

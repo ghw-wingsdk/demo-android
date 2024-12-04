@@ -9,7 +9,10 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.DisplayCutout;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -21,11 +24,13 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.wa.sdk.common.WASharedPrefHelper;
+import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.core.WASdkProperties;
 import com.wa.sdk.demo.LoginActivity;
 import com.wa.sdk.demo.R;
 import com.wa.sdk.demo.WADemoConfig;
 import com.wa.sdk.demo.widget.LoadingDialog;
+import com.wa.sdk.demo.widget.TitleBar;
 
 
 /**
@@ -317,16 +322,27 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
      * 设置全屏，兼容刘海屏
      */
     private void setFullScreen() {
-        WASharedPrefHelper sp = WASharedPrefHelper.newInstance(this, WADemoConfig.SP_CONFIG_FILE_DEMO);
-        int orientation = sp.getInt(WADemoConfig.SP_KEY_SETTING_ORIENTATION, 0);
-        // 横屏，或者强制竖屏，使用全面屏
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
-                && (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE || orientation == 1)
-        ) {
-            getWindow().getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        }
+        // WASharedPrefHelper sp = WASharedPrefHelper.newInstance(this, WADemoConfig.SP_CONFIG_FILE_DEMO);
+        // int orientation = sp.getInt(WADemoConfig.SP_KEY_SETTING_ORIENTATION, 0);
+        // // 横屏，或者强制竖屏，使用全面屏
+        // getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
+        //         && (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE || orientation ==1)
+        // ) {
+        //     getWindow().getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+        //     getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        // }
+
+        setDisplayCountFullScreen(getWindow(), (left, top, right, bottom) -> {
+            TitleBar titleBar = findTitleBar(findViewById(android.R.id.content));
+            if (titleBar == null) {
+                return;
+            }
+
+            if (top > 0 || left > 0 || right > 0) {
+                titleBar.setPadding(left, top, right, 0);
+            }
+        });
     }
 
     protected boolean isLoginAndTips() {
@@ -370,4 +386,65 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         }
     }
+
+    private void setDisplayCountFullScreen(Window window, final HandleDisplayCutout handleDisplayCutout) {
+        if (window == null) {
+            return;
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            window.getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+            window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
+
+        View decorView = window.getDecorView();
+        decorView.post(() -> {
+            DisplayCutout displayCutout;
+            if (handleDisplayCutout != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                displayCutout = decorView.getRootWindowInsets().getDisplayCutout();
+                if (displayCutout == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    displayCutout = window.getWindowManager().getDefaultDisplay().getCutout();
+                }
+                if (displayCutout != null) {
+                    int left = displayCutout.getSafeInsetLeft();
+                    int top = displayCutout.getSafeInsetTop();
+                    int right = displayCutout.getSafeInsetRight();
+                    int bottom = displayCutout.getSafeInsetBottom();
+                    LogUtil.v(TAG, "displayCutout size, left:" + left + ", top:" + top + ", right:" + right + ", bottom:" + bottom);
+                    handleDisplayCutout.handle(left, top, right, bottom);
+                }
+
+            }
+        });
+    }
+
+    private TitleBar findTitleBar(View view) {
+        TitleBar titleBar = null;
+        if (view instanceof ViewGroup) {
+            ViewGroup viewGroup = (ViewGroup) view;
+            int childCount = viewGroup.getChildCount();
+
+            for (int i = 0; i < childCount; i++) {
+                View childView = viewGroup.getChildAt(i);
+
+                if (childView instanceof TitleBar) {
+                    titleBar = (TitleBar) childView;
+                    break;
+                }
+
+                // 递归遍历子 View
+                titleBar = findTitleBar(childView);
+                if (titleBar != null) {
+                    break; // 如果找到了，直接跳出循环
+                }
+            }
+        }
+        return titleBar;
+    }
+
+    public interface HandleDisplayCutout {
+        void handle(int left, int top, int right, int bottom);
+    }
+
 }
+

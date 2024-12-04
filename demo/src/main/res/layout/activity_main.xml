@@ -11,6 +11,11 @@
         android:layout_height="wrap_content"
         android:background="@color/color_black_alpha_bb" />
 
+    <FrameLayout
+        android:id="@id/layout_main_banner_ad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -312,7 +317,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btn_admob"
+                    android:id="@id/btn_admob"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -395,9 +400,4 @@
 
         </LinearLayout>
     </ScrollView>
-
-    <FrameLayout
-        android:id="@+id/layout_bannerAd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 </LinearLayout>

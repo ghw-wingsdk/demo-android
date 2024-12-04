@@ -18,14 +18,12 @@ import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.widget.TitleBar;
 import com.wa.sdk.track.WAEventParameterName;
 import com.wa.sdk.track.WAEventType;
-import com.wa.sdk.track.WATrackProxy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 /**
- *
  * Created by Administrator on 2015/5/22.
  */
 public class TrackingActivity extends BaseActivity {
@@ -53,13 +51,13 @@ public class TrackingActivity extends BaseActivity {
         tb.setTitleText(R.string.tracking);
         tb.setTitleTextColor(R.color.color_white);
         tb.setRightButtonTextColorResource(R.color.color_white);
-        tb.setRightButtonWithText("模拟", v -> startActivity(new Intent(this,TrackingSimulateActivity.class)));
+        tb.setRightButtonWithText("模拟", v -> startActivity(new Intent(this, TrackingSimulateActivity.class)));
     }
 
     private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            if(null == mAdapter) {
+            if (null == mAdapter) {
                 return;
             }
             Intent intent = new Intent(TrackingActivity.this, TrackingSendActivity.class);
@@ -67,17 +65,17 @@ public class TrackingActivity extends BaseActivity {
 //            if(WAEventType.COMPLETE_REGISTRATION.equals(eventName)) {
 //                completeRegistration(intent);
 //            } else
-            if(WAEventType.LOGIN.equals(eventName)) {
+            if (WAEventType.LOGIN.equals(eventName)) {
                 login(intent);
-            } else if(WAEventType.INITIATED_PAYMENT.equals(eventName)) {
+            } else if (WAEventType.INITIATED_PAYMENT.equals(eventName)) {
                 initPayment(intent);
-            } else if(WAEventType.COMPLETE_PAYMENT.equals(eventName)) {
+            } else if (WAEventType.COMPLETE_PAYMENT.equals(eventName)) {
                 payment(intent);
-            } else if(WAEventType.INITIATED_PURCHASE.equals(eventName)) {
+            } else if (WAEventType.INITIATED_PURCHASE.equals(eventName)) {
                 initPurchase(intent);
-            } else if(WAEventType.COMPLETE_PURCHASE.equals(eventName)) {
+            } else if (WAEventType.COMPLETE_PURCHASE.equals(eventName)) {
                 purchase(intent);
-            } else if(WAEventType.LEVEL_ACHIEVED.equals(eventName)) {
+            } else if (WAEventType.LEVEL_ACHIEVED.equals(eventName)) {
                 levelAchieved(intent);
 //            } else if(WAEventType.ADD_TO_CART.equals(eventName)) {
 //                addToCart(intent);
@@ -101,17 +99,17 @@ public class TrackingActivity extends BaseActivity {
 //                update(intent);
 //            } else if(WAEventType.OPENED_FROM_PUSH_NOTIFICATION.equals(eventName)) {
 //                openedFromPushNotification(intent);
-            } else if(WAEventType.USER_CREATED.equals(eventName)) {
+            } else if (WAEventType.USER_CREATED.equals(eventName)) {
                 createUser(intent);
-            } else if(WAEventType.USER_INFO_UPDATE.equals(eventName)) {
+            } else if (WAEventType.USER_INFO_UPDATE.equals(eventName)) {
                 updateUserInfo(intent);
-            } else if(WAEventType.TASK_UPDATE.equals(eventName)) {
+            } else if (WAEventType.TASK_UPDATE.equals(eventName)) {
                 taskUpdate(intent);
-            } else if(WAEventType.GOLD_UPDATE.equals(eventName)) {
+            } else if (WAEventType.GOLD_UPDATE.equals(eventName)) {
                 goldUpdate(intent);
-            } else if(WAEventType.IMPORT_USER.equals(eventName)) {
+            } else if (WAEventType.IMPORT_USER.equals(eventName)) {
                 userImport(intent);
-            } else if(WAEventType.CUSTOM_EVENT_PREFIX.equals(eventName)) {
+            } else if (WAEventType.CUSTOM_EVENT_PREFIX.equals(eventName)) {
                 selfEvent(intent);
             }
 
@@ -125,7 +123,7 @@ public class TrackingActivity extends BaseActivity {
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
     }
 
@@ -408,7 +406,7 @@ public class TrackingActivity extends BaseActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
 
             TextView tv = null;
-            if(null == convertView) {
+            if (null == convertView) {
                 tv = new TextView(mmContext);
                 tv.setTextColor(getResourceColor(R.color.color_black_alpha_ee));
                 tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
@@ -452,4 +450,5 @@ public class TrackingActivity extends BaseActivity {
             mmEventNames.add(WAEventType.CUSTOM_EVENT_PREFIX);
         }
     }
+
 }

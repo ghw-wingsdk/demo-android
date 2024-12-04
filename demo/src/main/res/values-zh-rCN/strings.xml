@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">WASdkDemo</string>
-
-    <!--&lt;!&ndash; com.ghw.sdk2 &ndash;&gt;-->
-    <!--<string name="facebook_app_id">1639751112946046</string>-->
-
-
-    <!--&lt;!&ndash; Google In-app billing public key &ndash;&gt;-->
-    <!--&lt;!&ndash;<string name="google_base64EncodedPublicKey">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv1V2WNTi8eJq787TLyH+ifB8uWwQQVxY5PTMVeLKgmH2DWv+DMfdMTlgJivSqaM+8kmLuCcqdkaMdfDSDV3Bdy77wWUaeJx9GS/d19zZDSZDwHWGRiyBVbcRNJ5r54XcfP21fiBgg9Rqj3qOYuJuPFj6SJWsCMuw3uE/e+BTGM6lVMlTDqQcQr67NxwB3Zhcw8iZkIkBJxVH4W9WDzQjcI2eEpQ/tby+AiLFmDVDoOPb+41ldfEkIZEoGbNhrG5KlUSbS25TU4H34dPyIQ+rrCaErob2nZKoQ2PvO+tZ4uzmT926c3IUXknCMwrnW/SdBpia93j6ZEuVgYKlYT6jewIDAQAB</string>&ndash;&gt;-->
-    <!--<string name="google_base64EncodedPublicKey">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhab03+1NEH/qdRcB8aA8quIz1VntrG21aJzd8W7E0nyh6CxmwwqwLtfs/ro4CTd76jz94+k/xP263d/bJZg+biczsVIcU8wT+zQJH5Ze5wTthgl+XAtN7xGxnNaDpUXxr28K/mHyUnc/yg3iXeHFI3Rg2QcaixOP7xyImIdRrM1FjDOhlEtnXdsIpCkK8TDCnFXo1qmXKheLxd6nZ96d3zSt/lJenFPdI84/RJszJfD4aJPrHg/K+iPLV15bYNfskpgnn/Vq1JEKq91N67c/szQDZB7o9ZJNfSTHVPO5riOyZd0guNXEMB7+YT/oSIo+I0A87GcP9rasGI2FuBNLHwIDAQAB</string>-->
-
-
     <string name="ok">确定</string>
     <string name="cancel">取消</string>
     <string name="loading">加载中</string>

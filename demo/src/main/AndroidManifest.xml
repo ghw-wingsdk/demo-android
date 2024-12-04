@@ -18,26 +18,16 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <!--    官网包才需要    -->
-        <!--        <provider-->
-        <!--            android:name="com.wa.sdk.wa.core.sdkadid.WASdkAdIdProvider"-->
-        <!--            android:authorities="com.wa.provider.ad.sdk2ghg"-->
-        <!--            android:exported="true" />-->
-
         <activity
-            android:name=".SplashActivity"
+            android:name=".MainActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:configChanges="keyboardHidden|screenSize|orientation"
-            android:exported="true"
-            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".LoginActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
@@ -148,10 +138,6 @@
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="behind" />
         <activity
-            android:name=".AdMobActivity"
-            android:exported="false"
-            android:screenOrientation="behind" />
-        <activity
             android:name=".RareFunctionActivity"
             android:exported="false"
             android:screenOrientation="behind" />
@@ -187,11 +173,11 @@
         <!-- sdk的appid -->
         <meta-data
             android:name="com.wa.sdk.APP_ID"
-            android:value="f7f9a9d18da611e5a0be000d3a906774" />
+            android:value="@string/sdk_app_id" />
         <!-- sdk的appkey -->
         <meta-data
             android:name="com.wa.sdk.APP_KEY"
-            android:value="CFHF7nQCCaojCX6Sm4eT1GEIWRprimgX" />
+            android:value="@string/sdk_app_key" />
         <!-- sdk平台请求的host地址，所有请求的前面公共部分 -->
         <meta-data
             android:name="com.wa.sdk.HTTP_BASE_URL"
@@ -285,17 +271,7 @@
             android:name="com.ghw.sdk.INSTAGRAM_REDIRECT_URI"
             android:value="http://blog.wing-analytics.com/" />
         <!-- Instagram End -->
-        <!-- 系统本地 -->
-        <!-- <meta-data -->
-        <!-- android:name="com.wa.sdk.AIHelp_appKey" -->
-        <!-- android:value="GameHollywoodcompany_app_bd0fce60951445c780adff91fe0d456b" /> -->
-        <!-- <meta-data -->
-        <!-- android:name="com.wa.sdk.AIHelp_domain" -->
-        <!-- android:value="GameHollywoodcompany@aihelp.net" /> -->
-        <!-- <meta-data -->
-        <!-- android:name="com.wa.sdk.AIHelp_appId" -->
-        <!-- android:value="GameHollywoodcompany_platform_27c19a34-35a2-45da-891e-c26ec7c0d305" /> -->
-        <!-- aihelp -->
+        <!-- aihelp 配置 -->
         <meta-data
             android:name="com.wa.sdk.AIHelp_appKey"
             android:value="GAMEHOLLYWOODHK_app_6ff2af7846a245e8a56c74d2331ede73" />
@@ -305,39 +281,54 @@
         <meta-data
             android:name="com.wa.sdk.AIHelp_appId"
             android:value="gamehollywoodhk_platform_598ee350-adbf-4a70-bef6-6d11232b7301" />
-        <meta-data
-            android:name="com.wa.sdk.interface.ENABLE_IM"
-            android:value="true" />
+        <!--    HuaweiHMS 配置    -->
         <meta-data
             android:name="com.wa.sdk.track.ENABLE_HUAWEIHMS"
             android:value="true" />
+        <!--    Firebase 配置    -->
         <meta-data
             android:name="com.wa.sdk.track.ENABLE_FIREBASE"
             android:value="true" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/color_wa_push_notification" />
+        <!--    Consent同意屏幕配置    -->
         <meta-data
             android:name="com.wa.sdk.CONSENT_NOTICE_ID"
             android:value="3gFPBy7K" />
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3512615046087076~6119035746" />
+
+        <!--    AdMob-应用ID配置    -->
+        <!--        <meta-data-->
+        <!--            android:name="com.google.android.gms.ads.APPLICATION_ID"-->
+        <!--            android:value="ca-app-pub-3512615046087076~6119035746" />-->
+
+        <!--    AdMob-UMP功能，默认关闭    -->
         <!--        <meta-data-->
         <!--            android:name="com.wa.sdk.UMP_ENABLE"-->
         <!--            android:value="true" />-->
-        <!--        官网包标志-->
+
+        <!--    now.gg 模块配置    -->
+        <!--        <meta-data-->
+        <!--            android:name="com.wa.sdk.nowgg.CLIENT_ID"-->
+        <!--            android:value="qjFlYAorUYEymZdx2Psq$$01J8HC3HDQEZ9WA4HV6DB3P29M" />-->
+        <!--        <meta-data-->
+        <!--            android:name="com.wa.sdk.nowgg.PAYMENT_ID"-->
+        <!--            android:value="8849" />-->
+
+        <!--    官网包标志 OFFICIAL_PACKAGE     -->
         <!--        <meta-data-->
         <!--            android:name="com.wa.sdk.OFFICIAL_PACKAGE"-->
         <!--            android:value="true" />-->
+        <!--    官网包才需要 WASdkAdIdProvider   -->
+        <!--        <provider-->
+        <!--            android:name="com.wa.sdk.wa.core.sdkadid.WASdkAdIdProvider"-->
+        <!--            android:authorities="${SDK_ADID_PROVIDER}"-->
+        <!--            android:exported="true" />-->
+        <!--    COM_TYPE，不配置则默认为0   -->
+        <!--        <meta-data-->
+        <!--            android:name="com.wa.sdk.COM_TYPE"-->
+        <!--            android:value="1" />-->
 
-        <!--    now.gg 配置    -->
-        <meta-data
-            android:name="com.wa.sdk.nowgg.CLIENT_ID"
-            android:value="qjFlYAorUYEymZdx2Psq$$01J8HC3HDQEZ9WA4HV6DB3P29M" />
-        <meta-data
-            android:name="com.wa.sdk.nowgg.PAYMENT_ID"
-            android:value="8849" />
     </application>
 
 </manifest>

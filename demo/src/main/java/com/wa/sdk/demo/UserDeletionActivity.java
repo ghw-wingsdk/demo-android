@@ -121,7 +121,7 @@ public class UserDeletionActivity extends BaseActivity {
         }
         new AlertDialog.Builder(this)
                 .setMessage("该账号将在 " + loginAccount.getDeleteDate() + " 进行账号删除，是否继续取消？")
-                .setPositiveButton(com.wa.sdk.webpay.R.string.wa_sdk_wp_continue, (dialog, which) ->
+                .setPositiveButton("继续", (dialog, which) ->
                         // 申请取消账号删除
                         WAUserProxy.cancelRequestDeleteAccount(loginAccount.getUserId(), new WACallback<WAResult>() {
                             @Override
@@ -142,4 +142,5 @@ public class UserDeletionActivity extends BaseActivity {
                 .setNegativeButton(R.string.cancel, null)
                 .show();
     }
+
 }

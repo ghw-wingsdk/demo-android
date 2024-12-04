@@ -12,6 +12,7 @@ import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.common.utils.StringUtil;
 import com.wa.sdk.demo.base.BaseActivity;
+import com.wa.sdk.demo.base.FlavorApiHelper;
 import com.wa.sdk.demo.pay.ProductListAdapter;
 import com.wa.sdk.demo.widget.TitleBar;
 import com.wa.sdk.pay.WAPayProxy;
@@ -37,6 +38,7 @@ public class PaymentActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
+        mEnableToastLog = true;
 
         setContentView(R.layout.activity_payment);
 
@@ -54,12 +56,12 @@ public class PaymentActivity extends BaseActivity {
         WAPayProxy.queryInventory(new WACallback<WASkuResult>() {
             @Override
             public void onSuccess(int code, String message, WASkuResult result) {
-                List<WASkuDetails> waSkuDetailsList= result.getSkuList();
-                WAPayProxy.queryChannelProduct(WAConstants.CHANNEL_GOOGLE, new WACallback<Map<String, WAChannelProduct>>() {
+                List<WASkuDetails> waSkuDetailsList = result.getSkuList();
+                WAPayProxy.queryChannelProduct(FlavorApiHelper.isNowggFlavor() ? WAConstants.CHANNEL_NOWGG : WAConstants.CHANNEL_GOOGLE, new WACallback<Map<String, WAChannelProduct>>() {
                     @Override
                     public void onSuccess(int code, String message, Map<String, WAChannelProduct> map) {
                         if (waSkuDetailsList.size() > 0) {//存在商品
-                            ProductListAdapter productListAdapter=new ProductListAdapter(PaymentActivity.this,waSkuDetailsList,map);
+                            ProductListAdapter productListAdapter = new ProductListAdapter(PaymentActivity.this, waSkuDetailsList, map);
                             ListView listView = (ListView) findViewById(R.id.lv_payment_sku);
                             listView.setAdapter(productListAdapter);
                             productListAdapter.setClickListenter(new ProductListAdapter.ClickListenter() {
@@ -82,7 +84,7 @@ public class PaymentActivity extends BaseActivity {
 
                     @Override
                     public void onError(int code, String message, Map<String, WAChannelProduct> result, Throwable throwable) {
-                        LogUtil.d("WAChannelProduct", "error:"+message);
+                        LogUtil.d("WAChannelProduct", "error:" + message);
                     }
                 });
 
@@ -116,7 +118,7 @@ public class PaymentActivity extends BaseActivity {
                 LogUtil.d(TAG, "pay success");
                 LogUtil.d(TAG, result.toString());
                 cancelLoadingDialog();
-                showLongToast("Payment is successful.  " + result.getWAProductId());
+                showLongToast("Payment is successful. ProductId:" + result.getWAProductId() + " , ExtInfo:" + result.getExtInfo());
             }
 
             @Override
@@ -146,8 +148,7 @@ public class PaymentActivity extends BaseActivity {
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode,
-                                    Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (WACommonProxy.onActivityResult(requestCode, resultCode, data)) {
             return;
         }

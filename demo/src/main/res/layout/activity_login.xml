@@ -151,18 +151,7 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <com.wa.sdk.nowgg.widget.WANowggButton
-                        android:id="@+id/btn_nowgg_login"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:onClick="onClick" />
-
-                    <!--                    <Button-->
-                    <!--                        android:layout_margin="10dp"-->
-                    <!--                        android:id="@+id/btn_nowgg_login_2"-->
-                    <!--                        style="@style/WANowggButton"-->
-                    <!--                        android:layout_width="200dp"-->
-                    <!--                        android:layout_height="wrap_content" />-->
+                    <!--        nowgg 用            -->
                 </LinearLayout>
 
                 <LinearLayout

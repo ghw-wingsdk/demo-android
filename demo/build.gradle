@@ -4,7 +4,7 @@ android {
     namespace "com.wa.sdk.demo"
 
     signingConfigs {
-        config {
+        defaultConfig {
             keyAlias 'pcl-sdk-cert-dev'
             keyPassword '123456'
             storeFile file('../keystores/android-cert-dev.jks')
@@ -15,22 +15,50 @@ android {
     defaultConfig {
         applicationId "com.ghw.sdk2"
         minSdkVersion 21
-        targetSdkVersion 34
-        versionCode 76
-        versionName "4.4.1"
-        signingConfig signingConfigs.config
+        targetSdkVersion 35
+        versionCode 45001
+        versionName "4.5.0"
+        signingConfig signingConfigs.defaultConfig
 
-        compileSdk 34
+        compileSdk 35
         //华为多语种设置
         resConfigs "en", "zh-rCN", "pt-rBR", "es-rES", "in-rID", "ru", "th-rTH", "zh-rHK", "zh-rTW"
+        // 默认名称
+        resValue "string", "app_name", "WASdkDemo"
+        // 默认 app 配置
+        resValue "string", "sdk_app_id", "f7f9a9d18da611e5a0be000d3a906774"
+        resValue "string", "sdk_app_key", "CFHF7nQCCaojCX6Sm4eT1GEIWRprimgX"
+        resValue "string", "wa_custom_tab_scheme", "waf7f9a9d18da611e5a0be000d3a906774"
+        // 默认环境
+        manifestPlaceholders.putAll([SDK_HTTP_BASE_URL         : getUrl('http', 'pro'),
+                                     SDK_TRACKING_HTTP_BASE_URL: getUrl('track', 'pro')])
+    }
+
+    flavorDimensions = ["default"]
+
+    productFlavors {
+
+        qa {
+            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL         : getUrl('http', 'qa'),
+                                         SDK_TRACKING_HTTP_BASE_URL: getUrl('http', 'qa')])
+        }
+        pre {
+            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL         : getUrl('http', 'pre'),
+                                         SDK_TRACKING_HTTP_BASE_URL: getUrl('http', 'pre')])
+        }
+        pro {
+            isDefault = true
+            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL         : getUrl('http', 'pro'),
+                                         SDK_TRACKING_HTTP_BASE_URL: getUrl('http', 'pro')])
+        }
+        nowgg {}
+        admob {}
     }
 
     buildTypes {
         release {
             minifyEnabled false
             shrinkResources false
-            debuggable false
-            signingConfig signingConfigs.config
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             def build_time = getDate()
@@ -41,33 +69,10 @@ android {
         debug {
             minifyEnabled false
             shrinkResources false
-            signingConfig signingConfigs.config
 
             def build_time = getDate()
             buildConfigField 'String', 'DEMO_BUILD_TIME',"\"${build_time}\""
             buildConfigField 'boolean', 'IS_TEST_REPOSITORY',IS_TEST_REPOSITORY
-        }
-    }
-
-    flavorDimensions "server"
-    productFlavors {
-
-        qa{
-            /**qa环境**/
-            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL         : 'http://172.16.100.53/sdk_bkd_qa/sdkapi/',
-                                         SDK_TRACKING_HTTP_BASE_URL: 'http://172.16.100.58/data_collection_qa/data'])
-        }
-
-        pre {
-            /**pre环境**/
-            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL         : 'http://sdk-test1.gamehollywood.com/sdk_bkd_qa/sdkapi',
-                                         SDK_TRACKING_HTTP_BASE_URL: 'http://sdk-test2.gamehollywood.com/data_collection_qa/data/forward'])
-        }
-
-        pro{
-            isDefault = true
-            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL         : 'https://api.wingsdk.com/sdkapi',
-                                         SDK_TRACKING_HTTP_BASE_URL: 'https://api.wingsdk.com/data'])
         }
     }
 
@@ -96,52 +101,66 @@ static def getDate() {
     return formattedDate
 }
 
-dependencies {
+static def getUrl(type, env) {
+    def urls = [
+            http : [
+                    qa : 'http://172.16.100.53/sdk_bkd_qa/sdkapi',
+                    pre: 'http://sdk-test1.gamehollywood.com/sdk_bkd_qa/sdkapi',
+                    pro: 'https://api.wingsdk.com/sdkapi'
+            ],
+            track: [
+                    qa : 'http://172.16.100.58/data_collection_qa/data',
+                    pre: 'http://sdk-test2.gamehollywood.com/data_collection_qa/data/forward',
+                    pro: 'https://api.wingsdk.com/data'
+            ]
+    ]
+    return urls[type]?.get(env)
+}
 
+dependencies {
     implementation 'com.google.android.material:material:1.4.0'
 
     // 基础模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-base:4.4.1'
+    implementation 'com.wa.sdk:wa-sdk-base:4.5.0'
     // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:4.4.1'
+    implementation 'com.wa.sdk:wa-sdk-core:4.5.0'
     // wa 客服系统（一般必接）
     implementation 'com.wa.sdk:wa-sdk-aihelp:4.2.0'
     // AppsFlyer模块（一般必接）
-    implementation 'com.wa.sdk:wa-sdk-appsflyer:4.3.0'
+    implementation 'com.wa.sdk:wa-sdk-appsflyer:4.5.0'
     // 消息推送模块（可选）
     implementation 'com.wa.sdk:wa-sdk-firebase:4.2.0'
     // Facebook模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-facebook:4.3.0'
+    implementation 'com.wa.sdk:wa-sdk-facebook:4.5.0'
     // Google模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-google:4.3.0'
-    // AdMob模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-admob:4.2.0'
+    implementation 'com.wa.sdk:wa-sdk-google:4.5.0'
     // 网页集成登录，GHG和R2 （可选）
-    implementation 'com.wa.sdk:wa-sdk-weblogin:4.3.0'
+    implementation 'com.wa.sdk:wa-sdk-ghgl:4.5.0'
     // 网页支付模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-webpay:4.2.0'
-    // nowgg 模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-nowgg:4.4.1'
+    implementation 'com.wa.sdk:wa-sdk-ghgp:4.5.0'
+    // nowgg 模块（可选，正常接入直接 implementation 即可）
+    nowggImplementation 'com.wa.sdk:wa-sdk-nowgg:4.4.1'
+    // AdMob模块（可选，正常接入直接 implementation 即可）
+    admobImplementation 'com.wa.sdk:wa-sdk-admob:4.2.0'
 
-
-//    华为 HMS
+//    华为 HMS（可选）
 //    implementation 'com.wa.sdk:wa-sdk-huaweihms:3.18.0'
     // Aptoide模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-aptoide:3.18.0'
-//    wa hup模块
+//    implementation 'com.wa.sdk:wa-sdk-aptoide:3.18.0'
+//    wa hup模块（可选，已废弃）
 //    implementation 'com.wa.sdk:wa-sdk-hup:3.8.0'
-    // 应用墙模块（可选）
+    // 应用墙模块（可选，已废弃）
 //    implementation 'com.wa.sdk:wa-sdk-apw:3.8.3'
-    // WA广告模块（可选）
+    // WA广告模块（可选，已废弃）
 //    implementation 'com.wa.sdk:wa-sdk-ad:3.8.3'
-    // Chartboost模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-chartboost:3.9.7'
-    // Twitter推送模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-twitter:3.9.0'
-    // Instagram推送模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-instagram:3.8.4'
-    // VK模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-vk:3.9.0'
+    // Chartboost模块（可选，已废弃）
+//    implementation 'com.wa.sdk:wa-sdk-chartboost:3.9.7'
+    // Twitter推送模块（可选，已废弃）
+//    implementation 'com.wa.sdk:wa-sdk-twitter:3.9.0'
+    // Instagram推送模块（可选，已废弃）
+//    implementation 'com.wa.sdk:wa-sdk-instagram:3.8.4'
+    // VK模块（可选，已废弃）
+//    implementation 'com.wa.sdk:wa-sdk-vk:3.9.0'
 }
 
 //谷歌推送
@@ -152,3 +171,5 @@ apply plugin: 'com.google.gms.google-services'
 //agcp{
 //    enableAPMS true
 //}
+
+apply from: "flavors.gradle"

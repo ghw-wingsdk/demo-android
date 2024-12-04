@@ -19,3 +19,31 @@ signingConfigs {
             keyPassword "sevenu1021"
         }
     }
+
+------------------------------------------------------
+android-cert-dev.jks
+    keyAlias 'pcl-sdk-cert-dev'
+    keyPassword '123456'
+    storeFile file('../keystores/android-cert-dev.jks')
+    storePassword '123456'
+
+    SHA1: BB:EF:C8:E7:E1:0B:21:03:39:9D:35:E1:C8:F9:9F:56:7C:CD:7E:49
+    SHA256: BC:D3:F4:69:63:1F:95:7F:62:3B:C1:07:D8:ED:6A:8B:A5:61:D9:36:46:5B:49:D8:EA:DD:B9:64:DE:3D:BA:AF
+------------------------------------------------------
+sdk1.jks
+    keyAlias 'key0'
+    keyPassword '123456'
+    storeFile file('../keystores/sdk1.jks')
+    storePassword '123456'
+
+    SHA1: 1E:A4:CB:7D:A2:F8:C6:48:DF:1D:D6:CB:08:C3:F9:9A:B8:75:4D:85
+    SHA256: 71:45:AA:9E:A5:6A:CB:CD:9F:79:B4:4B:FF:07:84:AE:E7:38:8E:74:DD:0F:51:33:32:F1:32:23:14:FA:D8:CE
+------------------------------------------------------
+sdk3.jks
+    keyAlias 'key0'
+    keyPassword '123456'
+    storeFile file('../keystores/sdk3.jks')
+    storePassword '123456'
+
+     SHA1: 48:3B:09:A6:F0:06:DD:E6:8A:35:26:55:97:3E:43:3D:B3:62:DA:EF
+     SHA256: BA:67:02:B1:29:78:74:86:33:3C:2D:0E:A5:2D:3C:9D:59:07:2F:BB:AE:4E:13:52:0A:82:16:9D:82:FF:BC:51

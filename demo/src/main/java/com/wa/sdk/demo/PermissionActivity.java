@@ -46,25 +46,26 @@ public class PermissionActivity extends BaseActivity {
 
     private void testNotificationPermission() {
         if (Build.VERSION.SDK_INT >= 33) {
-            WACommonProxy.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS, true,
-                    "通知权限被拒，为了您方便接收礼包推送消息，请开启通知权限",
-                    "测试权限申请:POST_NOTIFICATIONS，已经被拒绝，请到设置中开启该权限。", new WAPermissionCallback() {
-                        @Override
-                        public void onCancel() {
-                            showShortToast("check permission canceled");
-                        }
-
-                        @Override
-                        public void onRequestPermissionResult(String[] permissions, boolean[] grantedResults) {
-                            String msg = "Request permission result:\n";
-                            if (permissions.length > 0) {
-                                for (int i = 0; i < permissions.length; i++) {
-                                    msg += permissions[i] + "--" + (grantedResults[i] ? "granted" : "denied");
-                                }
-                            }
-                            showShortToast(msg);
-                        }
-                    });
+            // WACommonProxy.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS, false,
+            //         null,
+            //         null, new WAPermissionCallback() {
+            //             @Override
+            //             public void onCancel() {
+            //                 showShortToast("check permission canceled");
+            //             }
+            //
+            //             @Override
+            //             public void onRequestPermissionResult(String[] permissions, boolean[] grantedResults) {
+            //                 String msg = "Request permission result:\n";
+            //                 if (permissions.length > 0) {
+            //                     for (int i = 0; i < permissions.length; i++) {
+            //                         msg += permissions[i] + "--" + (grantedResults[i] ? "granted" : "denied");
+            //                     }
+            //                 }
+            //                 showShortToast(msg);
+            //             }
+            //         });
+            WACommonProxy.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS, false, null, null, null);
         }else {
             //系统低于 Android 13 无需授权通知权限。应用默认开启通知
             AlertDialog.Builder dialog = new AlertDialog.Builder(this);

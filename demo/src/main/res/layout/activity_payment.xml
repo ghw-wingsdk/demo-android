@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_white">
+    android:background="@color/color_white"
+    android:orientation="vertical">
+
     <com.wa.sdk.demo.widget.TitleBar
         android:id="@+id/tb_payment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/color_black_alpha_bb"/>
+        android:background="@color/color_black_alpha_bb" />
+
     <ListView
         android:id="@+id/lv_payment_sku"
-        android:layout_below="@+id/tb_payment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"></ListView>
-</RelativeLayout>
+        android:layout_below="@+id/tb_payment"
+        android:gravity="center" />
+</LinearLayout>

@@ -1,9 +1,5 @@
 package com.wa.sdk.demo;
 
-import static com.wa.sdk.demo.AdMobActivity.DEFAULT_APP_OPEN_AD_STATE;
-import static com.wa.sdk.demo.AdMobActivity.DEFAULT_BANNER_AD_STATE;
-import static com.wa.sdk.demo.AdMobActivity.DEFAULT_TEST;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,7 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -24,7 +19,6 @@ import androidx.annotation.NonNull;
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.ad.WAAdProxy;
 import com.wa.sdk.ad.model.WAAdCachedCallback;
-import com.wa.sdk.admob.core.WAAdMobProxy;
 import com.wa.sdk.apw.WAApwProxy;
 import com.wa.sdk.cmp.WACmpProxy;
 import com.wa.sdk.common.WACommonProxy;
@@ -35,9 +29,10 @@ import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.common.utils.StringUtil;
 import com.wa.sdk.core.WACoreProxy;
 import com.wa.sdk.demo.base.BaseActivity;
+import com.wa.sdk.demo.base.FlavorApiHelper;
 import com.wa.sdk.demo.game.GameServiceActivity;
 import com.wa.sdk.demo.share.ShareActivity;
-import com.wa.sdk.demo.tracking.TrackingActivity;
+import com.wa.sdk.demo.tracking.TrackingSimulateActivity;
 import com.wa.sdk.demo.widget.TitleBar;
 import com.wa.sdk.pay.WAPayProxy;
 import com.wa.sdk.pay.model.WAPurchaseResult;
@@ -69,55 +64,45 @@ public class MainActivity extends BaseActivity {
         mSharedPrefHelper = WASharedPrefHelper.newInstance(this, WADemoConfig.SP_CONFIG_FILE_DEMO);
         initView();
 
-        boolean isEnableAppOpenAd = mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_APP_OPEN_AD, DEFAULT_APP_OPEN_AD_STATE);
-        // 避免与开屏页重复初始化，如果未打开开屏广告，才进行初始化
-        if (!isEnableAppOpenAd) {
-            // AdMob强制测试
-            WAAdMobProxy.setTest(DEFAULT_TEST);
-            // 开启日志
-            WACoreProxy.setDebugMode(mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_DEBUG, true));
-            showLoadingDialog("初始化中", false, false, null);
-            // SDK初始化
-            WACoreProxy.initialize(this, new WACallback<Void>() {
-                @Override
-                public void onSuccess(int code, String message, Void result) {
-                    cancelLoadingDialog();
-                    doAfterInitSuccess();
-                }
-
-                @Override
-                public void onCancel() {
-
-                }
-
-                @Override
-                public void onError(int code, String message, Void result, Throwable throwable) {
-                    cancelLoadingDialog();
-                    new AlertDialog.Builder(MainActivity.this)
-                            .setCancelable(false)
-                            .setMessage("初始化失败，请退出应用重新进入")
-                            .setPositiveButton("退出", (dialog, which) -> finish())
-                            .show();
-                }
-            });
-        } else {
+        boolean isEnableAppOpenAd = mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_APP_OPEN_AD, FlavorApiHelper.AdMob.getSettingEnable("DEFAULT_APP_OPEN_AD_STATE"));
+        // 避免与开屏页重复初始化
+        if (isEnableAppOpenAd) {
             doAfterInitSuccess();
+            return;
         }
 
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        if (null != bundle) {
-            Set<String> keys = bundle.keySet();
-            for (String key : keys) {
-                LogUtil.e(TAG, "Key-------" + key);
+        // AdMob强制测试 WAAdMobProxy.setTest(true);
+        FlavorApiHelper.AdMob.setTest();
+        // 开启日志
+        WACoreProxy.setDebugMode(mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_DEBUG, true));
+        showLoadingDialog("初始化中", false, false, null);
+        // SDK初始化
+        WACoreProxy.initialize(this, new WACallback<Void>() {
+            @Override
+            public void onSuccess(int code, String message, Void result) {
+                cancelLoadingDialog();
+                doAfterInitSuccess();
             }
-        }
 
-        Util.showHashKey(this);
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(int code, String message, Void result, Throwable throwable) {
+                cancelLoadingDialog();
+                new AlertDialog.Builder(MainActivity.this)
+                        .setCancelable(false)
+                        .setMessage("初始化失败，请退出应用重新进入")
+                        .setPositiveButton("退出", (dialog, which) -> finish())
+                        .show();
+            }
+        });
     }
 
     private void delayLoginUI(int second) {
-        if (second < 0 || BuildConfig.VERSION_NAME.equals("4.4.1")) return; // nowgg 版本不能直接登录
+        if (second < 0 || FlavorApiHelper.isNowggFlavor()) return; // nowgg 版本不能直接登录
 
         new Handler().postDelayed(() -> WAUserProxy.loginUI(MainActivity.this, true, new WACallback<WALoginResult>() {
             @Override
@@ -169,10 +154,8 @@ public class MainActivity extends BaseActivity {
     }
 
     private void doAfterInitSuccess() {
-        boolean isEnableBannerAd = mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_BANNER_AD, DEFAULT_BANNER_AD_STATE);
-        if (isEnableBannerAd) {
-            WAAdMobProxy.bindBannerAd(this, ((FrameLayout) findViewById(R.id.layout_bannerAd)));
-        }
+        // 横幅广告  WAAdMobProxy.bindBannerAd(activity, ((FrameLayout) findViewById(R.id.layout_main_banner_ad)));
+        FlavorApiHelper.AdMob.bindMainBannerAd(this);
 
         // 支付初始化
         WAPayProxy.initialize(this, new WACallback<WAResult>() {
@@ -370,7 +353,12 @@ public class MainActivity extends BaseActivity {
         } else if (id == R.id.btn_show_consent_preferences) {
             WACmpProxy.showConsentPreferences(this);
         } else if (id == R.id.btn_admob) {
-            startActivity(new Intent(this, AdMobActivity.class));
+            if (FlavorApiHelper.isAdMobFlavor()) {
+                // 打开 AdMobActivity
+                startActivity(new Intent(this, FlavorApiHelper.AdMob.getAdMobActivityClass()));
+            } else {
+                showShortToast("不是Admob包");
+            }
         } else if (id == R.id.btn_rare_function) {
             startActivity(new Intent(this, RareFunctionActivity.class));
         }
@@ -532,7 +520,7 @@ public class MainActivity extends BaseActivity {
      * 数据收集测试点击
      */
     public void testTracking() {
-        startActivity(new Intent(this, TrackingActivity.class));
+        startActivity(new Intent(this, TrackingSimulateActivity.class));
     }
 
     private void initView() {

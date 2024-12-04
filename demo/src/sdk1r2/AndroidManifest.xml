@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wa.sdk.demo">
+
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+
+    <application>
+        <!--    官网包标志 OFFICIAL_PACKAGE     -->
+        <meta-data
+            android:name="com.wa.sdk.OFFICIAL_PACKAGE"
+            android:value="true" />
+        <!--    官网包才需要 WASdkAdIdProvider   -->
+        <provider
+            android:name="com.wa.sdk.wa.core.sdkadid.WASdkAdIdProvider"
+            android:authorities="${SDK_ADID_PROVIDER}"
+            android:exported="true" />
+        <!--    COM_TYPE，不配置则默认为0   -->
+        <meta-data
+            android:name="com.wa.sdk.COM_TYPE"
+            android:value="1" />
+    </application>
+
+</manifest>

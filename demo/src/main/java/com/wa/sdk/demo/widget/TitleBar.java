@@ -189,6 +189,10 @@ public class TitleBar extends ALinearLayout {
 
         mLeftDivider = findViewById(R.id.view_left_divider);
         mRightDivider = findViewById(R.id.view_right_divider);
+
+        // 默认UI
+        setTitleTextColor(android.R.color.white);
+        setTitleBackGroundResource(android.R.color.black);
     }
 
     /**

@@ -13,12 +13,11 @@ android {
     }
 
     defaultConfig {
-
         applicationId "com.ghw.sdk2"
         minSdkVersion 21
         targetSdkVersion 34
-        versionCode 62
-        versionName "4.2.0"
+        versionCode 68
+        versionName "4.3.0"
         signingConfig signingConfigs.config
 
         compileSdk 34
@@ -102,23 +101,23 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
 
     // 基础模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-base:4.2.0'
+    implementation 'com.wa.sdk:wa-sdk-base:4.3.0'
     // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:4.2.0'
+    implementation 'com.wa.sdk:wa-sdk-core:4.3.0'
     // wa 客服系统（一般必接）
     implementation 'com.wa.sdk:wa-sdk-aihelp:4.2.0'
     // AppsFlyer模块（一般必接）
-    implementation 'com.wa.sdk:wa-sdk-appsflyer:4.2.0'
+    implementation 'com.wa.sdk:wa-sdk-appsflyer:4.3.0'
     // 消息推送模块（可选）
     implementation 'com.wa.sdk:wa-sdk-firebase:4.2.0'
     // Facebook模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-facebook:4.2.0'
+    implementation 'com.wa.sdk:wa-sdk-facebook:4.3.0'
     // Google模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-google:4.2.0'
+    implementation 'com.wa.sdk:wa-sdk-google:4.3.0'
     // AdMob模块（可选）
     implementation 'com.wa.sdk:wa-sdk-admob:4.2.0'
     // 网页集成登录，GHG和R2 （可选）
-    implementation 'com.wa.sdk:wa-sdk-weblogin:4.2.0'
+    implementation 'com.wa.sdk:wa-sdk-weblogin:4.3.0'
     // 网页支付模块（可选）
     implementation 'com.wa.sdk:wa-sdk-webpay:4.2.0'
 

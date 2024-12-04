@@ -34,7 +34,7 @@ public class Util {
     }
 
     public static int getInputType(String paramName) {
-        if(WAEventParameterName.AGE.equals(paramName)
+        if (WAEventParameterName.AGE.equals(paramName)
                 || WAEventParameterName.LEVEL.equals(paramName)
                 || WAEventParameterName.IAP_AMOUNT.equals(paramName)
                 || WAEventParameterName.ITEM_AMOUNT.equals(paramName)
@@ -49,9 +49,9 @@ public class Util {
                 || WAEventParameterName.AMOUNT.equals(paramName)
                 || WAEventParameterName.CURRENCY_AMOUNT.equals(paramName)) {
             return InputType.TYPE_CLASS_NUMBER;
-        } else if(WAEventParameterName.SUCCESS.equals(paramName)) {
+        } else if (WAEventParameterName.SUCCESS.equals(paramName)) {
             return InputType.TYPE_MASK_FLAGS;
-        } else if(WAEventParameterName.CURRENCY_AMOUNT.equals(paramName)
+        } else if (WAEventParameterName.CURRENCY_AMOUNT.equals(paramName)
                 || WAEventParameterName.VERTUAL_COIN_AMOUNT.equals(paramName)
                 || WAEventParameterName.PRICE.equals(paramName)) {
             return InputType.TYPE_NUMBER_FLAG_DECIMAL;
@@ -82,7 +82,7 @@ public class Util {
 
     public static String getMD5(InputStream is) throws IOException, NoSuchAlgorithmException {
 
-        if(null == is) {
+        if (null == is) {
             return "";
         }
 
@@ -90,7 +90,7 @@ public class Util {
             byte[] buffer = new byte[1024 * 16]; // 16KB
             MessageDigest md5 = MessageDigest.getInstance("MD5");
             int len;
-            while((len = is.read(buffer)) != -1){
+            while ((len = is.read(buffer)) != -1) {
                 md5.update(buffer, 0, len);
             }
             return convertByteToHex(md5.digest());
@@ -121,13 +121,13 @@ public class Util {
     }
 
     public static String getApkBuildInfo(Context context) {
+        String packageName = "包名：" + context.getPackageName();
         String versionName = "版本名称：" + BuildConfig.VERSION_NAME;
         String versionCode = "代码版本：" + BuildConfig.VERSION_CODE;
         String buildType = "打包类型：" + BuildConfig.FLAVOR + "_" + BuildConfig.BUILD_TYPE;
         String buildTime = "打包时间：" + BuildConfig.DEMO_BUILD_TIME;
         String isTestRepository = "测试仓库：" + (BuildConfig.IS_TEST_REPOSITORY ? "是" : "否");
         String lineNew = "\n";
-
 
         Bundle manifest = Util.getMataDatasFromManifest(context);
         boolean isOfficialPackage = false;
@@ -136,7 +136,8 @@ public class Util {
         }
         String officialPackage = "官网包：" + (isOfficialPackage ? "是" : "否");
 
-        return versionName + lineNew
+        return packageName + lineNew
+                + versionName + lineNew
                 + versionCode + lineNew
                 + officialPackage + lineNew
                 + buildType + lineNew

@@ -317,9 +317,12 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
      * 设置全屏，兼容刘海屏
      */
     private void setFullScreen() {
+        WASharedPrefHelper sp = WASharedPrefHelper.newInstance(this, WADemoConfig.SP_CONFIG_FILE_DEMO);
+        int orientation = sp.getInt(WADemoConfig.SP_KEY_SETTING_ORIENTATION, 0);
+        // 横屏，或者强制竖屏，使用全面屏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
-                && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE
+                && (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE || orientation == 1)
         ) {
             getWindow().getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);

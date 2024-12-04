@@ -26,7 +26,7 @@ import org.json.JSONObject;
 
 public class AdMobActivity extends BaseActivity {
     public static boolean DEFAULT_APP_OPEN_AD_STATE = false; //开屏广告默认状态
-    public static boolean DEFAULT_MAIN_BANNER_AD_STATE = true; //主页面横幅广告默认状态
+    public static boolean DEFAULT_BANNER_AD_STATE = false; //主页面横幅广告默认状态
     public static boolean DEFAULT_TEST = true; //客户端强制测试广告
     public static boolean IS_LOADING_AD = false;
 
@@ -97,11 +97,18 @@ public class AdMobActivity extends BaseActivity {
         btnEnableAppOpenAd.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mSpHelper.saveBoolean(WADemoConfig.SP_KEY_ENABLE_APP_OPEN_AD, isChecked);
         });
+        ToggleButton btnEnableBannerAd = findViewById(R.id.btn_enable_banner_ad);
+        btnEnableBannerAd.setChecked(mSpHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_BANNER_AD, DEFAULT_BANNER_AD_STATE));
+        btnEnableBannerAd.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            mSpHelper.saveBoolean(WADemoConfig.SP_KEY_ENABLE_BANNER_AD, isChecked);
+        });
 
         // 横幅广告
-        FrameLayout containerBanner = findViewById(R.id.container_admob_banner);
-        WAAdMobProxy.bindBannerAd(this, containerBanner);
-
+        boolean isEnableBannerAd = mSpHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_BANNER_AD, DEFAULT_BANNER_AD_STATE);
+        if (isEnableBannerAd) {
+            FrameLayout containerBanner = findViewById(R.id.container_admob_banner);
+            WAAdMobProxy.bindBannerAd(this, containerBanner);
+        }
         // 选项配置，显示控制
         findViewById(R.id.btn_show_ump_options).setVisibility(WAAdMobProxy.checkUmpOptions() ? View.VISIBLE : View.GONE);
     }
@@ -157,7 +164,7 @@ public class AdMobActivity extends BaseActivity {
         }
     }
 
-    public static void logTcfString(Context context){
+    public static void logTcfString(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         String iabtcfTcString = preferences.getString("IABTCF_TCString", null);
         String iabtcfAddtlConsent = preferences.getString("IABTCF_AddtlConsent", null);

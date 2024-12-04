@@ -3,6 +3,8 @@ package com.wa.sdk.demo;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -208,21 +210,18 @@ public class LoginActivity extends BaseActivity {
                         + "\nisGuestAccount: " + result.getIsGuestAccount()
                         + "\nisFistLogin: " + result.isFirstLogin();
 
-                // 数据收集
-                String txServerId = mEdtServerId.getText().toString();
-                String serverId = TextUtils.isEmpty(txServerId) ? "server2" : "server" + txServerId;
-                String gameUserId = serverId + "-role1-" + result.getUserId();
-                String nickname = "青铜" + serverId + "-" + result.getUserId();
+                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                    // 进入游戏
+                    String txServerId = mEdtServerId.getText().toString();
+                    String serverId = TextUtils.isEmpty(txServerId) ? "server2" : "server" + txServerId;
+                    String gameUserId = serverId + "-role1-" + result.getUserId();
+                    String nickname = "青铜" + serverId + "-" + result.getUserId();
 
-                WACoreProxy.setServerId(serverId);
-                WACoreProxy.setGameUserId(gameUserId);
-                WACoreProxy.setNickname(nickname);
+                    WACoreProxy.setServerId(serverId);
+                    WACoreProxy.setGameUserId(gameUserId);
+                    WACoreProxy.setNickname(nickname);
+                }, 3000);
 
-//                WAEvent event = new WAEvent.Builder()
-//                        .setDefaultEventName(WAEventType.LOGIN)
-//                        .addDefaultEventValue(WAEventParameterName.LEVEL, 140)
-//                        .build();
-//                event.track(LoginActivity.this);
                 mTitlebar.setTitleText("登录(" + result.getPlatform() + ")");
                 mEdtServerId.clearFocus();
             }
@@ -382,7 +381,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void wingaLogin() {
-        showLoadingDialog("正在登录"+WAConstants.CHANNEL_WA, null);
+        showLoadingDialog("正在登录" + WAConstants.CHANNEL_WA, null);
         WAUserProxy.login(this, WAConstants.CHANNEL_WA, mLoginCallback, "拓展参数");
     }
 

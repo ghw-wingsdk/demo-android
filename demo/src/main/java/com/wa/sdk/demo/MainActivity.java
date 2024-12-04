@@ -1,6 +1,7 @@
 package com.wa.sdk.demo;
 
 import static com.wa.sdk.demo.AdMobActivity.DEFAULT_APP_OPEN_AD_STATE;
+import static com.wa.sdk.demo.AdMobActivity.DEFAULT_BANNER_AD_STATE;
 import static com.wa.sdk.demo.AdMobActivity.DEFAULT_TEST;
 
 import android.app.AlertDialog;
@@ -8,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -135,15 +137,17 @@ public class MainActivity extends BaseActivity {
                             + "\nisGuestAccount: " + result.getIsGuestAccount()
                             + "\nisFistLogin: " + result.isFirstLogin();
 
-                    // 数据收集
-                    String txServerId = "2";
-                    String serverId = TextUtils.isEmpty(txServerId) ? "server2" : "server" + txServerId;
-                    String gameUserId = serverId + "-role1-" + result.getUserId();
-                    String nickname = "青铜" + serverId + "-" + result.getUserId();
+                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                        // 进入游戏
+                        String txServerId = "2";
+                        String serverId = TextUtils.isEmpty(txServerId) ? "server2" : "server" + txServerId;
+                        String gameUserId = serverId + "-role1-" + result.getUserId();
+                        String nickname = "青铜" + serverId + "-" + result.getUserId();
 
-                    WACoreProxy.setServerId(serverId);
-                    WACoreProxy.setGameUserId(gameUserId);
-                    WACoreProxy.setNickname(nickname);
+                        WACoreProxy.setServerId(serverId);
+                        WACoreProxy.setGameUserId(gameUserId);
+                        WACoreProxy.setNickname(nickname);
+                    }, 3000);
                 }
                 WASdkDemo.getInstance().updateLoginAccount(result);
                 LogUtil.i(TAG, text);
@@ -164,9 +168,10 @@ public class MainActivity extends BaseActivity {
         }), second * 1000L);
     }
 
-    private void doAfterInitSuccess(){
-        if (AdMobActivity.DEFAULT_MAIN_BANNER_AD_STATE) {
-            WAAdMobProxy.bindBannerAd(this,((FrameLayout) findViewById(R.id.layout_bannerAd)));
+    private void doAfterInitSuccess() {
+        boolean isEnableBannerAd = mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_BANNER_AD, DEFAULT_BANNER_AD_STATE);
+        if (isEnableBannerAd) {
+            WAAdMobProxy.bindBannerAd(this, ((FrameLayout) findViewById(R.id.layout_bannerAd)));
         }
 
         // 支付初始化
@@ -339,8 +344,8 @@ public class MainActivity extends BaseActivity {
         } else if (id == R.id.btn_switch_orientation) {
             int orientation = mSharedPrefHelper.getInt(WADemoConfig.SP_KEY_SETTING_ORIENTATION, 0);
             orientation++;
-            if (orientation>2) orientation = 0;
-            mSharedPrefHelper.saveInt(WADemoConfig.SP_KEY_SETTING_ORIENTATION,orientation);
+            if (orientation > 2) orientation = 0;
+            mSharedPrefHelper.saveInt(WADemoConfig.SP_KEY_SETTING_ORIENTATION, orientation);
             updateScreenOrientationText();
         } else if (id == R.id.btn_open_game_review) {
             openGameReview();
@@ -552,7 +557,6 @@ public class MainActivity extends BaseActivity {
         tbtnDebug.setOnCheckedChangeListener(mOnCheckedChangeListener);
 
         mEtSkuId = findViewById(R.id.et_static_pay_sku_id);
-        // FIXME 这里可以更改静态设置的购买商品id
         mEtSkuId.setText("123123");
 
         mEdtClientId = findViewById(R.id.edt_client_id);

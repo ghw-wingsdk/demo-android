@@ -7,8 +7,10 @@
     <!--    <uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
+    <!--  官网包才需要声明这个权限  -->
+    <!--    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />-->
+
     <application
-        android:name=".DemoApp"
         android:hardwareAccelerated="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -16,6 +18,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
+        <!--    官网包才需要    -->
+        <!--        <provider-->
+        <!--            android:name="com.wa.sdk.wa.core.sdkadid.WASdkAdIdProvider"-->
+        <!--            android:authorities="com.wa.provider.ad.sdk2"-->
+        <!--            android:exported="true" />-->
+
         <activity
             android:name=".SplashActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
@@ -207,11 +216,6 @@
             android:value="true" />
         <!-- Chartboost SDK END -->
         <!-- Facebook Start -->
-        <provider
-            android:name="com.facebook.FacebookContentProvider"
-            android:authorities="com.facebook.app.FacebookContentProvider959864665060487"
-            android:exported="true" />
-
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -240,15 +244,15 @@
             android:name="com.google.android.gms.games.APP_ID"
             android:value="@string/google_game_app_id" /> <!-- Twitter Start -->
         <!--
- Consumer Key (API Key)	XVyoEoCH5DnZEfJ911arzF0kV
-Consumer Secret (API Secret)	uLAjbYQ37mcM7xonFPX4y8VBeTHhOaXntYpPEqHp2mJCnDJxK5
-        -->
+     Consumer Key (API Key)	XVyoEoCH5DnZEfJ911arzF0kV
+    Consumer Secret (API Secret)	uLAjbYQ37mcM7xonFPX4y8VBeTHhOaXntYpPEqHp2mJCnDJxK5
+            -->
         <!-- consumerKey: SPRwO9pH5p9bJCAbUHaiV8oQY -->
         <!-- consumerSecret:9i6bo6KjPNl0k08kVPR29qjoaBLwbFWPZzYoBZ6jS7JuQZEPCa -->
         <!--
- Consumer Key (API Key)	SLTsEh1c61Um0gRArM8MMYNdk
-Consumer Secret (API Secret)	mQxNdMLMpvWXNR2tJZ9qblHxct7YI3thgYMvxWnA5Tq71py4Ni
-        -->
+     Consumer Key (API Key)	SLTsEh1c61Um0gRArM8MMYNdk
+    Consumer Secret (API Secret)	mQxNdMLMpvWXNR2tJZ9qblHxct7YI3thgYMvxWnA5Tq71py4Ni
+            -->
         <!-- Fabric api key，需要到Fabric后台申请 -->
         <meta-data
             android:name="io.fabric.ApiKey"

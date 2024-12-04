@@ -10,10 +10,6 @@
         android:layout_height="wrap_content"
         android:background="@color/color_black_alpha_bb" />
 
-    <FrameLayout
-        android:id="@+id/container_admob_banner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -131,17 +127,16 @@
                     android:textOff="@string/disable_app_open_ad"
                     android:textOn="@string/enable_app_open_ad" />
 
-                <Button
-                    android:id="@+id/btn_"
+                <ToggleButton
+                    android:id="@+id/btn_enable_banner_ad"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
                     android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="@string/show_rewarded_ad"
-                    android:visibility="invisible" />
+                    android:checked="false"
+                    android:textOff="@string/disable_banner_ad"
+                    android:textOn="@string/enable_banner_ad" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -172,6 +167,12 @@
                     android:onClick="onClick"
                     android:text="@string/show_ump_options" />
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/container_admob_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

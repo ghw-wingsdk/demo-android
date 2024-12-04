@@ -257,6 +257,8 @@
     <string name="show_rewarded_ad">Show Rewarded Ad</string>
     <string name="enable_app_open_ad">AppOpen Ad: Enable</string>
     <string name="disable_app_open_ad">AppOpen Ad: Disable</string>
+    <string name="enable_banner_ad">Check Ad: Enable</string>
+    <string name="disable_banner_ad">Banner Ad: Disable</string>
     <string name="check_ump_options">Check Options</string>
     <string name="show_ump_options">Show Options</string>
     <!--  其他  -->

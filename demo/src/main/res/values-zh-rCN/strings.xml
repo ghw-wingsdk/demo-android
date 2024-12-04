@@ -265,6 +265,8 @@
     <string name="show_rewarded_ad">显示激励广告</string>
     <string name="enable_app_open_ad">开屏广告:开启</string>
     <string name="disable_app_open_ad">开屏广告:关闭</string>
+    <string name="enable_banner_ad">横幅广告:开启</string>
+    <string name="disable_banner_ad">横幅广告:关闭</string>
     <string name="check_ump_options">检查配置</string>
     <string name="show_ump_options">打开配置</string>
     <!--  其他  -->

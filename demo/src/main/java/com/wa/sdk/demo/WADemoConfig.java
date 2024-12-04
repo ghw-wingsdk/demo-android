@@ -20,6 +20,8 @@ public class WADemoConfig {
 
     public static final String SP_KEY_ENABLE_APP_OPEN_AD = "enable_app_open_ad";
 
+    public static final String SP_KEY_ENABLE_BANNER_AD = "enable_banner_ad";
+
     public static final String SP_KEY_SETTING_ORIENTATION = "setting_orientation";
 
 

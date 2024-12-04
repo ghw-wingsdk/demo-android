@@ -7,7 +7,6 @@ import static com.wa.sdk.demo.AdMobActivity.DEFAULT_TEST;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -118,7 +117,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void delayLoginUI(int second) {
-        if (second < 0) return;
+        if (second < 0 || BuildConfig.VERSION_NAME.equals("4.4.1")) return; // nowgg 版本不能直接登录
 
         new Handler().postDelayed(() -> WAUserProxy.loginUI(MainActivity.this, true, new WACallback<WALoginResult>() {
             @Override
@@ -241,9 +240,6 @@ public class MainActivity extends BaseActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         WACommonProxy.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
-        if (requestCode == 1005 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            delayLoginUI(0); // nowgg 授权成功后，再次调用登录
-        }
     }
 
 

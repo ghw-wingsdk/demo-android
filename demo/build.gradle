@@ -16,8 +16,8 @@ android {
         applicationId "com.ghw.sdk2"
         minSdkVersion 21
         targetSdkVersion 34
-        versionCode 75
-        versionName "4.4.0"
+        versionCode 76
+        versionName "4.4.1"
         signingConfig signingConfigs.config
 
         compileSdk 34
@@ -101,9 +101,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
 
     // 基础模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-base:4.4.0'
+    implementation 'com.wa.sdk:wa-sdk-base:4.4.1'
     // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:4.4.0'
+    implementation 'com.wa.sdk:wa-sdk-core:4.4.1'
     // wa 客服系统（一般必接）
     implementation 'com.wa.sdk:wa-sdk-aihelp:4.2.0'
     // AppsFlyer模块（一般必接）
@@ -121,7 +121,7 @@ dependencies {
     // 网页支付模块（可选）
     implementation 'com.wa.sdk:wa-sdk-webpay:4.2.0'
     // nowgg 模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-nowgg:4.4.0'
+    implementation 'com.wa.sdk:wa-sdk-nowgg:4.4.1'
 
 
 //    华为 HMS

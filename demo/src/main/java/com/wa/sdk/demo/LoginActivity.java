@@ -147,7 +147,6 @@ public class LoginActivity extends BaseActivity {
         } else if (id == R.id.btn_r2_integration_login) {
             r2IntegrationLogin();
         } else if (id == R.id.btn_nowgg_login) {
-            showLoadingDialog("正在登录 now.gg", null);
             WAUserProxy.login(this, WAConstants.CHANNEL_NOWGG, mLoginCallback, null);
         } else if (id == R.id.btn_clear_login_cache) {
             WAUserProxy.clearLoginCache();

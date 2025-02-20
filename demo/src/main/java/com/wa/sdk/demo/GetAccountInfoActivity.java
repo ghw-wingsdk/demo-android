@@ -21,7 +21,7 @@ import com.wa.sdk.wa.common.utils.ImageUtils;
 
 /**
  * 获取账户信息
- * Created by yunying on 2016/7/27.
+ * 
  */
 public class GetAccountInfoActivity extends BaseActivity {
 

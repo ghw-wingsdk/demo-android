@@ -18,7 +18,7 @@ import com.wa.sdk.social.model.WARequestSendResult;
 
 /**
  * Facebook邀请页面
- * Created by yinglovezhuzhu@gmail.com on 2016/7/14.
+ * 
  */
 public class FBInviteActivity extends BaseActivity {
     private static final String TAG = LogUtil.TAG + "_FBINVITE";

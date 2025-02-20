@@ -16,7 +16,7 @@ import java.util.Locale;
 
 /**
  * 视频广告
- * Created by yinglovezhuzhu@gmail.com on 2017/8/21.
+ * 
  */
 
 public class VideoAdActivity extends BaseActivity {

@@ -22,7 +22,7 @@ import com.wa.sdk.core.WACoreProxy;
 import com.wa.sdk.demo.base.BaseActivity;
 
 /**
- * Created by yinglovezhuzhu@gmail.com on 2017/4/7.
+ * 
  */
 
 @android.annotation.SuppressLint("CustomSplashScreen")

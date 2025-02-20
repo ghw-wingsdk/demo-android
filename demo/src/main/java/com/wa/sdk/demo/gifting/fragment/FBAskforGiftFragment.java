@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,8 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.common.model.WACallback;
@@ -23,7 +24,6 @@ import com.wa.sdk.social.WASocialProxy;
 import com.wa.sdk.social.model.WAFBGameRequestData;
 import com.wa.sdk.social.model.WAFBGameRequestResult;
 import com.wa.sdk.social.model.WAFBGraphObject;
-import com.wa.sdk.social.model.WAGiftingResult;
 import com.wa.sdk.social.model.WARequestSendResult;
 import com.wa.sdk.user.model.WAUser;
 
@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * 收到的礼物Fragment
- * Created by ghw_zhangyy on 2015/7/16.
+ * 
  */
 public class FBAskforGiftFragment extends BaseFragment {
 

@@ -17,7 +17,7 @@ import java.util.Map;
 
 /**
  * Desc:
- * Created by zgq on 2019/9/18.
+ * 
  */
 public class ProductListAdapter extends BaseAdapter {
 

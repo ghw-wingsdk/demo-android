@@ -12,7 +12,7 @@ import com.wa.sdk.demo.base.BaseGridActivity;
 
 /**
  * 测试隐私政策
- * Created by hank on 2016/1/4.
+ * 
  */
 public class PrivacyActivity extends BaseGridActivity {
 

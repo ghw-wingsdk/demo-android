@@ -26,7 +26,7 @@ import java.util.Map;
 
 /**
  * 网页支付页面
- * Created by ghw on 16/5/8.
+ * 
  */
 public class PaymentActivity extends BaseActivity {
 

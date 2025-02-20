@@ -7,22 +7,18 @@ import android.view.View;
 import androidx.fragment.app.FragmentTabHost;
 
 import com.wa.sdk.common.WACommonProxy;
-import com.wa.sdk.common.WASharedPrefHelper;
 import com.wa.sdk.demo.R;
-import com.wa.sdk.demo.WADemoConfig;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.gifting.fragment.FBAskforGiftFragment;
 import com.wa.sdk.demo.gifting.fragment.FBGiftingFragment;
 import com.wa.sdk.demo.gifting.fragment.FBReceivedGiftFragment;
 import com.wa.sdk.demo.widget.TabView;
 import com.wa.sdk.demo.widget.TitleBar;
-import com.wa.sdk.social.WASocialProxy;
-import com.wa.sdk.track.WATrackProxy;
 
 
 /**
  * 邀请好友
- * Created by ghw_zhangyy on 2015/7/1.
+ * 
  */
 public class FBGiftingActivity extends BaseActivity {
 

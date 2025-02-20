@@ -30,7 +30,7 @@ import org.json.JSONObject;
 
 /**
  * 测试Login
- * Created by yinglovezhuzhu@gmail.com on 2016/1/4.
+ * 
  */
 public class LoginActivity extends BaseActivity {
 

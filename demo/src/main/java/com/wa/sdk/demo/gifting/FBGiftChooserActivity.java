@@ -2,7 +2,6 @@ package com.wa.sdk.demo.gifting;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +11,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.wa.sdk.common.WACommonProxy;
-import com.wa.sdk.common.WASharedPrefHelper;
 import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.utils.StringUtil;
 import com.wa.sdk.demo.R;
@@ -23,7 +20,6 @@ import com.wa.sdk.demo.widget.TitleBar;
 import com.wa.sdk.social.WASocialProxy;
 import com.wa.sdk.social.model.WAFBGraphObject;
 import com.wa.sdk.social.model.WAFBGraphObjectResult;
-import com.wa.sdk.track.WATrackProxy;
 import com.wa.sdk.wa.common.utils.ImageUtils;
 
 import java.util.ArrayList;
@@ -32,7 +28,7 @@ import java.util.List;
 
 /**
  * 选择礼物（Demo)
- * Created by ghw_zhangyy on 2015/7/20.
+ * 
  */
 public class FBGiftChooserActivity extends BaseActivity {
 

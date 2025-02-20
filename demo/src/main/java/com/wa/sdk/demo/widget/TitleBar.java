@@ -12,7 +12,7 @@ import com.wa.sdk.demo.R;
 
 /**
  * 标题（简单的标题栏，两边有按钮，中间文字）
- * Created by yinglovezhuzhu@gmail.com on 2016/1/12.
+ * 
  */
 public class TitleBar extends ALinearLayout {
 
@@ -192,7 +192,7 @@ public class TitleBar extends ALinearLayout {
 
         // 默认UI
         setTitleTextColor(android.R.color.white);
-        setTitleBackGroundResource(android.R.color.black);
+        setTitleBackGroundResource(R.color.colorGray);
     }
 
     /**

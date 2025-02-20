@@ -26,7 +26,7 @@ import com.wa.sdk.wa.common.utils.ImageUtils;
 
 /**
  * 社区/群组等功能测试界面
- * Created by yinglovezhuzhu@gmail.com on 2016/7/14.
+ * 
  */
 public class VKCommunityActivity extends BaseActivity {
 

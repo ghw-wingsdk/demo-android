@@ -9,7 +9,7 @@ import com.wa.sdk.demo.R;
 
 /**
  * Logcat tab
- * Created by yinglovezhuzhu@gmail.com on 16-3-22.
+ * 
  */
 public class TabView extends ALinearLayout {
 

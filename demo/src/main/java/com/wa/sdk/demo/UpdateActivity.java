@@ -14,7 +14,7 @@ import com.wa.sdk.hup.model.WAUpdateInfo;
 
 /**
  *
- * Created by yinglovezhuzhu@gmail.com on 2016/7/14.
+ * 
  */
 public class UpdateActivity extends BaseActivity {
 

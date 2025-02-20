@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  *
- * Created by yinglovezhuzhu@gmail.com on 2016/7/21.
+ * 
  */
 public class FriendsAdapter extends BaseAdapter {
 

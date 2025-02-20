@@ -35,7 +35,7 @@ import java.util.Map;
 
 /**
  * VK社区数据展示页面
- * Created by yinglovezhuzhu@gmail.com on 2016/7/14.
+ * 
  */
 public class VKCommunityDisplayActivity extends BaseActivity {
 

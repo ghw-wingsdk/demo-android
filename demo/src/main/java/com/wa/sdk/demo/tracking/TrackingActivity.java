@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by Administrator on 2015/5/22.
+ * 
  */
 public class TrackingActivity extends BaseActivity {
 

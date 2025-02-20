@@ -35,7 +35,7 @@ import com.wa.sdk.demo.widget.TitleBar;
 
 /**
  * Activity基类
- * Created by yinglovezhuzhu@gmail.com on 2015/12/28.
+ * 
  */
 public class BaseActivity extends FragmentActivity implements View.OnClickListener {
     protected static final String TAG = "DemoSdk2";

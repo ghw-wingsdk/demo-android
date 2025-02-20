@@ -5,12 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.common.utils.LogUtil;
 
 /**
- * Created by yinglovezhuzhu@gmail.com on 2017/4/12.
+ * 
  */
 
 public class PushReceiver extends BroadcastReceiver {

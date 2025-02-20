@@ -10,7 +10,7 @@ import com.wa.sdk.demo.widget.TitleBar;
 
 /**
  * 礼物总入口
- * Created by yinglovezhuzhu@gmail.com on 2016/7/14.
+ * 
  */
 public class GiftingActivity extends BaseActivity {
 

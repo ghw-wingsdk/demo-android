@@ -6,8 +6,7 @@
     <com.wa.sdk.demo.widget.TitleBar
         android:id="@+id/tb_vk_invite_friends"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/color_black_alpha_bb" />
+        android:layout_height="wrap_content" />
     <!--<LinearLayout-->
         <!--android:orientation="horizontal"-->
         <!--android:layout_width="match_parent"-->

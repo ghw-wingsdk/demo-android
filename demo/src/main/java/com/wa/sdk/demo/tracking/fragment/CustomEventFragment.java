@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 /**
- * Created by yinglovezhuzhu@gmail.com on 2016/1/29.
+ * 
  */
 public class CustomEventFragment extends BaseFragment {
 

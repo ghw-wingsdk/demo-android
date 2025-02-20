@@ -7,9 +7,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.common.WACommonProxy;
@@ -35,7 +36,7 @@ import java.io.File;
 
 /**
  * Facebook分享页面
- * Created by yinglovezhuzhu@gmail.com on 2016/7/14.
+ * 
  */
 public class FBShareActivity extends BaseActivity {
     private static final String TAG = LogUtil.TAG + "_DEMO_SHARE";

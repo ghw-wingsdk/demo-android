@@ -16,7 +16,7 @@ import com.wa.sdk.social.WASocialProxy;
 
 /**
  * Facebook邀请页面
- * Created by yinglovezhuzhu@gmail.com on 2016/7/14.
+ * 
  */
 public class VKInviteActivity extends BaseActivity {
 

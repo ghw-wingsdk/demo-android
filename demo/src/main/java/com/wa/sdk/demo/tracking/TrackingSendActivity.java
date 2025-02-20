@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by yinglovezhuzhu@gmail.com on 2016/1/28.
+ * 
  */
 public class TrackingSendActivity extends BaseActivity {
 

@@ -11,7 +11,7 @@ import android.widget.EditText;
 import com.wa.sdk.demo.R;
 
 /**
- * Created by yinglovezhuzhu@gmail.com on 2016/1/29.
+ * 
  */
 public class EventItemView extends ALinearLayout implements View.OnClickListener {
 

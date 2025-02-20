@@ -5,17 +5,13 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-
-import com.wa.sdk.common.utils.StringUtil;
 
 /**
  * 自定义控件基类
- * Created by yinglovezhuzhu@gmail.com on 2015/10/18.
+ * 
  */
 public class ALinearLayout extends LinearLayout {
 

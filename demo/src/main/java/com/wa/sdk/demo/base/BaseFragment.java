@@ -2,25 +2,22 @@ package com.wa.sdk.demo.base;
 
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.wa.sdk.common.utils.StringUtil;
 import com.wa.sdk.demo.widget.LoadingDialog;
 
 
 /**
  * Fragment基类
- * Created by yinglovezhuzhu@gmail.com on 2015/10/30.
+ * 
  */
 public class BaseFragment extends Fragment implements View.OnClickListener {
 

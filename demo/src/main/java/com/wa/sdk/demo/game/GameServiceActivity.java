@@ -10,7 +10,7 @@ import com.wa.sdk.demo.widget.TitleBar;
 
 /**
  * Game Service入口Activity
- * Created by yinglovezhuzhu@gmail.com on 2016/7/14.
+ * 
  */
 public class GameServiceActivity extends BaseActivity {
 

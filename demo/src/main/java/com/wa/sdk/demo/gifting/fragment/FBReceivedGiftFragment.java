@@ -3,7 +3,6 @@ package com.wa.sdk.demo.gifting.fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.model.WAResult;
@@ -29,7 +30,7 @@ import java.util.List;
 
 /**
  * 收到的礼物Fragment
- * Created by ghw_zhangyy on 2015/7/16.
+ * 
  */
 public class FBReceivedGiftFragment extends BaseFragment {
 

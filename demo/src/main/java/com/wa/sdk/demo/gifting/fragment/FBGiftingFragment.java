@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +18,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.demo.R;
@@ -28,7 +29,6 @@ import com.wa.sdk.demo.gifting.FBGiftChooserActivity;
 import com.wa.sdk.social.WASocialProxy;
 import com.wa.sdk.social.model.WAFBGraphObject;
 import com.wa.sdk.social.model.WAFriendsResult;
-import com.wa.sdk.social.model.WAGiftingResult;
 import com.wa.sdk.social.model.WARequestSendResult;
 import com.wa.sdk.user.model.WAUser;
 
@@ -38,7 +38,7 @@ import java.util.List;
 
 /**
  * 赠送/索要礼物Fragment
- * Created by ghw_zhangyy on 2015/7/16.
+ * 
  */
 public class FBGiftingFragment extends BaseFragment {
 

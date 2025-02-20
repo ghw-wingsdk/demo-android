@@ -19,7 +19,6 @@ import androidx.annotation.NonNull;
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.ad.WAAdProxy;
 import com.wa.sdk.ad.model.WAAdCachedCallback;
-import com.wa.sdk.apw.WAApwProxy;
 import com.wa.sdk.cmp.WACmpProxy;
 import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.WASharedPrefHelper;
@@ -31,7 +30,6 @@ import com.wa.sdk.core.WACoreProxy;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.base.FlavorApiHelper;
 import com.wa.sdk.demo.game.GameServiceActivity;
-import com.wa.sdk.demo.share.ShareActivity;
 import com.wa.sdk.demo.tracking.TrackingSimulateActivity;
 import com.wa.sdk.demo.widget.TitleBar;
 import com.wa.sdk.pay.WAPayProxy;
@@ -71,8 +69,8 @@ public class MainActivity extends BaseActivity {
             return;
         }
 
-        // AdMob强制测试 WAAdMobProxy.setTest(true);
-        FlavorApiHelper.AdMob.setTest();
+        // AdMob强制测试
+        FlavorApiHelper.AdMob.setTest(this);
         // 开启日志
         WACoreProxy.setDebugMode(mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_DEBUG, true));
         showLoadingDialog("初始化中", false, false, null);
@@ -104,6 +102,7 @@ public class MainActivity extends BaseActivity {
     private void delayLoginUI(int second) {
         if (second < 0 || FlavorApiHelper.isNowggFlavor()) return; // nowgg 版本不能直接登录
 
+        // WAUserProxy.loginUI() 在刚接入时需要运营在后台添加测试设备，才会显示具体登录方式，比如: Google，Facebook
         new Handler().postDelayed(() -> WAUserProxy.loginUI(MainActivity.this, true, new WACallback<WALoginResult>() {
             @Override
             public void onSuccess(int code, String message, WALoginResult result) {
@@ -154,7 +153,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void doAfterInitSuccess() {
-        // 横幅广告  WAAdMobProxy.bindBannerAd(activity, ((FrameLayout) findViewById(R.id.layout_main_banner_ad)));
+        // 横幅广告
         FlavorApiHelper.AdMob.bindMainBannerAd(this);
 
         // 支付初始化
@@ -189,9 +188,6 @@ public class MainActivity extends BaseActivity {
             WACommonProxy.enableLogcat(this);
         } else {
             WACommonProxy.disableLogcat(this);
-        }
-        if (mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_APW, true)) {
-            WAApwProxy.showEntryFlowIcon(this);
         }
 
         WAAdProxy.setAdCachedCallback(new WAAdCachedCallback() {
@@ -235,25 +231,25 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        LogUtil.i(TAG, "---onResume---");
+        // LogUtil.i(TAG, "---onResume---");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        LogUtil.i(TAG, "---onPause---");
+        // LogUtil.i(TAG, "---onPause---");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        LogUtil.i(TAG, "---onStop---");
+        // LogUtil.i(TAG, "---onStop---");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        LogUtil.i(TAG, "---onDestroy---");
+        // LogUtil.i(TAG, "---onDestroy---");
     }
 
     @Override
@@ -298,8 +294,6 @@ public class MainActivity extends BaseActivity {
             staticPay();
         } else if (id == R.id.btn_tracking) {
             testTracking();
-        } else if (id == R.id.btn_share) {
-            startActivity(new Intent(this, ShareActivity.class));
         } else if (id == R.id.btn_game_service) {
             startActivity(new Intent(MainActivity.this, GameServiceActivity.class));
         } else if (id == R.id.btn_csc) {
@@ -333,23 +327,6 @@ public class MainActivity extends BaseActivity {
             updateScreenOrientationText();
         } else if (id == R.id.btn_open_game_review) {
             openGameReview();
-        } else if (id == R.id.btn_show_open_url) {
-            WACoreProxy.showOpenUrl(this, new WACallback<WAResult>() {
-                @Override
-                public void onSuccess(int code, String message, WAResult result) {
-                    showShortToast("打开链接成功");
-                }
-
-                @Override
-                public void onCancel() {
-
-                }
-
-                @Override
-                public void onError(int code, String message, WAResult result, Throwable throwable) {
-                    showShortToast("打开链接失败：" + code + "," + message);
-                }
-            });
         } else if (id == R.id.btn_show_consent_preferences) {
             WACmpProxy.showConsentPreferences(this);
         } else if (id == R.id.btn_admob) {
@@ -535,11 +512,6 @@ public class MainActivity extends BaseActivity {
         tbtnLogcat.setChecked(enableLogcat);
         tbtnLogcat.setOnCheckedChangeListener(mOnCheckedChangeListener);
 
-        ToggleButton tbtnExtend = findViewById(R.id.tbtn_app_wall);
-        boolean enableExtend = mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_APW, true);
-        tbtnExtend.setChecked(enableExtend);
-        tbtnExtend.setOnCheckedChangeListener(mOnCheckedChangeListener);
-
         ToggleButton tbtnDebug = findViewById(R.id.tbtn_debug);
         boolean enableDebug = mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_DEBUG, true);
         tbtnDebug.setChecked(enableDebug);
@@ -563,13 +535,6 @@ public class MainActivity extends BaseActivity {
                     WACommonProxy.enableLogcat(MainActivity.this);
                 } else {
                     WACommonProxy.disableLogcat(MainActivity.this);
-                }
-            } else if (id == R.id.tbtn_app_wall) {
-                mSharedPrefHelper.saveBoolean(WADemoConfig.SP_KEY_ENABLE_APW, isChecked);
-                if (isChecked) {
-                    WAApwProxy.showEntryFlowIcon(MainActivity.this);
-                } else {
-                    WAApwProxy.hideEntryFlowIcon(MainActivity.this);
                 }
             } else if (id == R.id.tbtn_debug) {
                 mSharedPrefHelper.saveBoolean(WADemoConfig.SP_KEY_ENABLE_DEBUG, isChecked);

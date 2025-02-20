@@ -11,10 +11,9 @@ import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.ads.AdError;
-import com.google.android.gms.ads.FullScreenContentCallback;
 import com.wa.sdk.WAConstants;
-import com.wa.sdk.admob.core.WAAdMobProxy;
+import com.wa.sdk.admob.WAAdMobPublicProxy;
+import com.wa.sdk.admob.model.WAAdMobAdsCallback;
 import com.wa.sdk.common.WASharedPrefHelper;
 import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.utils.LogUtil;
@@ -36,7 +35,7 @@ public class AdMobActivity extends BaseActivity {
     private WASharedPrefHelper mSpHelper;
     private EditText mEdtRewardedName;
 
-    private class CustomCallback extends FullScreenContentCallback {
+    private class CustomCallback extends WAAdMobAdsCallback {
         private final String mAdType;
         /**
          * 展示次数
@@ -53,14 +52,14 @@ public class AdMobActivity extends BaseActivity {
         }
 
         @Override
-        public void onAdDismissedFullScreenContent() {
+        public void onAdDismissed() {
             LogUtil.i(WAConstants.TAG, mAdType + " 广告：关闭");
             IS_LOADING_AD = false;
         }
 
         @Override
-        public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
-            String msg = mAdType + " 广告：显示失败, " + adError;
+        public void onAdFailedToShow(@NonNull String error_message) {
+            String msg = mAdType + " 广告：显示失败 - " + error_message;
             LogUtil.i(WAConstants.TAG, msg);
             showShortToast(msg);
             IS_LOADING_AD = false;
@@ -73,7 +72,7 @@ public class AdMobActivity extends BaseActivity {
         }
 
         @Override
-        public void onAdShowedFullScreenContent() {
+        public void onAdShowed() {
             LogUtil.i(WAConstants.TAG, mAdType + " 广告：显示成功");
         }
     }
@@ -96,38 +95,46 @@ public class AdMobActivity extends BaseActivity {
         btnEnableAppOpenAd.setChecked(mSpHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_APP_OPEN_AD, DEFAULT_APP_OPEN_AD_STATE));
         btnEnableAppOpenAd.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mSpHelper.saveBoolean(WADemoConfig.SP_KEY_ENABLE_APP_OPEN_AD, isChecked);
+            showShortToast("重启应用后生效");
         });
         ToggleButton btnEnableBannerAd = findViewById(R.id.btn_enable_banner_ad);
         btnEnableBannerAd.setChecked(mSpHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_BANNER_AD, DEFAULT_BANNER_AD_STATE));
         btnEnableBannerAd.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mSpHelper.saveBoolean(WADemoConfig.SP_KEY_ENABLE_BANNER_AD, isChecked);
+            showShortToast("重启应用后生效");
+        });
+        ToggleButton btnEnableOfficialAdUnit = findViewById(R.id.btn_enable_official_ad_unit);
+        btnEnableOfficialAdUnit.setChecked(!mSpHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_TEST_AD_UNIT, DEFAULT_TEST));
+        btnEnableOfficialAdUnit.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            mSpHelper.saveBoolean(WADemoConfig.SP_KEY_ENABLE_TEST_AD_UNIT, !isChecked);
+            showShortToast("重启应用后生效");
         });
 
         // 横幅广告
         boolean isEnableBannerAd = mSpHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_BANNER_AD, DEFAULT_BANNER_AD_STATE);
         if (isEnableBannerAd) {
             FrameLayout containerBanner = findViewById(R.id.container_admob_banner);
-            WAAdMobProxy.bindBannerAd(this, containerBanner);
+            WAAdMobPublicProxy.bindBannerAd(this, containerBanner);
         }
         // 选项配置，显示控制
-        findViewById(R.id.btn_show_ump_options).setVisibility(WAAdMobProxy.checkUmpOptions() ? View.VISIBLE : View.GONE);
+        findViewById(R.id.btn_show_ump_options).setVisibility(WAAdMobPublicProxy.checkUmpOptions() ? View.VISIBLE : View.GONE);
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.btn_check_interstitial_ad) {
-            boolean isInterstitialReady = WAAdMobProxy.checkInterstitialAdReady();
+            boolean isInterstitialReady = WAAdMobPublicProxy.checkInterstitialAdReady();
             showShortToast("插页广告Ready：" + isInterstitialReady);
         } else if (id == R.id.btn_show_interstitial_ad) {
             IS_LOADING_AD = true;
-            WAAdMobProxy.showInterstitialAd(this, mCallbackInterstitial);
+            WAAdMobPublicProxy.showInterstitialAd(this, mCallbackInterstitial);
         } else if (id == R.id.btn_check_app_open_ad) {
-            boolean isAppOpenReady = WAAdMobProxy.checkAppOpenAdReady();
+            boolean isAppOpenReady = WAAdMobPublicProxy.checkAppOpenAdReady();
             showShortToast("开屏广告Ready：" + isAppOpenReady);
         } else if (id == R.id.btn_show_app_open_ad) {
             IS_LOADING_AD = true;
-            WAAdMobProxy.showAppOpenAd(this, mCallbackAppOpen);
+            WAAdMobPublicProxy.showAppOpenAd(this, mCallbackAppOpen);
         } else if (id == R.id.btn_show_rewarded_ad) {
             IS_LOADING_AD = true;
             String adName = mEdtRewardedName.getText().toString();
@@ -140,11 +147,11 @@ public class AdMobActivity extends BaseActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            WAAdMobProxy.showRewardedAd(this, adName, extInfo, mCallbackRewarded);
+            WAAdMobPublicProxy.showRewardedAd(this, adName, extInfo, mCallbackRewarded);
         } else if (id == R.id.btn_check_ump_options) {
-            showShortToast("检查UMP配置：" + WAAdMobProxy.checkUmpOptions());
+            showShortToast("检查UMP配置：" + WAAdMobPublicProxy.checkUmpOptions());
         } else if (id == R.id.btn_show_ump_options) {
-            WAAdMobProxy.showUmpOptions(this, new WACallback() {
+            WAAdMobPublicProxy.showUmpOptions(this, new WACallback() {
                 @Override
                 public void onSuccess(int code, String message, Object result) {
                     showShortToast(message);

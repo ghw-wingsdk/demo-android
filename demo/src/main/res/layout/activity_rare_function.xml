@@ -95,16 +95,17 @@
                     android:onClick="onClick"
                     android:text="@string/wa_video_ad" />
 
-                <Button
-                    android:id="@+id/btn_test_crash"
+                <ToggleButton
+                    android:id="@+id/tbtn_app_wall"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
                     android:layout_marginStart="5dp"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="@string/test_crash" />
+                    android:checked="false"
+                    android:textOff="@string/disable_extend"
+                    android:textOn="@string/enable_extend" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -198,6 +199,50 @@
                     android:textAllCaps="false" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_share"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="@string/share" />
+
+                <Button
+                    android:id="@+id/btn_show_open_url"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="@string/show_open_url" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_test_crash"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="@string/test_crash" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

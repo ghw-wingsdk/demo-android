@@ -6,9 +6,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-    <!--  官网包才需要声明这个权限  -->
-    <!--    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />-->
-
     <application
         android:hardwareAccelerated="true"
         android:icon="@drawable/ic_launcher"
@@ -157,19 +154,9 @@
                 <action android:name="com.wa.sdk.push.intent.NOTIFICATION_OPENED" />
             </intent-filter>
         </receiver>
-        <!-- AppsFlyer SDK START -->
         <meta-data
             android:name="com.wa.sdk.track.APPSFLYER_APP_KEY"
             android:value="922wXRJwEns6Qj4MfMt4Gg" />
-        <!-- AppsFlyer Channel -->
-        <meta-data
-            android:name="CHANNEL"
-            android:value="GOOGLE" />
-        <!-- 开启/关闭 AppsFlyer数据收集功能，默认开启，使用默认配置可不配置此项 -->
-        <meta-data
-            android:name="com.wa.sdk.track.ENABLE_APPSFLYER"
-            android:value="true" />
-        <!-- AppsFlyer SDK END -->
         <!-- sdk的appid -->
         <meta-data
             android:name="com.wa.sdk.APP_ID"
@@ -207,11 +194,6 @@
         <meta-data
             android:name="com.facebook.sdk.ClientToken"
             android:value="@string/facebook_client_token" />
-        <!-- 开启/关闭 Facebook数据收集功能，默认关闭，使用默认配置可不配置此项 -->
-        <meta-data
-            android:name="com.wa.sdk.track.ENABLE_FACEBOOK"
-            android:value="true" />
-
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true"
@@ -273,9 +255,6 @@
         <!-- Instagram End -->
         <!-- aihelp 配置 -->
         <meta-data
-            android:name="com.wa.sdk.AIHelp_appKey"
-            android:value="GAMEHOLLYWOODHK_app_6ff2af7846a245e8a56c74d2331ede73" />
-        <meta-data
             android:name="com.wa.sdk.AIHelp_domain"
             android:value="gamehollywoodhk.aihelp.net" />
         <meta-data
@@ -287,47 +266,12 @@
             android:value="true" />
         <!--    Firebase 配置    -->
         <meta-data
-            android:name="com.wa.sdk.track.ENABLE_FIREBASE"
-            android:value="true" />
-        <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/color_wa_push_notification" />
         <!--    Consent同意屏幕配置    -->
         <meta-data
             android:name="com.wa.sdk.CONSENT_NOTICE_ID"
             android:value="3gFPBy7K" />
-
-        <!--    AdMob-应用ID配置    -->
-        <!--        <meta-data-->
-        <!--            android:name="com.google.android.gms.ads.APPLICATION_ID"-->
-        <!--            android:value="ca-app-pub-3512615046087076~6119035746" />-->
-
-        <!--    AdMob-UMP功能，默认关闭    -->
-        <!--        <meta-data-->
-        <!--            android:name="com.wa.sdk.UMP_ENABLE"-->
-        <!--            android:value="true" />-->
-
-        <!--    now.gg 模块配置    -->
-        <!--        <meta-data-->
-        <!--            android:name="com.wa.sdk.nowgg.CLIENT_ID"-->
-        <!--            android:value="qjFlYAorUYEymZdx2Psq$$01J8HC3HDQEZ9WA4HV6DB3P29M" />-->
-        <!--        <meta-data-->
-        <!--            android:name="com.wa.sdk.nowgg.PAYMENT_ID"-->
-        <!--            android:value="8849" />-->
-
-        <!--    官网包标志 OFFICIAL_PACKAGE     -->
-        <!--        <meta-data-->
-        <!--            android:name="com.wa.sdk.OFFICIAL_PACKAGE"-->
-        <!--            android:value="true" />-->
-        <!--    官网包才需要 WASdkAdIdProvider   -->
-        <!--        <provider-->
-        <!--            android:name="com.wa.sdk.wa.core.sdkadid.WASdkAdIdProvider"-->
-        <!--            android:authorities="${SDK_ADID_PROVIDER}"-->
-        <!--            android:exported="true" />-->
-        <!--    COM_TYPE，不配置则默认为0   -->
-        <!--        <meta-data-->
-        <!--            android:name="com.wa.sdk.COM_TYPE"-->
-        <!--            android:value="1" />-->
 
     </application>
 

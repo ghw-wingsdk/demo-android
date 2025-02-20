@@ -5,18 +5,21 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
-import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.DisplayCutout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
+import androidx.activity.ComponentActivity;
+import androidx.activity.EdgeToEdge;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -24,7 +27,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.wa.sdk.common.WASharedPrefHelper;
-import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.core.WASdkProperties;
 import com.wa.sdk.demo.LoginActivity;
 import com.wa.sdk.demo.R;
@@ -35,7 +37,7 @@ import com.wa.sdk.demo.widget.TitleBar;
 
 /**
  * Activity基类
- * 
+ *
  */
 public class BaseActivity extends FragmentActivity implements View.OnClickListener {
     protected static final String TAG = "DemoSdk2";
@@ -48,35 +50,22 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EdgeToEdge.enable((ComponentActivity) this);
         super.onCreate(savedInstanceState);
-        setFullScreen();
         mFragmentManager = getSupportFragmentManager();
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-//        WATrackProxy.startHeartBeat(this);
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
+        setFullScreen();
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-//        WATrackProxy.stopHeartBeat(this);
-    }
 
     @Override
     protected void onDestroy() {
         dismissLoadingDialog();
         super.onDestroy();
-    }
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
-            hideNavigationBar();
-        }
     }
 
     @Override
@@ -322,26 +311,31 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
      * 设置全屏，兼容刘海屏
      */
     private void setFullScreen() {
-        // WASharedPrefHelper sp = WASharedPrefHelper.newInstance(this, WADemoConfig.SP_CONFIG_FILE_DEMO);
-        // int orientation = sp.getInt(WADemoConfig.SP_KEY_SETTING_ORIENTATION, 0);
-        // // 横屏，或者强制竖屏，使用全面屏
-        // getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
-        //         && (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE || orientation ==1)
-        // ) {
-        //     getWindow().getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
-        //     getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        // }
+        if (this.isFinishing() || this.isDestroyed() || getWindow()==null) {
+            return;
+        }
 
-        setDisplayCountFullScreen(getWindow(), (left, top, right, bottom) -> {
+        Window window = getWindow();
+        View decorView = getWindow().getDecorView();
+        WindowInsetsControllerCompat windowInsetsController = WindowCompat.getInsetsController(window, decorView);
+        // 浅色状态栏
+        windowInsetsController.setAppearanceLightNavigationBars(true);
+        // 设置全屏，隐藏系统栏，包括状态栏，导航栏
+        windowInsetsController.hide(WindowInsetsCompat.Type.systemBars());
+        // 手势操作时短暂时间后隐藏
+        windowInsetsController.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+
+        ViewCompat.setOnApplyWindowInsetsListener(decorView, (v, windowInsets) -> {
+            // 获取 displayCutout 边衬size
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout());
+            Log.v(TAG, "setFullScreen - insets, left:" + insets.left + ", top:" + insets.top + ", right:" + insets.right + ", bottom:" + insets.bottom);
+
             TitleBar titleBar = findTitleBar(findViewById(android.R.id.content));
-            if (titleBar == null) {
-                return;
-            }
+            if (titleBar != null) titleBar.setPadding(insets.left, insets.top, insets.right, 0);
 
-            if (top > 0 || left > 0 || right > 0) {
-                titleBar.setPadding(left, top, right, 0);
-            }
+            // Return CONSUMED if you don't want want the window insets to keep passing
+            // down to descendant views.
+            return WindowInsetsCompat.CONSUMED;
         });
     }
 
@@ -371,12 +365,6 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
         }
     }
 
-    @Override
-    public void onConfigurationChanged(@NonNull Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        setFullScreen();
-    }
-
     protected void setScreenOrientation() {
         WASharedPrefHelper sp = WASharedPrefHelper.newInstance(this, WADemoConfig.SP_CONFIG_FILE_DEMO);
         int orientation = sp.getInt(WADemoConfig.SP_KEY_SETTING_ORIENTATION, 0);
@@ -385,37 +373,6 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
         } else if (orientation == 2) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         }
-    }
-
-    private void setDisplayCountFullScreen(Window window, final HandleDisplayCutout handleDisplayCutout) {
-        if (window == null) {
-            return;
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            window.getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
-            window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        }
-
-        View decorView = window.getDecorView();
-        decorView.post(() -> {
-            DisplayCutout displayCutout;
-            if (handleDisplayCutout != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                displayCutout = decorView.getRootWindowInsets().getDisplayCutout();
-                if (displayCutout == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    displayCutout = window.getWindowManager().getDefaultDisplay().getCutout();
-                }
-                if (displayCutout != null) {
-                    int left = displayCutout.getSafeInsetLeft();
-                    int top = displayCutout.getSafeInsetTop();
-                    int right = displayCutout.getSafeInsetRight();
-                    int bottom = displayCutout.getSafeInsetBottom();
-                    LogUtil.v(TAG, "displayCutout size, left:" + left + ", top:" + top + ", right:" + right + ", bottom:" + bottom);
-                    handleDisplayCutout.handle(left, top, right, bottom);
-                }
-
-            }
-        });
     }
 
     private TitleBar findTitleBar(View view) {
@@ -440,10 +397,6 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
             }
         }
         return titleBar;
-    }
-
-    public interface HandleDisplayCutout {
-        void handle(int left, int top, int right, int bottom);
     }
 
 }

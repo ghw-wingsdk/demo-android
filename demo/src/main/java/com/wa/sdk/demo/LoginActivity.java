@@ -277,6 +277,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void loginUi() {
+        // WAUserProxy.loginUI() 在刚接入时需要运营在后台添加测试设备，才会显示具体登录方式，比如: Google，Facebook
         WAUserProxy.loginUI(LoginActivity.this,
                 mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_LOGIN_CACHE, false),
                 mLoginCallback);

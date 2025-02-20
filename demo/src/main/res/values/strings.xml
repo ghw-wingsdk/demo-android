@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources translatable="false">
     <!--  接入web_ghgl模块登录需要, 内容：wa + SdkAppID  -->
-    <string name="wa_custom_tab_scheme">waf7f9a9d18da611e5a0be000d3a906774</string>
+<!--    <string name="wa_custom_tab_scheme">waf7f9a9d18da611e5a0be000d3a906774</string>-->
     <!--  Facebook  -->
     <string name="facebook_app_id">959864665060487</string>
     <string name="fb_login_protocol_scheme">fb959864665060487</string>
@@ -50,7 +50,7 @@
     <string name="get_update_link">Get update link</string>
     <string name="create_client_id">Set ClientId</string>
     <string name="random_client_id">Random</string>
-    <string name="open_review">Open review</string>
+    <string name="open_review">Open Google review</string>
     <!-- 数据收集 -->
     <string name="parameters">Parameters</string>
     <string name="add_parameter">Add parameter</string>
@@ -209,6 +209,7 @@
     <string name="wa_get_cached_video_ad_amount">Show cached video ads</string>
     <string name="wa_cached_video_ad_amount_format">Cached video ad: %d</string>
     <string name="wa_display_video_ad">Display video ad</string>
+    <!--  AiHelp  -->
     <string name="showElva">showElva</string>
     <string name="showElvaOP">showElvaOP</string>
     <string name="showFAQs">showFAQs</string>
@@ -224,6 +225,8 @@
     <string name="openGameReviewAiHelp">Call openGameReviewAiHelp</string>
     <string name="isOpenGameReviewAiHelp">Is Open GameReview AiHelp</string>
     <string name="switchAiHelpVip">Switch VIP</string>
+    <string name="aihelp_switch_language">Switch Language</string>
+    <string name="aihelp_get_unread_message_count">Get Unread Message Count</string>
     <!-- 隐私政策-->
     <string name="getUrl">getPrivacyUrl</string>
     <string name="getTime">getPrivacyTime</string>
@@ -252,6 +255,8 @@
     <string name="show_rewarded_ad">Show Rewarded Ad</string>
     <string name="enable_app_open_ad">AppOpen Ad: Enable</string>
     <string name="disable_app_open_ad">AppOpen Ad: Disable</string>
+    <string name="disable_official_ad_unit">Using Test Ad Units</string>
+    <string name="enable_official_ad_unit">Using Official Ad Units (not recommended for non-live versions)</string>
     <string name="enable_banner_ad">Check Ad: Enable</string>
     <string name="disable_banner_ad">Banner Ad: Disable</string>
     <string name="check_ump_options">Check Options</string>

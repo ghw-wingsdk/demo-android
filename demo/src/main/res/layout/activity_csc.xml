@@ -8,17 +8,17 @@
     <com.wa.sdk.demo.widget.TitleBar
         android:id="@+id/tb_csc"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <!--<ImageView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:scaleType="fitCenter"-->
-        <!--android:src="@drawable/ic_launcher" />-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:scaleType="fitCenter"-->
+            <!--android:src="@drawable/ic_launcher" />-->
 
         <ScrollView
             android:layout_width="match_parent"
@@ -90,7 +90,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:onClick="onClick"
-                        android:text="切换语言" />
+                        android:text="@string/aihelp_switch_language" />
 
                     <TextView
                         android:id="@+id/tv_language"
@@ -106,51 +106,29 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:visibility="gone"
-                    android:layout_height="wrap_content">
-                    <EditText
-                        android:id="@+id/edt_custom_key"
-                        android:inputType="number"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="key"
-                        android:maxLines="1" />
-
-                    <EditText
-                        android:id="@+id/edt_custom_value"
-                        android:inputType="number"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="value"
-                        android:maxLines="1" />
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/btn_add_custom_data"
+                        android:id="@+id/btn_get_unread_message_count"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:onClick="onClick"
-                        android:text="添加参数" />
-                    <Button
-                        android:id="@+id/btn_reset_custom_data"
+                        android:text="@string/aihelp_get_unread_message_count" />
+
+                    <TextView
+                        android:id="@+id/tv_unread_message_count"
                         android:layout_width="0dp"
+                        android:padding="8dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:onClick="onClick"
-                        android:text="重置" />
+                        android:hint="未读消息数:"
+                        android:textColor="@color/wa_sdk_color_black_alpha_66"
+                        />
 
                 </LinearLayout>
-                <TextView
-                    android:id="@+id/tv_custom_data"
-                    android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:gravity="center_vertical"
-                    android:hint="当前自定义参数：空" />
 
             </LinearLayout>
         </ScrollView>

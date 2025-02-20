@@ -2,19 +2,16 @@ package com.wa.sdk.demo;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 import com.wa.sdk.common.WACommonProxy;
+import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.csc.WACscProxy;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.widget.TitleBar;
-
-import java.util.HashMap;
 
 
 /**
@@ -25,27 +22,20 @@ public class CscActivity extends BaseActivity {
 
     private TitleBar mTitlebar;
     private String mLanguage = "";
-    private final HashMap<String, Object> customData = new HashMap<>();
-    private EditText mEdtCustomKey;
-    private EditText mEdtCustomValue;
-    private TextView mTvCustomData;
     private TextView mTvLanguage;
+    private TextView mTvUnreadMessageCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // Demo的初始化，跟SDK无关
         WASdkDemo.getInstance().initialize(this);
-
         setContentView(R.layout.activity_csc);
 
         mTitlebar = findViewById(R.id.tb_csc);
         mTitlebar.setTitleText(R.string.csc);
-        mEdtCustomKey = findViewById(R.id.edt_custom_key);
-        mEdtCustomValue = findViewById(R.id.edt_custom_value);
-        mTvCustomData = findViewById(R.id.tv_custom_data);
         mTvLanguage = findViewById(R.id.tv_language);
+        mTvUnreadMessageCount = findViewById(R.id.tv_unread_message_count);
         mTitlebar.setLeftButton(android.R.drawable.ic_menu_revert, v -> exit());
         mTitlebar.setTitleTextColor(R.color.color_white);
     }
@@ -63,14 +53,30 @@ public class CscActivity extends BaseActivity {
         } else if (id == R.id.btn_openGameReviewAiHelp) {
             if (WACscProxy.isOpenGameReviewAiHelp())
                 WACscProxy.openGameReviewAiHelp();
-        } else if (id == R.id.btn_add_custom_data) { //添加自定义参数
-            addCustomParams();
-        } else if (id == R.id.btn_reset_custom_data) { //重置自定义参数
-            customData.clear();
-            mTvCustomData.setText(null);
-        } else if (id == R.id.btn_switch_language) { //切换语言
+        } else if (id == R.id.btn_switch_language) {
             switchLanguage();
+        } else if (id == R.id.btn_get_unread_message_count) {
+            getUnreadMessageCount();
         }
+    }
+
+    private void getUnreadMessageCount() {
+        WACscProxy.getUnreadMessageCount(new WACallback<Integer>() {
+            @Override
+            public void onSuccess(int code, String message, Integer result) {
+                mTvUnreadMessageCount.setText("未读消息数:" + result);
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(int code, String message, Integer result, Throwable throwable) {
+                showLongToast(message);
+            }
+        });
     }
 
     private void switchLanguage() {
@@ -81,19 +87,8 @@ public class CscActivity extends BaseActivity {
         } else {
             mLanguage = "zh-CN";
         }
-        mTvLanguage.setText("当前语言："+mLanguage);
+        mTvLanguage.setText("当前语言：" + mLanguage);
         WACscProxy.setSDKLanguage(mLanguage);
-    }
-
-    private void addCustomParams() {
-        String key = mEdtCustomKey.getText().toString().trim();
-        String value = mEdtCustomValue.getText().toString().trim();
-        if (TextUtils.isEmpty(key)) {
-            showShortToast("Key不能为空");
-            return;
-        }
-        customData.put(key, value);
-        mTvCustomData.setText(customData.toString());
     }
 
     public void exit() {

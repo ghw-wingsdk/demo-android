@@ -12,9 +12,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.ads.AdError;
-import com.google.android.gms.ads.FullScreenContentCallback;
-import com.wa.sdk.admob.core.WAAdMobProxy;
+import com.wa.sdk.admob.WAAdMobPublicProxy;
+import com.wa.sdk.admob.model.WAAdMobAdsCallback;
 import com.wa.sdk.common.WASharedPrefHelper;
 import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.utils.LogUtil;
@@ -22,7 +21,7 @@ import com.wa.sdk.core.WACoreProxy;
 import com.wa.sdk.demo.base.BaseActivity;
 
 /**
- * 
+ *
  */
 
 @android.annotation.SuppressLint("CustomSplashScreen")
@@ -63,7 +62,7 @@ public class SplashActivity extends BaseActivity {
         if (isEnableUmp) {
             // 开启UMP需要添加监听
             Log.d(TAG,"UMP 开启，添加初始化回调");
-            WAAdMobProxy.addUmpInitCallback(new WACallback() {
+            WAAdMobPublicProxy.addUmpInitCallback(new WACallback() {
                 @Override
                 public void onSuccess(int code, String message, Object result) {
                     AdMobActivity.logTcfString(SplashActivity.this);
@@ -95,7 +94,7 @@ public class SplashActivity extends BaseActivity {
             mInitUmpState = UMP_INIT_SUCCESS;
         }
         // AdMob强制测试
-        WAAdMobProxy.setTest(DEFAULT_TEST);
+        WAAdMobPublicProxy.setTest(this, sharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_TEST_AD_UNIT, DEFAULT_TEST));
         // 开启日志
         WACoreProxy.setDebugMode(sharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_DEBUG, true));
         showLoadingDialog("初始化中", false, false, null);
@@ -163,18 +162,16 @@ public class SplashActivity extends BaseActivity {
     private void nextShowAppOpenAd() {
         LogUtil.i(TAG,"尝试显示开屏广告");
         // 如果需要控制在第N次打开游戏才显示开屏广告，可以在尝试显示广告前进行判断处理
-        WAAdMobProxy.showAppOpenAd(SplashActivity.this, new FullScreenContentCallback() {
+        WAAdMobPublicProxy.showAppOpenAd(SplashActivity.this, new WAAdMobAdsCallback() {
             @Override
-            public void onAdDismissedFullScreenContent() {
-                super.onAdDismissedFullScreenContent();
+            public void onAdDismissed() {
                 LogUtil.i(TAG, "开屏广告关闭");
                 startMainActivity();
             }
 
             @Override
-            public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
-                super.onAdFailedToShowFullScreenContent(adError);
-                LogUtil.i(TAG, "开屏广告显示失败: " + adError.getCode() + " - " + adError.getMessage());
+            public void onAdFailedToShow(@NonNull String error_message) {
+                LogUtil.i(TAG, "开屏广告显示失败: " + error_message);
                 startMainActivity();
             }
         });

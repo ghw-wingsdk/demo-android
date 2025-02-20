@@ -4,7 +4,7 @@
     <integer name="design_snackbar_text_max_lines">10</integer>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -15,9 +15,9 @@
         <!-- Note that we use the base animation style here (that is no
              animations) because we really have no idea how this kind of
              activity will be used. -->
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowFullscreen">true</item>
+<!--        <item name="android:windowNoTitle">true</item>-->
+<!--        <item name="android:windowContentOverlay">@null</item>-->
+<!--        <item name="android:windowFullscreen">true</item>-->
         <item name="android:textAllCaps">false</item>
     </style>
 

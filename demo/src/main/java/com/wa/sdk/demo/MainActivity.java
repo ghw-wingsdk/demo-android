@@ -34,6 +34,8 @@ import com.wa.sdk.demo.tracking.TrackingSimulateActivity;
 import com.wa.sdk.demo.widget.TitleBar;
 import com.wa.sdk.pay.WAPayProxy;
 import com.wa.sdk.pay.model.WAPurchaseResult;
+import com.wa.sdk.track.WATrackProxy;
+import com.wa.sdk.track.model.WAUserImportEvent;
 import com.wa.sdk.user.WAUserProxy;
 import com.wa.sdk.user.model.WAGameReviewCallback;
 import com.wa.sdk.user.model.WALoginResult;
@@ -122,15 +124,19 @@ public class MainActivity extends BaseActivity {
                             + "\nisFistLogin: " + result.isFirstLogin();
 
                     new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                        // 进入游戏
+                        // 用户进服
                         String txServerId = "2";
                         String serverId = TextUtils.isEmpty(txServerId) ? "server2" : "server" + txServerId;
                         String gameUserId = serverId + "-role1-" + result.getUserId();
                         String nickname = "青铜" + serverId + "-" + result.getUserId();
+                        int level = 1;
+                        boolean isFirstEnter = false; //首次进服标志
 
-                        WACoreProxy.setServerId(serverId);
-                        WACoreProxy.setGameUserId(gameUserId);
-                        WACoreProxy.setNickname(nickname);
+                        WAUserImportEvent importEvent = new WAUserImportEvent(serverId,gameUserId,nickname, level, isFirstEnter);
+                        WATrackProxy.trackEvent(MainActivity.this, importEvent);
+
+                        // 进服后申请通知权限
+                        PermissionActivity.callNotificationPermission(MainActivity.this);
                     }, 3000);
                 }
                 WASdkDemo.getInstance().updateLoginAccount(result);

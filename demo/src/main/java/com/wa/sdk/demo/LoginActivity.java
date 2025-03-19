@@ -19,9 +19,10 @@ import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.WASharedPrefHelper;
 import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.utils.LogUtil;
-import com.wa.sdk.core.WACoreProxy;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.widget.TitleBar;
+import com.wa.sdk.track.WATrackProxy;
+import com.wa.sdk.track.model.WAUserImportEvent;
 import com.wa.sdk.user.WAUserProxy;
 import com.wa.sdk.user.model.WALoginResult;
 
@@ -92,7 +93,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == 1005 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            loginUi(); // nowgg 授权后，再次调用登录
+            nowggLogin(); // nowgg 授权后，再次调用登录
             return;
         }
         if (WACommonProxy.onRequestPermissionsResult(this, requestCode, permissions, grantResults)) {
@@ -147,7 +148,7 @@ public class LoginActivity extends BaseActivity {
         } else if (id == R.id.btn_r2_integration_login) {
             r2IntegrationLogin();
         } else if (id == R.id.btn_nowgg_login) {
-            WAUserProxy.login(this, WAConstants.CHANNEL_NOWGG, mLoginCallback, null);
+            nowggLogin();
         } else if (id == R.id.btn_clear_login_cache) {
             WAUserProxy.clearLoginCache();
             showShortToast(R.string.clean_login_cache);
@@ -216,15 +217,19 @@ public class LoginActivity extends BaseActivity {
                         + "\nisFistLogin: " + result.isFirstLogin();
 
                 new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                    // 进入游戏
+                    // 用户进服
                     String txServerId = mEdtServerId.getText().toString();
                     String serverId = TextUtils.isEmpty(txServerId) ? "server2" : "server" + txServerId;
                     String gameUserId = serverId + "-role1-" + result.getUserId();
                     String nickname = "青铜" + serverId + "-" + result.getUserId();
+                    int level = 1;
+                    boolean isFirstEnter = false; //首次进服标志
 
-                    WACoreProxy.setServerId(serverId);
-                    WACoreProxy.setGameUserId(gameUserId);
-                    WACoreProxy.setNickname(nickname);
+                    WAUserImportEvent importEvent = new WAUserImportEvent(serverId,gameUserId,nickname, level, isFirstEnter);
+                    WATrackProxy.trackEvent(LoginActivity.this, importEvent);
+
+                    // 进服后申请通知权限
+                    PermissionActivity.callNotificationPermission(LoginActivity.this);
                 }, 3000);
 
                 mTitlebar.setTitleText("登录(" + result.getPlatform() + ")");
@@ -371,6 +376,14 @@ public class LoginActivity extends BaseActivity {
     private void r2IntegrationLogin() {
         showLoadingDialog("正在登录R2", null);
         WAUserProxy.login(this, WAConstants.CHANNEL_R2, mLoginCallback, null);
+    }
+
+    /**
+     * Nowgg登录
+     */
+    private void nowggLogin() {
+        showLoadingDialog("正在登录Nowgg", null);
+        WAUserProxy.login(this, WAConstants.CHANNEL_NOWGG, mLoginCallback, null);
     }
 
     /**

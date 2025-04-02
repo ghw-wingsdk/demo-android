@@ -32,6 +32,7 @@
     <string name="update">更新</string>
     <string name="get_update_link">获取更新链接</string>
     <string name="create_client_id">设置clientId</string>
+    <string name="create_random_client_id">设置随机clientId</string>
     <string name="random_client_id">随机</string>
     <string name="open_review">Google评分</string>
 
@@ -266,6 +267,6 @@
     <!--  其他  -->
     <string name="rare_function">不常用功能</string>
     <string name="show_open_url">打开链接</string>
-    <string name="show_consent_preferences">打开同意配置</string>
+    <string name="show_consent_preferences">Consent同意设置</string>
 
 </resources>

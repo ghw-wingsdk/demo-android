@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources translatable="false">
-    <!--  接入web_ghgl模块登录需要, 内容：wa + SdkAppID  -->
+    <!--  接入weblogin 或 ghgl 模块登录需要, 内容：wa + SdkAppID  -->
 <!--    <string name="wa_custom_tab_scheme">waf7f9a9d18da611e5a0be000d3a906774</string>-->
     <!--  Facebook  -->
     <string name="facebook_app_id">959864665060487</string>
@@ -8,12 +8,17 @@
     <string name="facebook_client_token">507dae1af0c6e3e9ea59e798587e80b3</string>
     <!-- Google Web Client ID , 注意:不是 Android ClientID -->
     <string name="google_server_client_id">15309153268-vnpucgn8cvbna2sseegrg2ofogrf8n17.apps.googleusercontent.com</string>
-    <!--  接入Google游戏服务功能需要  -->
+    <!--  Google游戏服务功能用（一般不需要）  -->
     <string name="google_game_app_id">15309153268</string>
+    <!--  AiHelp 配置  -->
+    <string name="manifest_aihelp_domain">gamehollywoodhk.aihelp.net</string>
+    <string name="manifest_aihelp_appid">gamehollywoodhk_platform_598ee350-adbf-4a70-bef6-6d11232b7301</string>
+    <!--  Consent同意ID  -->
+    <string name="manifest_didomi_consent_id">3gFPBy7K</string>
+    <!--  AdMob应用ID  -->
+    <string name="manifest_admob_appid">ca-app-pub-3512615046087076~6119035746</string>
     <!-- VK app id -->
-    <integer name="com_vk_sdk_AppId">
-        5527303
-    </integer>
+    <integer name="com_vk_sdk_AppId">5527303</integer>
 
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
@@ -49,6 +54,7 @@
     <string name="update">Update</string>
     <string name="get_update_link">Get update link</string>
     <string name="create_client_id">Set ClientId</string>
+    <string name="create_random_client_id">Set Random ClientId</string>
     <string name="random_client_id">Random</string>
     <string name="open_review">Open Google review</string>
     <!-- 数据收集 -->
@@ -62,10 +68,10 @@
     <string name="request_permisssion">Request Permission</string>
     <!-- 登录 -->
     <string name="login">Login</string>
-    <string name="fb_login">FB Login</string>
-    <string name="fb_logout">FB Logout</string>
-    <string name="gg_login">GG Login</string>
-    <string name="gg_logout">GG Logout</string>
+    <string name="fb_login">Facebook Login</string>
+    <string name="fb_logout">Facebook Logout</string>
+    <string name="gg_login">Google Login</string>
+    <string name="gg_logout">Google Logout</string>
     <string name="anonymous_login">Visitor Login</string>
     <string name="winga_login">WINGA Login</string>
     <string name="vk_login">VK Login</string>
@@ -264,6 +270,6 @@
     <!--  其他  -->
     <string name="rare_function">Rare Function</string>
     <string name="show_open_url">Show OpenUrl</string>
-    <string name="show_consent_preferences">Show Consent Preferences</string>
+    <string name="show_consent_preferences">Consent Preferences</string>
 
 </resources>

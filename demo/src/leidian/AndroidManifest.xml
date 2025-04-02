@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wa.sdk.demo">
+
+    <application>
+        <!--    leidian 配置    -->
+        <meta-data
+            android:name="com.ld.APP_ID"
+            android:value="@string/ld_app_id" />
+        <meta-data
+            android:name="com.ld.APP_KEY"
+            android:value="@string/ld_app_key" />
+        <meta-data
+            android:name="com.ld.CHANNEL_ID"
+            android:value="@string/ld_channel_id" />
+        <meta-data
+            android:name="com.ld.SUN_CHANNEL_ID"
+            android:value="@string/ld_sub_channel_id" />
+        <!--    渠道配置    -->
+        <meta-data
+            android:name="CHANNEL"
+            android:value="Leidian" />
+    </application>
+
+</manifest>

@@ -1,16 +1,12 @@
 package com.wa.sdk.demo;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ListView;
 
-import com.wa.sdk.WAConstants;
 import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.utils.LogUtil;
-import com.wa.sdk.common.utils.StringUtil;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.base.FlavorApiHelper;
 import com.wa.sdk.demo.pay.ProductListAdapter;
@@ -30,26 +26,16 @@ import java.util.Map;
  */
 public class PaymentActivity extends BaseActivity {
 
-    private Context mContext;
-
-    private final String TAG = "PaymentActivity";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = this;
         mEnableToastLog = true;
 
         setContentView(R.layout.activity_payment);
 
-        TitleBar titleBar = (TitleBar) findViewById(R.id.tb_payment);
+        TitleBar titleBar = findViewById(R.id.tb_payment);
         titleBar.setTitleText(R.string.payment);
-        titleBar.setLeftButton(android.R.drawable.ic_menu_revert, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        titleBar.setLeftButton(android.R.drawable.ic_menu_revert, v -> finish());
         titleBar.setTitleTextColor(R.color.color_white);
 
         showLoadingDialog("正在查询库存....", null);
@@ -57,19 +43,18 @@ public class PaymentActivity extends BaseActivity {
             @Override
             public void onSuccess(int code, String message, WASkuResult result) {
                 List<WASkuDetails> waSkuDetailsList = result.getSkuList();
-                WAPayProxy.queryChannelProduct(FlavorApiHelper.isNowggFlavor() ? WAConstants.CHANNEL_NOWGG : WAConstants.CHANNEL_GOOGLE, new WACallback<Map<String, WAChannelProduct>>() {
+                if (waSkuDetailsList != null)
+                    for (WASkuDetails waSkuDetails : waSkuDetailsList) {
+                        LogUtil.d(TAG, "Inventory, sku:" + waSkuDetails.getSku() + ", title: " + waSkuDetails.getTitle() + ", price: " + waSkuDetails.getVirtualCurrency());
+                    }
+                WAPayProxy.queryChannelProduct(FlavorApiHelper.getQueryProductChannel(), new WACallback<Map<String, WAChannelProduct>>() {
                     @Override
                     public void onSuccess(int code, String message, Map<String, WAChannelProduct> map) {
-                        if (waSkuDetailsList.size() > 0) {//存在商品
+                        if (waSkuDetailsList != null && !waSkuDetailsList.isEmpty()) {//存在商品
                             ProductListAdapter productListAdapter = new ProductListAdapter(PaymentActivity.this, waSkuDetailsList, map);
-                            ListView listView = (ListView) findViewById(R.id.lv_payment_sku);
+                            ListView listView = findViewById(R.id.lv_payment_sku);
                             listView.setAdapter(productListAdapter);
-                            productListAdapter.setClickListenter(new ProductListAdapter.ClickListenter() {
-                                @Override
-                                public void onItemClick(String waSku) {
-                                    payUI(waSku, "extInfotest");
-                                }
-                            });
+                            productListAdapter.setClickListenter(waSku -> payUI(waSku, "extInfo_test"));
 
                         }
 
@@ -130,12 +115,11 @@ public class PaymentActivity extends BaseActivity {
 
             @Override
             public void onError(int code, String message, WAPurchaseResult result, Throwable throwable) {
-                LogUtil.d(TAG, "pay error");
                 cancelLoadingDialog();
                 if (WACallback.CODE_NOT_LOGIN == code) {
                     showLoginTips();
                 }
-                showLongToast(StringUtil.isEmpty(message) ? "Billing service is not available at this moment." : message);
+                showLongToast("pay error:" + code + " - " + message);
             }
         });
     }

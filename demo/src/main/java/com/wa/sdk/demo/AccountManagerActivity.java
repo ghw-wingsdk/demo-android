@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +21,11 @@ import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.model.WAResult;
 import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.common.utils.StringUtil;
-import com.wa.sdk.core.WACoreProxy;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.widget.TitleBar;
 import com.wa.sdk.social.WASocialProxy;
+import com.wa.sdk.track.WATrackProxy;
+import com.wa.sdk.track.model.WAUserImportEvent;
 import com.wa.sdk.user.WAUserProxy;
 import com.wa.sdk.user.model.WAAccount;
 import com.wa.sdk.user.model.WAAccountCallback;
@@ -92,7 +96,7 @@ public class AccountManagerActivity extends BaseActivity {
     }
 
     private void initView() {
-        TitleBar titlebar = (TitleBar) findViewById(R.id.tb_account_manager);
+        TitleBar titlebar = findViewById(R.id.tb_account_manager);
         titlebar.setTitleText(R.string.account_manager);
         titlebar.setLeftButton(android.R.drawable.ic_menu_revert, v -> finish());
         titlebar.setTitleTextColor(R.color.color_white);
@@ -109,69 +113,69 @@ public class AccountManagerActivity extends BaseActivity {
                 .setItems(mAccountTypeArray, (dialog, which) -> {
                     String platform = mAccountTypeArray[which];
                     showLoadingDialog(String.format("Login %s account...", platform), null);
-                    WAUserProxy.bindingAccount(AccountManagerActivity.this, platform, "", new WABindCallback() {
-                        @Override
-                        public void onLoginAccount(String platform) {
-                            if (null != mLoadingDialog) {
-                                mLoadingDialog.setMessage(String.format("Login %s account...", platform));
+                        WAUserProxy.bindingAccount(AccountManagerActivity.this, platform, "", new WABindCallback() {
+                            @Override
+                            public void onLoginAccount(String platform) {
+                                if (null != mLoadingDialog) {
+                                    mLoadingDialog.setMessage(String.format("Login %s account...", platform));
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onBindingAccount(String accessToken, String platform) {
-                            if (null != mLoadingDialog) {
-                                mLoadingDialog.setMessage(String.format("Binding %s account...", platform));
+                            @Override
+                            public void onBindingAccount(String accessToken, String platform) {
+                                if (null != mLoadingDialog) {
+                                    mLoadingDialog.setMessage(String.format("Binding %s account...", platform));
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onSuccess(int code, String message, WABindResult result) {
-                            cancelLoadingDialog();
-                            String msg = "绑定成功:"
-                                    +"\ncode:"+result.getCode()
-                                    +"\nmessage:"+result.getMessage()
-                                    +"\nplatform:"+result.getPlatform()
-                                    +"\naccess_token:"+result.getAccessToken()
-                                    +"\nplatform_uid:"+result.getPlatformUserId();
-                            showLongToast(msg);
-                            Log.i(WAConstants.TAG, msg);
-                            if(WAConstants.CHANNEL_FACEBOOK.equals(result.getPlatform())) {
-                                WASocialProxy.inviteInstallReward(AccountManagerActivity.this, WAConstants.CHANNEL_FACEBOOK, new WACallback<WAResult>() {
-                                    @Override
-                                    public void onSuccess(int code, String message, WAResult result) {
-                                        showShortToast("invite install reward success: ");
-                                    }
+                            @Override
+                            public void onSuccess(int code, String message, WABindResult result) {
+                                cancelLoadingDialog();
+                                String msg = "绑定成功:"
+                                        +"\ncode:"+result.getCode()
+                                        +"\nmessage:"+result.getMessage()
+                                        +"\nplatform:"+result.getPlatform()
+                                        +"\naccess_token:"+result.getAccessToken()
+                                        +"\nplatform_uid:"+result.getPlatformUserId();
+                                showLongToast(msg);
+                                Log.i(WAConstants.TAG, msg);
+                                if(WAConstants.CHANNEL_FACEBOOK.equals(result.getPlatform())) {
+                                    WASocialProxy.inviteInstallReward(AccountManagerActivity.this, WAConstants.CHANNEL_FACEBOOK, new WACallback<WAResult>() {
+                                        @Override
+                                        public void onSuccess(int code, String message, WAResult result) {
+                                            showShortToast("invite install reward success: ");
+                                        }
 
-                                    @Override
-                                    public void onCancel() {
-                                        showShortToast("invite install reward canceled: ");
+                                        @Override
+                                        public void onCancel() {
+                                            showShortToast("invite install reward canceled: ");
 
-                                    }
+                                        }
 
-                                    @Override
-                                    public void onError(int code, String message, WAResult result, Throwable throwable) {
-                                        showShortToast("invite install reward error: " + code + "<>" + message);
-                                    }
-                                });
+                                        @Override
+                                        public void onError(int code, String message, WAResult result, Throwable throwable) {
+                                            showShortToast("invite install reward error: " + code + "<>" + message);
+                                        }
+                                    });
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onCancel() {
-                            cancelLoadingDialog();
-                            String msg = "Binding canceled";
-                            showLongToast(msg);
-                            Log.i(WAConstants.TAG, msg);
-                        }
+                            @Override
+                            public void onCancel() {
+                                cancelLoadingDialog();
+                                String msg = "Binding canceled";
+                                showLongToast(msg);
+                                Log.i(WAConstants.TAG, msg);
+                            }
 
-                        @Override
-                        public void onError(int code, String message, WABindResult result, Throwable throwable) {
-                            cancelLoadingDialog();
-                            String msg = "Binding error: " + message + "->" + (null == throwable ? "" : throwable);
-                            showLongToast(msg);
-                            Log.i(WAConstants.TAG, msg);
-                        }
-                    });
+                            @Override
+                            public void onError(int code, String message, WABindResult result, Throwable throwable) {
+                                cancelLoadingDialog();
+                                String msg = "Binding error: " + message + "->" + (null == throwable ? "" : throwable);
+                                showLongToast(msg);
+                                Log.i(WAConstants.TAG, msg);
+                            }
+                        });
                 })
                 .setPositiveButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
@@ -297,40 +301,40 @@ public class AccountManagerActivity extends BaseActivity {
                 .setTitle("Choose account type")
                 .setItems(mAccountTypeArray, (dialog, which) -> {
                     String platform = mAccountTypeArray[which];
-                    showLoadingDialog("Login", null);
-                    WAUserProxy.switchAccount(AccountManagerActivity.this, platform, new WACallback<WALoginResult>() {
-                        @Override
-                        public void onSuccess(int code, String message, WALoginResult result) {
-                            if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
-                                mLoadingDialog.dismiss();
+                        showLoadingDialog("Login", null);
+                        WAUserProxy.switchAccount(AccountManagerActivity.this, platform, new WACallback<WALoginResult>() {
+                            @Override
+                            public void onSuccess(int code, String message, WALoginResult result) {
+                                if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
+                                    mLoadingDialog.dismiss();
+                                }
+                                if (null == result) {
+                                    return;
+                                }
+                                String text = "code:" + code + "\nmessage:" + message;
+                                text = "Login success->" + text
+                                        + "\nplatform:" + result.getPlatform()
+                                        + "\nuserId:" + result.getUserId()
+                                        + "\ntoken:" + result.getToken()
+                                        + "\nplatformUserId:" + result.getPlatformUserId()
+                                        + "\nplatformToken:" + result.getPlatformToken();
+                                WASdkDemo.getInstance().updateLoginAccount(result);
+                                cancelLoadingDialog();
+                                showShortToast(text);
                             }
-                            if (null == result) {
-                                return;
+
+                            @Override
+                            public void onCancel() {
+                                cancelLoadingDialog();
+                                showLongToast("Cancel to login with google");
                             }
-                            String text = "code:" + code + "\nmessage:" + message;
-                            text = "Login success->" + text
-                                    + "\nplatform:" + result.getPlatform()
-                                    + "\nuserId:" + result.getUserId()
-                                    + "\ntoken:" + result.getToken()
-                                    + "\nplatformUserId:" + result.getPlatformUserId()
-                                    + "\nplatformToken:" + result.getPlatformToken();
-                            WASdkDemo.getInstance().updateLoginAccount(result);
-                            cancelLoadingDialog();
-                            showShortToast(text);
-                        }
 
-                        @Override
-                        public void onCancel() {
-                            cancelLoadingDialog();
-                            showLongToast("Cancel to login with google");
-                        }
-
-                        @Override
-                        public void onError(int code, String message, WALoginResult result, Throwable throwable) {
-                            cancelLoadingDialog();
-                            showLongToast(message + "\n" + (null == throwable ? "" : throwable.getMessage()));
-                        }
-                    });
+                            @Override
+                            public void onError(int code, String message, WALoginResult result, Throwable throwable) {
+                                cancelLoadingDialog();
+                                showLongToast(message + "\n" + (null == throwable ? "" : throwable.getMessage()));
+                            }
+                        });
                 })
                 .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
@@ -345,7 +349,7 @@ public class AccountManagerActivity extends BaseActivity {
             @Override
             public void onLoginAccountChanged(WALoginResult currentAccount) {
                 WASdkDemo.getInstance().updateLoginAccount(currentAccount);
-                String text = "Login success->"
+                String text = "登录的账号发生变更（SDK已切换到另一个账号，或登录到新账号），当前新的登录的账号信息："
                         + "\nplatform:" + currentAccount.getPlatform()
                         + "\nuserId:" + currentAccount.getUserId()
                         + "\ntoken:" + currentAccount.getToken()
@@ -354,70 +358,68 @@ public class AccountManagerActivity extends BaseActivity {
                         + "\nisBindAccount: " + currentAccount.getIsBindAccount()
                         + "\nisGuestAccount: " + currentAccount.getIsGuestAccount();
 
-                LogUtil.i(LogUtil.TAG, text);
                 showLongToast(text);
+                logI(text);
 
-                // 数据收集
-                WACoreProxy.setServerId("165");
-                WACoreProxy.setGameUserId("gUid01");
+                // 游戏需要回到登录界面，然后可以直接使用最新的账号信息完成游戏登录，无需重新走SDK登录过程，也可以重新自动走一遍SDK登录
+                // backToLogin()
 
-//                        WAEvent event = new WAEvent.Builder()
-//                                .setDefaultEventName(WAEventType.LOGIN)
-//                                .addDefaultEventValue(WAEventParameterName.LEVEL, 140)
-//                                .build();
-//                        event.track(AccountManagerActivity.this);
+                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                    // 模拟用户进服
+                    String txServerId = "2";
+                    String serverId = TextUtils.isEmpty(txServerId) ? "server2" : "server" + txServerId;
+                    String gameUserId = serverId + "-role1-" + currentAccount.getUserId();
+                    String nickname = "青铜" + serverId + "-" + currentAccount.getUserId();
+                    int level = 1;
+                    boolean isFirstEnter = false; //首次进服标志
+
+                    WAUserImportEvent importEvent = new WAUserImportEvent(serverId,gameUserId,nickname, level, isFirstEnter);
+                    WATrackProxy.trackEvent(AccountManagerActivity.this, importEvent);
+                }, 3000);
             }
 
             @Override
             public void onBoundAccountChanged(boolean binding, final WABindResult result) {
-                final StringBuilder sb = new StringBuilder();
+                String sb = "绑定账户信息发生变更（绑定或解绑其他平台账号成功）:" +
+                        "\n" + "状态: " + (binding ? "绑定" : "解绑") +
+                        "\n" + "code: " + result.getCode() +
+                        "\n" + "message: " + result.getMessage() +
+                        "\n" + "platform: " + result.getPlatform() +
+                        "\n" + "platformUserId: " + result.getPlatformUserId() +
+                        "\n" + "email: " + result.getEmail() +
+                        "\n" + "mobile: " + result.getMobile() +
+                        "\n" + "platformToken: " + result.getAccessToken();
 
-                sb.append("onBoundAccountChanged 回调：")
-                        .append(binding ? "账号绑定" : "账号解绑")
-                        .append("\n").append("code: ").append(result.getCode())
-                        .append("\n").append("message: ").append(result.getMessage())
-                        .append("\n").append("platform: ").append(result.getPlatform())
-                        .append("\n").append("platformUserId: ").append(result.getPlatformUserId())
-                        .append("\n").append("email: ").append(result.getEmail())
-                        .append("\n").append("mobile: ").append(result.getMobile())
-                        .append("\n").append("platformToken: ").append(result.getAccessToken());
+                showShortToast(sb);
+                logI(sb);
 
-                Log.i(WAConstants.TAG,sb.toString());
-                showShortToast(sb.toString());
+                if (WACallback.CODE_SUCCESS == result.getCode()){
+                    if (binding){
+                        // 绑定成功，如果需要绑定账号发奖励，可以在这里处理
+                    }else {
+                        // 解绑成功
+                    }
+                }else {
 
-                if(binding && WACallback.CODE_SUCCESS == result.getCode()) {
-                    WASocialProxy.inviteInstallReward(AccountManagerActivity.this, result.getPlatform(), new WACallback<WAResult>() {
-                        @Override
-                        public void onSuccess(int code, String message, WAResult r) {
-                            showShortToast(result.getPlatform() + " invite install reward send succeed");
-                        }
-
-                        @Override
-                        public void onCancel() {
-                            showShortToast(result.getPlatform() + " invite install reward send canceled");
-
-                        }
-
-                        @Override
-                        public void onError(int code, String message, WAResult result, Throwable throwable) {
-                            showShortToast("result.getPlatform() + \" invite install reward send error");
-                        }
-                    });
                 }
-
+                if(binding && WACallback.CODE_SUCCESS == result.getCode()) {
+                    // 绑定成功，如果需要绑定账号发奖励，可以在这里处理
+                } else if (!binding && WACallback.CODE_SUCCESS == result.getCode()) {
+                    // 解绑成功
+                        }
             }
 
             @Override
             public void onRealNameAuthChanged(WAResult<WACertificationInfo> waResult) {
-
+                // 忽略，无需处理
             }
         });
     }
 
     private class BoundAccountAdapter extends BaseAdapter {
 
-        private Context mmContext;
-        private List<WAAccount> mmBoundAccounts = new ArrayList<>();
+        private final Context mmContext;
+        private final List<WAAccount> mmBoundAccounts = new ArrayList<>();
 
         public BoundAccountAdapter(Context context) {
             this.mmContext = context;
@@ -475,9 +477,9 @@ public class AccountManagerActivity extends BaseActivity {
             if(null == convertView) {
                 convertView = View.inflate(mmContext, R.layout.item_bound_account, null);
                 itemView = new ItemView();
-                itemView.account = (TextView) convertView.findViewById(R.id.tv_item_bound_account_id);
-                itemView.type = (TextView) convertView.findViewById(R.id.tv_item_bound_account_type);
-                itemView.unbind = (Button) convertView.findViewById(R.id.btn_item_bound_account_unbind);
+                itemView.account = convertView.findViewById(R.id.tv_item_bound_account_id);
+                itemView.type = convertView.findViewById(R.id.tv_item_bound_account_type);
+                itemView.unbind = convertView.findViewById(R.id.btn_item_bound_account_unbind);
                 convertView.setTag(itemView);
             } else {
                 itemView = (ItemView) convertView.getTag();

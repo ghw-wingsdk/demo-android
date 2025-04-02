@@ -4,10 +4,22 @@ android {
     namespace "com.wa.sdk.demo"
 
     signingConfigs {
-        defaultConfig {
+        sdk1config {
+            keyAlias 'key0'
+            keyPassword '123456'
+            storeFile file('../keystores/sdk1.jks')
+            storePassword '123456'
+        }
+        sdk2config {
             keyAlias 'pcl-sdk-cert-dev'
             keyPassword '123456'
             storeFile file('../keystores/android-cert-dev.jks')
+            storePassword '123456'
+        }
+        sdk3config {
+            keyAlias 'key0'
+            keyPassword '123456'
+            storeFile file('../keystores/sdk3.jks')
             storePassword '123456'
         }
     }
@@ -16,15 +28,15 @@ android {
         applicationId "com.ghw.sdk2"
         minSdkVersion 24
         targetSdkVersion 35
-        versionCode 4060000
-        versionName "4.6.0"
-        signingConfig signingConfigs.defaultConfig
+        versionCode 4070000
+        versionName "4.7.0"
+        signingConfig signingConfigs.sdk2config
 
         compileSdk 35
         //华为多语种设置
         resConfigs "en", "zh-rCN", "pt-rBR", "es-rES", "in-rID", "ru", "th-rTH", "zh-rHK", "zh-rTW"
         // 默认名称
-        resValue "string", "app_name", "WASdkDemo"
+        resValue "string", "app_name", "WingSDK"
         // 默认 app 配置
         resValue "string", "sdk_app_id", "f7f9a9d18da611e5a0be000d3a906774"
         resValue "string", "sdk_app_key", "CFHF7nQCCaojCX6Sm4eT1GEIWRprimgX"
@@ -34,24 +46,116 @@ android {
                                      SDK_TRACKING_HTTP_BASE_URL: getUrl('track', 'pro')])
     }
 
-    flavorDimensions = ["default"]
+//    flavorDimensions = ["pkg", "app", "env"] // 需要 google，official 时，自由组合 [google|official] [sdk1|sdk2|sdk3] [qa|pre|pro]
+//    flavorDimensions = ["nowgg", "env"] // nowgg 包
+    flavorDimensions = ["leidian", "env"] // leidian 包
+//    flavorDimensions = ["env"] // 默认 google，sdk2 时，只保留 evn 维度即可
 
     productFlavors {
-        qa {
-            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL         : getUrl('http', 'qa'),
-                                         SDK_TRACKING_HTTP_BASE_URL: getUrl('track', 'qa')])
+        // 包类型
+        google { dimension = "pkg"; isDefault = true }
+        official { dimension = "pkg" }
+        nowgg { dimension = "nowgg" }
+        leidian { dimension = "leidian" }
+        // 应用
+        sdk1 { dimension = "app" }
+        sdk2 { dimension = "app"; isDefault = true }
+        sdk3 { dimension = "app" }
+        // 环境
+        qa { dimension = "env" }
+        pre { dimension = "env" }
+        pro { dimension = "env"; isDefault = true }
+    }
+
+    applicationVariants.configureEach { variant ->
+        def mergedFlavor = variant.getMergedFlavor()
+//        def flavorDimensions = []
+        def name = variant.name.toLowerCase() // officialSdk1QaDebug...
+        def flavor_pkg = 'google' // google,official,nowgg
+        def flavor_app = 'sdk2' // sdk1,sdk2,sdk3
+        def flavor_env = 'pro' // qa,pre,live
+        variant.productFlavors.forEach { flavor ->
+            def flavor_dimension = flavor.dimension
+            def flavor_name = flavor.name
+            if (flavor_dimension == "pkg") {
+                flavor_pkg = flavor_name
+            } else if (flavor_dimension == "app") {
+                flavor_app = flavor_name
+            } else if (flavor_dimension == "env") {
+                flavor_env = flavor_name
+            }
+//            flavorDimensions.add(flavor_dimension)
         }
-        pre {
-            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL         : getUrl('http', 'pre'),
-                                         SDK_TRACKING_HTTP_BASE_URL: getUrl('track', 'pre')])
+
+//        println("Variants name:" + name + " , pkg:" + flavor_pkg + " , app:" + flavor_app + " , env:" + flavor_env)
+        // 应用配置 (默认sdk2)
+        def sdk_app_id = "f7f9a9d18da611e5a0be000d3a906774"
+        def sdk_app_key = "CFHF7nQCCaojCX6Sm4eT1GEIWRprimgX"
+        def application_id = "com.ghw.sdk2"
+
+        if (name.contains("sdk1")) {
+            sdk_app_id = "b6c022b1d73f11edb06c0211fa47f775"
+            sdk_app_key = "6umXRagRhs7iHvhlonx8teHaGONnIEXI"
+            application_id = "com.ghw.sdk1"
+        } else if (name.contains("sdk2")) {
+            sdk_app_id = "f7f9a9d18da611e5a0be000d3a906774"
+            sdk_app_key = "CFHF7nQCCaojCX6Sm4eT1GEIWRprimgX"
+            application_id = "com.ghw.sdk2"
+        } else if (name.contains("sdk3")) {
+            sdk_app_id = "07aa12e2772011ef88a40211fa47f775"
+            sdk_app_key = "6RDGVOkA4wzI6wyEKzKw4suZFU8wmv12"
+            application_id = "com.ghw.sdk3"
         }
-        pro {
-            isDefault = true
-            manifestPlaceholders.putAll([SDK_HTTP_BASE_URL         : getUrl('http', 'pro'),
-                                         SDK_TRACKING_HTTP_BASE_URL: getUrl('track', 'pro')])
+        variant.resValue "string", "sdk_app_id", sdk_app_id
+        variant.resValue "string", "sdk_app_key", sdk_app_key
+        mergedFlavor.applicationId = application_id
+
+        // 官网包处理
+        if (name.contains("official")) {
+            // applicationId 后缀
+            mergedFlavor.applicationId = (mergedFlavor.applicationId + ".official")
+            // GHG 或 其他
+            def isGHG = true
+            // 应用名称
+            def app_name = (isGHG ? "GHG" : "R2") + "官网包_" + flavor_app.toUpperCase()
+            variant.resValue "string", "app_name", app_name
+            // 官网包配置
+            variant.resValue "string", "wa_custom_tab_scheme", ("wa" + sdk_app_id)
+            def sdk_adid_provider = "com.wa.provider.ad." + flavor_app
+            mergedFlavor.manifestPlaceholders.putAll([SDK_ADID_PROVIDER: sdk_adid_provider])
+            mergedFlavor.manifestPlaceholders.putAll([SDK_OFFICIAL_CHANNEL: isGHG ? "Site" : "Rtwogames"])
+            mergedFlavor.manifestPlaceholders.putAll([SDK_COM_TYPE: isGHG ? 0 : 1])
+
+//            println('applicationVariants :' + name + ",  " + sdk_adid_provider + " , app_name:" + app_name)
+        } else if (flavorDimensions.contains("pkg") && flavorDimensions.contains("app")) {
+            // 应用名称
+            def app_name = "谷歌包_" + flavor_app.toUpperCase()
+            variant.resValue "string", "app_name", app_name
         }
-        nowgg {}
-        admob {}
+
+        // 环境
+        mergedFlavor.manifestPlaceholders.putAll([SDK_HTTP_BASE_URL         : getUrl('http', flavor_env),
+                                                  SDK_TRACKING_HTTP_BASE_URL: getUrl('track', flavor_env)])
+
+        // 打包文件名
+        variant.outputs.each { output ->
+            def output_env = '_'+flavor_env + '环境'
+            def output_repository = '_' + ('true' == IS_TEST_REPOSITORY ? '测试仓库' : '正式仓库')
+            def output_build_apk = '_'+'build' + getDate() + '.apk'
+            def output_common = output_env + output_repository + output_build_apk
+
+            if (flavorDimensions.contains("pkg") && flavorDimensions.contains("app") && name.contains("official")) {
+                output.outputFileName = 'WingSdk_官网包_' + flavor_app + output_common
+            } else if (flavorDimensions.contains("pkg") && flavorDimensions.contains("app") && name.contains("google")) {
+                output.outputFileName = 'WingSdk_谷歌包_' + flavor_app + output_common
+            } else if (name.contains("nowgg")) {
+                output.outputFileName = 'WingSdk_nowgg包' + output_common
+            } else if (name.contains("leidian")) {
+                output.outputFileName = 'WingSdk_leidian包' + output_common
+            } else {
+                output.outputFileName = 'WingSdk_谷歌包' + output_common
+            }
+        }
     }
 
     buildTypes {
@@ -60,25 +164,33 @@ android {
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
+            if (flavorDimensions.contains("app")) {
+                productFlavors.sdk1.signingConfig signingConfigs.sdk1config
+                productFlavors.sdk2.signingConfig signingConfigs.sdk2config
+                productFlavors.sdk3.signingConfig signingConfigs.sdk3config
+            } else {
+                signingConfig signingConfigs.sdk2config
+            }
+
             def build_time = getDate()
-            buildConfigField 'String', 'DEMO_BUILD_TIME',"\"${build_time}\""
-            buildConfigField 'boolean', 'IS_TEST_REPOSITORY',IS_TEST_REPOSITORY
+            buildConfigField 'String', 'DEMO_BUILD_TIME', "\"${build_time}\""
+            buildConfigField 'boolean', 'IS_TEST_REPOSITORY', IS_TEST_REPOSITORY
         }
 
         debug {
             minifyEnabled false
             shrinkResources false
+            if (flavorDimensions.contains("app")) {
+                productFlavors.sdk1.signingConfig signingConfigs.sdk1config
+                productFlavors.sdk2.signingConfig signingConfigs.sdk2config
+                productFlavors.sdk3.signingConfig signingConfigs.sdk3config
+            } else {
+                signingConfig signingConfigs.sdk2config
+            }
 
             def build_time = getDate()
-            buildConfigField 'String', 'DEMO_BUILD_TIME',"\"${build_time}\""
-            buildConfigField 'boolean', 'IS_TEST_REPOSITORY',IS_TEST_REPOSITORY
-        }
-    }
-
-    // 打包自动生成名字
-    applicationVariants.configureEach { variant ->
-        variant.outputs.each { output ->
-            output.outputFileName = 'DemoSdk_imp_' + variant.productFlavors[0].name + "_" + ('true' == IS_TEST_REPOSITORY ?'test':'live') + '_build' + getDate() + '.apk'
+            buildConfigField 'String', 'DEMO_BUILD_TIME', "\"${build_time}\""
+            buildConfigField 'boolean', 'IS_TEST_REPOSITORY', IS_TEST_REPOSITORY
         }
     }
 
@@ -117,12 +229,10 @@ static def getUrl(type, env) {
 }
 
 dependencies {
-    implementation 'com.google.android.material:material:1.4.0'
-
     // 基础模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-base:4.6.0'
+    implementation 'com.wa.sdk:wa-sdk-base:4.7.0'
     // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:4.6.0'
+    implementation 'com.wa.sdk:wa-sdk-core:4.7.0'
     // wa 客服系统（一般必接）
     implementation 'com.wa.sdk:wa-sdk-aihelp:4.6.0'
     // AppsFlyer模块（一般必接）
@@ -132,15 +242,17 @@ dependencies {
     // Facebook模块（可选）
     implementation 'com.wa.sdk:wa-sdk-facebook:4.6.0'
     // Google模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-google:4.6.0'
-    // 网页集成登录，GHG和R2 （可选）
-    implementation 'com.wa.sdk:wa-sdk-ghgl:4.5.0'
-    // 网页支付模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-ghgp:4.6.0'
+    implementation 'com.wa.sdk:wa-sdk-google:4.7.0'
+    // AdMob模块（可选）
+    implementation 'com.wa.sdk:wa-sdk-admob:4.6.0'
+    // 网页集成登录，GHG和R2 （可选，正常接入直接 implementation 即可）
+    officialImplementation 'com.wa.sdk:wa-sdk-ghgl:4.5.0'
+    // 网页支付模块（可选，正常接入直接 implementation 即可）
+    officialImplementation 'com.wa.sdk:wa-sdk-ghgp:4.7.0'
     // nowgg 模块（可选，正常接入直接 implementation 即可）
     nowggImplementation 'com.wa.sdk:wa-sdk-nowgg:4.5.1'
-    // AdMob模块（可选，正常接入直接 implementation 即可）
-    admobImplementation 'com.wa.sdk:wa-sdk-admob:4.6.0'
+    // 雷电 模块（可选，正常接入直接 implementation 即可）
+    leidianImplementation 'com.wa.sdk:wa-sdk-leidian:4.7.0'
 
 //    华为 HMS（可选）
 //    implementation 'com.wa.sdk:wa-sdk-huaweihms:3.18.0'
@@ -170,5 +282,3 @@ apply plugin: 'com.google.gms.google-services'
 //agcp{
 //    enableAPMS true
 //}
-
-apply from: "flavors.gradle"

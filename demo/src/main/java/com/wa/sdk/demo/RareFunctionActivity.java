@@ -18,6 +18,7 @@ import com.wa.sdk.core.WACoreProxy;
 import com.wa.sdk.core.WAICore;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.community.CommunityActivity;
+import com.wa.sdk.demo.game.GameServiceActivity;
 import com.wa.sdk.demo.invite.InviteActivity;
 import com.wa.sdk.demo.share.ShareActivity;
 import com.wa.sdk.demo.widget.TitleBar;
@@ -73,7 +74,31 @@ public class RareFunctionActivity extends BaseActivity {
             clearCampaign();
         } else if (id == R.id.btn_video_ad) {
             startActivity(new Intent(this, VideoAdActivity.class));
-        } else if (id == R.id.btn_clear_adid) {
+        } else if (id == R.id.btn_show_open_url) {
+            WACoreProxy.showOpenUrl(this, new WACallback<WAResult>() {
+                @Override
+                public void onSuccess(int code, String message, WAResult result) {
+                    showShortToast("打开链接成功");
+                }
+
+                @Override
+                public void onCancel() {
+
+                }
+
+                @Override
+                public void onError(int code, String message, WAResult result, Throwable throwable) {
+                    showShortToast("打开链接失败：" + code + "," + message);
+                }
+            });
+        } else if (id == R.id.btn_privacy) {
+            startActivity(new Intent(this, PrivacyActivity.class));
+        } else if (id == R.id.btn_game_service) {
+            startActivity(new Intent(this, GameServiceActivity.class));
+        }
+
+        // 下面这部分不对外发布
+        if (id == R.id.btn_clear_adid) {
             WASdkAdIdHelper.clear(this);
         } else if (id == R.id.btn_read_adid) {
             String sdkAdId = WASdkAdIdHelper.readSdkAdId(this);
@@ -93,23 +118,6 @@ public class RareFunctionActivity extends BaseActivity {
             if (null != coreComponent) {
                 coreComponent.reportInstallCampaign(this);
             }
-        } else if (id == R.id.btn_show_open_url) {
-            WACoreProxy.showOpenUrl(this, new WACallback<WAResult>() {
-                @Override
-                public void onSuccess(int code, String message, WAResult result) {
-                    showShortToast("打开链接成功");
-                }
-
-                @Override
-                public void onCancel() {
-
-                }
-
-                @Override
-                public void onError(int code, String message, WAResult result, Throwable throwable) {
-                    showShortToast("打开链接失败：" + code + "," + message);
-                }
-            });
         }
     }
 

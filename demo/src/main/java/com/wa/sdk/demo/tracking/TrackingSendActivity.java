@@ -21,9 +21,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * 
- */
 public class TrackingSendActivity extends BaseActivity {
 
     public static final int TYPE_DEFAULT = 1;

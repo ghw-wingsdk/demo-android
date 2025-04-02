@@ -29,7 +29,7 @@ allprojects {
         mavenCentral()
         maven { url "https://maven.google.com" }
         maven { url "https://maven.aliyun.com/repository/public" }
-        maven { url 'https://developer.huawei.com/repo/' }
+        maven {url 'https://developer.huawei.com/repo/'}
 
         maven {
             boolean isTestRepository = Boolean.valueOf(project.IS_TEST_REPOSITORY)
@@ -39,5 +39,16 @@ allprojects {
             println("RepositoryUrl:$repositoryUrl")
             allowInsecureProtocol = true
         }
+
+        //以下是雷电联运包的maven仓库地址+访问凭证
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven {
+            credentials {
+                username '6445f183daafbed659eb2c18'
+                password 'oWuvewt2tR1A'
+            }
+            url 'https://packages.aliyun.com/5f05a0346207a1a8b17f4aaf/maven/cz-public-repo'
+        }
+
     }
 }

@@ -3,12 +3,14 @@ package com.wa.sdk.demo;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,8 +19,7 @@ import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
 
 import com.wa.sdk.WAConstants;
-import com.wa.sdk.ad.WAAdProxy;
-import com.wa.sdk.ad.model.WAAdCachedCallback;
+import com.wa.sdk.admob.WAAdMobPublicProxy;
 import com.wa.sdk.cmp.WACmpProxy;
 import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.WASharedPrefHelper;
@@ -29,12 +30,12 @@ import com.wa.sdk.common.utils.StringUtil;
 import com.wa.sdk.core.WACoreProxy;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.base.FlavorApiHelper;
-import com.wa.sdk.demo.game.GameServiceActivity;
 import com.wa.sdk.demo.tracking.TrackingSimulateActivity;
 import com.wa.sdk.demo.widget.TitleBar;
 import com.wa.sdk.pay.WAPayProxy;
 import com.wa.sdk.pay.model.WAPurchaseResult;
 import com.wa.sdk.track.WATrackProxy;
+import com.wa.sdk.track.model.WAUserCreateEvent;
 import com.wa.sdk.track.model.WAUserImportEvent;
 import com.wa.sdk.user.WAUserProxy;
 import com.wa.sdk.user.model.WAGameReviewCallback;
@@ -64,23 +65,25 @@ public class MainActivity extends BaseActivity {
         mSharedPrefHelper = WASharedPrefHelper.newInstance(this, WADemoConfig.SP_CONFIG_FILE_DEMO);
         initView();
 
-        boolean isEnableAppOpenAd = mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_APP_OPEN_AD, FlavorApiHelper.AdMob.getSettingEnable("DEFAULT_APP_OPEN_AD_STATE"));
+        boolean isEnableAppOpenAd = mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_APP_OPEN_AD, AdMobActivity.DEFAULT_APP_OPEN_AD_STATE);
         // 避免与开屏页重复初始化
         if (isEnableAppOpenAd) {
             doAfterInitSuccess();
             return;
         }
 
-        // AdMob强制测试
-        FlavorApiHelper.AdMob.setTest(this);
-        // 开启日志
+        // AdMob 强制开启测试
+        boolean isTest = mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_TEST_AD_UNIT, AdMobActivity.DEFAULT_TEST);
+        WAAdMobPublicProxy.setTest(this, isTest);
+        // 开启 WingSDK 日志
         WACoreProxy.setDebugMode(mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_DEBUG, true));
         showLoadingDialog("初始化中", false, false, null);
-        // SDK初始化
+        // WingSDK 初始化
         WACoreProxy.initialize(this, new WACallback<Void>() {
             @Override
             public void onSuccess(int code, String message, Void result) {
                 cancelLoadingDialog();
+                // 初始化成功，执行支付初始化等逻辑
                 doAfterInitSuccess();
             }
 
@@ -99,6 +102,61 @@ public class MainActivity extends BaseActivity {
                         .show();
             }
         });
+    }
+
+    private void doAfterInitSuccess() {
+        // 支付初始化
+        WAPayProxy.initialize(this, new WACallback<WAResult>() {
+
+            @Override
+            public void onSuccess(int code, String message, WAResult result) {
+                LogUtil.d(TAG, "WAPayProxy.initialize success");
+                mPayInitialized = true;
+            }
+
+            @Override
+            public void onCancel() {
+                LogUtil.d(TAG, "WAPayProxy.initialize has been cancelled.");
+                mPayInitialized = false;
+            }
+
+            @Override
+            public void onError(int code, String message, WAResult result, Throwable throwable) {
+                LogUtil.d(TAG, "WAPayProxy.initialize error");
+                showLongToast("Payment initialization fail.");
+                mPayInitialized = false;
+            }
+        });
+
+        // 显示或隐藏 Consent 同意设置按钮
+        WACmpProxy.checkConsentPreferences(new WACallback<Boolean>() {
+            @Override
+            public void onSuccess(int code, String message, Boolean isShow) {
+                // 返回 true，则需要显示 Consent同意设置 按钮；false，则否；
+                Button btn = findViewById(R.id.btn_show_consent_preferences);
+                btn.setTextColor(isShow ? Color.BLACK : Color.GRAY);
+                btn.setText(btn.getText() + (isShow ? "(显示)" : "(隐藏)"));
+            }
+
+            @Override
+            public void onCancel() {
+                // 忽略，无需处理
+            }
+
+            @Override
+            public void onError(int code, String message, Boolean result, Throwable throwable) {
+                // 忽略，无需处理
+            }
+        });
+
+        // AdMob 横幅广告
+        boolean isEnableBannerAd = mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_BANNER_AD, AdMobActivity.DEFAULT_BANNER_AD_STATE);
+        if (isEnableBannerAd) {
+            WAAdMobPublicProxy.bindBannerAd(this, findViewById(R.id.layout_main_banner_ad));
+        }
+
+        // 延迟 n 秒后调用登录弹窗
+        delayLoginUI(1);
     }
 
     private void delayLoginUI(int second) {
@@ -124,16 +182,26 @@ public class MainActivity extends BaseActivity {
                             + "\nisFistLogin: " + result.isFirstLogin();
 
                     new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                        // 用户进服
+                        // 用户首次进服（延迟3s 模拟首次进服）
                         String txServerId = "2";
                         String serverId = TextUtils.isEmpty(txServerId) ? "server2" : "server" + txServerId;
-                        String gameUserId = serverId + "-role1-" + result.getUserId();
-                        String nickname = "青铜" + serverId + "-" + result.getUserId();
+                        String gameUserId = "-1"; // 如果未创角，可以设置为 -1
+                        String nickname = ""; // 如果未创角，可以设置为空
                         int level = 1;
-                        boolean isFirstEnter = false; //首次进服标志
+                        boolean isFirstEnter = true; //首次进服标志
 
-                        WAUserImportEvent importEvent = new WAUserImportEvent(serverId,gameUserId,nickname, level, isFirstEnter);
+                        // 进服事件
+                        WAUserImportEvent importEvent = new WAUserImportEvent(serverId, gameUserId, nickname, level, isFirstEnter);
                         WATrackProxy.trackEvent(MainActivity.this, importEvent);
+
+                        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                            // 创角事件（在进服后延迟3s 模拟创角）
+                            // 创角后，有角色ID和NickName
+                            String newGameUserId = serverId + "-role1-" + result.getUserId();
+                            String newNickname = "青铜" + serverId + "-" + result.getUserId();
+                            WAUserCreateEvent userCreateEvent = new WAUserCreateEvent(serverId, newGameUserId, newNickname, System.currentTimeMillis());
+                            WATrackProxy.trackEvent(MainActivity.this, userCreateEvent);
+                        },3000);
 
                         // 进服后申请通知权限
                         PermissionActivity.callNotificationPermission(MainActivity.this);
@@ -146,64 +214,17 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onCancel() {
-
+                LogUtil.i(TAG, "Login canceled");
+                showLongToast("Login canceled");
             }
 
             @Override
             public void onError(int code, String message, WALoginResult result, Throwable throwable) {
                 String text = "code:" + code + "\nmessage:" + message;
-                LogUtil.w(LogUtil.TAG, "Login failed->" + text);
+                LogUtil.w(TAG, "Login failed->" + text);
                 showLongToast("Login failed->" + text);
             }
         }), second * 1000L);
-    }
-
-    private void doAfterInitSuccess() {
-        // 横幅广告
-        FlavorApiHelper.AdMob.bindMainBannerAd(this);
-
-        // 支付初始化
-        WAPayProxy.initialize(this, new WACallback<WAResult>() {
-
-            @Override
-            public void onSuccess(int code, String message, WAResult result) {
-                LogUtil.d(TAG, "WAPayProxy.initialize success");
-                mPayInitialized = true;
-                WAPayProxy.queryInventory(null);
-            }
-
-            @Override
-            public void onCancel() {
-                LogUtil.d(TAG, "WAPayProxy.initialize has been cancelled.");
-                mPayInitialized = false;
-            }
-
-            @Override
-            public void onError(int code, String message, WAResult result, Throwable throwable) {
-                LogUtil.d(TAG, "WAPayProxy.initialize error");
-                showLongToast("Payment initialization fail.");
-                mPayInitialized = false;
-            }
-        });
-
-        // 延迟 n 秒后调用登录弹窗
-        delayLoginUI(1);
-
-        // 调试入口
-        if (mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_LOGCAT, true)) {
-            WACommonProxy.enableLogcat(this);
-        } else {
-            WACommonProxy.disableLogcat(this);
-        }
-
-        WAAdProxy.setAdCachedCallback(new WAAdCachedCallback() {
-            @Override
-            public void onVideoCached(int validVideoCount) {
-                String text = "有新的广告缓存成功，当前可用广告数： " + validVideoCount;
-                LogUtil.e(WAConstants.TAG, text);
-                showShortToast(text);
-            }
-        });
     }
 
     @Override
@@ -231,19 +252,25 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-//        Chartboost.onStart(this);
+        // LogUtil.i(TAG, "---onStart---");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         // LogUtil.i(TAG, "---onResume---");
+        if (FlavorApiHelper.isLeidianFlavor()) {
+            WACommonProxy.onResume(this); // 接入雷电渠道才需要
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         // LogUtil.i(TAG, "---onPause---");
+        if (FlavorApiHelper.isLeidianFlavor()) {
+            WACommonProxy.onPause(this); // 接入雷电渠道才需要
+        }
     }
 
     @Override
@@ -256,6 +283,9 @@ public class MainActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         // LogUtil.i(TAG, "---onDestroy---");
+        if (FlavorApiHelper.isLeidianFlavor()) {
+            WACommonProxy.onDestroy(this); // 接入雷电渠道才需要
+        }
     }
 
     @Override
@@ -300,12 +330,8 @@ public class MainActivity extends BaseActivity {
             staticPay();
         } else if (id == R.id.btn_tracking) {
             testTracking();
-        } else if (id == R.id.btn_game_service) {
-            startActivity(new Intent(MainActivity.this, GameServiceActivity.class));
         } else if (id == R.id.btn_csc) {
             startActivity(new Intent(this, CscActivity.class));
-        } else if (id == R.id.btn_privacy) {
-            startActivity(new Intent(this, PrivacyActivity.class));
         } else if (id == R.id.btn_user_center) {
             startActivity(new Intent(this, UserCenterActivity.class));
         } else if (id == R.id.btn_random_client_id) {
@@ -319,6 +345,10 @@ public class MainActivity extends BaseActivity {
                 WACoreProxy.setClientId(strClientId);
                 showShortToast("Client设置成功：" + strClientId);
             }
+        } else if (id == R.id.btn_create_random_client_id) {
+            String clientId = UUID.randomUUID().toString().replaceAll("-", "");
+            WACoreProxy.setClientId(clientId);
+            showShortToast("Client设置成功：" + clientId);
         } else if (id == R.id.btn_open_review) {
             openReview();
         } else if (id == R.id.btn_account_deletion) {
@@ -336,12 +366,7 @@ public class MainActivity extends BaseActivity {
         } else if (id == R.id.btn_show_consent_preferences) {
             WACmpProxy.showConsentPreferences(this);
         } else if (id == R.id.btn_admob) {
-            if (FlavorApiHelper.isAdMobFlavor()) {
-                // 打开 AdMobActivity
-                startActivity(new Intent(this, FlavorApiHelper.AdMob.getAdMobActivityClass()));
-            } else {
-                showShortToast("不是Admob包");
-            }
+            startActivity(new Intent(this, AdMobActivity.class));
         } else if (id == R.id.btn_rare_function) {
             startActivity(new Intent(this, RareFunctionActivity.class));
         }

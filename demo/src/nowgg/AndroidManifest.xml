@@ -10,6 +10,10 @@
         <meta-data
             android:name="com.wa.sdk.nowgg.PAYMENT_ID"
             android:value="8849" />
+        <!--    渠道配置    -->
+        <meta-data
+            android:name="CHANNEL"
+            android:value="Nowgg" />
     </application>
 
 </manifest>

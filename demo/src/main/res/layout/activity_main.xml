@@ -1,8 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center"
     android:background="@color/color_white"
+    android:gravity="center"
     android:orientation="vertical">
 
     <com.wa.sdk.demo.widget.TitleBar
@@ -53,36 +53,6 @@
                     android:checked="true"
                     android:textOff="@string/disable_debug"
                     android:textOn="@string/enable_debug" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btn_request_permission"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="@string/request_permisssion" />
-
-                <Button
-                    android:id="@+id/btn_privacy"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="@string/privacy_and_cookie_policy"
-                    android:visibility="visible" />
             </LinearLayout>
 
             <LinearLayout
@@ -180,6 +150,17 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/btn_request_permission"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="@string/request_permisssion" />
+
+                <Button
                     android:id="@+id/btn_csc"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -189,17 +170,6 @@
                     android:layout_weight="1"
                     android:onClick="onClick"
                     android:text="@string/wa_csc" />
-
-                <Button
-                    android:id="@+id/btn_game_service"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="@string/game_service" />
 
             </LinearLayout>
 
@@ -302,8 +272,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:weightSum="4"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="4">
 
                 <Button
                     android:id="@+id/btn_display_app_version_info"
@@ -334,9 +304,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <EditText
                     android:id="@+id/edt_client_id"
@@ -359,6 +330,34 @@
                     android:layout_height="wrap_content"
                     android:onClick="onClick"
                     android:text="@string/create_client_id" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="@string/show_consent_preferences"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btn_create_random_client_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="@string/create_random_client_id" />
+
             </LinearLayout>
 
         </LinearLayout>

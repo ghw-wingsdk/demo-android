@@ -39,19 +39,17 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setScreenOrientation();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-
-        mTvCountDown = findViewById(R.id.tv_count_down);
-
-        WASharedPrefHelper sharedPrefHelper = WASharedPrefHelper.newInstance(this, WADemoConfig.SP_CONFIG_FILE_DEMO);
-        boolean isEnableAppOpenAd = sharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_APP_OPEN_AD, DEFAULT_APP_OPEN_AD_STATE);
 
         // 如果未打开开屏广告开关，直接跳过
+        WASharedPrefHelper sharedPrefHelper = WASharedPrefHelper.newInstance(this, WADemoConfig.SP_CONFIG_FILE_DEMO);
+        boolean isEnableAppOpenAd = sharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_APP_OPEN_AD, DEFAULT_APP_OPEN_AD_STATE);
         if (!isEnableAppOpenAd) {
-            mTvCountDown.setText("Done.");
             startMainActivity();
             return;
         }
+
+        setContentView(R.layout.activity_splash);
+        mTvCountDown = findViewById(R.id.tv_count_down);
 
         // 是否开启UMP，默认关闭
         boolean isEnableUmp = false;
@@ -154,6 +152,7 @@ public class SplashActivity extends BaseActivity {
     private void startMainActivity() {
         finish();
         startActivity(new Intent(this, MainActivity.class));
+        overridePendingTransition(R.anim.demo_fade_in, R.anim.demo_fade_out);
     }
 
     /**

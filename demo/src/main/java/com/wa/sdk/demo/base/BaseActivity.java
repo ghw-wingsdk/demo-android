@@ -359,10 +359,26 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
                 .show();
     }
 
-    protected void logToast(String text) {
+    private void logToast(String text) {
         if (mEnableToastLog) {
             Log.d("DemoSdk2", text);
         }
+    }
+
+    protected void logD(String text) {
+        Log.d(TAG, text);
+    }
+
+    protected void logI(String text) {
+        Log.i(TAG, text);
+    }
+
+    protected void logW(String text) {
+        Log.w(TAG, text);
+    }
+
+    protected void logE(String text) {
+        Log.e(TAG, text);
     }
 
     protected void setScreenOrientation() {

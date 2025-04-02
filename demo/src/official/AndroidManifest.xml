@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.wa.sdk.demo">
+
+    <!--  权限声明  -->
+    <uses-permission
+        android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="QueryAllPackagesPermission" />
+
+    <application>
+        <!--    官网包标志     -->
+        <meta-data
+            android:name="com.wa.sdk.OFFICIAL_PACKAGE"
+            android:value="true" />
+        <!--    Provider声明，authorities必须以 "com.wa.provider.ad" 为前缀，后缀建议使用游戏简称。比如游戏简称为 loap，则authorities可以设置为 com.wa.provider.ad.loap   -->
+        <provider
+            android:name="com.wa.sdk.wa.core.sdkadid.WASdkAdIdProvider"
+            android:authorities="${SDK_ADID_PROVIDER}"
+            android:exported="true" />
+        <!--    COM_TYPE，具体值从运营处获取   -->
+        <meta-data
+            android:name="com.wa.sdk.COM_TYPE"
+            android:value="${SDK_COM_TYPE}" />
+        <!--    渠道配置，具体值从运营处获取    -->
+        <meta-data
+            android:name="CHANNEL"
+            android:value="${SDK_OFFICIAL_CHANNEL}" />
+
+    </application>
+
+</manifest>

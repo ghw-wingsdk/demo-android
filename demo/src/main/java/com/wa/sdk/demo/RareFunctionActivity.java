@@ -22,6 +22,7 @@ import com.wa.sdk.demo.game.GameServiceActivity;
 import com.wa.sdk.demo.invite.InviteActivity;
 import com.wa.sdk.demo.share.ShareActivity;
 import com.wa.sdk.demo.widget.TitleBar;
+import com.wa.sdk.user.WAUserProxy;
 import com.wa.sdk.wa.core.sdkadid.WASdkAdIdHelper;
 
 /**
@@ -60,7 +61,10 @@ public class RareFunctionActivity extends BaseActivity {
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.btn_community) {
+        if (id == R.id.btn_open_review) {
+            // Google评价
+            openGoogleReview();
+        } else if (id == R.id.btn_community) {
             startActivity(new Intent(this, CommunityActivity.class));
         } else if (id == R.id.btn_invite) {
             startActivity(new Intent(this, InviteActivity.class));
@@ -119,6 +123,32 @@ public class RareFunctionActivity extends BaseActivity {
                 coreComponent.reportInstallCampaign(this);
             }
         }
+    }
+
+    /**
+     * 调起Google评分
+     * <br>注意：
+     * <br>1.由于Google限制，我们无法知道用户是否已经评分，是否弹有出评分界面，onSuccess()仅代表Google评分接口调用成功
+     * <br>2.如果需要评价完成给用户发放奖励，在 onSuccess()回调中处理即可
+     */
+    private void openGoogleReview() {
+        WAUserProxy.openReview(this, new WACallback<Boolean>() {
+            @Override
+            public void onSuccess(int code, String message, Boolean result) {
+                //不管回掉结果是什么，都需要统一当成成功处理后续逻辑
+                showShortToast("api调用流程已经完成，无法获取用户是否评分，是否弹出评分框," + message);
+            }
+
+            @Override
+            public void onCancel() {
+            }
+
+            @Override
+            public void onError(int code, String message, Boolean result, Throwable throwable) {
+
+
+            }
+        });
     }
 
     /**

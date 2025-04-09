@@ -27,17 +27,16 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.wa.sdk.common.WASharedPrefHelper;
-import com.wa.sdk.core.WASdkProperties;
 import com.wa.sdk.demo.LoginActivity;
 import com.wa.sdk.demo.R;
 import com.wa.sdk.demo.WADemoConfig;
+import com.wa.sdk.demo.WASdkDemo;
 import com.wa.sdk.demo.widget.LoadingDialog;
 import com.wa.sdk.demo.widget.TitleBar;
 
 
 /**
  * Activity基类
- *
  */
 public class BaseActivity extends FragmentActivity implements View.OnClickListener {
     protected static final String TAG = "DemoSdk2";
@@ -188,14 +187,18 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
      *
      * @param text
      */
-    protected void showShortToast(CharSequence text) {
+    protected void showShortToast(CharSequence text, boolean isLog) {
         if (isUseToast) {
             Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
         } else {
             View view = findViewById(android.R.id.content).getRootView();
             Snackbar.make(view, text, Snackbar.LENGTH_SHORT).show();
         }
-        logToast(text.toString());
+        if (isLog) logToast(text.toString());
+    }
+
+    protected void showShortToast(CharSequence text) {
+        showShortToast(text, false);
     }
 
     /**
@@ -204,13 +207,7 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
      * @param resId
      */
     protected void showShortToast(int resId) {
-        if (isUseToast) {
-            Toast.makeText(this, resId, Toast.LENGTH_SHORT).show();
-        } else {
-            View view = findViewById(android.R.id.content).getRootView();
-            Snackbar.make(view, resId, Snackbar.LENGTH_SHORT).show();
-        }
-        logToast(getString(resId));
+        showShortToast(getString(resId));
     }
 
     /**
@@ -218,29 +215,26 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
      *
      * @param text
      */
-    protected void showLongToast(CharSequence text) {
+    protected void showLongToast(CharSequence text, boolean isLog) {
         if (isUseToast) {
             Toast.makeText(this, text, Toast.LENGTH_LONG).show();
         } else {
             View view = findViewById(android.R.id.content).getRootView();
             Snackbar.make(view, text, Snackbar.LENGTH_LONG).show();
         }
-        logToast(text.toString());
+        if (isLog) logToast(text.toString());
     }
 
+    protected void showLongToast(CharSequence text) {
+        showLongToast(text, false);
+    }
     /**
      * 显示一个长Toast
      *
      * @param resId
      */
     protected void showLongToast(int resId) {
-        if (isUseToast) {
-            Toast.makeText(this, resId, Toast.LENGTH_LONG).show();
-        } else {
-            View view = findViewById(android.R.id.content).getRootView();
-            Snackbar.make(view, resId, Snackbar.LENGTH_LONG).show();
-        }
-        logToast(getString(resId));
+        showLongToast(getString(resId));
     }
 
     /**
@@ -311,7 +305,7 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
      * 设置全屏，兼容刘海屏
      */
     private void setFullScreen() {
-        if (this.isFinishing() || this.isDestroyed() || getWindow()==null) {
+        if (this.isFinishing() || this.isDestroyed() || getWindow() == null) {
             return;
         }
 
@@ -339,11 +333,10 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
         });
     }
 
-    protected boolean isLoginAndTips() {
-        boolean isLogin = WASdkProperties.getInstance().isLogin();
-        if (!isLogin)
-            showLoginTips();
-        return isLogin;
+    protected boolean isNotLoginAndTips() {
+        boolean isNotLogin = !WASdkDemo.getInstance().isLogin();
+        if (isNotLogin) showLoginTips();
+        return isNotLogin;
     }
 
     protected void showLoginTips() {
@@ -361,7 +354,7 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
 
     private void logToast(String text) {
         if (mEnableToastLog) {
-            Log.d("DemoSdk2", text);
+            Log.d(TAG, text);
         }
     }
 

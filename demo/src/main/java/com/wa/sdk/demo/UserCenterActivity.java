@@ -5,7 +5,6 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.view.View;
-import android.widget.Toast;
 
 import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.demo.base.BaseGridActivity;
@@ -38,7 +37,7 @@ public class UserCenterActivity extends BaseGridActivity {
      * 获取用户中心数据
      */
     public void getUserCenterData() {
-        if (!isLoginAndTips()) return;
+        if (isNotLoginAndTips()) return;
         showLoadingDialog("请求中...",false,false,null);
         WAUserProxy.getUserCenterNotice(this, new WACallback<WAShortUrlResult>() {
             @Override
@@ -83,7 +82,7 @@ public class UserCenterActivity extends BaseGridActivity {
      * 显示用户中心UI
      */
     public void showUserCenterUI() {
-        if (!isLoginAndTips()) return;
+        if (isNotLoginAndTips()) return;
         WAUserProxy.showUserCenterNoticeUI(this, new WACallback<WAShortUrlResult>() {
             @Override
             public void onSuccess(int code, String message, WAShortUrlResult result) {

@@ -156,19 +156,14 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void initView() {
-        mTitlebar = (TitleBar) findViewById(R.id.tb_login);
+        mTitlebar = findViewById(R.id.tb_login);
         mTitlebar.setTitleText(R.string.login);
-        mTitlebar.setLeftButton(android.R.drawable.ic_menu_revert, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                exit();
-            }
-        });
+        mTitlebar.setLeftButton(android.R.drawable.ic_menu_revert, v -> exit());
         mTitlebar.setTitleTextColor(R.color.color_white);
 
         mEdtServerId = findViewById(R.id.edt_server_id);
 
-        ToggleButton loginFlowType = (ToggleButton) findViewById(R.id.tbtn_login_flow_type);
+        ToggleButton loginFlowType = findViewById(R.id.tbtn_login_flow_type);
         int flowType = WASdkDemo.getInstance().getLoginFlowType();
         WAUserProxy.setLoginFlowType(flowType);
         if (WAConstants.LOGIN_FLOW_TYPE_DEFAULT == flowType) {
@@ -178,13 +173,13 @@ public class LoginActivity extends BaseActivity {
         }
         loginFlowType.setOnCheckedChangeListener(mOnCheckedChangeListener);
 
-        ToggleButton loginCache = (ToggleButton) findViewById(R.id.tbtn_enable_login_cache);
-        loginCache.setChecked(mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_LOGIN_CACHE, false));
+        ToggleButton loginCache = findViewById(R.id.tbtn_enable_login_cache);
+        loginCache.setChecked(mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_LOGIN_CACHE, true));
         loginCache.setOnCheckedChangeListener(mOnCheckedChangeListener);
     }
 
 
-    private CompoundButton.OnCheckedChangeListener mOnCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
+    private final CompoundButton.OnCheckedChangeListener mOnCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             int id = buttonView.getId();
@@ -198,7 +193,7 @@ public class LoginActivity extends BaseActivity {
         }
     };
 
-    private WACallback<WALoginResult> mLoginCallback = new WACallback<WALoginResult>() {
+    private final WACallback<WALoginResult> mLoginCallback = new WACallback<WALoginResult>() {
         @Override
         public void onSuccess(int code, String message, WALoginResult result) {
             String text = "code:" + code + "\nmessage:" + message;
@@ -284,7 +279,7 @@ public class LoginActivity extends BaseActivity {
     private void loginUi() {
         // WAUserProxy.loginUI() 在刚接入时需要运营在后台添加测试设备，才会显示具体登录方式，比如: Google，Facebook
         WAUserProxy.loginUI(LoginActivity.this,
-                mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_LOGIN_CACHE, false),
+                mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_LOGIN_CACHE, true),
                 mLoginCallback);
     }
 

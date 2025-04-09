@@ -124,7 +124,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/et_static_pay_sku_id"
+                    android:id="@+id/et_static_pay_product_id"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
@@ -191,13 +191,13 @@
                     android:text="@string/user_center" />
 
                 <Button
-                    android:id="@+id/btn_open_review"
+                    android:id="@id/btn_admob"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:onClick="onClick"
-                    android:text="@string/open_review" />
+                    android:text="@string/admob" />
             </LinearLayout>
 
             <LinearLayout
@@ -242,11 +242,12 @@
                     android:text="@string/show_consent_preferences" />
 
                 <Button
-                    android:id="@id/btn_admob"
+                    android:id="@id/btn_"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
+                    android:visibility="invisible"
                     android:onClick="onClick"
                     android:text="@string/admob" />
 
@@ -276,15 +277,6 @@
                 android:weightSum="4">
 
                 <Button
-                    android:id="@+id/btn_display_app_version_info"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="2"
-                    android:onClick="onClick"
-                    android:text="@string/apk_info" />
-
-                <Button
                     android:id="@+id/btn_switch_orientation"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -299,37 +291,16 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="默认" />
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="gone">
-
-                <EditText
-                    android:id="@+id/edt_client_id"
+                <Button
+                    android:id="@+id/btn_create_random_client_id"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ellipsize="end"
-                    android:maxLines="1" />
-
-                <Button
-                    android:id="@+id/btn_random_client_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="2"
                     android:onClick="onClick"
-                    android:text="@string/random_client_id" />
+                    android:text="@string/create_random_client_id" />
 
-                <Button
-                    android:id="@+id/btn_create_client_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onClick"
-                    android:text="@string/create_client_id" />
             </LinearLayout>
 
             <LinearLayout
@@ -340,24 +311,13 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btn_"
+                    android:id="@+id/btn_display_app_version_info"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:onClick="onClick"
-                    android:text="@string/show_consent_preferences"
-                    android:visibility="gone" />
-
-                <Button
-                    android:id="@+id/btn_create_random_client_id"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="@string/create_random_client_id" />
-
+                    android:text="@string/apk_info" />
             </LinearLayout>
 
         </LinearLayout>

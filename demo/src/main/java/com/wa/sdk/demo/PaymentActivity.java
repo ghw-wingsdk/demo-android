@@ -22,14 +22,13 @@ import java.util.Map;
 
 /**
  * 网页支付页面
- * 
+ *
  */
 public class PaymentActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mEnableToastLog = true;
 
         setContentView(R.layout.activity_payment);
 

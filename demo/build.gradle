@@ -28,8 +28,8 @@ android {
         applicationId "com.ghw.sdk2"
         minSdkVersion 24
         targetSdkVersion 35
-        versionCode 4070000
-        versionName "4.7.0"
+        versionCode 4070100
+        versionName "4.7.1"
         signingConfig signingConfigs.sdk2config
 
         compileSdk 35
@@ -38,8 +38,6 @@ android {
         // 默认名称
         resValue "string", "app_name", "WingSDK"
         // 默认 app 配置
-        resValue "string", "sdk_app_id", "f7f9a9d18da611e5a0be000d3a906774"
-        resValue "string", "sdk_app_key", "CFHF7nQCCaojCX6Sm4eT1GEIWRprimgX"
         resValue "string", "wa_custom_tab_scheme", "waf7f9a9d18da611e5a0be000d3a906774"
         // 默认环境
         manifestPlaceholders.putAll([SDK_HTTP_BASE_URL         : getUrl('http', 'pro'),
@@ -48,8 +46,8 @@ android {
 
 //    flavorDimensions = ["pkg", "app", "env"] // 需要 google，official 时，自由组合 [google|official] [sdk1|sdk2|sdk3] [qa|pre|pro]
 //    flavorDimensions = ["nowgg", "env"] // nowgg 包
-    flavorDimensions = ["leidian", "env"] // leidian 包
-//    flavorDimensions = ["env"] // 默认 google，sdk2 时，只保留 evn 维度即可
+//    flavorDimensions = ["leidian", "env"] // leidian 包
+    flavorDimensions = ["env"] // 默认 google，sdk2 时，只保留 evn 维度即可
 
     productFlavors {
         // 包类型
@@ -230,9 +228,9 @@ static def getUrl(type, env) {
 
 dependencies {
     // 基础模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-base:4.7.0'
+    implementation 'com.wa.sdk:wa-sdk-base:4.7.1'
     // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:4.7.0'
+    implementation 'com.wa.sdk:wa-sdk-core:4.7.1'
     // wa 客服系统（一般必接）
     implementation 'com.wa.sdk:wa-sdk-aihelp:4.6.0'
     // AppsFlyer模块（一般必接）
@@ -242,7 +240,7 @@ dependencies {
     // Facebook模块（可选）
     implementation 'com.wa.sdk:wa-sdk-facebook:4.6.0'
     // Google模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-google:4.7.0'
+    implementation 'com.wa.sdk:wa-sdk-google:4.7.1'
     // AdMob模块（可选）
     implementation 'com.wa.sdk:wa-sdk-admob:4.6.0'
     // 网页集成登录，GHG和R2 （可选，正常接入直接 implementation 即可）

@@ -44,17 +44,14 @@ android {
                                      SDK_TRACKING_HTTP_BASE_URL: getUrl('track', 'pro')])
     }
 
-//    flavorDimensions = ["pkg", "app", "env"] // 需要 google，official 时，自由组合 [google|official] [sdk1|sdk2|sdk3] [qa|pre|pro]
-//    flavorDimensions = ["nowgg", "env"] // nowgg 包
-//    flavorDimensions = ["leidian", "env"] // leidian 包
-    flavorDimensions = ["env"] // 默认 google，sdk2 时，只保留 evn 维度即可
+    flavorDimensions = ["pkg"] // 开启包类型维度
 
     productFlavors {
         // 包类型
         google { dimension = "pkg"; isDefault = true }
         official { dimension = "pkg" }
-        nowgg { dimension = "nowgg" }
-        leidian { dimension = "leidian" }
+        nowgg { dimension = "pkg" }
+        leidian { dimension = "pkg" }
         // 应用
         sdk1 { dimension = "app" }
         sdk2 { dimension = "app"; isDefault = true }
@@ -246,7 +243,7 @@ dependencies {
     // 网页集成登录，GHG和R2 （可选，正常接入直接 implementation 即可）
     officialImplementation 'com.wa.sdk:wa-sdk-ghgl:4.5.0'
     // 网页支付模块（可选，正常接入直接 implementation 即可）
-    officialImplementation 'com.wa.sdk:wa-sdk-ghgp:4.7.0'
+    officialImplementation 'com.wa.sdk:wa-sdk-ghgp:4.7.2'
     // nowgg 模块（可选，正常接入直接 implementation 即可）
     nowggImplementation 'com.wa.sdk:wa-sdk-nowgg:4.5.1'
     // 雷电 模块（可选，正常接入直接 implementation 即可）

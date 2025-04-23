@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.activity.ComponentActivity;
@@ -39,17 +40,17 @@ import com.wa.sdk.demo.widget.TitleBar;
  * Activity基类
  */
 public class BaseActivity extends FragmentActivity implements View.OnClickListener {
-    protected static final String TAG = "DemoSdk2";
+    protected static final String TAG = WADemoConfig.TAG;
     protected FragmentManager mFragmentManager;
     protected int mContainerId = 0;
     protected LoadingDialog mLoadingDialog = null;
     protected boolean mEnableToastLog = false;
-
+    private static final boolean isSetFullScreen = true;
     private static final boolean isUseToast = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        EdgeToEdge.enable((ComponentActivity) this);
+        if (isSetFullScreen) EdgeToEdge.enable((ComponentActivity) this);
         super.onCreate(savedInstanceState);
         mFragmentManager = getSupportFragmentManager();
     }
@@ -57,7 +58,7 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
-        setFullScreen();
+        if (isSetFullScreen) setFullScreen();
     }
 
 
@@ -228,6 +229,7 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
     protected void showLongToast(CharSequence text) {
         showLongToast(text, false);
     }
+
     /**
      * 显示一个长Toast
      *
@@ -308,8 +310,15 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
         if (this.isFinishing() || this.isDestroyed() || getWindow() == null) {
             return;
         }
-
         Window window = getWindow();
+
+        // 刘海屏适配
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS;
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            window.getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+        }
+
         View decorView = getWindow().getDecorView();
         WindowInsetsControllerCompat windowInsetsController = WindowCompat.getInsetsController(window, decorView);
         // 浅色状态栏

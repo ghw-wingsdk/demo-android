@@ -28,8 +28,8 @@ android {
         applicationId "com.ghw.sdk2"
         minSdkVersion 24
         targetSdkVersion 35
-        versionCode 4070100
-        versionName "4.7.1"
+        versionCode 4070200
+        versionName "4.7.2"
         signingConfig signingConfigs.sdk2config
 
         compileSdk 35
@@ -228,9 +228,9 @@ static def getUrl(type, env) {
 
 dependencies {
     // 基础模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-base:4.7.1'
+    implementation 'com.wa.sdk:wa-sdk-base:4.7.2'
     // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:4.7.1'
+    implementation 'com.wa.sdk:wa-sdk-core:4.7.2'
     // wa 客服系统（一般必接）
     implementation 'com.wa.sdk:wa-sdk-aihelp:4.6.0'
     // AppsFlyer模块（一般必接）

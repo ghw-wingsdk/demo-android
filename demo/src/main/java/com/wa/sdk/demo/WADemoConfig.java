@@ -5,6 +5,8 @@ package com.wa.sdk.demo;
  */
 public class WADemoConfig {
 
+    public static final String TAG = "DemoSdk2";
+
     public static final String SP_CONFIG_FILE_DEMO = "wa_demo_config";
 
     /** SP key登录流程缓存（int） **/

@@ -1,12 +1,13 @@
 package com.wa.sdk.demo;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -158,48 +159,30 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onSuccess(int code, String message, WALoginResult result) {
                 String text = "code:" + code + "\nmessage:" + message;
-                if (null == result) {
+
+                if (result == null) {
                     text = "Login failed->" + text;
-                } else {
-                    text = "Login success->" + text
-                            + "\nplatform:" + result.getPlatform()
-                            + "\nuserId:" + result.getUserId()
-                            + "\ntoken:" + result.getToken()
-                            + "\nplatformUserId:" + result.getPlatformUserId()
-                            + "\nplatformToken:" + result.getPlatformToken()
-                            + "\nisBindMobile: " + result.isBindMobile()
-                            + "\nisBindAccount: " + result.getIsBindAccount()
-                            + "\nisGuestAccount: " + result.getIsGuestAccount()
-                            + "\nisFistLogin: " + result.isFirstLogin();
-
-                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                        // 用户首次进服（延迟3s 模拟首次进服）
-                        String txServerId = "2";
-                        String serverId = TextUtils.isEmpty(txServerId) ? "server2" : "server" + txServerId;
-                        String gameUserId = "-1"; // 如果未创角，可以设置为 -1
-                        String nickname = ""; // 如果未创角，可以设置为空
-                        int level = 1;
-                        boolean isFirstEnter = true; //首次进服标志
-
-                        // 进服事件
-                        WAUserImportEvent importEvent = new WAUserImportEvent(serverId, gameUserId, nickname, level, isFirstEnter);
-                        WATrackProxy.trackEvent(MainActivity.this, importEvent);
-
-                        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                            // 创角事件（在进服后延迟3s 模拟创角）
-                            // 创角后，有角色ID和NickName
-                            String newGameUserId = serverId + "-role1-" + result.getUserId();
-                            String newNickname = "青铜" + serverId + "-" + result.getUserId();
-                            WAUserCreateEvent userCreateEvent = new WAUserCreateEvent(serverId, newGameUserId, newNickname, System.currentTimeMillis());
-                            WATrackProxy.trackEvent(MainActivity.this, userCreateEvent);
-                        }, 3000);
-
-                        // 进服后申请通知权限
-                        PermissionActivity.callNotificationPermission(MainActivity.this);
-                    }, 3000);
+                    showLongToast(text);
+                    logI(text);
+                    return;
                 }
+
                 WASdkDemo.getInstance().updateLoginAccount(result);
+                text = "Login success->" + text
+                        + "\nplatform:" + result.getPlatform()
+                        + "\nuserId:" + result.getUserId()
+                        + "\ntoken:" + result.getToken()
+                        + "\nplatformUserId:" + result.getPlatformUserId()
+                        + "\nplatformToken:" + result.getPlatformToken()
+                        + "\nisBindMobile: " + result.isBindMobile()
+                        + "\nisBindAccount: " + result.getIsBindAccount()
+                        + "\nisGuestAccount: " + result.getIsGuestAccount()
+                        + "\nisFistLogin: " + result.isFirstLogin();
                 showLongToast(text);
+                logI(text);
+
+                // 登录成功后，用户会开始进服，创角，相关的事件发送 以及 通知权限申请
+                userEnterGame(result);
             }
 
             @Override
@@ -214,6 +197,61 @@ public class MainActivity extends BaseActivity {
                 showLongToast("Login failed->" + text);
             }
         }), second * 1000L);
+    }
+
+    /**
+     * 登录成功后，用户会开始进服，创角，相关的事件发送 以及 通知权限申请，具体参考本方法实现
+     *
+     * @param result 登录结果
+     */
+    private void userEnterGame(WALoginResult result) {
+        // 用户选服之后，点击进服，需要发送进服事件
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            String serverId = "server1"; // 服务器ID
+            int level = 1; // 用户等级
+            String gameUserId; // 角色ID
+            String nickname; // 角色昵称
+
+            //首次进服标志（游戏需要根据用户实际情况判断该用户是否首次进服，此处只是演示示例）
+            boolean isFirstEnter = mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_IS_FIRST_ENTER, true);
+            if (isFirstEnter) {
+                // 首次进服，此时未创角
+                gameUserId = "-1"; // 如果未创角，可以设置为 -1
+                nickname = ""; // 如果未创角，可以设置为空
+            } else {
+                // 非首次进服时，会有 nickname 和 gameUserId
+                gameUserId = serverId + "-role1-" + result.getUserId();
+                nickname = "青铜" + serverId + "-" + result.getUserId();
+            }
+
+            logD(isFirstEnter ? "Demo 首次进服（正常发送）" : "Demo 非首次进服");
+
+            // 进服事件
+            WAUserImportEvent importEvent = new WAUserImportEvent(serverId, gameUserId, nickname, level, isFirstEnter);
+            WATrackProxy.trackEvent(MainActivity.this, importEvent);
+
+            if (isFirstEnter) {
+                // 发了首次进服后，下次无论有无创角都可以按非首次进服发送
+                mSharedPrefHelper.saveBoolean(WADemoConfig.SP_KEY_IS_FIRST_ENTER, false);
+                // 首次进服后，用户会进行创角操作，需要发送创角事件
+                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                    // 创角后，有角色ID和NickName
+                    String newGameUserId = serverId + "-role1-" + result.getUserId();
+                    String newNickname = "青铜" + serverId + "-" + result.getUserId();
+                    long registerTime = System.currentTimeMillis();
+                    WAUserCreateEvent userCreateEvent = new WAUserCreateEvent(serverId, newGameUserId, newNickname, registerTime);
+                    WATrackProxy.trackEvent(MainActivity.this, userCreateEvent);
+                }, 2000);
+            }
+
+            // 玩家进服后申请通知权限
+            if (Build.VERSION.SDK_INT >= 33) {
+                // 该权限不要求用户必须授权，参数按照下面传入false不强制，和null无弹窗提示语即可
+                WACommonProxy.checkSelfPermission(MainActivity.this, Manifest.permission.POST_NOTIFICATIONS, false, null, null, null);
+            } else {
+                // 系统低于 Android 13 无需授权通知权限，默认开启
+            }
+        }, 2000);
     }
 
     @Override
@@ -307,7 +345,10 @@ public class MainActivity extends BaseActivity {
         } else if (id == R.id.btn_rare_function) {
             // 不常用功能
             startActivity(new Intent(this, RareFunctionActivity.class));
-        } else if (id == R.id.btn_display_app_version_info) {
+        }
+
+        // 下面是测试用的功能
+        if (id == R.id.btn_display_app_version_info) {
             // Demo 信息
             new AlertDialog.Builder(this).setMessage(Util.getApkBuildInfo(this)).show();
         } else if (id == R.id.btn_switch_orientation) {
@@ -322,6 +363,11 @@ public class MainActivity extends BaseActivity {
             String clientId = UUID.randomUUID().toString().replaceAll("-", "");
             WACoreProxy.setClientId(clientId);
             showShortToast("Client设置成功：" + clientId);
+        } else if (id == R.id.btn_clear_first_login) {
+            // 清除 MainActivity 的首次登录标志
+            boolean remove = mSharedPrefHelper.remove(WADemoConfig.SP_KEY_IS_FIRST_ENTER);
+            WAUserProxy.logout();
+            showShortToast("清除首次登录：" + remove);
         }
     }
 

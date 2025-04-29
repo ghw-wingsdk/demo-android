@@ -28,8 +28,8 @@ android {
         applicationId "com.ghw.sdk2"
         minSdkVersion 24
         targetSdkVersion 35
-        versionCode 4070200
-        versionName "4.7.2"
+        versionCode 4070300
+        versionName "4.7.3"
         signingConfig signingConfigs.sdk2config
 
         compileSdk 35
@@ -144,11 +144,11 @@ android {
             } else if (flavorDimensions.contains("pkg") && flavorDimensions.contains("app") && name.contains("google")) {
                 output.outputFileName = 'WingSdk_谷歌包_' + flavor_app + output_common
             } else if (name.contains("nowgg")) {
-                output.outputFileName = 'WingSdk_nowgg包' + output_common
+                output.outputFileName = 'WingSdk_Nowgg包' + output_common
             } else if (name.contains("leidian")) {
-                output.outputFileName = 'WingSdk_leidian包' + output_common
+                output.outputFileName = 'WingSdk_Leidian包' + output_common
             } else {
-                output.outputFileName = 'WingSdk_谷歌包' + output_common
+                output.outputFileName = 'WingSdk_Google包' + output_common
             }
         }
     }
@@ -225,9 +225,9 @@ static def getUrl(type, env) {
 
 dependencies {
     // 基础模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-base:4.7.2'
+    implementation 'com.wa.sdk:wa-sdk-base:4.7.3'
     // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:4.7.2'
+    implementation 'com.wa.sdk:wa-sdk-core:4.7.3'
     // wa 客服系统（一般必接）
     implementation 'com.wa.sdk:wa-sdk-aihelp:4.6.0'
     // AppsFlyer模块（一般必接）
@@ -245,7 +245,7 @@ dependencies {
     // 网页支付模块（可选，正常接入直接 implementation 即可）
     officialImplementation 'com.wa.sdk:wa-sdk-ghgp:4.7.2'
     // nowgg 模块（可选，正常接入直接 implementation 即可）
-    nowggImplementation 'com.wa.sdk:wa-sdk-nowgg:4.5.1'
+    nowggImplementation 'com.wa.sdk:wa-sdk-nowgg:4.7.3'
     // 雷电 模块（可选，正常接入直接 implementation 即可）
     leidianImplementation 'com.wa.sdk:wa-sdk-leidian:4.7.0'
 

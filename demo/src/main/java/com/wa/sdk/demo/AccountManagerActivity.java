@@ -5,9 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +21,6 @@ import com.wa.sdk.common.utils.StringUtil;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.widget.TitleBar;
 import com.wa.sdk.social.WASocialProxy;
-import com.wa.sdk.track.WATrackProxy;
-import com.wa.sdk.track.model.WAUserImportEvent;
 import com.wa.sdk.user.WAUserProxy;
 import com.wa.sdk.user.model.WAAccount;
 import com.wa.sdk.user.model.WAAccountCallback;
@@ -363,19 +358,6 @@ public class AccountManagerActivity extends BaseActivity {
 
                 // 游戏需要回到登录界面，然后可以直接使用最新的账号信息完成游戏登录，无需重新走SDK登录过程，也可以重新自动走一遍SDK登录
                 // backToLogin()
-
-                new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                    // 模拟用户进服
-                    String txServerId = "2";
-                    String serverId = TextUtils.isEmpty(txServerId) ? "server2" : "server" + txServerId;
-                    String gameUserId = serverId + "-role1-" + currentAccount.getUserId();
-                    String nickname = "青铜" + serverId + "-" + currentAccount.getUserId();
-                    int level = 1;
-                    boolean isFirstEnter = false; //首次进服标志
-
-                    WAUserImportEvent importEvent = new WAUserImportEvent(serverId,gameUserId,nickname, level, isFirstEnter);
-                    WATrackProxy.trackEvent(AccountManagerActivity.this, importEvent);
-                }, 3000);
             }
 
             @Override

@@ -4,9 +4,6 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -21,8 +18,6 @@ import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.widget.TitleBar;
-import com.wa.sdk.track.WATrackProxy;
-import com.wa.sdk.track.model.WAUserImportEvent;
 import com.wa.sdk.user.WAUserProxy;
 import com.wa.sdk.user.model.WALoginResult;
 
@@ -211,34 +206,19 @@ public class LoginActivity extends BaseActivity {
                         + "\nisGuestAccount: " + result.getIsGuestAccount()
                         + "\nisFistLogin: " + result.isFirstLogin();
 
-                new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                    // 用户进服
-                    String txServerId = mEdtServerId.getText().toString();
-                    String serverId = TextUtils.isEmpty(txServerId) ? "server2" : "server" + txServerId;
-                    String gameUserId = serverId + "-role1-" + result.getUserId();
-                    String nickname = "青铜" + serverId + "-" + result.getUserId();
-                    int level = 1;
-                    boolean isFirstEnter = false; //首次进服标志
-
-                    WAUserImportEvent importEvent = new WAUserImportEvent(serverId,gameUserId,nickname, level, isFirstEnter);
-                    WATrackProxy.trackEvent(LoginActivity.this, importEvent);
-
-                    // 进服后申请通知权限
-                    PermissionActivity.callNotificationPermission(LoginActivity.this);
-                }, 3000);
+                /** 登录成功后，用户会开始进服，创角，相关的事件发送 以及 通知权限申请，具体参考 {@link MainActivity#userEnterGame(WALoginResult)} 中的处理 **/
+                // MainActivity.userEnterGame(result);
 
                 mTitlebar.setTitleText("登录(" + result.getPlatform() + ")");
                 mEdtServerId.clearFocus();
             }
 
-            LogUtil.i(WAConstants.TAG, text);
+            logI(text);
             showLongToast(text);
             cancelLoadingDialog();
-
             WASdkDemo.getInstance().updateLoginAccount(result);
 
             mResultCode = RESULT_OK;
-
             if (mAutoFinish) {
                 exit();
             }

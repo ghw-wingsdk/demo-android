@@ -28,6 +28,7 @@ public class WADemoConfig {
 
     public static final String SP_KEY_SETTING_ORIENTATION = "setting_orientation";
 
+    public static final String SP_KEY_IS_FIRST_ENTER = "is_first_enter";
 
 
     public static final String EXTRA_DATA = "extra_data";

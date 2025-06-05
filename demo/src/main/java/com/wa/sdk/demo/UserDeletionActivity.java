@@ -2,8 +2,10 @@ package com.wa.sdk.demo;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
@@ -12,30 +14,27 @@ import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.model.WAResult;
 import com.wa.sdk.demo.base.BaseActivity;
-import com.wa.sdk.demo.widget.TitleBar;
+import com.wa.sdk.demo.utils.WASdkDemo;
 import com.wa.sdk.user.WAUserProxy;
 import com.wa.sdk.user.model.WADeleteResult;
-import com.wa.sdk.user.model.WALoginResult;
+import com.wa.sdk.user.model.WALoginResultV2;
 
+/**
+ * 账号注销
+ */
 public class UserDeletionActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_deletion);
+        setTitleBar(R.string.account_deletion);
 
-        TitleBar titleBar = findViewById(R.id.titlebar);
-        titleBar.setTitleText("账号删除");
-        titleBar.setLeftButton(android.R.drawable.ic_menu_revert, v -> finish());
-        titleBar.setTitleTextColor(R.color.color_white);
-
-        Button btnRequestDeletionUi = findViewById(R.id.btn_request_deletion_ui);
-        Button btnRequestDeletion = findViewById(R.id.btn_request_deletion);
-        Button btnCancelDeletion = findViewById(R.id.btn_cancel_deletion);
-
-        btnRequestDeletionUi.setOnClickListener(v -> requestDeletionUi());
-        btnRequestDeletion.setOnClickListener(v -> requestDeletion());
-        btnCancelDeletion.setOnClickListener(v -> cancelDeletion());
+        // 判断是否已经开启账号注销功能，根据结果控制按钮显示（返回true）和隐藏（返回false）
+        boolean isOpenDeleteAccount = WAUserProxy.isOpenDeleteAccount();
+        Button btnRequestUi = findViewById(R.id.btn_request_deletion_ui);
+        btnRequestUi.setText(btnRequestUi.getText() + (isOpenDeleteAccount ? "(显示)" : "(隐藏)"));
+        btnRequestUi.setTextColor(isOpenDeleteAccount ? Color.BLACK : Color.GRAY);
     }
 
     @Override
@@ -44,20 +43,34 @@ public class UserDeletionActivity extends BaseActivity {
         WACommonProxy.onActivityResult(requestCode, resultCode, data);
     }
 
-    /**
-     * 账号删除带UI
-     */
-    private void requestDeletionUi() {
-        if (!WASdkDemo.getInstance().isLogin()) {
-            showLoginTips();
-            return;
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        // 常用接入（一般只接入 打开界面接口 WAUserProxy.requestDeleteAccountUI 和 按钮显示控制接口 WAUserProxy.isOpenDeleteAccount）
+        if (id == R.id.btn_request_deletion_ui) {
+            // 打开账号注销申请界面，内置完整的注销申请流程
+            requestDeleteAccountUI();
         }
+
+        // 其他接口功能
+        if (id == R.id.btn_request_deletion) {
+            // 接口申请注销账号（无UI）
+            requestDeleteAccount();
+        } else if (id == R.id.btn_cancel_deletion) {
+            // 接口取消注销账号申请（无UI）
+            cancelRequestDeleteAccount();
+        }
+    }
+
+    /**
+     * 打开账号注销界面，内置完整的注销申请流程
+     */
+    private void requestDeleteAccountUI() {
         WAUserProxy.requestDeleteAccountUI(UserDeletionActivity.this, new WACallback<WAResult>() {
             @Override
             public void onSuccess(int code, String message, WAResult result) {
-                showLongToast("申请账号删除成功!\nCP需要退出sdk，然后再退出游戏到登录页");
-                // CP调用退出登录
-                WAUserProxy.logout();
+                showLongToast("申请账号注销成功!\nCP需要退出游戏到登录页");
+                // CP需要退出游戏到登录页
                 WASdkDemo.getInstance().logout();
             }
 
@@ -74,22 +87,17 @@ public class UserDeletionActivity extends BaseActivity {
     }
 
     /**
-     * 申请账号删除无UI
+     * 接口申请注销账号（无UI）
      */
-    private void requestDeletion() {
-        if (!WASdkDemo.getInstance().isLogin()) {
-            showLoginTips();
-            return;
-        }
+    private void requestDeleteAccount() {
         WAUserProxy.requestDeleteAccount(new WACallback<WADeleteResult>() {
             @Override
             public void onSuccess(int code, String message, WADeleteResult result) {
-                showLongToast("申请账号删除成功\nCP需要退出sdk，然后再退出游戏到登录页\n申请时间：" + result.getApplyDate() + "\n注销时间：" + result.getDeleteDate());
-                WALoginResult loginAccount = WASdkDemo.getInstance().getLoginAccount();
+                showLongToast("申请账号注销成功\nCP需要退出游戏到登录页\n申请时间：" + result.getApplyDate() + "\n注销时间：" + result.getDeleteDate());
+                WALoginResultV2 loginAccount = WASdkDemo.getInstance().getLoginAccount();
                 loginAccount.setApplyDeleteStatus(1);
                 loginAccount.setDeleteDate(result.getDeleteDate());
-                // CP调用退出登录
-                WAUserProxy.logout();
+                // CP需要退出游戏到登录页
                 WASdkDemo.getInstance().logout();
             }
 
@@ -106,27 +114,27 @@ public class UserDeletionActivity extends BaseActivity {
     }
 
     /**
-     * 取消账号删除申请，无UI
+     * 接口取消注销账号申请（无UI）
      */
-    private void cancelDeletion() {
-        WALoginResult loginAccount = WASdkDemo.getInstance().getLoginAccount();
+    private void cancelRequestDeleteAccount() {
+        WALoginResultV2 loginAccount = WASdkDemo.getInstance().getLoginAccount();
         if (loginAccount == null || TextUtils.isEmpty(loginAccount.getUserId())) {
-            showShortToast("请先尝试登录删除中的账号");
+            showShortToast("请先尝试登录注销中的账号");
             showLoginTips();
             return;
         }
         if (loginAccount.getApplyDeleteStatus() != 1) {
-            showShortToast("该账号未申请删除");
+            showShortToast("该账号未申请注销");
             return;
         }
         new AlertDialog.Builder(this)
-                .setMessage("该账号将在 " + loginAccount.getDeleteDate() + " 进行账号删除，是否继续取消？")
+                .setMessage("该账号将在 " + loginAccount.getDeleteDate() + " 进行账号注销，是否继续取消？")
                 .setPositiveButton("继续", (dialog, which) ->
-                        // 申请取消账号删除
+                        // 申请取消账号注销
                         WAUserProxy.cancelRequestDeleteAccount(loginAccount.getUserId(), new WACallback<WAResult>() {
                             @Override
                             public void onSuccess(int code, String message, WAResult result) {
-                                showLongToast("取消账号删除成功");
+                                showLongToast("取消账号注销成功");
                             }
 
                             @Override

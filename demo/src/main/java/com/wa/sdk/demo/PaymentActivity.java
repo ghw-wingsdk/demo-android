@@ -6,11 +6,9 @@ import android.widget.ListView;
 
 import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.model.WACallback;
-import com.wa.sdk.common.utils.LogUtil;
+import com.wa.sdk.demo.adapter.ProductListAdapter;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.base.FlavorApiHelper;
-import com.wa.sdk.demo.pay.ProductListAdapter;
-import com.wa.sdk.demo.widget.TitleBar;
 import com.wa.sdk.pay.WAPayProxy;
 import com.wa.sdk.pay.model.WAChannelProduct;
 import com.wa.sdk.pay.model.WAPurchaseResult;
@@ -21,31 +19,35 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 网页支付页面
- *
+ * 支付
  */
 public class PaymentActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_payment);
+        setTitleBar(R.string.payment);
 
-        TitleBar titleBar = findViewById(R.id.tb_payment);
-        titleBar.setTitleText(R.string.payment);
-        titleBar.setLeftButton(android.R.drawable.ic_menu_revert, v -> finish());
-        titleBar.setTitleTextColor(R.color.color_white);
+        // 查询 SDK 商品
+        querySdkInventory();
+    }
 
-        showLoadingDialog("正在查询库存....", null);
+    /**
+     * 查询 SDK 商品
+     */
+    private void querySdkInventory() {
+        showLoadingDialog("正在查询商品....", null);
+        // 查询 SDK 后台商品
         WAPayProxy.queryInventory(new WACallback<WASkuResult>() {
             @Override
             public void onSuccess(int code, String message, WASkuResult result) {
                 List<WASkuDetails> waSkuDetailsList = result.getSkuList();
-                if (waSkuDetailsList != null)
-                    for (WASkuDetails waSkuDetails : waSkuDetailsList) {
-                        LogUtil.d(TAG, "Inventory, sku:" + waSkuDetails.getSku() + ", title: " + waSkuDetails.getTitle() + ", price: " + waSkuDetails.getVirtualCurrency());
-                    }
+                // if (waSkuDetailsList != null)
+                //     for (WASkuDetails waSkuDetails : waSkuDetailsList) {
+                //         LogUtil.d(TAG, "Inventory, sku:" + waSkuDetails.getSku() + ", title: " + waSkuDetails.getTitle() + ", price: " + waSkuDetails.getVirtualCurrency());
+                //     }
+                // 查询渠道后台商品，比如 Google 后台配置的商品（不建议直接使用渠道后台商品）
                 WAPayProxy.queryChannelProduct(FlavorApiHelper.getQueryProductChannel(), new WACallback<Map<String, WAChannelProduct>>() {
                     @Override
                     public void onSuccess(int code, String message, Map<String, WAChannelProduct> map) {
@@ -53,62 +55,61 @@ public class PaymentActivity extends BaseActivity {
                             ProductListAdapter productListAdapter = new ProductListAdapter(PaymentActivity.this, waSkuDetailsList, map);
                             ListView listView = findViewById(R.id.lv_payment_sku);
                             listView.setAdapter(productListAdapter);
-                            productListAdapter.setClickListenter(waSku -> payUI(waSku, "extInfo_test"));
-
+                            productListAdapter.setClickListenter(sdkProductId -> payUI(sdkProductId, "CpOrderId:12345"));
                         }
-
                         cancelLoadingDialog();
-                        showLongToast("Query inventory is successful");
+                        showLongToast("渠道商品查询成功");
                     }
 
                     @Override
                     public void onCancel() {
-
                     }
 
                     @Override
                     public void onError(int code, String message, Map<String, WAChannelProduct> result, Throwable throwable) {
-                        LogUtil.d("WAChannelProduct", "error:" + message);
+                        logD("渠道商品查询失败：" + code + " , " + message);
                     }
                 });
-
-
             }
 
             @Override
             public void onCancel() {
                 cancelLoadingDialog();
-                showLongToast("Query inventory has been cancelled");
+                showLongToast("取消查询商品");
             }
 
             @Override
             public void onError(int code, String message, WASkuResult result, Throwable throwable) {
                 cancelLoadingDialog();
-                showLongToast("Query inventory fail, please try again later");
+                showLongToast("查询商品失败：" + code + " , " + message);
             }
         });
-
     }
 
-    private void payUI(String waProductId, String extInfo) {
+    /**
+     * 发起支付
+     *
+     * @param sdkProductId SDK商品ID
+     * @param extInfo      透传参数，该信息会在支付成功后原样通知到 CP服务器，供 CP 用于检验
+     */
+    private void payUI(String sdkProductId, String extInfo) {
         if (!WAPayProxy.isPayServiceAvailable(this)) {
             showShortToast("Pay service not available");
             return;
         }
-//        showLoadingDialog("支付中...", null);
-        WAPayProxy.payUI(this, waProductId, extInfo, new WACallback<WAPurchaseResult>() {
+
+        WAPayProxy.payUI(this, sdkProductId, extInfo, new WACallback<WAPurchaseResult>() {
             @Override
             public void onSuccess(int code, String message, WAPurchaseResult result) {
-                LogUtil.d(TAG, "pay success");
-                LogUtil.d(TAG, result.toString());
                 cancelLoadingDialog();
+                logD("Payment Success:\n" + result);
                 showLongToast("Payment is successful. ProductId:" + result.getWAProductId() + " , ExtInfo:" + result.getExtInfo());
             }
 
             @Override
             public void onCancel() {
-                LogUtil.d(TAG, "pay cancel");
                 cancelLoadingDialog();
+                logD("Payment Cancel");
                 showLongToast("Payment has been cancelled.");
             }
 
@@ -118,7 +119,10 @@ public class PaymentActivity extends BaseActivity {
                 if (WACallback.CODE_NOT_LOGIN == code) {
                     showLoginTips();
                 }
-                showLongToast("pay error:" + code + " - " + message);
+
+                String text = "Payment failed, code:" + code + ", msg:" + message;
+                showLongToast(text);
+                logE(text);
             }
         });
     }

@@ -14,25 +14,25 @@ import androidx.annotation.NonNull;
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.admob.WAAdMobPublicProxy;
 import com.wa.sdk.admob.model.WAAdMobAdsCallback;
-import com.wa.sdk.common.WASharedPrefHelper;
 import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.demo.base.BaseActivity;
-import com.wa.sdk.demo.widget.TitleBar;
+import com.wa.sdk.demo.utils.WADemoConfig;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * AdMob广告
+ */
 public class AdMobActivity extends BaseActivity {
     public static boolean DEFAULT_APP_OPEN_AD_STATE = false; //开屏广告默认状态
     public static boolean DEFAULT_BANNER_AD_STATE = false; //主页面横幅广告默认状态
-    public static boolean DEFAULT_TEST = true; //客户端强制测试广告
     public static boolean IS_LOADING_AD = false;
 
     private final CustomCallback mCallbackInterstitial = new CustomCallback("插页");
     private final CustomCallback mCallbackAppOpen = new CustomCallback("开屏");
     private final CustomCallback mCallbackRewarded = new CustomCallback("激励");
-    private WASharedPrefHelper mSpHelper;
     private EditText mEdtRewardedName;
 
     private class CustomCallback extends WAAdMobAdsCallback {
@@ -81,37 +81,23 @@ public class AdMobActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admob);
-
-        mSpHelper = WASharedPrefHelper.newInstance(AdMobActivity.this, WADemoConfig.SP_CONFIG_FILE_DEMO);
-
-        TitleBar tb = findViewById(R.id.tb_admob);
-        tb.setRightButton(android.R.drawable.ic_menu_close_clear_cancel, v -> finish());
-        tb.setTitleText(R.string.admob);
-        tb.setTitleTextColor(R.color.color_white);
-
+        setTitleBar(R.string.admob);
         mEdtRewardedName = (EditText) findViewById(R.id.edt_rewarded_ad_name);
 
         ToggleButton btnEnableAppOpenAd = findViewById(R.id.btn_enable_app_open_ad);
-        btnEnableAppOpenAd.setChecked(mSpHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_APP_OPEN_AD, DEFAULT_APP_OPEN_AD_STATE));
+        btnEnableAppOpenAd.setChecked(getSpHelper().getBoolean(WADemoConfig.SP_KEY_ENABLE_APP_OPEN_AD, DEFAULT_APP_OPEN_AD_STATE));
         btnEnableAppOpenAd.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            mSpHelper.saveBoolean(WADemoConfig.SP_KEY_ENABLE_APP_OPEN_AD, isChecked);
+            getSpHelper().saveBoolean(WADemoConfig.SP_KEY_ENABLE_APP_OPEN_AD, isChecked);
             showShortToast("重启应用后生效");
         });
         ToggleButton btnEnableBannerAd = findViewById(R.id.btn_enable_banner_ad);
-        btnEnableBannerAd.setChecked(mSpHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_BANNER_AD, DEFAULT_BANNER_AD_STATE));
+        btnEnableBannerAd.setChecked(getSpHelper().getBoolean(WADemoConfig.SP_KEY_ENABLE_BANNER_AD, DEFAULT_BANNER_AD_STATE));
         btnEnableBannerAd.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            mSpHelper.saveBoolean(WADemoConfig.SP_KEY_ENABLE_BANNER_AD, isChecked);
+            getSpHelper().saveBoolean(WADemoConfig.SP_KEY_ENABLE_BANNER_AD, isChecked);
             showShortToast("重启应用后生效");
         });
-        ToggleButton btnEnableOfficialAdUnit = findViewById(R.id.btn_enable_official_ad_unit);
-        btnEnableOfficialAdUnit.setChecked(!mSpHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_TEST_AD_UNIT, DEFAULT_TEST));
-        btnEnableOfficialAdUnit.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            mSpHelper.saveBoolean(WADemoConfig.SP_KEY_ENABLE_TEST_AD_UNIT, !isChecked);
-            showShortToast("重启应用后生效");
-        });
-
         // 横幅广告
-        boolean isEnableBannerAd = mSpHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_BANNER_AD, DEFAULT_BANNER_AD_STATE);
+        boolean isEnableBannerAd = getSpHelper().getBoolean(WADemoConfig.SP_KEY_ENABLE_BANNER_AD, DEFAULT_BANNER_AD_STATE);
         if (isEnableBannerAd) {
             FrameLayout containerBanner = findViewById(R.id.container_admob_banner);
             WAAdMobPublicProxy.bindBannerAd(this, containerBanner);

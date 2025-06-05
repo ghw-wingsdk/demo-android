@@ -2,7 +2,6 @@ package com.wa.sdk.demo;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,24 +18,26 @@ import com.wa.sdk.common.model.WAResult;
 import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.common.utils.StringUtil;
 import com.wa.sdk.demo.base.BaseActivity;
-import com.wa.sdk.demo.widget.TitleBar;
+import com.wa.sdk.demo.rare.GetAccountInfoActivity;
+import com.wa.sdk.demo.utils.WASdkDemo;
 import com.wa.sdk.social.WASocialProxy;
 import com.wa.sdk.user.WAUserProxy;
 import com.wa.sdk.user.model.WAAccount;
-import com.wa.sdk.user.model.WAAccountCallback;
+import com.wa.sdk.user.model.WAAccountCallbackV2;
 import com.wa.sdk.user.model.WAAccountResult;
 import com.wa.sdk.user.model.WABindCallback;
 import com.wa.sdk.user.model.WABindResult;
+import com.wa.sdk.user.model.WABindResultV2;
 import com.wa.sdk.user.model.WACertificationInfo;
 import com.wa.sdk.user.model.WALoginResult;
+import com.wa.sdk.user.model.WALoginResultV2;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 /**
- *
- * 
+ * 账号管理，包括账号管理界面，账号绑定，账号解绑，账号切换，新建账号
  */
 public class AccountManagerActivity extends BaseActivity {
 
@@ -54,49 +55,43 @@ public class AccountManagerActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_account_manager);
-
-        initView();
+        setTitleBar(R.string.account_manager);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(!WACommonProxy.onActivityResult(requestCode, resultCode, data)) {
+        if (!WACommonProxy.onActivityResult(requestCode, resultCode, data)) {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
     @Override
-    public void onBackPressed() {
-        finish();
-    }
-
-    @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.btn_bind_account) {
-            bindAccount();
-        } else if (id == R.id.btn_create_account) {
-            createAccount();
-        } else if (id == R.id.btn_switch_account) {
-            switchAccount();
-        } else if (id == R.id.btn_query_bound_account) {
-            queryBoundAccount();
-        } else if (id == R.id.btn_get_account_info) {
-            startActivity(new Intent(this, GetAccountInfoActivity.class));
-        } else if (id == R.id.btn_account_manager_page) {
+        // 常用接入（一般只接入 openAccountManagerV2 接口即可）
+        if (id == R.id.btn_account_manager_page) {
+            // 打开账号管理界面，内部包含账号绑定，解绑，切换，新建账号等功能
             openAccountManager();
         }
-    }
 
-    private void initView() {
-        TitleBar titlebar = findViewById(R.id.tb_account_manager);
-        titlebar.setTitleText(R.string.account_manager);
-        titlebar.setLeftButton(android.R.drawable.ic_menu_revert, v -> finish());
-        titlebar.setTitleTextColor(R.color.color_white);
-
-
+        // 其他接口功能
+        if (id == R.id.btn_bind_account) {
+            // 绑定第三方平台账户
+            bindAccount();
+        } else if (id == R.id.btn_create_account) {
+            // 新建账号（游客）
+            createAccount();
+        } else if (id == R.id.btn_switch_account) {
+            // 切换账号
+            switchAccount();
+        } else if (id == R.id.btn_query_bound_account) {
+            // 查询已绑定的第三方平台账户
+            queryBoundAccount();
+        } else if (id == R.id.btn_get_account_info) {
+            // 账号信息
+            startActivity(new Intent(this, GetAccountInfoActivity.class));
+        }
     }
 
     /**
@@ -108,76 +103,71 @@ public class AccountManagerActivity extends BaseActivity {
                 .setItems(mAccountTypeArray, (dialog, which) -> {
                     String platform = mAccountTypeArray[which];
                     showLoadingDialog(String.format("Login %s account...", platform), null);
-                        WAUserProxy.bindingAccount(AccountManagerActivity.this, platform, "", new WABindCallback() {
-                            @Override
-                            public void onLoginAccount(String platform) {
-                                if (null != mLoadingDialog) {
-                                    mLoadingDialog.setMessage(String.format("Login %s account...", platform));
-                                }
+                    WAUserProxy.bindingAccount(AccountManagerActivity.this, platform, "", new WABindCallback() {
+                        @Override
+                        public void onLoginAccount(String platform) {
+                            if (null != mLoadingDialog) {
+                                mLoadingDialog.setMessage(String.format("Login %s account...", platform));
                             }
+                        }
 
-                            @Override
-                            public void onBindingAccount(String accessToken, String platform) {
-                                if (null != mLoadingDialog) {
-                                    mLoadingDialog.setMessage(String.format("Binding %s account...", platform));
-                                }
+                        @Override
+                        public void onBindingAccount(String accessToken, String platform) {
+                            if (null != mLoadingDialog) {
+                                mLoadingDialog.setMessage(String.format("Binding %s account...", platform));
                             }
+                        }
 
-                            @Override
-                            public void onSuccess(int code, String message, WABindResult result) {
-                                cancelLoadingDialog();
-                                String msg = "绑定成功:"
-                                        +"\ncode:"+result.getCode()
-                                        +"\nmessage:"+result.getMessage()
-                                        +"\nplatform:"+result.getPlatform()
-                                        +"\naccess_token:"+result.getAccessToken()
-                                        +"\nplatform_uid:"+result.getPlatformUserId();
-                                showLongToast(msg);
-                                Log.i(WAConstants.TAG, msg);
-                                if(WAConstants.CHANNEL_FACEBOOK.equals(result.getPlatform())) {
-                                    WASocialProxy.inviteInstallReward(AccountManagerActivity.this, WAConstants.CHANNEL_FACEBOOK, new WACallback<WAResult>() {
-                                        @Override
-                                        public void onSuccess(int code, String message, WAResult result) {
-                                            showShortToast("invite install reward success: ");
-                                        }
+                        @Override
+                        public void onSuccess(int code, String message, WABindResult result) {
+                            cancelLoadingDialog();
+                            String msg = "绑定成功:"
+                                    + "\ncode:" + result.getCode()
+                                    + "\nmessage:" + result.getMessage()
+                                    + "\nplatform:" + result.getPlatform()
+                                    + "\naccess_token:" + result.getAccessToken()
+                                    + "\nplatform_uid:" + result.getPlatformUserId();
+                            showLongToast(msg);
+                            Log.i(WAConstants.TAG, msg);
+                            if (WAConstants.CHANNEL_FACEBOOK.equals(result.getPlatform())) {
+                                WASocialProxy.inviteInstallReward(AccountManagerActivity.this, WAConstants.CHANNEL_FACEBOOK, new WACallback<WAResult>() {
+                                    @Override
+                                    public void onSuccess(int code, String message, WAResult result) {
+                                        showShortToast("invite install reward success: ");
+                                    }
 
-                                        @Override
-                                        public void onCancel() {
-                                            showShortToast("invite install reward canceled: ");
+                                    @Override
+                                    public void onCancel() {
+                                        showShortToast("invite install reward canceled: ");
 
-                                        }
+                                    }
 
-                                        @Override
-                                        public void onError(int code, String message, WAResult result, Throwable throwable) {
-                                            showShortToast("invite install reward error: " + code + "<>" + message);
-                                        }
-                                    });
-                                }
+                                    @Override
+                                    public void onError(int code, String message, WAResult result, Throwable throwable) {
+                                        showShortToast("invite install reward error: " + code + "<>" + message);
+                                    }
+                                });
                             }
+                        }
 
-                            @Override
-                            public void onCancel() {
-                                cancelLoadingDialog();
-                                String msg = "Binding canceled";
-                                showLongToast(msg);
-                                Log.i(WAConstants.TAG, msg);
-                            }
+                        @Override
+                        public void onCancel() {
+                            cancelLoadingDialog();
+                            String msg = "Binding canceled";
+                            showLongToast(msg);
+                            Log.i(WAConstants.TAG, msg);
+                        }
 
-                            @Override
-                            public void onError(int code, String message, WABindResult result, Throwable throwable) {
-                                cancelLoadingDialog();
-                                String msg = "Binding error: " + message + "->" + (null == throwable ? "" : throwable);
-                                showLongToast(msg);
-                                Log.i(WAConstants.TAG, msg);
-                            }
-                        });
+                        @Override
+                        public void onError(int code, String message, WABindResult result, Throwable throwable) {
+                            cancelLoadingDialog();
+                            String msg = "Binding error: " + message + "->" + (null == throwable ? "" : throwable);
+                            showLongToast(msg);
+                            Log.i(WAConstants.TAG, msg);
+                        }
+                    });
                 })
-                .setPositiveButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
+                .setPositiveButton(R.string.cancel, (dialog, which) -> dialog.dismiss())
                 .show();
     }
 
@@ -189,57 +179,47 @@ public class AccountManagerActivity extends BaseActivity {
         new AlertDialog.Builder(this)
                 .setTitle("Create Account")
                 .setMessage("This operation may be lost you user data, go ahead?")
-                .setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.cancel())
+                .setPositiveButton("OK", (dialog, which) -> {
+                    dialog.cancel();
+                    showLoadingDialog("Creating new account...", null);
+                    WAUserProxy.createNewAccount(new WACallback<WALoginResult>() {
+                        @Override
+                        public void onSuccess(int code, String message, WALoginResult result) {
+                            String text = "code:" + code + "\nmessage:" + message;
+                            if (null == result) {
+                                text = "Login failed->" + text;
+                            } else {
+                                text = "Login success->" + text
+                                        + "\nplatform:" + result.getPlatform()
+                                        + "\nuserId:" + result.getUserId()
+                                        + "\ntoken:" + result.getToken()
+                                        + "\nplatformUserId:" + result.getPlatformUserId()
+                                        + "\nplatformToken:" + result.getPlatformToken();
+
+                                WASdkDemo.getInstance().updateLoginAccount(result);
                             }
-                        })
-                .setPositiveButton("OK",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                                showLoadingDialog("Creating new account...", null);
-                                WAUserProxy.createNewAccount(new WACallback<WALoginResult>() {
-                                    @Override
-                                    public void onSuccess(int code, String message, WALoginResult result) {
-                                        String text = "code:" + code + "\nmessage:" + message;
-                                        if (null == result) {
-                                            text = "Login failed->" + text;
-                                        } else {
-                                            text = "Login success->" + text
-                                                    + "\nplatform:" + result.getPlatform()
-                                                    + "\nuserId:" + result.getUserId()
-                                                    + "\ntoken:" + result.getToken()
-                                                    + "\nplatformUserId:" + result.getPlatformUserId()
-                                                    + "\nplatformToken:" + result.getPlatformToken();
+                            LogUtil.i(LogUtil.TAG, text);
+                            cancelLoadingDialog();
+                            showLongToast(text);
+                        }
 
-                                            WASdkDemo.getInstance().updateLoginAccount(result);
-                                        }
-                                        LogUtil.i(LogUtil.TAG, text);
-                                        cancelLoadingDialog();
-                                        showLongToast(text);
-                                    }
+                        @Override
+                        public void onCancel() {
+                            cancelLoadingDialog();
+                            LogUtil.i(LogUtil.TAG, "Create account canceled");
+                            showShortToast("Create account canceled");
+                        }
 
-                                    @Override
-                                    public void onCancel() {
-                                        cancelLoadingDialog();
-                                        LogUtil.i(LogUtil.TAG, "Create account canceled");
-                                        showShortToast("Create account canceled");
-                                    }
-
-                                    @Override
-                                    public void onError(int code, String message, WALoginResult result, Throwable throwable) {
-                                        cancelLoadingDialog();
-                                        String text = "code:" + code + "\nmessage:" + message;
-                                        LogUtil.i(LogUtil.TAG, "create account failed->" + text);
-                                        showShortToast("Login failed->" + text);
-                                    }
-                                });
-                            }
-                        })
+                        @Override
+                        public void onError(int code, String message, WALoginResult result, Throwable throwable) {
+                            cancelLoadingDialog();
+                            String text = "code:" + code + "\nmessage:" + message;
+                            LogUtil.i(LogUtil.TAG, "create account failed->" + text);
+                            showShortToast("Login failed->" + text);
+                        }
+                    });
+                })
                 .show();
     }
 
@@ -267,7 +247,6 @@ public class AccountManagerActivity extends BaseActivity {
                 new AlertDialog.Builder(AccountManagerActivity.this)
                         .setTitle(R.string.bound_accounts)
                         .setAdapter(adapter, (dialog, which) -> {
-
                         })
                         .setPositiveButton(R.string.ok, (dialog, which) -> dialog.cancel())
                         .show();
@@ -296,60 +275,54 @@ public class AccountManagerActivity extends BaseActivity {
                 .setTitle("Choose account type")
                 .setItems(mAccountTypeArray, (dialog, which) -> {
                     String platform = mAccountTypeArray[which];
-                        showLoadingDialog("Login", null);
-                        WAUserProxy.switchAccount(AccountManagerActivity.this, platform, new WACallback<WALoginResult>() {
-                            @Override
-                            public void onSuccess(int code, String message, WALoginResult result) {
-                                if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
-                                    mLoadingDialog.dismiss();
-                                }
-                                if (null == result) {
-                                    return;
-                                }
-                                String text = "code:" + code + "\nmessage:" + message;
-                                text = "Login success->" + text
-                                        + "\nplatform:" + result.getPlatform()
-                                        + "\nuserId:" + result.getUserId()
-                                        + "\ntoken:" + result.getToken()
-                                        + "\nplatformUserId:" + result.getPlatformUserId()
-                                        + "\nplatformToken:" + result.getPlatformToken();
-                                WASdkDemo.getInstance().updateLoginAccount(result);
-                                cancelLoadingDialog();
-                                showShortToast(text);
+                    showLoadingDialog("Login", null);
+                    WAUserProxy.switchAccount(AccountManagerActivity.this, platform, new WACallback<WALoginResult>() {
+                        @Override
+                        public void onSuccess(int code, String message, WALoginResult result) {
+                            if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
+                                mLoadingDialog.dismiss();
                             }
+                            if (null == result) {
+                                return;
+                            }
+                            String text = "code:" + code + "\nmessage:" + message;
+                            text = "Login success->" + text
+                                    + "\nplatform:" + result.getPlatform()
+                                    + "\nuserId:" + result.getUserId()
+                                    + "\ntoken:" + result.getToken()
+                                    + "\nplatformUserId:" + result.getPlatformUserId()
+                                    + "\nplatformToken:" + result.getPlatformToken();
+                            WASdkDemo.getInstance().updateLoginAccount(result);
+                            cancelLoadingDialog();
+                            showShortToast(text);
+                        }
 
-                            @Override
-                            public void onCancel() {
-                                cancelLoadingDialog();
-                                showLongToast("Cancel to login with google");
-                            }
+                        @Override
+                        public void onCancel() {
+                            cancelLoadingDialog();
+                            showLongToast("Cancel to login with google");
+                        }
 
-                            @Override
-                            public void onError(int code, String message, WALoginResult result, Throwable throwable) {
-                                cancelLoadingDialog();
-                                showLongToast(message + "\n" + (null == throwable ? "" : throwable.getMessage()));
-                            }
-                        });
+                        @Override
+                        public void onError(int code, String message, WALoginResult result, Throwable throwable) {
+                            cancelLoadingDialog();
+                            showLongToast(message + "\n" + (null == throwable ? "" : throwable.getMessage()));
+                        }
+                    });
                 })
-                .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
+                .setPositiveButton("Cancel", (dialog, which) -> {
                 }).show();
     }
 
     private void openAccountManager() {
-        WAUserProxy.openAccountManager(this, new WAAccountCallback() {
+        WAUserProxy.openAccountManagerV2(this, new WAAccountCallbackV2() {
             @Override
-            public void onLoginAccountChanged(WALoginResult currentAccount) {
+            public void onLoginAccountChanged(WALoginResultV2 currentAccount) {
                 WASdkDemo.getInstance().updateLoginAccount(currentAccount);
                 String text = "登录的账号发生变更（SDK已切换到另一个账号，或登录到新账号），当前新的登录的账号信息："
                         + "\nplatform:" + currentAccount.getPlatform()
                         + "\nuserId:" + currentAccount.getUserId()
                         + "\ntoken:" + currentAccount.getToken()
-                        + "\nplatformUserId:" + currentAccount.getPlatformUserId()
-                        + "\nplatformToken:" + currentAccount.getPlatformToken()
                         + "\nisBindAccount: " + currentAccount.getIsBindAccount()
                         + "\nisGuestAccount: " + currentAccount.getIsGuestAccount();
 
@@ -361,34 +334,32 @@ public class AccountManagerActivity extends BaseActivity {
             }
 
             @Override
-            public void onBoundAccountChanged(boolean binding, final WABindResult result) {
+            public void onBoundAccountChanged(boolean binding, final WABindResultV2 result) {
                 String sb = "绑定账户信息发生变更（绑定或解绑其他平台账号成功）:" +
                         "\n" + "状态: " + (binding ? "绑定" : "解绑") +
                         "\n" + "code: " + result.getCode() +
                         "\n" + "message: " + result.getMessage() +
                         "\n" + "platform: " + result.getPlatform() +
-                        "\n" + "platformUserId: " + result.getPlatformUserId() +
                         "\n" + "email: " + result.getEmail() +
-                        "\n" + "mobile: " + result.getMobile() +
-                        "\n" + "platformToken: " + result.getAccessToken();
+                        "\n" + "mobile: " + result.getMobile();
 
                 showShortToast(sb);
                 logI(sb);
 
-                if (WACallback.CODE_SUCCESS == result.getCode()){
-                    if (binding){
+                if (WACallback.CODE_SUCCESS == result.getCode()) {
+                    if (binding) {
                         // 绑定成功，如果需要绑定账号发奖励，可以在这里处理
-                    }else {
+                    } else {
                         // 解绑成功
                     }
-                }else {
+                } else {
 
                 }
-                if(binding && WACallback.CODE_SUCCESS == result.getCode()) {
+                if (binding && WACallback.CODE_SUCCESS == result.getCode()) {
                     // 绑定成功，如果需要绑定账号发奖励，可以在这里处理
                 } else if (!binding && WACallback.CODE_SUCCESS == result.getCode()) {
                     // 解绑成功
-                        }
+                }
             }
 
             @Override
@@ -408,31 +379,31 @@ public class AccountManagerActivity extends BaseActivity {
         }
 
         public void addAll(Collection<WAAccount> accounts, boolean notifyDataSetChanged) {
-            if(null == accounts || accounts.isEmpty()) {
+            if (null == accounts || accounts.isEmpty()) {
                 return;
             }
             mmBoundAccounts.addAll(accounts);
-            if(notifyDataSetChanged) {
+            if (notifyDataSetChanged) {
                 notifyDataSetChanged();
             }
         }
 
         public void remove(int position, boolean notifyDataSetChange) {
-            if(position < 0) {
+            if (position < 0) {
                 return;
             }
             mmBoundAccounts.remove(position);
-            if(notifyDataSetChange) {
+            if (notifyDataSetChange) {
                 notifyDataSetChanged();
             }
         }
 
         public void remove(WAAccount account, boolean notifyDataSetChange) {
-            if(null == account) {
+            if (null == account) {
                 return;
             }
             mmBoundAccounts.remove(account);
-            if(notifyDataSetChange) {
+            if (notifyDataSetChange) {
                 notifyDataSetChanged();
             }
         }
@@ -456,7 +427,7 @@ public class AccountManagerActivity extends BaseActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
 
             ItemView itemView = null;
-            if(null == convertView) {
+            if (null == convertView) {
                 convertView = View.inflate(mmContext, R.layout.item_bound_account, null);
                 itemView = new ItemView();
                 itemView.account = convertView.findViewById(R.id.tv_item_bound_account_id);

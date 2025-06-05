@@ -8,18 +8,19 @@
     <application
         android:hardwareAccelerated="true"
         android:icon="@drawable/ic_launcher"
+        android:name=".utils.DemoApp"
         android:label="@string/app_name"
         android:localeConfig="@xml/locales_config"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
         <activity
             android:name=".SplashActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -34,11 +35,11 @@
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="behind" />
         <activity
-            android:name=".CscActivity"
+            android:name=".AiHelpActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="behind" />
         <activity
-            android:name=".PrivacyActivity"
+            android:name=".rare.PrivacyActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="behind" />
         <activity
@@ -46,101 +47,92 @@
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="behind" />
         <activity
-            android:name=".GetAccountInfoActivity"
+            android:name=".rare.GetAccountInfoActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="behind" />
         <activity
-            android:name=".tracking.TrackingActivity"
+            android:name=".rare.tracking.TrackingActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="behind" />
         <activity
-            android:name=".tracking.TrackingSendActivity"
+            android:name=".rare.tracking.TrackingSendActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="behind" />
         <activity
-            android:name=".tracking.TrackingSimulateActivity"
+            android:name=".TrackingEventActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="behind" />
         <activity
-            android:name=".share.ShareActivity"
+            android:name=".deprecation.share.ShareActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="behind" />
         <activity
-            android:name=".share.FBShareActivity"
+            android:name=".deprecation.share.FBShareActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="behind" />
         <activity
-            android:name=".invite.InviteActivity"
+            android:name=".deprecation.invite.InviteActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="behind" />
         <activity
-            android:name=".invite.FBInviteActivity"
+            android:name=".deprecation.invite.FBInviteActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="behind" />
         <activity
-            android:name=".invite.FBInviteFriendsActivity"
+            android:name=".deprecation.invite.FBInviteFriendsActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="behind" />
         <activity
-            android:name=".invite.VKInviteActivity"
+            android:name=".deprecation.invite.VKInviteActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="behind" />
         <activity
-            android:name=".invite.VKInviteFriendsActivity"
+            android:name=".deprecation.invite.VKInviteFriendsActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="behind" />
         <activity
-            android:name=".gifting.GiftingActivity"
+            android:name=".deprecation.gifting.GiftingActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="behind" />
         <activity
-            android:name=".gifting.FBGiftingActivity"
+            android:name=".deprecation.gifting.FBGiftingActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="behind" />
         <activity
-            android:name=".gifting.FBGiftChooserActivity"
+            android:name=".deprecation.gifting.FBGiftChooserActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="behind" />
         <activity
             android:name=".PaymentActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="behind" />
-        <!-- Game Service -->
         <activity
-            android:name=".game.GameServiceActivity"
+            android:name=".rare.GoogleGameActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="behind" />
         <activity
-            android:name=".game.GoogleGameActivity"
+            android:name=".deprecation.UpdateActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="behind" />
         <activity
-            android:name=".UpdateActivity"
+            android:name=".deprecation.community.CommunityActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="behind" />
         <activity
-            android:name=".community.CommunityActivity"
+            android:name=".deprecation.community.VKCommunityActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="behind" />
         <activity
-            android:name=".community.VKCommunityActivity"
+            android:name=".deprecation.community.VKCommunityDisplayActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="behind" />
         <activity
-            android:name=".community.VKCommunityDisplayActivity"
-            android:configChanges="keyboardHidden|screenSize|orientation"
-            android:screenOrientation="behind" />
-        <activity
-            android:name=".VideoAdActivity"
+            android:name=".deprecation.VideoAdActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="behind" />
         <activity
             android:name=".UserCenterActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:screenOrientation="behind" />
-        <activity
-            android:name=".RareFunctionActivity"
-            android:exported="false"
             android:screenOrientation="behind" />
         <activity
             android:name=".UserDeletionActivity"
@@ -154,9 +146,16 @@
             android:name=".AdMobActivity"
             android:exported="false"
             android:screenOrientation="behind" />
-
+        <activity
+            android:name=".rare.RareFunctionActivity"
+            android:exported="false"
+            android:screenOrientation="behind" />
+        <activity
+            android:name=".deprecation.DeprecationFunctionActivity"
+            android:screenOrientation="behind"
+            android:exported="false" />
         <receiver
-            android:name=".receiver.PushReceiver"
+            android:name=".rare.receiver.PushReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.wa.sdk.push.intent.NOTIFICATION_OPENED" />
@@ -171,14 +170,7 @@
         <meta-data
             android:name="com.wa.sdk.APP_KEY"
             android:value="@string/sdk_app_key" />
-        <!-- wingsdk平台请求的host地址，所有请求的前面公共部分 -->
-        <meta-data
-            android:name="com.wa.sdk.HTTP_BASE_URL"
-            android:value="${SDK_HTTP_BASE_URL}" />
-        <!-- 数据收集请求地址，可以支持不同版本的api请求 -->
-        <meta-data
-            android:name="com.wa.sdk.track.BASE_URL"
-            android:value="${SDK_TRACKING_HTTP_BASE_URL}" />
+
         <!-- Facebook 配置-->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -206,20 +198,17 @@
         <meta-data
             android:name="com.wa.sdk.AIHelp_appId"
             android:value="@string/manifest_aihelp_appid" />
-        <!--    Consent同意屏幕配置    -->
-        <meta-data
-            android:name="com.wa.sdk.CONSENT_NOTICE_ID"
-            android:value="@string/manifest_didomi_consent_id" />
         <!--    AdMob应用ID配置    -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/manifest_admob_appid" />
 
+
         <!--    以下功能不需要设置或开启，除非运营有额外要求    -->
         <!--    开启UMP功能（一般不需要）    -->
-<!--        <meta-data-->
-<!--            android:name="com.wa.sdk.UMP_ENABLE"-->
-<!--            android:value="true" />-->
+        <!--        <meta-data-->
+        <!--            android:name="com.wa.sdk.UMP_ENABLE"-->
+        <!--            android:value="true" />-->
         <!--    AppsFlyer 应用ID（一般不需要）    -->
         <meta-data
             android:name="com.wa.sdk.track.APPSFLYER_APP_KEY"

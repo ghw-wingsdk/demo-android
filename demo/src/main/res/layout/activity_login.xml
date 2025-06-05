@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFEFEFEF"
+    android:background="@color/colorBackground"
     android:orientation="vertical">
 
     <com.wa.sdk.demo.widget.TitleBar
@@ -10,310 +10,186 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <FrameLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="10dp">
 
-        <ImageView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_launcher"
-            android:visibility="invisible" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            <ToggleButton
+                android:id="@+id/tbtn_login_flow_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:textOff="@string/do_not_rebind_account_with_device"
+                android:textOn="@string/rebind_account_with_device"
+                android:visibility="gone" />
+
+            <LinearLayout
+                style="@style/demo_linearlayout"
+                android:layout_marginTop="0dp">
+
+                <Button
+                    android:id="@+id/btn_fb_login"
+                    style="@style/demo_button"
+                    android:onClick="onClick"
+                    android:text="@string/fb_login" />
+
+                <Button
+                    android:id="@+id/btn_gg_login"
+                    style="@style/demo_button"
+                    android:text="@string/gg_login" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/demo_linearlayout"
+                android:layout_marginTop="0dp">
+
+                <Button
+                    android:id="@+id/btn_anonymous_login"
+                    style="@style/demo_button"
+                    android:text="@string/anonymous_login" />
+
+                <Button
+                    android:id="@+id/btn_winga_login"
+                    style="@style/demo_button"
+                    android:text="@string/winga_login" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                style="@style/demo_linearlayout"
+                android:layout_marginTop="0dp">
+
+                <Button
+                    android:id="@+id/btn_ghg_integration_login"
+                    style="@style/demo_button"
+                    android:text="@string/ghg_integration_login" />
+
+                <Button
+                    android:id="@+id/btn_r2_integration_login"
+                    style="@style/demo_button"
+                    android:text="@string/r2_integration_login" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/demo_linearlayout">
+
+                <Button
+                    android:id="@+id/btn_login_form"
+                    style="@style/demo_button"
+                    android:text="@string/login_form" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/demo_linearlayout"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/btn_app_login"
+                    style="@style/demo_button"
+                    android:text="@string/app_login" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="15dp">
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="vertical">
+                <!--        nowgg 用            -->
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/demo_linearlayout"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/btn_vk_login"
+                    style="@style/demo_button"
+                    android:text="@string/vk_login" />
+
+                <Button
+                    android:id="@+id/btn_twitter_login"
+                    style="@style/demo_button"
+                    android:text="@string/twitter_login" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/demo_linearlayout"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/btn_instagram_login"
+                    style="@style/demo_button"
+                    android:text="@string/instagram_login" />
+
+                <Button
+                    android:id="@+id/btn_huawei_hms_login"
+                    style="@style/demo_button"
+                    android:text="@string/huaweihms_login" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/demo_linearlayout"
+                android:layout_marginTop="0dp">
+
+                <Button
+                    android:id="@+id/btn_logout"
+                    style="@style/demo_button"
+                    android:text="@string/logout" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/demo_linearlayout">
+
+                <Button
+                    android:id="@+id/btn_clear_login_cache"
+                    style="@style/demo_button"
+                    android:text="@string/clean_login_cache" />
 
                 <ToggleButton
-                    android:visibility="gone"
-                    android:id="@+id/tbtn_login_flow_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/tbtn_enable_login_cache"
+                    style="@style/demo_button"
                     android:checked="false"
-                    android:textOff="@string/do_not_rebind_account_with_device"
-                    android:textOn="@string/rebind_account_with_device" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/btn_fb_login"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1"
-                        android:onClick="onClick"
-                        android:text="@string/fb_login" />
-
-                    <Button
-                        android:id="@+id/btn_gg_login"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1"
-                        android:onClick="onClick"
-                        android:text="@string/gg_login" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <Button
-                        android:id="@+id/btn_anonymous_login"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1"
-                        android:onClick="onClick"
-                        android:text="@string/anonymous_login" />
-
-                    <Button
-                        android:id="@+id/btn_winga_login"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1"
-                        android:onClick="onClick"
-                        android:text="@string/winga_login" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <Button
-                        android:id="@+id/btn_ghg_integration_login"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1"
-                        android:onClick="onClick"
-                        android:text="@string/ghg_integration_login" />
-
-                    <Button
-                        android:id="@+id/btn_login_form"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_weight="1"
-                        android:onClick="onClick"
-                        android:text="@string/login_form" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <Button
-                        android:id="@+id/btn_app_login"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_weight="2"
-                        android:onClick="onClick"
-                        android:text="@string/app_login" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <!--        nowgg 用            -->
-                </LinearLayout>
-
-                <LinearLayout
-                    android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <Button
-                        android:id="@+id/btn_vk_login"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1"
-                        android:onClick="onClick"
-                        android:text="@string/vk_login" />
-
-                    <Button
-                        android:id="@+id/btn_twitter_login"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1"
-                        android:onClick="onClick"
-                        android:text="@string/twitter_login" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <Button
-                        android:id="@+id/btn_instagram_login"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1"
-                        android:onClick="onClick"
-                        android:text="@string/instagram_login" />
-
-                    <Button
-                        android:id="@+id/btn_huawei_hms_login"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1"
-                        android:onClick="onClick"
-                        android:text="@string/huaweihms_login" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:visibility="gone"
-                    android:weightSum="2">
-
-                    <Button
-                        android:id="@+id/btn_r2_integration_login"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1"
-                        android:onClick="onClick"
-                        android:text="@string/r2_integration_login" />
-
-                    <Button
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_weight="1"
-                        android:text="@string/login_form"
-                        android:visibility="invisible" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/btn_logout"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_weight="1"
-                        android:onClick="onClick"
-                        android:text="@string/logout" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/btn_clear_login_cache"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_weight="1"
-                        android:onClick="onClick"
-                        android:text="@string/clean_login_cache" />
-
-                    <ToggleButton
-                        android:id="@+id/tbtn_enable_login_cache"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:checked="false"
-                        android:textOff="@string/disable_login_cache"
-                        android:textOn="@string/enable_login_cache" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="登录的区服："
-                        android:textColor="@color/colorBlack" />
-
-                    <EditText
-                        android:id="@+id/edt_server_id"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="登录区服1/2/3(默认2)"
-                        android:maxLines="1"
-                        android:text=""
-                        android:textColorHint="@color/colorGray"
-                        android:textSize="14dp" />
-
-                </LinearLayout>
+                    android:textOff="@string/disable_login_cache"
+                    android:textOn="@string/enable_login_cache" />
             </LinearLayout>
-        </ScrollView>
-        <!--<com.wa.sdk.wa.user.widget.WALoginForm-->
-        <!--android:id="@+id/glf_login_form"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:visibility="invisible"/>-->
-    </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="登录的区服："
+                    android:textColor="@color/colorBlack" />
+
+                <EditText
+                    android:id="@+id/edt_server_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="登录区服1/2/3(默认2)"
+                    android:maxLines="1"
+                    android:text=""
+                    android:textColorHint="@color/colorGray"
+                    android:textSize="14dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
 
 </LinearLayout>

@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,17 +20,15 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.wa.sdk.common.WASharedPrefHelper;
 import com.wa.sdk.demo.LoginActivity;
 import com.wa.sdk.demo.R;
-import com.wa.sdk.demo.WADemoConfig;
-import com.wa.sdk.demo.WASdkDemo;
+import com.wa.sdk.demo.utils.WADemoConfig;
+import com.wa.sdk.demo.utils.WASdkDemo;
 import com.wa.sdk.demo.widget.LoadingDialog;
 import com.wa.sdk.demo.widget.TitleBar;
 
@@ -44,7 +41,6 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
     protected FragmentManager mFragmentManager;
     protected int mContainerId = 0;
     protected LoadingDialog mLoadingDialog = null;
-    protected boolean mEnableToastLog = false;
     private static final boolean isSetFullScreen = true;
     private static final boolean isUseToast = false;
 
@@ -74,61 +70,10 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
     }
 
     /**
-     * 入栈
-     *
-     * @param fragment 入栈的Fragment
-     */
-    public void addFragmentToStack(Fragment fragment) {
-        // Add the fragment to the activity, pushing this transaction
-        // on to the back stack.
-        FragmentTransaction ft = mFragmentManager.beginTransaction();
-        //ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        ft.replace(mContainerId, fragment);
-        ft.addToBackStack(null);
-        ft.commit();
-    }
-
-    /**
-     * 带自定义动画的入栈
-     *
-     * @param fragment
-     * @param enter
-     * @param exit
-     * @param popEnter
-     * @param popExit
-     */
-    public void addFragmentToStackWithAnimation(Fragment fragment,
-                                                int enter,
-                                                int exit,
-                                                int popEnter,
-                                                int popExit) {
-        FragmentTransaction ft = mFragmentManager.beginTransaction();
-        ft.setCustomAnimations(enter, exit, popEnter, popExit);
-        ft.replace(mContainerId, fragment);
-        ft.addToBackStack(null);
-        ft.commit();
-    }
-
-    /**
-     * 回退(如果入栈使用了动画，那么出栈自动回有动画)<br/>
-     * 当栈内只有一个Fragment的时候，退出Activity
-     */
-    public void popBack() {
-        if (mFragmentManager.getBackStackEntryCount() > 1) {
-            // 栈内的Fragment大于1，退到上一个
-            mFragmentManager.popBackStack(mFragmentManager.getBackStackEntryAt(mFragmentManager.getBackStackEntryCount() - 1).getId(),
-                    FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        } else {
-            // 栈内的Fragment小于于1，退出Activity
-            exit();
-        }
-    }
-
-    /**
      * exit
      */
     public void exit() {
-
+        finish();
     }
 
     /**
@@ -183,23 +128,13 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
         mLoadingDialog = null;
     }
 
-    /**
-     * 显示一个短Toast
-     *
-     * @param text
-     */
-    protected void showShortToast(CharSequence text, boolean isLog) {
+    protected void showShortToast(CharSequence text) {
         if (isUseToast) {
             Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
         } else {
             View view = findViewById(android.R.id.content).getRootView();
             Snackbar.make(view, text, Snackbar.LENGTH_SHORT).show();
         }
-        if (isLog) logToast(text.toString());
-    }
-
-    protected void showShortToast(CharSequence text) {
-        showShortToast(text, false);
     }
 
     /**
@@ -211,23 +146,13 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
         showShortToast(getString(resId));
     }
 
-    /**
-     * 显示一个长Toast
-     *
-     * @param text
-     */
-    protected void showLongToast(CharSequence text, boolean isLog) {
+    protected void showLongToast(CharSequence text) {
         if (isUseToast) {
             Toast.makeText(this, text, Toast.LENGTH_LONG).show();
         } else {
             View view = findViewById(android.R.id.content).getRootView();
             Snackbar.make(view, text, Snackbar.LENGTH_LONG).show();
         }
-        if (isLog) logToast(text.toString());
-    }
-
-    protected void showLongToast(CharSequence text) {
-        showLongToast(text, false);
     }
 
     /**
@@ -237,53 +162,6 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
      */
     protected void showLongToast(int resId) {
         showLongToast(getString(resId));
-    }
-
-    /**
-     * 获取资源id，如果没有找到，返回0
-     *
-     * @param name
-     * @param defType
-     * @return
-     */
-    protected int getIdentifier(String name, String defType) {
-        return getResources().getIdentifier(name, defType, getPackageName());
-    }
-
-    /**
-     * 获取某个颜色
-     *
-     * @param resId
-     * @return
-     */
-    protected int getResourceColor(int resId) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return getResources().getColor(resId);
-        } else {
-            try {
-                return getResources().getColor(resId, null);
-            } catch (NoSuchMethodError e) {
-                return getResources().getColor(resId);
-            }
-        }
-    }
-
-    /**
-     * 获取Resource中的ColorStateList
-     *
-     * @param resId
-     * @return
-     */
-    protected ColorStateList getResourceColorStateList(int resId) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return getResources().getColorStateList(resId);
-        } else {
-            try {
-                return getResources().getColorStateList(resId, null);
-            } catch (NoSuchMethodError e) {
-                return getResources().getColorStateList(resId);
-            }
-        }
     }
 
     /**
@@ -310,6 +188,7 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
         if (this.isFinishing() || this.isDestroyed() || getWindow() == null) {
             return;
         }
+
         Window window = getWindow();
 
         // 刘海屏适配
@@ -325,8 +204,8 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
         windowInsetsController.setAppearanceLightNavigationBars(true);
         // 设置全屏，隐藏系统栏，包括状态栏，导航栏
         windowInsetsController.hide(WindowInsetsCompat.Type.systemBars());
-        // 手势操作时短暂时间后隐藏
-        windowInsetsController.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+        // 手势操作时短暂时间后隐藏（会影响操作返回）
+        // windowInsetsController.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
 
         ViewCompat.setOnApplyWindowInsetsListener(decorView, (v, windowInsets) -> {
             // 获取 displayCutout 边衬size
@@ -342,6 +221,9 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
         });
     }
 
+    /**
+     * 判断是否已登录，若未登录则显示登录提示框引导登录
+     */
     protected boolean isNotLoginAndTips() {
         boolean isNotLogin = !WASdkDemo.getInstance().isLogin();
         if (isNotLogin) showLoginTips();
@@ -361,12 +243,6 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
                 .show();
     }
 
-    private void logToast(String text) {
-        if (mEnableToastLog) {
-            Log.d(TAG, text);
-        }
-    }
-
     protected void logD(String text) {
         Log.d(TAG, text);
     }
@@ -384,8 +260,7 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
     }
 
     protected void setScreenOrientation() {
-        WASharedPrefHelper sp = WASharedPrefHelper.newInstance(this, WADemoConfig.SP_CONFIG_FILE_DEMO);
-        int orientation = sp.getInt(WADemoConfig.SP_KEY_SETTING_ORIENTATION, 0);
+        int orientation = WASdkDemo.getInstance().getSpHelper().getInt(WADemoConfig.SP_KEY_SETTING_ORIENTATION, 0);
         if (orientation == 1) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         } else if (orientation == 2) {
@@ -417,5 +292,17 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
         return titleBar;
     }
 
+    protected void setTitleBar(int titleResId) {
+        TitleBar titleBar = findTitleBar(findViewById(android.R.id.content));
+        if (titleBar != null) {
+            titleBar.setTitleText(titleResId);
+            titleBar.setLeftButton(android.R.drawable.ic_menu_revert, v -> exit());
+            titleBar.setTitleTextColor(R.color.color_white);
+        }
+    }
+
+    protected WASharedPrefHelper getSpHelper() {
+        return WASdkDemo.getInstance().getSpHelper();
+    }
 }
 

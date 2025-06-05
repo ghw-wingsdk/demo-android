@@ -1,109 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFEFEFEF">
+    android:background="#FFEFEFEF"
+    android:orientation="vertical">
 
     <com.wa.sdk.demo.widget.TitleBar
         android:id="@+id/tb_account_manager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none">
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:padding="15dp">
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <LinearLayout style="@style/demo_linearlayout">
+
+                <Button
+                    android:id="@+id/btn_account_manager_page"
+                    style="@style/demo_button"
+                    android:text="@string/open_account_manager_page" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/demo_linearlayout">
+
                 <Button
                     android:id="@+id/btn_bind_account"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:text="@string/bind_account"
-                    android:onClick="onClick"/>
+                    style="@style/demo_button"
+                    android:text="@string/bind_account" />
 
                 <Button
                     android:id="@+id/btn_query_bound_account"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginStart="5dp"
-                    android:text="@string/query_bound_account"
-                    android:onClick="onClick"/>
+                    style="@style/demo_button"
+                    android:text="@string/query_bound_account" />
             </LinearLayout>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+            <LinearLayout style="@style/demo_linearlayout">
+
                 <Button
                     android:id="@+id/btn_create_account"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:text="@string/create_account"
-                    android:onClick="onClick"/>
+                    style="@style/demo_button"
+                    android:text="@string/create_account" />
 
                 <Button
                     android:id="@+id/btn_switch_account"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginStart="5dp"
-                    android:text="@string/switch_account"
-                    android:onClick="onClick"/>
+                    style="@style/demo_button"
+                    android:text="@string/switch_account" />
             </LinearLayout>
+
             <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                style="@style/demo_linearlayout"
+                android:weightSum="2">
+
                 <Button
                     android:id="@+id/btn_get_account_info"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:text="@string/get_account_info"
-                    android:onClick="onClick"/>
+                    style="@style/demo_button"
+                    android:text="@string/get_account_info" />
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginStart="5dp"
-                    android:text="@string/switch_account"
-                    android:onClick="onClick"
-                    android:visibility="invisible"/>
             </LinearLayout>
 
-
-            <Button
-                android:id="@+id/btn_account_manager_page"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/open_account_manager_page"
-                android:onClick="onClick"/>
 
         </LinearLayout>
     </ScrollView>

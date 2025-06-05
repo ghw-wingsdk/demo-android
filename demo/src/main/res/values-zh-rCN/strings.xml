@@ -21,7 +21,7 @@
     <string name="test_crash">闪退测试</string>
     <!--<string name="privacy_and_cookie_policy">隐私政策</string>-->
     <string name="payment">支付</string>
-    <string name="static_payment">静态支付</string>
+    <string name="static_payment">购买</string>
     <string name="input_sku_id">请输入商品id</string>
     <string name="check_update">检查更新</string>
     <string name="download_patch">下载Patch包</string>
@@ -214,18 +214,19 @@
     <string name="showConversation">进入人工客服界面</string>
     <string name="setSDKLanguage">设置语言</string>
     <string name="showSingleFAQ">展示单条FAQ</string>
-    <string name="csc">客服系统</string>
+    <string name="csc">AiHelp客服</string>
     <string name="showFAQSection">展示FAQ分类</string>
     <string name="input_sectionPublishId">输入SectionId,如:25448</string>
     <string name="input_faqId">请输入faqId,例如：8</string>
     <string name="wa_csc">AiHelp客服</string>
-    <string name="openAiHelp">调用openAiHelp</string>
+    <string name="openAiHelp">打开AiHelp客服</string>
     <string name="isOpenAiHelp">是否开启AiHelp</string>
     <string name="switchAiHelpVip">切换VIP</string>
     <string name="aihelp_switch_language">切换语言</string>
     <string name="aihelp_get_unread_message_count">获取未读消息数</string>
 
     <!-- 隐私政策-->
+    <string name="privacy_policy">隐私政策</string>
     <string name="getUrl">获取隐私政策链接</string>
     <string name="getTime">获取隐私政策更新时间</string>
     <string name="popPrivacyWindow">打开隐私政策页面</string>
@@ -240,11 +241,11 @@
     <string name="ghg_integration_login">GHG 登录</string>
     <string name="r2_integration_login">R2 登录</string>
     <string name="isOpenGameReviewAiHelp">是否开启游戏评价AiHelp</string>
-    <string name="openGameReviewAiHelp">调用openGameReview</string>
+    <string name="openGameReviewAiHelp">打开AiHelp客服 (游戏评价)</string>
     <!--  账号删除  -->
-    <string name="account_deletion">账号删除</string>
-    <string name="account_deletion_request_ui">申请账号删除UI</string>
-    <string name="account_deletion_request">申请账号删除</string>
+    <string name="account_deletion">账号注销</string>
+    <string name="account_deletion_request_ui">打开账号注销界面</string>
+    <string name="account_deletion_request">申请注销</string>
     <string name="account_deletion_cancel">取消申请</string>
     <string name="account_deletion_can_identify">是否可身份确认</string>
     <string name="account_deletion_identify_account">身份确认</string>
@@ -262,11 +263,13 @@
     <string name="enable_official_ad_unit">正在使用正式广告单元（非线上版本不建议）</string>
     <string name="enable_banner_ad">横幅广告:开启</string>
     <string name="disable_banner_ad">横幅广告:关闭</string>
-    <string name="check_ump_options">检查配置</string>
-    <string name="show_ump_options">打开配置</string>
+    <string name="check_ump_options">检查UMP配置</string>
+    <string name="show_ump_options">打开UMP配置</string>
     <!--  其他  -->
     <string name="rare_function">不常用功能</string>
+    <string name="deprecation_function">已废弃功能</string>
     <string name="show_open_url">打开链接</string>
     <string name="show_consent_preferences">Consent同意设置</string>
+    <string name="test_sdk">SDK 测试</string>
 
 </resources>

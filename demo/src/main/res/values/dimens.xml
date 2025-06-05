@@ -6,4 +6,7 @@
     <dimen name="textSize_level4">16sp</dimen>
     <dimen name="textSize_level5">14sp</dimen>
     <dimen name="textSize_level6">12sp</dimen>
+    <dimen name="demo_button_height">52dp</dimen>
+    <dimen name="demo_button_margin">2dp</dimen>
+    <dimen name="demo_linearlayout_margin">0dp</dimen>
 </resources>

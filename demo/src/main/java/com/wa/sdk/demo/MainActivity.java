@@ -1,10 +1,8 @@
 package com.wa.sdk.demo;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -12,20 +10,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.wa.sdk.admob.WAAdMobPublicProxy;
 import com.wa.sdk.cmp.WACmpProxy;
 import com.wa.sdk.common.WACommonProxy;
-import com.wa.sdk.common.WASharedPrefHelper;
 import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.model.WAResult;
 import com.wa.sdk.common.utils.StringUtil;
 import com.wa.sdk.core.WACoreProxy;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.base.FlavorApiHelper;
-import com.wa.sdk.demo.tracking.TrackingSimulateActivity;
+import com.wa.sdk.demo.rare.RareFunctionActivity;
+import com.wa.sdk.demo.utils.WADemoConfig;
+import com.wa.sdk.demo.utils.WASdkDemo;
 import com.wa.sdk.demo.widget.TitleBar;
 import com.wa.sdk.pay.WAPayProxy;
 import com.wa.sdk.pay.model.WAPurchaseResult;
@@ -34,15 +32,11 @@ import com.wa.sdk.track.model.WAUserCreateEvent;
 import com.wa.sdk.track.model.WAUserImportEvent;
 import com.wa.sdk.user.WAUserProxy;
 import com.wa.sdk.user.model.WAGameReviewCallback;
-import com.wa.sdk.user.model.WALoginResult;
-
-import java.util.UUID;
+import com.wa.sdk.user.model.WALoginResultV2;
 
 
 public class MainActivity extends BaseActivity {
-    private WASharedPrefHelper mSharedPrefHelper;
     private EditText mEtProductId;
-    private TextView mTvScreenOrientation;
     private boolean mPayInitialized = false;
 
     @Override
@@ -50,24 +44,17 @@ public class MainActivity extends BaseActivity {
         setScreenOrientation();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Demo的初始化，跟SDK无关
-        WASdkDemo.getInstance().initialize(this);
-        mSharedPrefHelper = WASharedPrefHelper.newInstance(this, WADemoConfig.SP_CONFIG_FILE_DEMO);
         initView();
 
-        boolean isEnableAppOpenAd = mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_APP_OPEN_AD, AdMobActivity.DEFAULT_APP_OPEN_AD_STATE);
+        boolean isEnableAppOpenAd = getSpHelper().getBoolean(WADemoConfig.SP_KEY_ENABLE_APP_OPEN_AD, AdMobActivity.DEFAULT_APP_OPEN_AD_STATE);
         // 避免与 AdMob 开屏页重复初始化
         if (isEnableAppOpenAd) {
             doAfterInitSuccess();
             return;
         }
 
-        // AdMob 强制开启测试
-        boolean isTest = mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_TEST_AD_UNIT, AdMobActivity.DEFAULT_TEST);
-        WAAdMobPublicProxy.setTest(this, isTest);
         // 开启 WingSDK 日志
-        WACoreProxy.setDebugMode(mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_DEBUG, true));
+        WACoreProxy.setDebugMode(getSpHelper().getBoolean(WADemoConfig.SP_KEY_ENABLE_DEBUG, true));
         // WingSDK 初始化
         showLoadingDialog("初始化中", false, false, null);
         WACoreProxy.initialize(this, new WACallback<Void>() {
@@ -142,7 +129,7 @@ public class MainActivity extends BaseActivity {
         });
 
         // AdMob 横幅广告
-        boolean isEnableBannerAd = mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_BANNER_AD, AdMobActivity.DEFAULT_BANNER_AD_STATE);
+        boolean isEnableBannerAd = getSpHelper().getBoolean(WADemoConfig.SP_KEY_ENABLE_BANNER_AD, AdMobActivity.DEFAULT_BANNER_AD_STATE);
         if (isEnableBannerAd) {
             WAAdMobPublicProxy.bindBannerAd(this, findViewById(R.id.layout_main_banner_ad));
         }
@@ -155,9 +142,9 @@ public class MainActivity extends BaseActivity {
         if (second < 0 || FlavorApiHelper.isNowggFlavor()) return; // nowgg包 不能直接登录
 
         // WAUserProxy.loginUI() 在刚接入时需要获取ClientId给运营在后台添加测试设备，才会显示具体登录方式，比如: Google，Facebook
-        new Handler().postDelayed(() -> WAUserProxy.loginUI(MainActivity.this, true, new WACallback<WALoginResult>() {
+        new Handler().postDelayed(() -> WAUserProxy.loginUIV2(MainActivity.this, true, new WACallback<WALoginResultV2>() {
             @Override
-            public void onSuccess(int code, String message, WALoginResult result) {
+            public void onSuccess(int code, String message, WALoginResultV2 result) {
                 String text = "code:" + code + "\nmessage:" + message;
 
                 if (result == null) {
@@ -172,8 +159,6 @@ public class MainActivity extends BaseActivity {
                         + "\nplatform:" + result.getPlatform()
                         + "\nuserId:" + result.getUserId()
                         + "\ntoken:" + result.getToken()
-                        + "\nplatformUserId:" + result.getPlatformUserId()
-                        + "\nplatformToken:" + result.getPlatformToken()
                         + "\nisBindMobile: " + result.isBindMobile()
                         + "\nisBindAccount: " + result.getIsBindAccount()
                         + "\nisGuestAccount: " + result.getIsGuestAccount()
@@ -191,7 +176,7 @@ public class MainActivity extends BaseActivity {
             }
 
             @Override
-            public void onError(int code, String message, WALoginResult result, Throwable throwable) {
+            public void onError(int code, String message, WALoginResultV2 result, Throwable throwable) {
                 String text = "code:" + code + "\nmessage:" + message;
                 logW("Login failed->" + text);
                 showLongToast("Login failed->" + text);
@@ -204,7 +189,7 @@ public class MainActivity extends BaseActivity {
      *
      * @param result 登录结果
      */
-    private void userEnterGame(WALoginResult result) {
+    private void userEnterGame(WALoginResultV2 result) {
         // 用户选服之后，点击进服，需要发送进服事件
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             String serverId = "server1"; // 服务器ID
@@ -212,19 +197,25 @@ public class MainActivity extends BaseActivity {
             String gameUserId; // 角色ID
             String nickname; // 角色昵称
 
+            // 首次进服在创角时发送
+            boolean isFirstImportInCreate = getSpHelper().getBoolean(WADemoConfig.SP_KEY_IS_FIRST_IMPORT_IN_CREATE, false);
             //首次进服标志（游戏需要根据用户实际情况判断该用户是否首次进服，此处只是演示示例）
-            boolean isFirstEnter = mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_IS_FIRST_ENTER, true);
-            if (isFirstEnter) {
+            boolean isFirstEnter = getSpHelper().getBoolean(WADemoConfig.SP_KEY_IS_FIRST_ENTER, true);
+            if (isFirstEnter && !isFirstImportInCreate) {
                 // 首次进服，此时未创角
                 gameUserId = "-1"; // 如果未创角，可以设置为 -1
                 nickname = ""; // 如果未创角，可以设置为空
             } else {
-                // 非首次进服时，会有 nickname 和 gameUserId
+                // 非首次进服时（或首次进服在创角时才发送），会有 nickname 和 gameUserId
                 gameUserId = serverId + "-role1-" + result.getUserId();
                 nickname = "青铜" + serverId + "-" + result.getUserId();
             }
 
-            logD(isFirstEnter ? "Demo 首次进服（正常发送）" : "Demo 非首次进服");
+            if (isFirstEnter) {
+                logD(isFirstImportInCreate ? "Demo 首次进服（在创角时发送）" : "Demo 首次进服（正常发送）");
+            } else {
+                logD("Demo 非首次进服");
+            }
 
             // 进服事件
             WAUserImportEvent importEvent = new WAUserImportEvent(serverId, gameUserId, nickname, level, isFirstEnter);
@@ -232,25 +223,29 @@ public class MainActivity extends BaseActivity {
 
             if (isFirstEnter) {
                 // 发了首次进服后，下次无论有无创角都可以按非首次进服发送
-                mSharedPrefHelper.saveBoolean(WADemoConfig.SP_KEY_IS_FIRST_ENTER, false);
+                getSpHelper().saveBoolean(WADemoConfig.SP_KEY_IS_FIRST_ENTER, false);
                 // 首次进服后，用户会进行创角操作，需要发送创角事件
-                new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                    // 创角后，有角色ID和NickName
+                if (!isFirstImportInCreate) {
+                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                        // 创角后，有角色ID和NickName
+                        String newGameUserId = serverId + "-role1-" + result.getUserId();
+                        String newNickname = "青铜" + serverId + "-" + result.getUserId();
+                        long registerTime = System.currentTimeMillis();
+                        WAUserCreateEvent userCreateEvent = new WAUserCreateEvent(serverId, newGameUserId, newNickname, registerTime);
+                        WATrackProxy.trackEvent(MainActivity.this, userCreateEvent);
+                    }, 2000);
+                } else {
+                    // 进服和创角一起发时无间隔
                     String newGameUserId = serverId + "-role1-" + result.getUserId();
                     String newNickname = "青铜" + serverId + "-" + result.getUserId();
                     long registerTime = System.currentTimeMillis();
                     WAUserCreateEvent userCreateEvent = new WAUserCreateEvent(serverId, newGameUserId, newNickname, registerTime);
                     WATrackProxy.trackEvent(MainActivity.this, userCreateEvent);
-                }, 2000);
+                }
             }
 
             // 玩家进服后申请通知权限
-            if (Build.VERSION.SDK_INT >= 33) {
-                // 该权限不要求用户必须授权，参数按照下面传入false不强制，和null无弹窗提示语即可
-                WACommonProxy.checkSelfPermission(MainActivity.this, Manifest.permission.POST_NOTIFICATIONS, false, null, null, null);
-            } else {
-                // 系统低于 Android 13 无需授权通知权限，默认开启
-            }
+            WACommonProxy.requestNotificationPermission(this);
         }, 2000);
     }
 
@@ -312,11 +307,11 @@ public class MainActivity extends BaseActivity {
             // 支付
             startActivity(new Intent(this, PaymentActivity.class));
         } else if (id == R.id.btn_static_pay) {
-            // ProductId直接支付
+            // 发起支付
             productPay();
         } else if (id == R.id.btn_tracking) {
             // 数据采集
-            startActivity(new Intent(this, TrackingSimulateActivity.class));
+            startActivity(new Intent(this, TrackingEventActivity.class));
         } else if (id == R.id.btn_request_permission) {
             // 权限申请（通知权限）
             startActivity(new Intent(this, PermissionActivity.class));
@@ -326,12 +321,13 @@ public class MainActivity extends BaseActivity {
             startActivity(new Intent(this, AccountManagerActivity.class));
         } else if (id == R.id.btn_csc) {
             // AiHelp客服
-            startActivity(new Intent(this, CscActivity.class));
+            startActivity(new Intent(this, AiHelpActivity.class));
         } else if (id == R.id.btn_user_center) {
             // 用户中心
             startActivity(new Intent(this, UserCenterActivity.class));
         } else if (id == R.id.btn_account_deletion) {
             // 账号删除
+            if (isNotLoginAndTips()) return;
             startActivity(new Intent(MainActivity.this, UserDeletionActivity.class));
         } else if (id == R.id.btn_open_game_review) {
             // 打开游戏评价
@@ -346,29 +342,6 @@ public class MainActivity extends BaseActivity {
             // 不常用功能
             startActivity(new Intent(this, RareFunctionActivity.class));
         }
-
-        // 下面是测试用的功能
-        if (id == R.id.btn_display_app_version_info) {
-            // Demo 信息
-            new AlertDialog.Builder(this).setMessage(Util.getApkBuildInfo(this)).show();
-        } else if (id == R.id.btn_switch_orientation) {
-            // 修改Demo屏幕方向
-            int orientation = mSharedPrefHelper.getInt(WADemoConfig.SP_KEY_SETTING_ORIENTATION, 0);
-            orientation++;
-            if (orientation > 2) orientation = 0;
-            mSharedPrefHelper.saveInt(WADemoConfig.SP_KEY_SETTING_ORIENTATION, orientation);
-            updateScreenOrientationText();
-        } else if (id == R.id.btn_create_random_client_id) {
-            // 设置随机ClientId（测试用）
-            String clientId = UUID.randomUUID().toString().replaceAll("-", "");
-            WACoreProxy.setClientId(clientId);
-            showShortToast("Client设置成功：" + clientId);
-        } else if (id == R.id.btn_clear_first_login) {
-            // 清除 MainActivity 的首次登录标志
-            boolean remove = mSharedPrefHelper.remove(WADemoConfig.SP_KEY_IS_FIRST_ENTER);
-            WAUserProxy.logout();
-            showShortToast("清除首次登录：" + remove);
-        }
     }
 
     private void productPay() {
@@ -376,22 +349,24 @@ public class MainActivity extends BaseActivity {
             showShortToast("Payment not initialize!");
             return;
         }
-        final String skuId = mEtProductId.getText().toString().trim();
-        if (StringUtil.isEmpty(skuId)) {
+        final String sdkProductId = mEtProductId.getText().toString().trim();
+        if (StringUtil.isEmpty(sdkProductId)) {
             showShortToast("sdk product id is empty!");
             return;
         }
-        WAPayProxy.payUI(this, skuId, "static payment", new WACallback<WAPurchaseResult>() {
+        WAPayProxy.payUI(this, sdkProductId, "CpOrderId:12345", new WACallback<WAPurchaseResult>() {
             @Override
             public void onSuccess(int code, String message, WAPurchaseResult result) {
                 cancelLoadingDialog();
-                showLongToast("Product:" + result.getWAProductId() + " Payment  successful", true);
+                logD("Payment Success:\n" + result);
+                showLongToast("Payment is successful. ProductId:" + result.getWAProductId() + " , ExtInfo:" + result.getExtInfo());
             }
 
             @Override
             public void onCancel() {
                 cancelLoadingDialog();
-                showLongToast("Payment cancelled.", true);
+                logD("Payment Cancel");
+                showLongToast("Payment has been cancelled.");
             }
 
             @Override
@@ -418,28 +393,31 @@ public class MainActivity extends BaseActivity {
         WAUserProxy.openGameReview(this, new WAGameReviewCallback() {
             @Override
             public void onError(int code, String message) {
-                String text = "打开游戏评价失败：" + code + "," + message;
+                String text = "Open Game Review Failed：" + code + "," + message;
                 showShortToast(text);
                 logE(text);
             }
 
             @Override
             public void onReject() {
-                String text = "游戏评价结果：不，谢谢！";
-                showShortToast(text, true);
+                String text = "Game Review Result：No, Thanks";
+                showShortToast(text);
+                logD(text);
             }
 
             @Override
             public void onOpenAiHelp() {
-                String text = "游戏评价结果：我要提意见";
-                showShortToast(text, true);
+                String text = "Game Review Result：Feedback";
+                showShortToast(text);
+                logD(text);
             }
 
             @Override
             public void onReviewComplete() {
                 // 如果需要好评发奖励，可以在这里处理
-                String text = "游戏评价结果：提交好评";
-                showShortToast(text, true);
+                String text = "Game Review Result：Rate Us";
+                showShortToast(text);
+                logD(text);
             }
         });
     }
@@ -447,54 +425,25 @@ public class MainActivity extends BaseActivity {
     private void initView() {
         TitleBar tb = findViewById(R.id.tb_main);
         tb.setRightButton(android.R.drawable.ic_menu_close_clear_cancel, v -> finish());
-        tb.setTitleText(R.string.app_name);
+        tb.setTitleText(R.string.title_main);
         tb.setTitleTextColor(R.color.color_white);
 
-        ToggleButton tbtnLogcat = findViewById(R.id.tbtn_logcat);
-        boolean enableLogcat = mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_LOGCAT, true);
-        tbtnLogcat.setChecked(enableLogcat);
-        tbtnLogcat.setOnCheckedChangeListener(mOnCheckedChangeListener);
-
         ToggleButton tbtnDebug = findViewById(R.id.tbtn_debug);
-        boolean enableDebug = mSharedPrefHelper.getBoolean(WADemoConfig.SP_KEY_ENABLE_DEBUG, true);
+        boolean enableDebug = getSpHelper().getBoolean(WADemoConfig.SP_KEY_ENABLE_DEBUG, true);
         tbtnDebug.setChecked(enableDebug);
         tbtnDebug.setOnCheckedChangeListener(mOnCheckedChangeListener);
 
         mEtProductId = findViewById(R.id.et_static_pay_product_id);
         mEtProductId.setText("1");
 
-        mTvScreenOrientation = findViewById(R.id.tv_screen_orientation);
-        updateScreenOrientationText();
     }
 
-    private final CompoundButton.OnCheckedChangeListener mOnCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            int id = buttonView.getId();
-            if (id == R.id.tbtn_logcat) {
-                mSharedPrefHelper.saveBoolean(WADemoConfig.SP_KEY_ENABLE_LOGCAT, isChecked);
-                if (isChecked) {
-                    WACommonProxy.enableLogcat(MainActivity.this);
-                } else {
-                    WACommonProxy.disableLogcat(MainActivity.this);
-                }
-            } else if (id == R.id.tbtn_debug) {
-                mSharedPrefHelper.saveBoolean(WADemoConfig.SP_KEY_ENABLE_DEBUG, isChecked);
-                WACoreProxy.setDebugMode(isChecked);
-            }
-
+    private final CompoundButton.OnCheckedChangeListener mOnCheckedChangeListener = (buttonView, isChecked) -> {
+        int id = buttonView.getId();
+        if (id == R.id.tbtn_debug) {
+            getSpHelper().saveBoolean(WADemoConfig.SP_KEY_ENABLE_DEBUG, isChecked);
+            WACoreProxy.setDebugMode(isChecked);
         }
     };
-
-    private void updateScreenOrientationText() {
-        int orientation = mSharedPrefHelper.getInt(WADemoConfig.SP_KEY_SETTING_ORIENTATION, 0);
-        if (orientation == 1) {
-            mTvScreenOrientation.setText("强制竖屏");
-        } else if (orientation == 2) {
-            mTvScreenOrientation.setText("强制横屏");
-        } else {
-            mTvScreenOrientation.setText("默认");
-        }
-    }
 
 }

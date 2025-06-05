@@ -12,10 +12,11 @@ import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.demo.R;
 import com.wa.sdk.demo.widget.TitleBar;
 
-public class BaseGridActivity extends BaseActivity {
+import java.util.ArrayList;
 
-    protected int title = 0;
-    protected int[] titles = {};
+public abstract class BaseGridActivity extends BaseActivity {
+
+    private final ArrayList<Button> mButtons = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,19 +27,40 @@ public class BaseGridActivity extends BaseActivity {
         initViews();
     }
 
-    protected void initViews() {
+    /**
+     * 标题
+     *
+     * @return 标题 string 资源id
+     */
+    protected abstract int definedTitleResId();
+
+    /**
+     * 按钮
+     *
+     * @return 按钮文本 string 资源id数组
+     */
+    protected abstract int[] definedButtonResIds();
+
+    protected abstract void onClickButton(int textResId);
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        int tag = (int) v.getTag();
+        onClickButton(tag);
+    }
+
+    private void initViews() {
+        int title = definedTitleResId();
+        int[] titles = definedButtonResIds();
+
         // 设置顶部标题
         TitleBar titlebar = findViewById(R.id.tb_title);
 
         if (title != 0)
             titlebar.setTitleText(title);
 
-        titlebar.setLeftButton(android.R.drawable.ic_menu_revert, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                exit();
-            }
-        });
+        titlebar.setLeftButton(android.R.drawable.ic_menu_revert, v -> exit());
         titlebar.setTitleTextColor(R.color.color_white);
 
         // 设置内容
@@ -62,6 +84,7 @@ public class BaseGridActivity extends BaseActivity {
         btn1.setTag(title1);
         btn1.setText(title1);
         btn1.setOnClickListener(this);
+        mButtons.add(btn1);
 
         /**
          *  title2  为 -1 时第二个按钮隐藏占位
@@ -77,6 +100,7 @@ public class BaseGridActivity extends BaseActivity {
             btn2.setText(title2);
             btn2.setOnClickListener(this);
         }
+        mButtons.add(btn2);
     }
 
     @Override
@@ -89,5 +113,15 @@ public class BaseGridActivity extends BaseActivity {
     @Override
     public void exit() {
         finish();
+    }
+
+    protected Button getButton(int btnResId) {
+        for (Button button : mButtons) {
+            int tag = (int) button.getTag();
+            if (btnResId == tag) {
+                return button;
+            }
+        }
+        return null;
     }
 }

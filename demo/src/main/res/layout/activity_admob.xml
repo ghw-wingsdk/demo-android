@@ -7,7 +7,7 @@
     <com.wa.sdk.demo.widget.TitleBar
         android:id="@+id/tb_admob"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 
     <ScrollView
@@ -22,166 +22,78 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+            <LinearLayout style="@style/demo_linearlayout">
 
                 <Button
                     android:id="@+id/btn_check_interstitial_ad"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
+                    style="@style/demo_button"
                     android:text="@string/check_interstitial_ad" />
 
                 <Button
                     android:id="@+id/btn_show_interstitial_ad"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
+                    style="@style/demo_button"
                     android:text="@string/show_interstitial_ad" />
 
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+            <LinearLayout style="@style/demo_linearlayout">
 
                 <Button
                     android:id="@+id/btn_check_app_open_ad"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
+                    style="@style/demo_button"
                     android:text="@string/check_app_open_ad" />
 
                 <Button
                     android:id="@+id/btn_show_app_open_ad"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
+                    style="@style/demo_button"
                     android:text="@string/show_app_open_ad" />
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+            <LinearLayout style="@style/demo_linearlayout">
 
                 <EditText
                     android:id="@+id/edt_rewarded_ad_name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="Rewarded_1"
-                    android:hint="@string/hint_rewarded_ad_name" />
+                    style="@style/demo_button"
+                    android:hint="@string/hint_rewarded_ad_name"
+                    android:text="Rewarded_1" />
 
                 <Button
                     android:id="@+id/btn_show_rewarded_ad"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="2"
-                    android:onClick="onClick"
+                    style="@style/demo_button"
                     android:text="@string/show_rewarded_ad" />
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+            <LinearLayout style="@style/demo_linearlayout">
 
                 <ToggleButton
                     android:id="@+id/btn_enable_app_open_ad"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
+                    style="@style/demo_button"
                     android:checked="false"
                     android:textOff="@string/disable_app_open_ad"
                     android:textOn="@string/enable_app_open_ad" />
 
                 <ToggleButton
                     android:id="@+id/btn_enable_banner_ad"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
+                    style="@style/demo_button"
                     android:checked="false"
                     android:textOff="@string/disable_banner_ad"
                     android:textOn="@string/enable_banner_ad" />
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <ToggleButton
-                    android:id="@+id/btn_enable_official_ad_unit"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
-                    android:checked="false"
-                    android:textOff="@string/disable_official_ad_unit"
-                    android:textOn="@string/enable_official_ad_unit" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+            <LinearLayout style="@style/demo_linearlayout">
 
                 <Button
                     android:id="@+id/btn_check_ump_options"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
+                    style="@style/demo_button"
                     android:text="@string/check_ump_options" />
 
                 <Button
                     android:id="@+id/btn_show_ump_options"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
+                    style="@style/demo_button"
                     android:text="@string/show_ump_options" />
             </LinearLayout>
 

@@ -22,34 +22,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="15dp">
+                android:padding="10dp">
 
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <Button
-                        android:id="@+id/btn_request_permission"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1"
-                        android:onClick="onClick"
-                        android:text="@string/request_permisssion" />
+                <LinearLayout style="@style/demo_linearlayout">
 
                     <Button
                         android:id="@+id/btn_notification_permission"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_weight="1"
-                        android:onClick="onClick"
+                        style="@style/demo_button"
                         android:text="@string/request_notificaton_permission" />
+
+                    <Button
+                        android:id="@+id/btn_request_permission"
+                        style="@style/demo_button"
+                        android:text="@string/request_permisssion" />
+
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

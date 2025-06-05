@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources translatable="false">
-    <!--  接入weblogin 或 ghgl 模块登录需要, 内容：wa + SdkAppID  -->
-<!--    <string name="wa_custom_tab_scheme">waf7f9a9d18da611e5a0be000d3a906774</string>-->
+    <!--  接入web_ghgl模块登录需要, 内容：wa + SdkAppID  -->
+    <!--    <string name="wa_custom_tab_scheme">waf7f9a9d18da611e5a0be000d3a906774</string>-->
     <!--  Facebook  -->
     <string name="facebook_app_id">959864665060487</string>
     <string name="fb_login_protocol_scheme">fb959864665060487</string>
@@ -43,7 +43,7 @@
     <string name="download_patch">Download Patch</string>
     <string name="clear_install_campaign_cache">Clear Install Campaign cache</string>
     <string name="payment">Payment</string>
-    <string name="static_payment">Static Payment</string>
+    <string name="static_payment">Buy</string>
     <string name="input_sku_id">Input Sku Id</string>
     <string name="warming">Warning</string>
     <string name="not_login_yet">Not login! Please login first!</string>
@@ -226,14 +226,15 @@
     <string name="input_faqId">Please Input faqId,like:8</string>
     <string name="input_sectionPublishId">Input Section Id,like:25448</string>
     <string name="showFAQSection">showFAQSection</string>
-    <string name="openAiHelp">Call openAiHelp</string>
+    <string name="openAiHelp">Open AiH</string>
     <string name="isOpenAiHelp">Is Open AiHelp</string>
-    <string name="openGameReviewAiHelp">Call openGameReviewAiHelp</string>
+    <string name="openGameReviewAiHelp">Open AiHelp ( GameReview )</string>
     <string name="isOpenGameReviewAiHelp">Is Open GameReview AiHelp</string>
     <string name="switchAiHelpVip">Switch VIP</string>
     <string name="aihelp_switch_language">Switch Language</string>
     <string name="aihelp_get_unread_message_count">Get Unread Message Count</string>
     <!-- 隐私政策-->
+    <string name="privacy_policy">Privacy Policy</string>
     <string name="getUrl">getPrivacyUrl</string>
     <string name="getTime">getPrivacyTime</string>
     <string name="popPrivacyWindow">showPrivacyPop</string>
@@ -265,11 +266,13 @@
     <string name="enable_official_ad_unit">Using Official Ad Units (not recommended for non-live versions)</string>
     <string name="enable_banner_ad">Check Ad: Enable</string>
     <string name="disable_banner_ad">Banner Ad: Disable</string>
-    <string name="check_ump_options">Check Options</string>
-    <string name="show_ump_options">Show Options</string>
+    <string name="check_ump_options">Check UMP Options</string>
+    <string name="show_ump_options">Show UMP Options</string>
     <!--  其他  -->
     <string name="rare_function">Rare Function</string>
+    <string name="deprecation_function">Deprecation Function</string>
     <string name="show_open_url">Show OpenUrl</string>
     <string name="show_consent_preferences">Consent Preferences</string>
+    <string name="test_sdk">Test Sdk</string>
 
 </resources>

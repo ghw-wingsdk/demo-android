@@ -8,17 +8,11 @@
     <com.wa.sdk.demo.widget.TitleBar
         android:id="@+id/tb_csc"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <!--<ImageView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:scaleType="fitCenter"-->
-            <!--android:src="@drawable/ic_launcher" />-->
 
         <ScrollView
             android:layout_width="match_parent"
@@ -28,105 +22,68 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="15dp">
+                android:padding="10dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/btn_isOpenAiHelp"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:onClick="onClick"
-                        android:text="@string/isOpenAiHelp" />
+                <LinearLayout style="@style/demo_linearlayout">
 
                     <Button
                         android:id="@+id/btn_openAiHelp"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:onClick="onClick"
+                        style="@style/demo_button"
                         android:text="@string/openAiHelp" />
 
+                    <Button
+                        android:id="@+id/btn_isOpenAiHelp"
+                        style="@style/demo_button"
+                        android:text="@string/isOpenAiHelp" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                <LinearLayout style="@style/demo_linearlayout">
 
                     <Button
                         android:id="@+id/btn_isOpenGameReviewAiHelp"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:onClick="onClick"
+                        style="@style/demo_button"
                         android:text="@string/isOpenGameReviewAiHelp" />
 
                     <Button
                         android:id="@+id/btn_openGameReviewAiHelp"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:onClick="onClick"
+                        style="@style/demo_button"
                         android:text="@string/openGameReviewAiHelp" />
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                <LinearLayout style="@style/demo_linearlayout">
 
                     <Button
                         android:id="@+id/btn_switch_language"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:onClick="onClick"
+                        style="@style/demo_button"
                         android:text="@string/aihelp_switch_language" />
 
                     <TextView
                         android:id="@+id/tv_language"
                         android:layout_width="0dp"
-                        android:padding="8dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:hint="当前语言:默认"
-                        android:textColor="@color/wa_sdk_color_black_alpha_66"
-                        />
+                        android:padding="8dp"
+                        android:textColor="@color/wa_sdk_color_black_alpha_66" />
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                <LinearLayout style="@style/demo_linearlayout">
 
                     <Button
                         android:id="@+id/btn_get_unread_message_count"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:onClick="onClick"
+                        style="@style/demo_button"
                         android:text="@string/aihelp_get_unread_message_count" />
 
                     <TextView
                         android:id="@+id/tv_unread_message_count"
                         android:layout_width="0dp"
-                        android:padding="8dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:hint="未读消息数:"
-                        android:textColor="@color/wa_sdk_color_black_alpha_66"
-                        />
+                        android:padding="8dp"
+                        android:textColor="@color/wa_sdk_color_black_alpha_66" />
 
                 </LinearLayout>
 

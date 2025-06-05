@@ -6,7 +6,7 @@
 
     <color name="colorBlack">#FF000000</color>
     <color name="colorBorder">#FF00CDFF</color>
-    <color name="colorBackground">#FFEFEFEF</color>
+    <color name="colorBackground">#FFFFFF</color>
     <color name="colorGray">#FF808080</color>
 
     <color name="color_white">#FFFFFFFF</color>

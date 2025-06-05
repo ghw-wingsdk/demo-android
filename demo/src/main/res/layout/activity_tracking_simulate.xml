@@ -21,116 +21,56 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
+            <LinearLayout style="@style/demo_linearlayout">
 
                 <Button
                     android:id="@+id/btn_user_import_first"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
+                    style="@style/demo_button"
                     android:text="首次进服" />
 
                 <Button
                     android:id="@+id/btn_user_import"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
+                    style="@style/demo_button"
                     android:text="进服" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
+            <LinearLayout style="@style/demo_linearlayout">
 
                 <Button
                     android:id="@+id/btn_user_create"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="5dp"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
+                    style="@style/demo_button"
                     android:text="创角" />
 
                 <Button
                     android:id="@+id/btn_initiated_purchase"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
+                    style="@style/demo_button"
                     android:text="点击购买" />
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
+            <LinearLayout style="@style/demo_linearlayout">
 
                 <Button
                     android:id="@+id/btn_level_achieved"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
+                    style="@style/demo_button"
                     android:text="升级" />
 
                 <Button
                     android:id="@+id/btn_user_info_update"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="5dp"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
+                    style="@style/demo_button"
                     android:text="更新用户信息" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
+            <LinearLayout style="@style/demo_linearlayout">
 
                 <Button
                     android:id="@+id/btn_lv_x"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
+                    style="@style/demo_button"
                     android:text="关键等级" />
 
                 <Button
                     android:id="@+id/btn_tutorial_completed"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="5dp"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
+                    style="@style/demo_button"
                     android:text="完成新手任务" />
             </LinearLayout>
         </LinearLayout>

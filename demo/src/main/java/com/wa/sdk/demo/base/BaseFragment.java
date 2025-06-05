@@ -1,6 +1,5 @@
 package com.wa.sdk.demo.base;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,7 +16,7 @@ import com.wa.sdk.demo.widget.LoadingDialog;
 
 /**
  * Fragment基类
- * 
+ *
  */
 public class BaseFragment extends Fragment implements View.OnClickListener {
 
@@ -129,36 +128,6 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
         Toast.makeText(getActivity(), resId, Toast.LENGTH_SHORT).show();
     }
 
-    /**
-     * 获取资源id，如果没有找到，返回0
-     * @param name
-     * @param defType
-     * @return
-     */
-    protected int getIdentifier(String name, String defType) {
-        return getResources().getIdentifier(name, defType, getActivity().getPackageName());
-    }
-
-    protected int getResourceColor(int resId) {
-        return getResources().getColor(resId);
-    }
-
-
-
-
-
-
-
-
-    /**
-     * 退出<br/><br/>
-     */
-    protected void exit() {
-        Activity activity = getActivity();
-        if(activity instanceof BaseActivity) {
-            ((BaseActivity) activity).exit();
-        }
-    }
     @Override
     public void onClick(View v) {
 

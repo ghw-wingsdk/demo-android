@@ -13,47 +13,35 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-        <Button
-            android:id="@+id/btn_request_deletion_ui"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginEnd="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/account_deletion_request_ui" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_request_deletion_ui"
+                style="@style/demo_button"
+                android:text="@string/account_deletion_request_ui" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_request_deletion"
+                style="@style/demo_button"
+                android:text="@string/account_deletion_request" />
+
+            <Button
+                android:id="@+id/btn_cancel_deletion"
+                style="@style/demo_button"
+                android:text="@string/account_deletion_cancel" />
+        </LinearLayout>
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_request_deletion"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginEnd="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/account_deletion_request" />
-
-        <Button
-            android:id="@+id/btn_cancel_deletion"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/account_deletion_cancel" />
-    </LinearLayout>
-
 </LinearLayout>

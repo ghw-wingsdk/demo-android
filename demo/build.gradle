@@ -28,23 +28,28 @@ android {
         applicationId "com.ghw.sdk2"
         minSdkVersion 24
         targetSdkVersion 35
-        versionCode 4070300
-        versionName "4.7.3"
+        versionCode 4080000
+        versionName "4.8.0"
         signingConfig signingConfigs.sdk2config
 
         compileSdk 35
         //华为多语种设置
         resConfigs "en", "zh-rCN", "pt-rBR", "es-rES", "in-rID", "ru", "th-rTH", "zh-rHK", "zh-rTW"
-        // 默认名称
+        // 默认名称，标题
         resValue "string", "app_name", "WingSDK"
-        // 默认 app 配置
-        resValue "string", "wa_custom_tab_scheme", "waf7f9a9d18da611e5a0be000d3a906774"
-        // 默认环境
-        manifestPlaceholders.putAll([SDK_HTTP_BASE_URL         : getUrl('http', 'pro'),
-                                     SDK_TRACKING_HTTP_BASE_URL: getUrl('track', 'pro')])
+        resValue "string", "title_main", "WingSDK"
     }
 
-    flavorDimensions = ["pkg"] // 开启包类型维度
+    // 过滤debug构建
+    androidComponents {
+        beforeVariants(selector().withBuildType("debug")) { variantBuilder ->
+            variantBuilder.enable = false
+        }
+    }
+
+    // 声明将使用的构建维度
+//    flavorDimensions = ["pkg", "app", "env"] // pkg-包类型；app-应用；env-环境；
+    flavorDimensions = ["pkg"] // 正在使用的构建维度，可以选择单个或多个维度控制，未选择的维度默认 pkg-google；app-sdk2；env-live
 
     productFlavors {
         // 包类型
@@ -59,16 +64,17 @@ android {
         // 环境
         qa { dimension = "env" }
         pre { dimension = "env" }
-        pro { dimension = "env"; isDefault = true }
+        live { dimension = "env"; isDefault = true }
     }
 
     applicationVariants.configureEach { variant ->
         def mergedFlavor = variant.getMergedFlavor()
-//        def flavorDimensions = []
         def name = variant.name.toLowerCase() // officialSdk1QaDebug...
+
+        // 默认构建配置
         def flavor_pkg = 'google' // google,official,nowgg
         def flavor_app = 'sdk2' // sdk1,sdk2,sdk3
-        def flavor_env = 'pro' // qa,pre,live
+        def flavor_env = 'live' // qa,pre,live
         variant.productFlavors.forEach { flavor ->
             def flavor_dimension = flavor.dimension
             def flavor_name = flavor.name
@@ -83,20 +89,27 @@ android {
         }
 
 //        println("Variants name:" + name + " , pkg:" + flavor_pkg + " , app:" + flavor_app + " , env:" + flavor_env)
-        // 应用配置 (默认sdk2)
+        // 默认应用 (sdk2)
         def sdk_app_id = "f7f9a9d18da611e5a0be000d3a906774"
         def sdk_app_key = "CFHF7nQCCaojCX6Sm4eT1GEIWRprimgX"
         def application_id = "com.ghw.sdk2"
+        // 默认主体 GHG 或 其他
+        def isGHG = true
 
-        if (name.contains("sdk1")) {
+        // SDK应用参数和包名
+        if (flavor_app == "sdk1" && flavor_env == "live") {
+            sdk_app_id = "5aa99861d74611ed8e6202c85f0429f5"
+            sdk_app_key = "lxWTlg3RDf6jUoU8Jj3QZ8hORIMGAAEf"
+            application_id = "com.ghw.sdk1"
+        } else if (flavor_app == "sdk1") {
             sdk_app_id = "b6c022b1d73f11edb06c0211fa47f775"
             sdk_app_key = "6umXRagRhs7iHvhlonx8teHaGONnIEXI"
             application_id = "com.ghw.sdk1"
-        } else if (name.contains("sdk2")) {
-            sdk_app_id = "f7f9a9d18da611e5a0be000d3a906774"
-            sdk_app_key = "CFHF7nQCCaojCX6Sm4eT1GEIWRprimgX"
-            application_id = "com.ghw.sdk2"
-        } else if (name.contains("sdk3")) {
+        } else if (flavor_app == "sdk3" && flavor_env == "live") {
+            sdk_app_id = "4aa86cf1769511edb14602c85f0429f5"
+            sdk_app_key = "9HivjxsuOZJEgAxOOCroExraUzS36m8i"
+            application_id = "com.ghw.sdk3"
+        } else if (flavor_app == ("sdk3")) {
             sdk_app_id = "07aa12e2772011ef88a40211fa47f775"
             sdk_app_key = "6RDGVOkA4wzI6wyEKzKw4suZFU8wmv12"
             application_id = "com.ghw.sdk3"
@@ -105,27 +118,33 @@ android {
         variant.resValue "string", "sdk_app_key", sdk_app_key
         mergedFlavor.applicationId = application_id
 
+        // 应用名
+        def is_official = flavor_pkg == "official"
+        def app_name = "WingSDK"
+        def title_main = "WingSDK"
+        if (flavor_app == "sdk2" && is_official) {
+            // 官网包 WingSDK官网
+            app_name += " 官"
+            title_main += " 官网包"
+        } else if (flavor_app != "sdk2") {
+            // SDK1和SDK3需要标出来（WingSDK g1/o1）
+            app_name += (is_official ? " o" : " g") + flavor_app.substring(3)
+            title_main += (is_official ? " 官网包 " : " 谷歌包 ") + flavor_app.toUpperCase()
+        }
+        variant.resValue "string", "app_name", app_name
+        variant.resValue "string", "title_main", title_main
+
         // 官网包处理
-        if (name.contains("official")) {
+        if (is_official) {
             // applicationId 后缀
             mergedFlavor.applicationId = (mergedFlavor.applicationId + ".official")
-            // GHG 或 其他
-            def isGHG = true
-            // 应用名称
-            def app_name = (isGHG ? "GHG" : "R2") + "官网包_" + flavor_app.toUpperCase()
-            variant.resValue "string", "app_name", app_name
             // 官网包配置
             variant.resValue "string", "wa_custom_tab_scheme", ("wa" + sdk_app_id)
             def sdk_adid_provider = "com.wa.provider.ad." + flavor_app
             mergedFlavor.manifestPlaceholders.putAll([SDK_ADID_PROVIDER: sdk_adid_provider])
             mergedFlavor.manifestPlaceholders.putAll([SDK_OFFICIAL_CHANNEL: isGHG ? "Site" : "Rtwogames"])
-            mergedFlavor.manifestPlaceholders.putAll([SDK_COM_TYPE: isGHG ? 0 : 1])
 
 //            println('applicationVariants :' + name + ",  " + sdk_adid_provider + " , app_name:" + app_name)
-        } else if (flavorDimensions.contains("pkg") && flavorDimensions.contains("app")) {
-            // 应用名称
-            def app_name = "谷歌包_" + flavor_app.toUpperCase()
-            variant.resValue "string", "app_name", app_name
         }
 
         // 环境
@@ -134,22 +153,25 @@ android {
 
         // 打包文件名
         variant.outputs.each { output ->
-            def output_env = '_'+flavor_env + '环境'
+            def output_ver = '_v' + variant.mergedFlavor.versionName
+            def output_env = '_' + flavor_env + '环境'
             def output_repository = '_' + ('true' == IS_TEST_REPOSITORY ? '测试仓库' : '正式仓库')
-            def output_build_apk = '_'+'build' + getDate() + '.apk'
-            def output_common = output_env + output_repository + output_build_apk
+            def output_build_apk = '_' + 'build' + getDate() + '.apk'
+            def output_header = 'WingSDK' + output_ver + output_repository + output_env
 
-            if (flavorDimensions.contains("pkg") && flavorDimensions.contains("app") && name.contains("official")) {
-                output.outputFileName = 'WingSdk_官网包_' + flavor_app + output_common
-            } else if (flavorDimensions.contains("pkg") && flavorDimensions.contains("app") && name.contains("google")) {
-                output.outputFileName = 'WingSdk_谷歌包_' + flavor_app + output_common
+            def output_apk_name = output_header
+            if (flavorDimensions.contains("pkg") && name.contains("official")) {
+                output_apk_name += '_官网包' + (flavorDimensions.contains("app") ? '_' + flavor_app.toUpperCase() : '')
+            } else if (flavorDimensions.contains("pkg") && name.contains("google")) {
+                output_apk_name += '_谷歌包' + (flavorDimensions.contains("app") ? '_' + flavor_app.toUpperCase() : '')
             } else if (name.contains("nowgg")) {
-                output.outputFileName = 'WingSdk_Nowgg包' + output_common
+                output_apk_name += '_Nowgg包'
             } else if (name.contains("leidian")) {
-                output.outputFileName = 'WingSdk_Leidian包' + output_common
+                output_apk_name += '_雷电包'
             } else {
-                output.outputFileName = 'WingSdk_Google包' + output_common
+                output_apk_name += '_Google包'
             }
+            output.outputFileName = output_apk_name + output_build_apk
         }
     }
 
@@ -212,42 +234,51 @@ static def getUrl(type, env) {
             http : [
                     qa : 'http://172.16.100.53/sdk_bkd_qa/sdkapi',
                     pre: 'http://sdk-test1.gamehollywood.com/sdk_bkd_qa/sdkapi',
-                    pro: 'https://api.wingsdk.com/sdkapi'
+                    live: 'https://api.wingsdk.com/sdkapi'
             ],
             track: [
                     qa : 'http://172.16.100.58/data_collection_qa/data',
                     pre: 'http://sdk-test2.gamehollywood.com/data_collection_qa/data/forward',
-                    pro: 'https://api.wingsdk.com/data'
+                    live: 'https://api.wingsdk.com/data'
             ]
     ]
     return urls[type]?.get(env)
 }
 
 dependencies {
-    // 基础模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-base:4.7.3'
-    // 核心模块（必选）
-    implementation 'com.wa.sdk:wa-sdk-core:4.7.3'
-    // wa 客服系统（一般必接）
-    implementation 'com.wa.sdk:wa-sdk-aihelp:4.6.0'
-    // AppsFlyer模块（一般必接）
-    implementation 'com.wa.sdk:wa-sdk-appsflyer:4.6.0'
-    // 消息推送模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-firebase:4.6.0'
-    // Facebook模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-facebook:4.6.0'
-    // Google模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-google:4.7.1'
-    // AdMob模块（可选）
-    implementation 'com.wa.sdk:wa-sdk-admob:4.6.0'
-    // 网页集成登录，GHG和R2 （可选，正常接入直接 implementation 即可）
-    officialImplementation 'com.wa.sdk:wa-sdk-ghgl:4.5.0'
-    // 网页支付模块（可选，正常接入直接 implementation 即可）
-    officialImplementation 'com.wa.sdk:wa-sdk-ghgp:4.7.2'
-    // nowgg 模块（可选，正常接入直接 implementation 即可）
-    nowggImplementation 'com.wa.sdk:wa-sdk-nowgg:4.7.3'
-    // 雷电 模块（可选，正常接入直接 implementation 即可）
-    leidianImplementation 'com.wa.sdk:wa-sdk-leidian:4.7.0'
+    // Google包 接入模块
+    googleImplementation 'com.wa.sdk:wa-sdk-base:4.8.0'           // 基础模块（必选）
+    googleImplementation 'com.wa.sdk:wa-sdk-core:4.8.0'           // 核心模块（必选）
+    googleImplementation 'com.wa.sdk:wa-sdk-aihelp:4.6.0'         // AiHelp客服模块（一般必接）
+    googleImplementation 'com.wa.sdk:wa-sdk-appsflyer:4.6.0'      // AppsFlyer模块（一般必接）
+    googleImplementation 'com.wa.sdk:wa-sdk-google:4.7.1'         // Google模块（谷歌包一般必接）
+    googleImplementation 'com.wa.sdk:wa-sdk-facebook:4.6.0'       // Facebook模块（谷歌包一般必接）
+    googleImplementation 'com.wa.sdk:wa-sdk-firebase:4.6.0'       // Firebase消息推送模块（谷歌包一般必接）
+    googleImplementation 'com.wa.sdk:wa-sdk-admob:4.8.0'          // AdMob广告模块（可选）
+
+    // 官网包 接入模块
+    officialImplementation 'com.wa.sdk:wa-sdk-base:4.8.0'         // 基础模块（必选）
+    officialImplementation 'com.wa.sdk:wa-sdk-core:4.8.0'         // 核心模块（必选）
+    officialImplementation 'com.wa.sdk:wa-sdk-aihelp:4.6.0'       // AiHelp客服模块（一般必接）
+    officialImplementation 'com.wa.sdk:wa-sdk-appsflyer:4.6.0'    // AppsFlyer模块（一般必接）
+    officialImplementation 'com.wa.sdk:wa-sdk-ghgl:4.8.0'         // 网页登录模块（官网包必接）
+    officialImplementation 'com.wa.sdk:wa-sdk-ghgp:4.8.0'         // 网页支付模块（官网包必接）
+    officialImplementation 'com.wa.sdk:wa-sdk-admob:4.8.0'        // AdMob广告模块（可选）
+
+    // Nowgg包 接入模块
+    nowggImplementation 'com.wa.sdk:wa-sdk-base:4.8.0'            // 基础模块（必选）
+    nowggImplementation 'com.wa.sdk:wa-sdk-core:4.8.0'            // 核心模块（必选）
+    nowggImplementation 'com.wa.sdk:wa-sdk-aihelp:4.6.0'          // AiHelp客服模块（一般必接）
+    nowggImplementation 'com.wa.sdk:wa-sdk-appsflyer:4.6.0'       // AppsFlyer模块（一般必接）
+    nowggImplementation 'com.wa.sdk:wa-sdk-nowgg:4.8.0'           // Nowgg模块（Nowgg包必接）
+
+    // 雷电包 接入模块
+    leidianImplementation 'com.wa.sdk:wa-sdk-base:4.8.0'          // 基础模块（必选）
+    leidianImplementation 'com.wa.sdk:wa-sdk-core:4.8.0'          // 核心模块（必选）
+    leidianImplementation 'com.wa.sdk:wa-sdk-appsflyer:4.6.0'     // AppsFlyer模块（一般必接）
+    leidianImplementation 'com.wa.sdk:wa-sdk-google:4.7.1'        // Google模块（一般必接）
+    leidianImplementation 'com.wa.sdk:wa-sdk-facebook:4.6.0'      // Facebook模块（一般必接）
+    leidianImplementation 'com.wa.sdk:wa-sdk-leidian:4.8.0'       // 雷电模块（雷电包必接）
 
 //    华为 HMS（可选）
 //    implementation 'com.wa.sdk:wa-sdk-huaweihms:3.18.0'

@@ -4,22 +4,10 @@ android {
     namespace "com.wa.sdk.demo"
 
     signingConfigs {
-        sdk1config {
-            keyAlias 'key0'
-            keyPassword '123456'
-            storeFile file('../keystores/sdk1.jks')
-            storePassword '123456'
-        }
         sdk2config {
             keyAlias 'pcl-sdk-cert-dev'
             keyPassword '123456'
             storeFile file('../keystores/android-cert-dev.jks')
-            storePassword '123456'
-        }
-        sdk3config {
-            keyAlias 'key0'
-            keyPassword '123456'
-            storeFile file('../keystores/sdk3.jks')
             storePassword '123456'
         }
     }
@@ -40,16 +28,8 @@ android {
         resValue "string", "title_main", "WingSDK"
     }
 
-    // 过滤debug构建
-    androidComponents {
-        beforeVariants(selector().withBuildType("debug")) { variantBuilder ->
-            variantBuilder.enable = false
-        }
-    }
-
     // 声明将使用的构建维度
-//    flavorDimensions = ["pkg", "app", "env"] // pkg-包类型；app-应用；env-环境；
-    flavorDimensions = ["pkg"] // 正在使用的构建维度，可以选择单个或多个维度控制，未选择的维度默认 pkg-google；app-sdk2；env-live
+    flavorDimensions = ["pkg"]
 
     productFlavors {
         // 包类型
@@ -57,35 +37,22 @@ android {
         official { dimension = "pkg" }
         nowgg { dimension = "pkg" }
         leidian { dimension = "pkg" }
-        // 应用
-        sdk1 { dimension = "app" }
-        sdk2 { dimension = "app"; isDefault = true }
-        sdk3 { dimension = "app" }
-        // 环境
-        qa { dimension = "env" }
-        pre { dimension = "env" }
-        live { dimension = "env"; isDefault = true }
     }
 
     applicationVariants.configureEach { variant ->
         def mergedFlavor = variant.getMergedFlavor()
-        def name = variant.name.toLowerCase() // officialSdk1QaDebug...
+        def name = variant.name.toLowerCase()
 
         // 默认构建配置
-        def flavor_pkg = 'google' // google,official,nowgg
-        def flavor_app = 'sdk2' // sdk1,sdk2,sdk3
-        def flavor_env = 'live' // qa,pre,live
+        def flavor_pkg = 'google' // google,official,nowgg,leidian
+        def flavor_app = 'sdk2'
+        def flavor_env = 'live'
         variant.productFlavors.forEach { flavor ->
             def flavor_dimension = flavor.dimension
             def flavor_name = flavor.name
             if (flavor_dimension == "pkg") {
                 flavor_pkg = flavor_name
-            } else if (flavor_dimension == "app") {
-                flavor_app = flavor_name
-            } else if (flavor_dimension == "env") {
-                flavor_env = flavor_name
             }
-//            flavorDimensions.add(flavor_dimension)
         }
 
 //        println("Variants name:" + name + " , pkg:" + flavor_pkg + " , app:" + flavor_app + " , env:" + flavor_env)
@@ -96,24 +63,6 @@ android {
         // 默认主体 GHG 或 其他
         def isGHG = true
 
-        // SDK应用参数和包名
-        if (flavor_app == "sdk1" && flavor_env == "live") {
-            sdk_app_id = "5aa99861d74611ed8e6202c85f0429f5"
-            sdk_app_key = "lxWTlg3RDf6jUoU8Jj3QZ8hORIMGAAEf"
-            application_id = "com.ghw.sdk1"
-        } else if (flavor_app == "sdk1") {
-            sdk_app_id = "b6c022b1d73f11edb06c0211fa47f775"
-            sdk_app_key = "6umXRagRhs7iHvhlonx8teHaGONnIEXI"
-            application_id = "com.ghw.sdk1"
-        } else if (flavor_app == "sdk3" && flavor_env == "live") {
-            sdk_app_id = "4aa86cf1769511edb14602c85f0429f5"
-            sdk_app_key = "9HivjxsuOZJEgAxOOCroExraUzS36m8i"
-            application_id = "com.ghw.sdk3"
-        } else if (flavor_app == ("sdk3")) {
-            sdk_app_id = "07aa12e2772011ef88a40211fa47f775"
-            sdk_app_key = "6RDGVOkA4wzI6wyEKzKw4suZFU8wmv12"
-            application_id = "com.ghw.sdk3"
-        }
         variant.resValue "string", "sdk_app_id", sdk_app_id
         variant.resValue "string", "sdk_app_key", sdk_app_key
         mergedFlavor.applicationId = application_id
@@ -126,10 +75,6 @@ android {
             // 官网包 WingSDK官网
             app_name += " 官"
             title_main += " 官网包"
-        } else if (flavor_app != "sdk2") {
-            // SDK1和SDK3需要标出来（WingSDK g1/o1）
-            app_name += (is_official ? " o" : " g") + flavor_app.substring(3)
-            title_main += (is_official ? " 官网包 " : " 谷歌包 ") + flavor_app.toUpperCase()
         }
         variant.resValue "string", "app_name", app_name
         variant.resValue "string", "title_main", title_main
@@ -147,10 +92,6 @@ android {
 //            println('applicationVariants :' + name + ",  " + sdk_adid_provider + " , app_name:" + app_name)
         }
 
-        // 环境
-        mergedFlavor.manifestPlaceholders.putAll([SDK_HTTP_BASE_URL         : getUrl('http', flavor_env),
-                                                  SDK_TRACKING_HTTP_BASE_URL: getUrl('track', flavor_env)])
-
         // 打包文件名
         variant.outputs.each { output ->
             def output_ver = '_v' + variant.mergedFlavor.versionName
@@ -161,9 +102,9 @@ android {
 
             def output_apk_name = output_header
             if (flavorDimensions.contains("pkg") && name.contains("official")) {
-                output_apk_name += '_官网包' + (flavorDimensions.contains("app") ? '_' + flavor_app.toUpperCase() : '')
+                output_apk_name += '_官网包'
             } else if (flavorDimensions.contains("pkg") && name.contains("google")) {
-                output_apk_name += '_谷歌包' + (flavorDimensions.contains("app") ? '_' + flavor_app.toUpperCase() : '')
+                output_apk_name += '_谷歌包'
             } else if (name.contains("nowgg")) {
                 output_apk_name += '_Nowgg包'
             } else if (name.contains("leidian")) {
@@ -182,9 +123,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             if (flavorDimensions.contains("app")) {
-                productFlavors.sdk1.signingConfig signingConfigs.sdk1config
                 productFlavors.sdk2.signingConfig signingConfigs.sdk2config
-                productFlavors.sdk3.signingConfig signingConfigs.sdk3config
             } else {
                 signingConfig signingConfigs.sdk2config
             }
@@ -198,9 +137,7 @@ android {
             minifyEnabled false
             shrinkResources false
             if (flavorDimensions.contains("app")) {
-                productFlavors.sdk1.signingConfig signingConfigs.sdk1config
                 productFlavors.sdk2.signingConfig signingConfigs.sdk2config
-                productFlavors.sdk3.signingConfig signingConfigs.sdk3config
             } else {
                 signingConfig signingConfigs.sdk2config
             }

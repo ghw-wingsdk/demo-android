@@ -333,7 +333,7 @@ public class MainActivity extends BaseActivity {
             // 打开游戏评价
             openGameReview();
         } else if (id == R.id.btn_show_consent_preferences) {
-            // Consent同意设置
+            // 打开Consent同意设置（若无法显示弹窗，则需要开启英国等属于欧盟范围的VPN来测试）
             WACmpProxy.showConsentPreferences(this);
         } else if (id == R.id.btn_admob) {
             // AdMob 广告

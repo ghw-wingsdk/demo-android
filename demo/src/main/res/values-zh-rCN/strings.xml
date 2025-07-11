@@ -251,6 +251,10 @@
     <string name="account_deletion_identify_account">身份确认</string>
     <!--  AdMob  -->
     <string name="admob">AdMob</string>
+    <string name="is_open_app_open_ad">是否开启开屏广告</string>
+    <string name="is_open_banner_ad">是否开启横幅广告</string>
+    <string name="is_open_interstitial_ad">是否开启插页广告</string>
+    <string name="is_open_rewarded_ad">是否开启激励广告</string>
     <string name="check_interstitial_ad">检查插页广告</string>
     <string name="show_interstitial_ad">显示插页广告</string>
     <string name="check_app_open_ad">检查开屏广告</string>

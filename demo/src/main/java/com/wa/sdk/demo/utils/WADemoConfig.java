@@ -9,9 +9,7 @@ public class WADemoConfig {
 
     public static final String SP_CONFIG_FILE_DEMO = "wa_demo_config";
 
-    /**
-     * SP key登录流程缓存（int）
-     **/
+    /** SP key登录流程缓存（int） **/
     public static final String SP_KEY_LOGIN_FLOW_TYPE = "login_flow_type";
 
     public static final String SP_KEY_ENABLE_LOGCAT = "enable_logcat";
@@ -38,7 +36,12 @@ public class WADemoConfig {
 
     public static final String SP_KEY_IS_FIRST_IMPORT_IN_CREATE = "is_first_import_in_create";
 
+    public static final String SP_KEY_CURRENT_LEVEL = "sp_key_current_level";
+
+    public static final String SP_KEY_CURRENT_SERVER_ID = "sp_key_current_server_id";
+
     public static final String SP_KEY_DEMO_ENV = "SP_KEY_DEMO_ENV";
+
 
 
     public static final String EXTRA_DATA = "extra_data";

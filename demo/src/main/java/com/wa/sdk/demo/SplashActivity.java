@@ -77,6 +77,7 @@ public class SplashActivity extends BaseActivity {
                         .setCancelable(false)
                         .setMessage("初始化失败，请退出应用重新进入")
                         .setPositiveButton("退出", (dialog, which) -> finish())
+                        .setNegativeButton("继续(测试)", null) // 正常情况下不应该让用户继续操作
                         .show();
             }
         });

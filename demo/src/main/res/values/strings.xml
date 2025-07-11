@@ -254,6 +254,10 @@
     <string name="account_deletion_identify_account">Identify Account</string>
     <!--  AdMob  -->
     <string name="admob">AdMob</string>
+    <string name="is_open_app_open_ad">Is Open AppOpen Ad</string>
+    <string name="is_open_banner_ad">Is Open Banner Ad</string>
+    <string name="is_open_interstitial_ad">Is Open Interstitial Ad</string>
+    <string name="is_open_rewarded_ad">Is Open Rewarded Ad</string>
     <string name="check_interstitial_ad">Check Interstitial Ad</string>
     <string name="show_interstitial_ad">Show Interstitial Ad</string>
     <string name="check_app_open_ad">Check AppOpen Ad</string>

@@ -1,5 +1,6 @@
 package com.wa.sdk.demo;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.admob.WAAdMobPublicProxy;
@@ -34,6 +36,7 @@ public class AdMobActivity extends BaseActivity {
     private final CustomCallback mCallbackAppOpen = new CustomCallback("开屏");
     private final CustomCallback mCallbackRewarded = new CustomCallback("激励");
     private EditText mEdtRewardedName;
+    private EditText mEdtOpenRewardedName;
 
     private class CustomCallback extends WAAdMobAdsCallback {
         private final String mAdType;
@@ -82,7 +85,8 @@ public class AdMobActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admob);
         setTitleBar(R.string.admob);
-        mEdtRewardedName = (EditText) findViewById(R.id.edt_rewarded_ad_name);
+        mEdtRewardedName = findViewById(R.id.edt_rewarded_ad_name);
+        mEdtOpenRewardedName = findViewById(R.id.edt_open_rewarded_ad_name);
 
         ToggleButton btnEnableAppOpenAd = findViewById(R.id.btn_enable_app_open_ad);
         btnEnableAppOpenAd.setChecked(getSpHelper().getBoolean(WADemoConfig.SP_KEY_ENABLE_APP_OPEN_AD, DEFAULT_APP_OPEN_AD_STATE));
@@ -98,7 +102,7 @@ public class AdMobActivity extends BaseActivity {
         });
         // 横幅广告
         boolean isEnableBannerAd = getSpHelper().getBoolean(WADemoConfig.SP_KEY_ENABLE_BANNER_AD, DEFAULT_BANNER_AD_STATE);
-        if (isEnableBannerAd) {
+        if (isEnableBannerAd && WAAdMobPublicProxy.isOpenBannerAd()) {
             FrameLayout containerBanner = findViewById(R.id.container_admob_banner);
             WAAdMobPublicProxy.bindBannerAd(this, containerBanner);
         }
@@ -109,6 +113,24 @@ public class AdMobActivity extends BaseActivity {
     @Override
     public void onClick(View v) {
         int id = v.getId();
+        // 广告开关判断
+        if (id == R.id.btn_is_open_app_open_ad) {
+            boolean isOpenAppOpenAd = WAAdMobPublicProxy.isOpenAppOpenAd();
+            showShortToast("是否打开开屏广告：" + isOpenAppOpenAd);
+        } else if (id == R.id.btn_is_open_banner_ad) {
+            boolean isOpenBannerAd = WAAdMobPublicProxy.isOpenBannerAd();
+            showShortToast("是否打开横幅广告：" + isOpenBannerAd);
+        } else if (id == R.id.btn_is_open_interstitial_ad) {
+            boolean isOpenInterstitialAd = WAAdMobPublicProxy.isOpenInterstitialAd();
+            showShortToast("是否打开插页广告：" + isOpenInterstitialAd);
+        } else if (id == R.id.btn_is_open_rewarded_ad) {
+            String openRewardedName = mEdtOpenRewardedName.getText().toString();
+            boolean openRewardedWithAdName = WAAdMobPublicProxy.isOpenRewardedWithAdName(openRewardedName);
+            showShortToast("是否打开激励广告 (" + openRewardedName + ")：" + openRewardedWithAdName);
+        }
+        // isOpenWithCallback(id);
+
+        // 广告接口
         if (id == R.id.btn_check_interstitial_ad) {
             boolean isInterstitialReady = WAAdMobPublicProxy.checkInterstitialAdReady();
             showShortToast("插页广告Ready：" + isInterstitialReady);
@@ -134,7 +156,10 @@ public class AdMobActivity extends BaseActivity {
                 e.printStackTrace();
             }
             WAAdMobPublicProxy.showRewardedAd(this, adName, extInfo, mCallbackRewarded);
-        } else if (id == R.id.btn_check_ump_options) {
+        }
+
+        // UMP 功能接口
+        if (id == R.id.btn_check_ump_options) {
             showShortToast("检查UMP配置：" + WAAdMobPublicProxy.checkUmpOptions());
         } else if (id == R.id.btn_show_ump_options) {
             WAAdMobPublicProxy.showUmpOptions(this, new WACallback() {
@@ -152,6 +177,85 @@ public class AdMobActivity extends BaseActivity {
                 @Override
                 public void onError(int code, String message, Object result, Throwable throwable) {
                     showShortToast("showUmpOptions error: " + code + " - " + message);
+                }
+            });
+        }
+    }
+
+    /**
+     * 判断广告开关状态（异步回调）
+     */
+    private void isOpenWithCallback(int id) {
+        if (id == R.id.btn_is_open_app_open_ad) {
+            WAAdMobPublicProxy.isOpenAppOpenAdWithCallback(new WACallback<Boolean>() {
+                @Override
+                public void onSuccess(int code, String message, Boolean result) {
+                    showShortToast("是否打开开屏广告：" + result);
+                    new AlertDialog.Builder(AdMobActivity.this)
+                            .setMessage("test....")
+                            .show();
+                }
+
+                @Override
+                public void onCancel() {
+
+                }
+
+                @Override
+                public void onError(int code, String message, @Nullable Boolean result, @Nullable Throwable throwable) {
+
+                }
+            });
+        } else if (id == R.id.btn_is_open_banner_ad) {
+            WAAdMobPublicProxy.isOpenBannerAdWithCallback(new WACallback<Boolean>() {
+                @Override
+                public void onSuccess(int code, String message, Boolean result) {
+                    showShortToast("是否打开横幅广告：" + result);
+                }
+
+                @Override
+                public void onCancel() {
+
+                }
+
+                @Override
+                public void onError(int code, String message, @Nullable Boolean result, @Nullable Throwable throwable) {
+
+                }
+            });
+        } else if (id == R.id.btn_is_open_interstitial_ad) {
+            WAAdMobPublicProxy.isOpenInterstitialAdWithCallback(new WACallback<Boolean>() {
+                @Override
+                public void onSuccess(int code, String message, Boolean result) {
+                    showShortToast("是否打开插页广告：" + result);
+                }
+
+                @Override
+                public void onCancel() {
+
+                }
+
+                @Override
+                public void onError(int code, String message, @Nullable Boolean result, @Nullable Throwable throwable) {
+
+                }
+            });
+        } else if (id == R.id.btn_is_open_rewarded_ad) {
+            String openRewardedName = mEdtOpenRewardedName.getText().toString();
+            WAAdMobPublicProxy.isOpenRewardedWithAdNameCallback(openRewardedName, new WACallback<Boolean>() {
+                @Override
+                public void onSuccess(int code, String message, Boolean result) {
+                    showShortToast("是否打开激励广告 (" + openRewardedName + ")：" + result);
+                }
+
+                @Override
+                public void onCancel() {
+
+                }
+
+                @Override
+                public void onError(int code, String message, @Nullable Boolean result, @Nullable Throwable throwable) {
+
                 }
             });
         }

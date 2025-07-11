@@ -1,16 +1,20 @@
 package com.wa.sdk.demo.base;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.activity.ComponentActivity;
@@ -301,8 +305,20 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
         }
     }
 
+    protected void delayCall(float delaySecond, Runnable runnable) {
+        new Handler(Looper.getMainLooper()).postDelayed(runnable, ((long) (delaySecond * 1000L)));
+    }
+
     protected WASharedPrefHelper getSpHelper() {
         return WASdkDemo.getInstance().getSpHelper();
+    }
+
+    protected void hideKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }
 

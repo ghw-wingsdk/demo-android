@@ -1,8 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="Autofill,TextFields">
 
     <com.wa.sdk.demo.widget.TitleBar
         android:id="@+id/tb_admob"
@@ -21,6 +23,50 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical">
+
+            <LinearLayout style="@style/demo_linearlayout">
+
+                <Button
+                    android:id="@+id/btn_is_open_app_open_ad"
+                    style="@style/demo_button"
+                    android:text="@string/is_open_app_open_ad" />
+
+                <Button
+                    android:id="@+id/btn_is_open_banner_ad"
+                    style="@style/demo_button"
+                    android:text="@string/is_open_banner_ad" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/demo_linearlayout">
+
+                <Button
+                    android:id="@+id/btn_is_open_interstitial_ad"
+                    style="@style/demo_button"
+                    android:text="@string/is_open_interstitial_ad" />
+
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/demo_linearlayout">
+
+                <EditText
+                    android:id="@+id/edt_open_rewarded_ad_name"
+                    style="@style/demo_button"
+                    android:hint="@string/hint_rewarded_ad_name"
+                    android:text="Rewarded_1" />
+
+                <Button
+                    android:id="@+id/btn_is_open_rewarded_ad"
+                    style="@style/demo_button"
+                    android:text="@string/is_open_rewarded_ad" />
+
+            </LinearLayout>
+
+            <View
+                android:background="@color/colorGray"
+                android:layout_width="match_parent"
+                android:layout_height="4dp" />
 
             <LinearLayout style="@style/demo_linearlayout">
 
@@ -83,6 +129,11 @@
                     android:textOn="@string/enable_banner_ad" />
 
             </LinearLayout>
+
+            <View
+                android:background="@color/colorGray"
+                android:layout_width="match_parent"
+                android:layout_height="4dp" />
 
             <LinearLayout style="@style/demo_linearlayout">
 

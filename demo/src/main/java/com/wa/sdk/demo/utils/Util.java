@@ -127,6 +127,7 @@ public class Util {
         String versionCode = "代码版本：" + BuildConfig.VERSION_CODE;
         String buildType = "打包类型：" + BuildConfig.FLAVOR + "_" + BuildConfig.BUILD_TYPE;
         String buildTime = "打包时间：" + BuildConfig.DEMO_BUILD_TIME;
+        String isTestRepository = "测试仓库：" + (BuildConfig.IS_TEST_REPOSITORY ? "是" : "否");
         String lineNew = "\n";
 
         Bundle manifest = Util.getMataDatasFromManifest(context);
@@ -142,6 +143,7 @@ public class Util {
                 + officialPackage + lineNew
                 + buildType + lineNew
                 + buildTime + lineNew
+                + isTestRepository + lineNew
                 ;
     }
 }

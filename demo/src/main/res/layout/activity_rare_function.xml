@@ -48,25 +48,46 @@
                     android:text="@string/game_service" />
             </LinearLayout>
 
-            <LinearLayout
-                style="@style/demo_linearlayout"
-                android:weightSum="2">
+            <LinearLayout style="@style/demo_linearlayout">
 
                 <Button
                     android:id="@+id/btn_get_account_info"
                     style="@style/demo_button"
-                    android:text="@string/get_account_info"
-                    android:visibility="visible" />
-
+                    android:text="@string/get_account_info" />
             </LinearLayout>
+
+            <LinearLayout style="@style/demo_linearlayout">
+
+                <Button
+                    android:id="@+id/btn_account_manager"
+                    style="@style/demo_button"
+                    android:text="@string/account_manager" />
+
+                <Button
+                    android:id="@+id/btn_account_deletion"
+                    style="@style/demo_button"
+                    android:text="@string/account_deletion" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/demo_linearlayout">
+
+                <Button
+                    android:id="@+id/btn_user_center"
+                    style="@style/demo_button"
+                    android:text="@string/user_center" />
+
+                <Button
+                    android:id="@+id/btn_show_consent_preferences"
+                    style="@style/demo_button"
+                    android:text="@string/show_consent_preferences" />
+            </LinearLayout>
+
 
             <Button
                 android:id="@+id/btn_deprecation_function"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/demo_button_height"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginStart="5dp"
-                android:layout_marginLeft="5dp"
                 android:onClick="onClick"
                 android:text="@string/deprecation_function" />
 

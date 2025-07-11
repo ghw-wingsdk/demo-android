@@ -346,15 +346,6 @@ public class AccountManagerActivity extends BaseActivity {
                 showShortToast(sb);
                 logI(sb);
 
-                if (WACallback.CODE_SUCCESS == result.getCode()) {
-                    if (binding) {
-                        // 绑定成功，如果需要绑定账号发奖励，可以在这里处理
-                    } else {
-                        // 解绑成功
-                    }
-                } else {
-
-                }
                 if (binding && WACallback.CODE_SUCCESS == result.getCode()) {
                     // 绑定成功，如果需要绑定账号发奖励，可以在这里处理
                 } else if (!binding && WACallback.CODE_SUCCESS == result.getCode()) {

@@ -1,8 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="HardcodedText,Autofill">
 
     <com.wa.sdk.demo.widget.TitleBar
         android:id="@+id/tb_main"
@@ -26,7 +28,7 @@
                 <Button
                     android:id="@+id/btn_user_import_first"
                     style="@style/demo_button"
-                    android:text="首次进服" />
+                    android:text="首次进服(旧版)" />
 
                 <Button
                     android:id="@+id/btn_user_import"
@@ -72,6 +74,34 @@
                     android:id="@+id/btn_tutorial_completed"
                     style="@style/demo_button"
                     android:text="完成新手任务" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/demo_linearlayout">
+
+                <EditText
+                    android:id="@+id/edt_current_server_id"
+                    style="@style/demo_edit"
+                    android:layout_weight="2"
+                    android:hint="服务器ID" />
+
+                <Button
+                    android:id="@+id/btn_set_server_id"
+                    style="@style/demo_button"
+                    android:layout_weight="3"
+                    android:text="设置当前区服" />
+
+                <EditText
+                    android:id="@+id/edt_current_level"
+                    style="@style/demo_edit"
+                    android:layout_weight="2"
+                    android:inputType="number"
+                    android:hint="等级" />
+
+                <Button
+                    android:id="@+id/btn_set_level"
+                    style="@style/demo_button"
+                    android:layout_weight="3"
+                    android:text="设置当前等级" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

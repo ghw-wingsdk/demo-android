@@ -165,29 +165,6 @@
                     android:textOn="@string/enable_login_cache" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="登录的区服："
-                    android:textColor="@color/colorBlack" />
-
-                <EditText
-                    android:id="@+id/edt_server_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="登录区服1/2/3(默认2)"
-                    android:maxLines="1"
-                    android:text=""
-                    android:textColorHint="@color/colorGray"
-                    android:textSize="14dp" />
-
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

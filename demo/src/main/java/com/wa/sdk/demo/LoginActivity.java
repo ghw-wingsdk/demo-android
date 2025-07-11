@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -32,7 +31,6 @@ import org.json.JSONObject;
 public class LoginActivity extends BaseActivity {
 
     private TitleBar mTitlebar;
-    private EditText mEdtServerId;
     private boolean mAutoFinish = false;
 
     @Override
@@ -130,8 +128,6 @@ public class LoginActivity extends BaseActivity {
         mTitlebar = findViewById(R.id.tb_login);
         setTitleBar(R.string.login);
 
-        mEdtServerId = findViewById(R.id.edt_server_id);
-
         ToggleButton loginFlowType = findViewById(R.id.tbtn_login_flow_type);
         int flowType = WASdkDemo.getInstance().getLoginFlowType();
         WAUserProxy.setLoginFlowType(flowType);
@@ -178,7 +174,6 @@ public class LoginActivity extends BaseActivity {
                 // MainActivity.userEnterGame(result);
 
                 mTitlebar.setTitleText("登录(" + result.getPlatform() + ")");
-                mEdtServerId.clearFocus();
             }
 
             logI(text);

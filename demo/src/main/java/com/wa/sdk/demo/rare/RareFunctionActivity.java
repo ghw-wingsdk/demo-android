@@ -1,13 +1,19 @@
 package com.wa.sdk.demo.rare;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
+import com.wa.sdk.cmp.WACmpProxy;
 import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.model.WAResult;
 import com.wa.sdk.core.WACoreProxy;
+import com.wa.sdk.demo.AccountManagerActivity;
 import com.wa.sdk.demo.R;
+import com.wa.sdk.demo.UserCenterActivity;
+import com.wa.sdk.demo.UserDeletionActivity;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.deprecation.DeprecationFunctionActivity;
 import com.wa.sdk.user.WAUserProxy;
@@ -22,6 +28,27 @@ public class RareFunctionActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rare_function);
         setTitleBar(R.string.rare_function);
+
+        // 显示或隐藏 Consent同意设置 按钮
+        WACmpProxy.checkConsentPreferences(new WACallback<Boolean>() {
+            @Override
+            public void onSuccess(int code, String message, Boolean isShow) {
+                // 返回 true，则需要显示 Consent同意设置 按钮；false，则否；
+                Button btn = findViewById(R.id.btn_show_consent_preferences);
+                btn.setTextColor(isShow ? Color.BLACK : Color.GRAY);
+                btn.setText(btn.getText() + (isShow ? "(显示)" : "(隐藏)"));
+            }
+
+            @Override
+            public void onCancel() {
+                // 忽略，无需处理
+            }
+
+            @Override
+            public void onError(int code, String message, Boolean result, Throwable throwable) {
+                // 忽略，无需处理
+            }
+        });
 
     }
 
@@ -55,7 +82,24 @@ public class RareFunctionActivity extends BaseActivity {
         } else if (id == R.id.btn_game_service) {
             // 游戏服务（Google）
             startActivity(new Intent(this, GoogleGameActivity.class));
-        } else if (id == R.id.btn_deprecation_function) {
+        } else if (id == R.id.btn_account_manager) {
+            // 账号管理
+            if (isNotLoginAndTips()) return;
+            startActivity(new Intent(this, AccountManagerActivity.class));
+        } else if (id == R.id.btn_account_deletion) {
+            // 账号删除
+            if (isNotLoginAndTips()) return;
+            startActivity(new Intent(this, UserDeletionActivity.class));
+        } else if (id == R.id.btn_user_center) {
+            // 用户中心
+            startActivity(new Intent(this, UserCenterActivity.class));
+        } else if (id == R.id.btn_show_consent_preferences) {
+            // Consent同意设置
+            WACmpProxy.showConsentPreferences(this);
+        }
+
+        if (id == R.id.btn_deprecation_function) {
+            // 已经废弃的功能
             startActivity(new Intent(this, DeprecationFunctionActivity.class));
         }
     }

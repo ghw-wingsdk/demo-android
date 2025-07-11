@@ -47,22 +47,22 @@
                     android:text="@string/login" />
 
                 <Button
-                    android:id="@+id/btn_account_manager"
+                    android:id="@+id/btn_pay"
                     style="@style/demo_button"
-                    android:text="@string/account_manager" />
+                    android:text="@string/payment" />
             </LinearLayout>
 
             <LinearLayout style="@style/demo_linearlayout">
 
                 <Button
-                    android:id="@+id/btn_pay"
-                    style="@style/demo_button"
-                    android:text="@string/payment" />
-
-                <Button
                     android:id="@+id/btn_tracking"
                     style="@style/demo_button"
                     android:text="@string/tracking" />
+
+                <Button
+                    android:id="@+id/btn_csc"
+                    style="@style/demo_button"
+                    android:text="@string/wa_csc" />
             </LinearLayout>
 
             <LinearLayout style="@style/demo_linearlayout">
@@ -82,23 +82,9 @@
             <LinearLayout style="@style/demo_linearlayout">
 
                 <Button
-                    android:id="@+id/btn_request_permission"
+                    android:id="@+id/btn_open_game_review"
                     style="@style/demo_button"
-                    android:text="@string/request_permisssion" />
-
-                <Button
-                    android:id="@+id/btn_csc"
-                    style="@style/demo_button"
-                    android:text="@string/wa_csc" />
-
-            </LinearLayout>
-
-            <LinearLayout style="@style/demo_linearlayout">
-
-                <Button
-                    android:id="@+id/btn_user_center"
-                    style="@style/demo_button"
-                    android:text="@string/user_center" />
+                    android:text="@string/game_review" />
 
                 <Button
                     android:id="@id/btn_admob"
@@ -109,29 +95,14 @@
             <LinearLayout style="@style/demo_linearlayout">
 
                 <Button
-                    android:id="@+id/btn_account_deletion"
+                    android:id="@+id/btn_request_permission"
                     style="@style/demo_button"
-                    android:text="@string/account_deletion" />
+                    android:text="@string/request_permisssion" />
 
                 <Button
-                    android:id="@+id/btn_open_game_review"
+                    android:id="@+id/btn_customer_center"
                     style="@style/demo_button"
-                    android:text="@string/game_review" />
-            </LinearLayout>
-
-            <LinearLayout style="@style/demo_linearlayout">
-
-
-                <Button
-                    android:id="@+id/btn_show_consent_preferences"
-                    style="@style/demo_button"
-                    android:text="@string/show_consent_preferences" />
-
-                <Button
-                    android:id="@+id/btn_"
-                    style="@style/demo_button"
-                    android:text="@string/admob"
-                    android:visibility="invisible" />
+                    android:text="@string/wa_sdk_settings_customer_center" />
 
             </LinearLayout>
 

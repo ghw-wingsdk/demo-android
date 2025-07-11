@@ -2,18 +2,16 @@ package com.wa.sdk.demo;
 
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ToggleButton;
 
+import androidx.annotation.Nullable;
+
 import com.wa.sdk.admob.WAAdMobPublicProxy;
-import com.wa.sdk.cmp.WACmpProxy;
 import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.model.WAResult;
@@ -29,8 +27,11 @@ import com.wa.sdk.pay.WAPayProxy;
 import com.wa.sdk.pay.model.WAPurchaseResult;
 import com.wa.sdk.track.WATrackProxy;
 import com.wa.sdk.track.model.WAUserCreateEvent;
-import com.wa.sdk.track.model.WAUserImportEvent;
+import com.wa.sdk.track.model.WAUserImportEventV2;
 import com.wa.sdk.user.WAUserProxy;
+import com.wa.sdk.user.model.WAAccountCallbackV2;
+import com.wa.sdk.user.model.WABindResultV2;
+import com.wa.sdk.user.model.WACertificationInfo;
 import com.wa.sdk.user.model.WAGameReviewCallback;
 import com.wa.sdk.user.model.WALoginResultV2;
 
@@ -77,6 +78,7 @@ public class MainActivity extends BaseActivity {
                         .setCancelable(false)
                         .setMessage("初始化失败，请退出应用重新进入")
                         .setPositiveButton("退出", (dialog, which) -> finish())
+                        .setNegativeButton("继续(测试)", null) // 正常情况下不应该让用户继续操作
                         .show();
             }
         });
@@ -107,30 +109,9 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        // 显示或隐藏 Consent同意设置 按钮
-        WACmpProxy.checkConsentPreferences(new WACallback<Boolean>() {
-            @Override
-            public void onSuccess(int code, String message, Boolean isShow) {
-                // 返回 true，则需要显示 Consent同意设置 按钮；false，则否；
-                Button btn = findViewById(R.id.btn_show_consent_preferences);
-                btn.setTextColor(isShow ? Color.BLACK : Color.GRAY);
-                btn.setText(btn.getText() + (isShow ? "(显示)" : "(隐藏)"));
-            }
-
-            @Override
-            public void onCancel() {
-                // 忽略，无需处理
-            }
-
-            @Override
-            public void onError(int code, String message, Boolean result, Throwable throwable) {
-                // 忽略，无需处理
-            }
-        });
-
         // AdMob 横幅广告
         boolean isEnableBannerAd = getSpHelper().getBoolean(WADemoConfig.SP_KEY_ENABLE_BANNER_AD, AdMobActivity.DEFAULT_BANNER_AD_STATE);
-        if (isEnableBannerAd) {
+        if (isEnableBannerAd && WAAdMobPublicProxy.isOpenBannerAd()) {
             WAAdMobPublicProxy.bindBannerAd(this, findViewById(R.id.layout_main_banner_ad));
         }
 
@@ -166,8 +147,8 @@ public class MainActivity extends BaseActivity {
                 showLongToast(text);
                 logI(text);
 
-                // 登录成功后，用户会开始进服，创角，相关的事件发送 以及 通知权限申请
-                userEnterGame(result);
+                // 登录成功后，用户会开始进服，创角，需要发送这两个事件 以及 申请通知权限
+                userEnterGame();
             }
 
             @Override
@@ -185,68 +166,59 @@ public class MainActivity extends BaseActivity {
     }
 
     /**
-     * 登录成功后，用户会开始进服，创角，相关的事件发送 以及 通知权限申请，具体参考本方法实现
-     *
-     * @param result 登录结果
+     * 登录成功后，用户会开始进服，创角，需要发送这两个事件 以及 申请通知权限
      */
-    private void userEnterGame(WALoginResultV2 result) {
+    private void userEnterGame() {
         // 用户选服之后，点击进服，需要发送进服事件
-        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            String serverId = "server1"; // 服务器ID
-            int level = 1; // 用户等级
+        delayCall(2, () -> {
+            String serverId = TrackingEventActivity.getCurrentServerId(); // 当前服务器ID
+            int level; // 游戏角色等级
             String gameUserId; // 角色ID
             String nickname; // 角色昵称
 
-            // 首次进服在创角时发送
-            boolean isFirstImportInCreate = getSpHelper().getBoolean(WADemoConfig.SP_KEY_IS_FIRST_IMPORT_IN_CREATE, false);
-            //首次进服标志（游戏需要根据用户实际情况判断该用户是否首次进服，此处只是演示示例）
-            boolean isFirstEnter = getSpHelper().getBoolean(WADemoConfig.SP_KEY_IS_FIRST_ENTER, true);
-            if (isFirstEnter && !isFirstImportInCreate) {
-                // 首次进服，此时未创角
-                gameUserId = "-1"; // 如果未创角，可以设置为 -1
-                nickname = ""; // 如果未创角，可以设置为空
+            // 是否新用户，新用户无角色信息，旧用户有角色信息
+            boolean isNewUser = getSpHelper().getBoolean(WADemoConfig.SP_KEY_IS_FIRST_ENTER, true);
+            // 无需创角的游戏（这类型游戏一进服就会有角色信息）
+            boolean isNoCreateUserGame = getSpHelper().getBoolean(WADemoConfig.SP_KEY_IS_FIRST_IMPORT_IN_CREATE, false);
+
+            if (isNewUser && !isNoCreateUserGame) {
+                // 未创角，缺少信息可以按下面设置默认值
+                gameUserId = "-1"; // 可以设置为 "-1"
+                nickname = ""; // 可以设置为空字符串""
+                level = 1; // 填入游戏角色初始等级，一般为 1
             } else {
-                // 非首次进服时（或首次进服在创角时才发送），会有 nickname 和 gameUserId
-                gameUserId = serverId + "-role1-" + result.getUserId();
-                nickname = "青铜" + serverId + "-" + result.getUserId();
+                // 已创角，或者进服就有角色信息，直接获取当前用户角色的对应信息
+                gameUserId = TrackingEventActivity.getCurrentGameUserId();
+                nickname = TrackingEventActivity.getCurrentNickname();
+                level = TrackingEventActivity.getCurrentLevel();
             }
+            // 发送进服事件
+            WAUserImportEventV2 userImportEvent = new WAUserImportEventV2(serverId, gameUserId, nickname, level);
+            WATrackProxy.trackEvent(MainActivity.this, userImportEvent);
 
-            if (isFirstEnter) {
-                logD(isFirstImportInCreate ? "Demo 首次进服（在创角时发送）" : "Demo 首次进服（正常发送）");
-            } else {
-                logD("Demo 非首次进服");
-            }
-
-            // 进服事件
-            WAUserImportEvent importEvent = new WAUserImportEvent(serverId, gameUserId, nickname, level, isFirstEnter);
-            WATrackProxy.trackEvent(MainActivity.this, importEvent);
-
-            if (isFirstEnter) {
-                // 发了首次进服后，下次无论有无创角都可以按非首次进服发送
+            // 新用户进服后，用户会进行创角操作，需要发送创角事件
+            if (isNewUser) {
                 getSpHelper().saveBoolean(WADemoConfig.SP_KEY_IS_FIRST_ENTER, false);
-                // 首次进服后，用户会进行创角操作，需要发送创角事件
-                if (!isFirstImportInCreate) {
-                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                        // 创角后，有角色ID和NickName
-                        String newGameUserId = serverId + "-role1-" + result.getUserId();
-                        String newNickname = "青铜" + serverId + "-" + result.getUserId();
-                        long registerTime = System.currentTimeMillis();
+                if (!isNoCreateUserGame) {
+                    delayCall(2, () -> {
+                        // 需要创角的游戏，在创角后有游戏角色ID和昵称，才发送创角事件
+                        String newGameUserId = TrackingEventActivity.getCurrentGameUserId();
+                        String newNickname = TrackingEventActivity.getCurrentNickname();
+                        long registerTime = System.currentTimeMillis(); // 创角时的时间戳，单位为毫秒(1970以后)，长度13位
                         WAUserCreateEvent userCreateEvent = new WAUserCreateEvent(serverId, newGameUserId, newNickname, registerTime);
                         WATrackProxy.trackEvent(MainActivity.this, userCreateEvent);
-                    }, 2000);
+                    });
                 } else {
-                    // 进服和创角一起发时无间隔
-                    String newGameUserId = serverId + "-role1-" + result.getUserId();
-                    String newNickname = "青铜" + serverId + "-" + result.getUserId();
-                    long registerTime = System.currentTimeMillis();
-                    WAUserCreateEvent userCreateEvent = new WAUserCreateEvent(serverId, newGameUserId, newNickname, registerTime);
+                    // 不需要创角的游戏，进服后直接发送创角事件
+                    long registerTime = System.currentTimeMillis(); // 创角时的时间戳，单位为毫秒(1970以后)，长度13位
+                    WAUserCreateEvent userCreateEvent = new WAUserCreateEvent(serverId, gameUserId, nickname, registerTime);
                     WATrackProxy.trackEvent(MainActivity.this, userCreateEvent);
                 }
             }
 
             // 玩家进服后申请通知权限
-            WACommonProxy.requestNotificationPermission(this);
-        }, 2000);
+            WACommonProxy.requestNotificationPermission(MainActivity.this);
+        });
     }
 
     @Override
@@ -315,26 +287,15 @@ public class MainActivity extends BaseActivity {
         } else if (id == R.id.btn_request_permission) {
             // 权限申请（通知权限）
             startActivity(new Intent(this, PermissionActivity.class));
-        } else if (id == R.id.btn_account_manager) {
-            // 账号管理
-            if (isNotLoginAndTips()) return;
-            startActivity(new Intent(this, AccountManagerActivity.class));
         } else if (id == R.id.btn_csc) {
             // AiHelp客服
             startActivity(new Intent(this, AiHelpActivity.class));
-        } else if (id == R.id.btn_user_center) {
-            // 用户中心
-            startActivity(new Intent(this, UserCenterActivity.class));
-        } else if (id == R.id.btn_account_deletion) {
-            // 账号删除
-            if (isNotLoginAndTips()) return;
-            startActivity(new Intent(MainActivity.this, UserDeletionActivity.class));
         } else if (id == R.id.btn_open_game_review) {
             // 打开游戏评价
             openGameReview();
-        } else if (id == R.id.btn_show_consent_preferences) {
-            // 打开Consent同意设置（若无法显示弹窗，则需要开启英国等属于欧盟范围的VPN来测试）
-            WACmpProxy.showConsentPreferences(this);
+        } else if (id == R.id.btn_customer_center) {
+            // 客服中心（包含账号管理，账号删除，AiHelp客服，用户中心，Consent设置入口）
+            showCustomerCenter();
         } else if (id == R.id.btn_admob) {
             // AdMob 广告
             startActivity(new Intent(this, AdMobActivity.class));
@@ -342,6 +303,76 @@ public class MainActivity extends BaseActivity {
             // 不常用功能
             startActivity(new Intent(this, RareFunctionActivity.class));
         }
+    }
+
+    private void showCustomerCenter() {
+        if (isNotLoginAndTips()) return;
+
+        // 账号管理回调处理
+        WAAccountCallbackV2 accountManagerCallback = new WAAccountCallbackV2() {
+            @Override
+            public void onLoginAccountChanged(WALoginResultV2 currentAccount) {
+                WASdkDemo.getInstance().updateLoginAccount(currentAccount);
+                String text = "登录的账号发生变更（SDK已切换到另一个账号，或登录到新账号），当前新的登录的账号信息："
+                        + "\nplatform:" + currentAccount.getPlatform()
+                        + "\nuserId:" + currentAccount.getUserId()
+                        + "\ntoken:" + currentAccount.getToken()
+                        + "\nisBindAccount: " + currentAccount.getIsBindAccount()
+                        + "\nisGuestAccount: " + currentAccount.getIsGuestAccount();
+
+                showLongToast(text);
+                logI(text);
+
+                // 游戏需要回到登录界面，然后可以直接使用最新的账号信息完成游戏登录，无需重新走SDK登录过程，也可以重新自动走一遍SDK登录
+                // backToLogin()
+            }
+
+            @Override
+            public void onBoundAccountChanged(boolean binding, WABindResultV2 result) {
+                String sb = "绑定账户信息发生变更（绑定或解绑其他平台账号成功）:" +
+                        "\n" + "状态: " + (binding ? "绑定" : "解绑") +
+                        "\n" + "code: " + result.getCode() +
+                        "\n" + "message: " + result.getMessage() +
+                        "\n" + "platform: " + result.getPlatform() +
+                        "\n" + "email: " + result.getEmail() +
+                        "\n" + "mobile: " + result.getMobile();
+
+                showShortToast(sb);
+                logI(sb);
+
+                if (binding && WACallback.CODE_SUCCESS == result.getCode()) {
+                    // 绑定成功，如果需要绑定账号发奖励，可以在这里处理
+                } else if (!binding && WACallback.CODE_SUCCESS == result.getCode()) {
+                    // 解绑成功
+                }
+            }
+
+            @Override
+            public void onRealNameAuthChanged(WAResult<WACertificationInfo> waResult) {
+                // 忽略，无需处理
+            }
+        };
+        // 账号删除回调处理
+        WACallback<WAResult> accountDeleteCallback = new WACallback<WAResult>() {
+            @Override
+            public void onSuccess(int code, String message, WAResult result) {
+                showLongToast("申请账号注销成功!\nCP需要退出游戏到登录页");
+                // CP需要退出游戏到登录页
+                WASdkDemo.getInstance().logout();
+            }
+
+            @Override
+            public void onCancel() {
+                showShortToast("取消");
+            }
+
+            @Override
+            public void onError(int code, String message, @Nullable WAResult result, @Nullable Throwable throwable) {
+                showShortToast("错误：" + code + " , " + message);
+            }
+        };
+
+        WAUserProxy.showCustomerCenter(this, accountManagerCallback, accountDeleteCallback);
     }
 
     private void productPay() {

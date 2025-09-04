@@ -17,7 +17,7 @@ import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.core.WACoreProxy;
 import com.wa.sdk.demo.base.BaseActivity;
-import com.wa.sdk.demo.utils.Util;
+import com.wa.sdk.demo.utils.DemoUtil;
 import com.wa.sdk.demo.utils.WADemoConfig;
 
 /**
@@ -28,6 +28,7 @@ public class SplashActivity extends BaseActivity {
     private static final int UMP_INIT_SUCCESS = 1;
     private static final int UMP_INIT_FAILURE = 2;
     private static final long TIME_TOTAL = 1000 * 5; // 模拟加载时间
+    private final long mDelayStartMainActivity = 0;
 
     private TextView mTvCountDown;
     private long mMillisUntilFinished = TIME_TOTAL;
@@ -38,15 +39,15 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setScreenOrientation();
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
 
         // 如果未打开开屏广告开关，直接跳过
         boolean isEnableAppOpenAd = getSpHelper().getBoolean(WADemoConfig.SP_KEY_ENABLE_APP_OPEN_AD, DEFAULT_APP_OPEN_AD_STATE);
         if (!isEnableAppOpenAd) {
-            startMainActivity();
+            delayCall(mDelayStartMainActivity, this::startMainActivity);
             return;
         }
 
-        setContentView(R.layout.activity_splash);
         mTvCountDown = findViewById(R.id.tv_count_down);
 
         // 添加UMP监听处理，UMP默认关闭。如无特殊要求，不需要开启并接入UMP相关功能
@@ -153,7 +154,7 @@ public class SplashActivity extends BaseActivity {
      */
     private void handleUMP() {
         boolean isEnableUmp = false;
-        Bundle manifest = Util.getMataDatasFromManifest(this);
+        Bundle manifest = DemoUtil.getMataDatasFromManifest(this);
         if (null != manifest && !manifest.isEmpty()) {
             isEnableUmp = manifest.getBoolean("com.wa.sdk.UMP_ENABLE", false);
         }

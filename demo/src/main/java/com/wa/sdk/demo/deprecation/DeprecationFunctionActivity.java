@@ -56,8 +56,6 @@ public class DeprecationFunctionActivity extends BaseGridActivity {
             startActivity(new Intent(this, InviteActivity.class));
         } else if (textResId == R.string.gifting) {
             startActivity(new Intent(this, GiftingActivity.class));
-        } else if (textResId == R.string.update) {
-            startActivity(new Intent(this, UpdateActivity.class));
         }
     }
 

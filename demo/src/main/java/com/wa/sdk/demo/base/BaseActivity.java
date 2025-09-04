@@ -70,7 +70,7 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-
+        hideKeyboard();
     }
 
     /**
@@ -166,6 +166,16 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
      */
     protected void showLongToast(int resId) {
         showLongToast(getString(resId));
+    }
+
+    protected void logIShortToast(String msg) {
+        showShortToast(msg);
+        logI(msg);
+    }
+
+    protected void logILongToast(String msg) {
+        showLongToast(msg);
+        logI(msg);
     }
 
     /**
@@ -306,7 +316,11 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
     }
 
     protected void delayCall(float delaySecond, Runnable runnable) {
-        new Handler(Looper.getMainLooper()).postDelayed(runnable, ((long) (delaySecond * 1000L)));
+        if (delaySecond <= 0) {
+            runnable.run();
+        } else {
+            new Handler(Looper.getMainLooper()).postDelayed(runnable, ((long) (delaySecond * 1000L)));
+        }
     }
 
     protected WASharedPrefHelper getSpHelper() {

@@ -19,7 +19,7 @@ public class PermissionActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_permission);
 
-        setTitleBar(R.string.request_permisssion);
+        setTitleBar(R.string.request_permission);
     }
 
     @Override

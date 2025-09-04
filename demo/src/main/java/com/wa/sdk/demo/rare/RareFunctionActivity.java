@@ -82,6 +82,9 @@ public class RareFunctionActivity extends BaseActivity {
         } else if (id == R.id.btn_game_service) {
             // 游戏服务（Google）
             startActivity(new Intent(this, GoogleGameActivity.class));
+        } else if (id == R.id.btn_get_account_info) {
+            // 账号信息
+            startActivity(new Intent(this, GetAccountInfoActivity.class));
         } else if (id == R.id.btn_account_manager) {
             // 账号管理
             if (isNotLoginAndTips()) return;

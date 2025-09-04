@@ -55,18 +55,6 @@
                     android:text="@string/switch_account" />
             </LinearLayout>
 
-            <LinearLayout
-                style="@style/demo_linearlayout"
-                android:weightSum="2">
-
-                <Button
-                    android:id="@+id/btn_get_account_info"
-                    style="@style/demo_button"
-                    android:text="@string/get_account_info" />
-
-            </LinearLayout>
-
-
         </LinearLayout>
     </ScrollView>
 

@@ -14,8 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-        <!-- Activity 声明 -->
         <activity
             android:name=".SplashActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
@@ -30,7 +28,28 @@
             android:name=".MainActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:exported="true"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="sdk2.onelink.me"
+                    android:scheme="https" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="user_invite"
+                    android:scheme="waolf7f9a9d18da611e5a0be000d3a906774" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".LoginActivity"
@@ -149,6 +168,10 @@
             android:exported="false"
             android:screenOrientation="behind" />
         <activity
+            android:name=".SocialActivity"
+            android:exported="false"
+            android:screenOrientation="behind" />
+        <activity
             android:name=".rare.RareFunctionActivity"
             android:exported="false"
             android:screenOrientation="behind" />
@@ -172,7 +195,6 @@
         <meta-data
             android:name="com.wa.sdk.APP_KEY"
             android:value="@string/sdk_app_key" />
-
         <!-- Facebook 配置-->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -193,7 +215,10 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider959864665060487"
+            android:exported="true" />
         <!-- AiHelp客服 配置 -->
         <meta-data
             android:name="com.wa.sdk.AIHelp_domain"
@@ -201,12 +226,10 @@
         <meta-data
             android:name="com.wa.sdk.AIHelp_appId"
             android:value="@string/manifest_aihelp_appid" />
-
         <!--    AdMob应用ID配置    -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/manifest_admob_appid" />
-
 
         <!--    以下功能不需要设置或开启，除非运营有额外要求    -->
         <!--    开启UMP功能（一般不需要）    -->
@@ -229,7 +252,10 @@
         <meta-data
             android:name="com.wa.sdk.track.ENABLE_HUAWEIHMS"
             android:value="true" />
-
+        <!--    开启登录窗口返回按钮功能（一般不需要）    -->
+        <!--        <meta-data-->
+        <!--            android:name="com.wa.sdk.login.ENABLE_BACK"-->
+        <!--            android:value="true" />-->
     </application>
 
 </manifest>

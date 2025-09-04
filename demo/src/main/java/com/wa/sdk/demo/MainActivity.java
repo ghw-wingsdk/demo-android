@@ -85,30 +85,6 @@ public class MainActivity extends BaseActivity {
     }
 
     private void doAfterInitSuccess() {
-        // 支付初始化
-        WAPayProxy.initialize(this, new WACallback<WAResult>() {
-
-            @Override
-            public void onSuccess(int code, String message, WAResult result) {
-                logD("Payment initialize success.");
-                mPayInitialized = true;
-            }
-
-            @Override
-            public void onCancel() {
-                logD("Payment initialize cancelled.");
-                mPayInitialized = false;
-            }
-
-            @Override
-            public void onError(int code, String message, WAResult result, Throwable throwable) {
-                String text = "Payment initialize failed.";
-                logE(text);
-                showLongToast(text);
-                mPayInitialized = false;
-            }
-        });
-
         // AdMob 横幅广告
         boolean isEnableBannerAd = getSpHelper().getBoolean(WADemoConfig.SP_KEY_ENABLE_BANNER_AD, AdMobActivity.DEFAULT_BANNER_AD_STATE);
         if (isEnableBannerAd && WAAdMobPublicProxy.isOpenBannerAd()) {
@@ -261,6 +237,12 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         // 必须添加，否则会导致无法获得登录结果等问题
         if (WACommonProxy.onActivityResult(requestCode, resultCode, intent)) {
@@ -299,6 +281,9 @@ public class MainActivity extends BaseActivity {
         } else if (id == R.id.btn_admob) {
             // AdMob 广告
             startActivity(new Intent(this, AdMobActivity.class));
+        } else if (id == R.id.btn_social_func) {
+            // 社交功能
+            startActivity(new Intent(this, SocialActivity.class));
         } else if (id == R.id.btn_rare_function) {
             // 不常用功能
             startActivity(new Intent(this, RareFunctionActivity.class));

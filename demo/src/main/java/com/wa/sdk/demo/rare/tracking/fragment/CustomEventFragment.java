@@ -15,7 +15,7 @@ import com.wa.sdk.common.utils.StringUtil;
 import com.wa.sdk.demo.R;
 import com.wa.sdk.demo.base.BaseFragment;
 import com.wa.sdk.demo.rare.tracking.TrackingSendActivity;
-import com.wa.sdk.demo.utils.Util;
+import com.wa.sdk.demo.utils.DemoUtil;
 import com.wa.sdk.demo.utils.WADemoConfig;
 import com.wa.sdk.demo.widget.EventItemView;
 
@@ -130,7 +130,7 @@ public class CustomEventFragment extends BaseFragment {
         itemView.setKeyEditable(keyEditable);
         if (!StringUtil.isEmpty(defaultKey)) {
             itemView.setKey(defaultKey);
-            itemView.setValueInputType(Util.getInputType(defaultKey));
+            itemView.setValueInputType(DemoUtil.getInputType(defaultKey));
         }
         if (!StringUtil.isEmpty(defaultValue)) {
             itemView.setValue(defaultValue);

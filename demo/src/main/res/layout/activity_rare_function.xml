@@ -51,14 +51,6 @@
             <LinearLayout style="@style/demo_linearlayout">
 
                 <Button
-                    android:id="@+id/btn_get_account_info"
-                    style="@style/demo_button"
-                    android:text="@string/get_account_info" />
-            </LinearLayout>
-
-            <LinearLayout style="@style/demo_linearlayout">
-
-                <Button
                     android:id="@+id/btn_account_manager"
                     style="@style/demo_button"
                     android:text="@string/account_manager" />
@@ -82,6 +74,19 @@
                     android:text="@string/show_consent_preferences" />
             </LinearLayout>
 
+
+            <LinearLayout style="@style/demo_linearlayout">
+
+                <Button
+                    android:id="@+id/btn_get_account_info"
+                    style="@style/demo_button"
+                    android:text="@string/get_account_info" />
+
+                <Button
+                    style="@style/demo_button"
+                    android:text="@string/get_account_info"
+                    android:visibility="invisible" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btn_deprecation_function"

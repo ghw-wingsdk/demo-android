@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  *
  */
-public class Util {
+public class DemoUtil {
 
-    private Util() {
+    private DemoUtil() {
 
     }
 
@@ -130,7 +130,7 @@ public class Util {
         String isTestRepository = "测试仓库：" + (BuildConfig.IS_TEST_REPOSITORY ? "是" : "否");
         String lineNew = "\n";
 
-        Bundle manifest = Util.getMataDatasFromManifest(context);
+        Bundle manifest = DemoUtil.getMataDatasFromManifest(context);
         boolean isOfficialPackage = false;
         if (null != manifest && !manifest.isEmpty() && manifest.containsKey("com.wa.sdk.OFFICIAL_PACKAGE")) {
             isOfficialPackage = manifest.getBoolean("com.wa.sdk.OFFICIAL_PACKAGE", false);

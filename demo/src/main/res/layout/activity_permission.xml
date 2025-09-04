@@ -30,12 +30,12 @@
                     <Button
                         android:id="@+id/btn_notification_permission"
                         style="@style/demo_button"
-                        android:text="@string/request_notificaton_permission" />
+                        android:text="@string/request_notification_permission" />
 
                     <Button
                         android:id="@+id/btn_request_permission"
                         style="@style/demo_button"
-                        android:text="@string/request_permisssion" />
+                        android:text="@string/request_permission" />
 
                 </LinearLayout>
             </LinearLayout>

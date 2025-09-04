@@ -18,7 +18,6 @@ import com.wa.sdk.common.model.WAResult;
 import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.common.utils.StringUtil;
 import com.wa.sdk.demo.base.BaseActivity;
-import com.wa.sdk.demo.rare.GetAccountInfoActivity;
 import com.wa.sdk.demo.utils.WASdkDemo;
 import com.wa.sdk.social.WASocialProxy;
 import com.wa.sdk.user.WAUserProxy;
@@ -88,9 +87,6 @@ public class AccountManagerActivity extends BaseActivity {
         } else if (id == R.id.btn_query_bound_account) {
             // 查询已绑定的第三方平台账户
             queryBoundAccount();
-        } else if (id == R.id.btn_get_account_info) {
-            // 账号信息
-            startActivity(new Intent(this, GetAccountInfoActivity.class));
         }
     }
 

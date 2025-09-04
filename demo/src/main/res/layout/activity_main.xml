@@ -97,13 +97,27 @@
                 <Button
                     android:id="@+id/btn_request_permission"
                     style="@style/demo_button"
-                    android:text="@string/request_permisssion" />
+                    android:text="@string/request_permission" />
 
                 <Button
                     android:id="@+id/btn_customer_center"
                     style="@style/demo_button"
                     android:text="@string/wa_sdk_settings_customer_center" />
 
+            </LinearLayout>
+
+            <LinearLayout style="@style/demo_linearlayout">
+
+                <Button
+                    android:id="@+id/btn_social_func"
+                    style="@style/demo_button"
+                    android:text="@string/social_function" />
+
+                <Button
+                    android:id="@+id/btn_share_invite"
+                    style="@style/demo_button"
+                    android:visibility="invisible"
+                    android:text="@string/share_invite" />
             </LinearLayout>
 
             <LinearLayout style="@style/demo_linearlayout">

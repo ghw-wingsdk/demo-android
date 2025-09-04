@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFEFEFEF"
+    android:orientation="vertical"
+    tools:ignore="ContentDescription,RtlHardcoded,SpUsage">
+
+    <com.wa.sdk.demo.widget.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <ImageView
+                    android:id="@+id/iv_picture"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginRight="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_avatar_default" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_platform"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        android:textSize="16dp"
+                        tools:text="Platform" />
+
+                    <TextView
+                        android:id="@+id/tv_nickname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        android:textSize="16dp"
+                        tools:text="Nickname" />
+
+                    <TextView
+                        android:id="@+id/tv_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        android:textSize="16dp"
+                        android:visibility="invisible"
+                        tools:text="Email" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_picture"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="16dp"
+                tools:text="Picture：https://pppppppp" />
+
+            <LinearLayout style="@style/demo_linearlayout">
+
+                <Button
+                    android:id="@+id/btn_platform_account_info"
+                    style="@style/demo_button"
+                    android:text="@string/get_platform_account_info" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/demo_linearlayout">
+
+                <Button
+                    android:id="@+id/btn_share_invite_with_system"
+                    style="@style/demo_button"
+                    android:text="@string/share_invite_with_system" />
+
+                <Button
+                    android:id="@+id/btn_share_invite_with_facebook"
+                    style="@style/demo_button"
+                    android:text="@string/share_invite_with_facebook" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/demo_linearlayout">
+
+                <Button
+                    android:id="@+id/btn_share_count"
+                    style="@style/demo_button"
+                    android:text="@string/share_invite_count" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

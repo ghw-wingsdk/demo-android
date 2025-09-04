@@ -13,8 +13,6 @@
     <!--  AiHelp 配置  -->
     <string name="manifest_aihelp_domain">gamehollywoodhk.aihelp.net</string>
     <string name="manifest_aihelp_appid">gamehollywoodhk_platform_598ee350-adbf-4a70-bef6-6d11232b7301</string>
-    <!--  Consent同意ID  -->
-    <string name="manifest_didomi_consent_id">3gFPBy7K</string>
     <!--  AdMob应用ID  -->
     <string name="manifest_admob_appid">ca-app-pub-3512615046087076~6119035746</string>
     <!-- VK app id -->
@@ -65,7 +63,7 @@
     <string name="send">Send</string>
     <string name="event_send">Event Send</string>
     <!--申请权限-->
-    <string name="request_permisssion">Request Permission</string>
+    <string name="request_permission">Request Permission</string>
     <!-- 登录 -->
     <string name="login">Login</string>
     <string name="fb_login">Facebook Login</string>
@@ -244,7 +242,7 @@
     <string name="show_user_center_ui">show userCenter ui</string>
     <string name="apk_info">Apk Info</string>
     <string name="game_review">Open Game Review</string>
-    <string name="request_notificaton_permission">Notificaton Permission</string>
+    <string name="request_notification_permission">Notification Permission</string>
     <!--  账号删除  -->
     <string name="account_deletion">Account Deletion</string>
     <string name="account_deletion_request_ui">Request Account Deletion UI</string>
@@ -278,5 +276,11 @@
     <string name="show_open_url">Show OpenUrl</string>
     <string name="show_consent_preferences">Consent Preferences</string>
     <string name="test_sdk">Test Sdk</string>
+    <string name="share_invite">Share Invite</string>
+    <string name="social_function">Social Function</string>
+    <string name="get_platform_account_info">Platform Account Info</string>
+    <string name="share_invite_with_system">Share Invite With System</string>
+    <string name="share_invite_with_facebook">Share Invite With Facebook</string>
+    <string name="share_invite_count">Share Invite Count</string>
 
 </resources>

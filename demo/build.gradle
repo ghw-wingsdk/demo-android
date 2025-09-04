@@ -16,8 +16,8 @@ android {
         applicationId "com.ghw.sdk2"
         minSdkVersion 24
         targetSdkVersion 35
-        versionCode 4090000
-        versionName "4.9.0"
+        versionCode 4100000
+        versionName "4.10.0"
         signingConfig signingConfigs.sdk2config
 
         compileSdk 35
@@ -183,38 +183,41 @@ static def getUrl(type, env) {
 }
 
 dependencies {
+    // Demo 用
+    implementation 'com.google.android.material:material:1.12.0'
+
     // Google包 接入模块
-    googleImplementation 'com.wa.sdk:wa-sdk-base:4.9.0'           // 基础模块（必选）
-    googleImplementation 'com.wa.sdk:wa-sdk-core:4.9.0'           // 核心模块（必选）
-    googleImplementation 'com.wa.sdk:wa-sdk-aihelp:4.6.0'         // AiHelp客服模块（一般必接）
-    googleImplementation 'com.wa.sdk:wa-sdk-appsflyer:4.6.0'      // AppsFlyer模块（一般必接）
-    googleImplementation 'com.wa.sdk:wa-sdk-google:4.9.0'         // Google模块（谷歌包一般必接）
-    googleImplementation 'com.wa.sdk:wa-sdk-facebook:4.6.0'       // Facebook模块（谷歌包一般必接）
-    googleImplementation 'com.wa.sdk:wa-sdk-firebase:4.6.0'       // Firebase消息推送模块（谷歌包一般必接）
-    googleImplementation 'com.wa.sdk:wa-sdk-admob:4.9.0'          // AdMob广告模块（可选）
+    googleImplementation 'com.wa.sdk:wa-sdk-base:4.10.0'           // 基础模块（必选）
+    googleImplementation 'com.wa.sdk:wa-sdk-core:4.10.0'           // 核心模块（必选）
+    googleImplementation 'com.wa.sdk:wa-sdk-aihelp:4.10.0'         // AiHelp客服模块（一般必接）
+    googleImplementation 'com.wa.sdk:wa-sdk-appsflyer:4.10.0'      // AppsFlyer模块（一般必接）
+    googleImplementation 'com.wa.sdk:wa-sdk-google:4.10.0'         // Google模块（谷歌包一般必接）
+    googleImplementation 'com.wa.sdk:wa-sdk-facebook:4.10.0'       // Facebook模块（谷歌包一般必接）
+    googleImplementation 'com.wa.sdk:wa-sdk-firebase:4.10.0'       // Firebase消息推送模块（谷歌包一般必接）
+    googleImplementation 'com.wa.sdk:wa-sdk-admob:4.10.0'          // AdMob广告模块（可选）
 
     // 官网包 接入模块
-    officialImplementation 'com.wa.sdk:wa-sdk-base:4.9.0'         // 基础模块（必选）
-    officialImplementation 'com.wa.sdk:wa-sdk-core:4.9.0'         // 核心模块（必选）
-    officialImplementation 'com.wa.sdk:wa-sdk-aihelp:4.6.0'       // AiHelp客服模块（一般必接）
-    officialImplementation 'com.wa.sdk:wa-sdk-appsflyer:4.6.0'    // AppsFlyer模块（一般必接）
+    officialImplementation 'com.wa.sdk:wa-sdk-base:4.10.0'         // 基础模块（必选）
+    officialImplementation 'com.wa.sdk:wa-sdk-core:4.10.0'         // 核心模块（必选）
+    officialImplementation 'com.wa.sdk:wa-sdk-aihelp:4.10.0'       // AiHelp客服模块（一般必接）
+    officialImplementation 'com.wa.sdk:wa-sdk-appsflyer:4.10.0'    // AppsFlyer模块（一般必接）
     officialImplementation 'com.wa.sdk:wa-sdk-ghgl:4.8.0'         // 网页登录模块（官网包必接）
     officialImplementation 'com.wa.sdk:wa-sdk-ghgp:4.8.0'         // 网页支付模块（官网包必接）
-    officialImplementation 'com.wa.sdk:wa-sdk-admob:4.9.0'        // AdMob广告模块（可选）
+    officialImplementation 'com.wa.sdk:wa-sdk-admob:4.10.0'        // AdMob广告模块（可选）
 
     // Nowgg包 接入模块
-    nowggImplementation 'com.wa.sdk:wa-sdk-base:4.9.0'            // 基础模块（必选）
-    nowggImplementation 'com.wa.sdk:wa-sdk-core:4.9.0'            // 核心模块（必选）
-    nowggImplementation 'com.wa.sdk:wa-sdk-aihelp:4.6.0'          // AiHelp客服模块（一般必接）
-    nowggImplementation 'com.wa.sdk:wa-sdk-appsflyer:4.6.0'       // AppsFlyer模块（一般必接）
+    nowggImplementation 'com.wa.sdk:wa-sdk-base:4.10.0'            // 基础模块（必选）
+    nowggImplementation 'com.wa.sdk:wa-sdk-core:4.10.0'            // 核心模块（必选）
+    nowggImplementation 'com.wa.sdk:wa-sdk-aihelp:4.10.0'          // AiHelp客服模块（一般必接）
+    nowggImplementation 'com.wa.sdk:wa-sdk-appsflyer:4.10.0'       // AppsFlyer模块（一般必接）
     nowggImplementation 'com.wa.sdk:wa-sdk-nowgg:4.8.0'           // Nowgg模块（Nowgg包必接）
 
     // 雷电包 接入模块
-    leidianImplementation 'com.wa.sdk:wa-sdk-base:4.9.0'          // 基础模块（必选）
-    leidianImplementation 'com.wa.sdk:wa-sdk-core:4.9.0'          // 核心模块（必选）
-    leidianImplementation 'com.wa.sdk:wa-sdk-appsflyer:4.6.0'     // AppsFlyer模块（一般必接）
-    leidianImplementation 'com.wa.sdk:wa-sdk-google:4.9.0'        // Google模块（一般必接）
-    leidianImplementation 'com.wa.sdk:wa-sdk-facebook:4.6.0'      // Facebook模块（一般必接）
+    leidianImplementation 'com.wa.sdk:wa-sdk-base:4.10.0'          // 基础模块（必选）
+    leidianImplementation 'com.wa.sdk:wa-sdk-core:4.10.0'          // 核心模块（必选）
+    leidianImplementation 'com.wa.sdk:wa-sdk-appsflyer:4.10.0'     // AppsFlyer模块（一般必接）
+    leidianImplementation 'com.wa.sdk:wa-sdk-google:4.10.0'        // Google模块（一般必接）
+    leidianImplementation 'com.wa.sdk:wa-sdk-facebook:4.10.0'      // Facebook模块（一般必接）
     leidianImplementation 'com.wa.sdk:wa-sdk-leidian:4.8.0'       // 雷电模块（雷电包必接）
 
 //    华为 HMS（可选）

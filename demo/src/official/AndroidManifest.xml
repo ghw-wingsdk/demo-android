@@ -20,6 +20,13 @@
             android:name="CHANNEL"
             android:value="${SDK_OFFICIAL_CHANNEL}" />
 
+        <!--    以下为 Demo 处理，研发接入请忽略   -->
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            tools:node="remove" />
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            tools:node="remove" />
     </application>
 
 </manifest>

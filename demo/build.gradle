@@ -15,12 +15,12 @@ android {
     defaultConfig {
         applicationId "com.ghw.sdk2"
         minSdkVersion 24
-        targetSdkVersion 35
-        versionCode 4100000
-        versionName "4.10.0"
+        targetSdkVersion 36
+        compileSdk 36
+        versionCode 4110000
+        versionName "4.11.0"
         signingConfig signingConfigs.sdk2config
 
-        compileSdk 35
         //华为多语种设置
         resConfigs "en", "zh-rCN", "pt-rBR", "es-rES", "in-rID", "ru", "th-rTH", "zh-rHK", "zh-rTW"
         // 默认名称，标题
@@ -33,8 +33,7 @@ android {
 
     productFlavors {
         // 包类型
-        google { dimension = "pkg"; isDefault = true }
-        official { dimension = "pkg" }
+        defaultPackage { dimension = "pkg"; isDefault = true }
         nowgg { dimension = "pkg" }
         leidian { dimension = "pkg" }
     }
@@ -44,9 +43,10 @@ android {
         def name = variant.name.toLowerCase()
 
         // 默认构建配置
-        def flavor_pkg = 'google' // google,official,nowgg,leidian
+        def flavor_pkg = 'defaultPackage' // defaultPackage,nowgg,leidian
         def flavor_app = 'sdk2'
         def flavor_env = 'live'
+        def isGHG = true
         variant.productFlavors.forEach { flavor ->
             def flavor_dimension = flavor.dimension
             def flavor_name = flavor.name
@@ -60,57 +60,37 @@ android {
         def sdk_app_id = "f7f9a9d18da611e5a0be000d3a906774"
         def sdk_app_key = "CFHF7nQCCaojCX6Sm4eT1GEIWRprimgX"
         def application_id = "com.ghw.sdk2"
-        // 默认主体 GHG 或 其他
-        def isGHG = true
 
         variant.resValue "string", "sdk_app_id", sdk_app_id
         variant.resValue "string", "sdk_app_key", sdk_app_key
         mergedFlavor.applicationId = application_id
 
         // 应用名
-        def is_official = flavor_pkg == "official"
         def app_name = "WingSDK"
         def title_main = "WingSDK"
-        if (flavor_app == "sdk2" && is_official) {
-            // 官网包 WingSDK官网
-            app_name += " 官"
-            title_main += " 官网包"
-        }
         variant.resValue "string", "app_name", app_name
         variant.resValue "string", "title_main", title_main
 
-        // 官网包处理
-        if (is_official) {
-            // applicationId 后缀
-            mergedFlavor.applicationId = (variant.applicationId + ".official")
-            // 官网包配置
-            variant.resValue "string", "wa_custom_tab_scheme", ("wa" + sdk_app_id)
-            def sdk_adid_provider = "com.wa.provider.ad." + flavor_app
-            mergedFlavor.manifestPlaceholders.putAll([SDK_ADID_PROVIDER: sdk_adid_provider])
-            mergedFlavor.manifestPlaceholders.putAll([SDK_OFFICIAL_CHANNEL: isGHG ? "Site" : "Rtwogames"])
+        // 官网包配置
+        variant.resValue "string", "wa_custom_tab_scheme", ("wa" + sdk_app_id)
+        def sdk_adid_provider = "com.wa.provider.ad." + name.replace("release", "")
+        mergedFlavor.manifestPlaceholders.putAll([SDK_ADID_PROVIDER: sdk_adid_provider])
+        mergedFlavor.manifestPlaceholders.putAll([SDK_OFFICIAL_CHANNEL: isGHG ? "Site" : "Rtwogames"])
+//        println('applicationVariants :' + name + ",  " + sdk_adid_provider + " , app_name:" + app_name)
 
-//            println('applicationVariants :' + name + ",  " + sdk_adid_provider + " , app_name:" + app_name)
-        }
 
         // 打包文件名
         variant.outputs.each { output ->
             def output_ver = '_v' + variant.mergedFlavor.versionName
             def output_env = '_' + flavor_env + '环境'
-            def output_repository = '_' + ('true' == IS_TEST_REPOSITORY ? '测试仓库' : '正式仓库')
             def output_build_apk = '_' + 'build' + getDate() + '.apk'
-            def output_header = 'WingSDK' + output_ver + output_repository + output_env
+            def output_header = 'WingSDK' + output_ver + output_env
 
             def output_apk_name = output_header
-            if (flavorDimensions.contains("pkg") && name.contains("official")) {
-                output_apk_name += '_官网包'
-            } else if (flavorDimensions.contains("pkg") && name.contains("google")) {
-                output_apk_name += '_谷歌包'
-            } else if (name.contains("nowgg")) {
+            if (name.contains("nowgg")) {
                 output_apk_name += '_Nowgg包'
             } else if (name.contains("leidian")) {
                 output_apk_name += '_雷电包'
-            } else {
-                output_apk_name += '_Google包'
             }
             output.outputFileName = output_apk_name + output_build_apk
         }
@@ -121,30 +101,19 @@ android {
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
-            if (flavorDimensions.contains("app")) {
-                productFlavors.sdk2.signingConfig signingConfigs.sdk2config
-            } else {
-                signingConfig signingConfigs.sdk2config
-            }
+            signingConfig signingConfigs.sdk2config
 
             def build_time = getDate()
             buildConfigField 'String', 'DEMO_BUILD_TIME', "\"${build_time}\""
-            buildConfigField 'boolean', 'IS_TEST_REPOSITORY', IS_TEST_REPOSITORY
         }
 
         debug {
             minifyEnabled false
             shrinkResources false
-            if (flavorDimensions.contains("app")) {
-                productFlavors.sdk2.signingConfig signingConfigs.sdk2config
-            } else {
-                signingConfig signingConfigs.sdk2config
-            }
+            signingConfig signingConfigs.sdk2config
 
             def build_time = getDate()
             buildConfigField 'String', 'DEMO_BUILD_TIME', "\"${build_time}\""
-            buildConfigField 'boolean', 'IS_TEST_REPOSITORY', IS_TEST_REPOSITORY
         }
     }
 
@@ -166,59 +135,43 @@ static def getDate() {
     return formattedDate
 }
 
-static def getUrl(type, env) {
-    def urls = [
-            http : [
-                    qa : 'http://172.16.100.53/sdk_bkd_qa/sdkapi',
-                    pre: 'http://sdk-test1.gamehollywood.com/sdk_bkd_qa/sdkapi',
-                    live: 'https://api.wingsdk.com/sdkapi'
-            ],
-            track: [
-                    qa : 'http://172.16.100.58/data_collection_qa/data',
-                    pre: 'http://sdk-test2.gamehollywood.com/data_collection_qa/data/forward',
-                    live: 'https://api.wingsdk.com/data'
-            ]
-    ]
-    return urls[type]?.get(env)
-}
-
 dependencies {
     // Demo 用
     implementation 'com.google.android.material:material:1.12.0'
 
     // Google包 接入模块
-    googleImplementation 'com.wa.sdk:wa-sdk-base:4.10.0'           // 基础模块（必选）
-    googleImplementation 'com.wa.sdk:wa-sdk-core:4.10.0'           // 核心模块（必选）
-    googleImplementation 'com.wa.sdk:wa-sdk-aihelp:4.10.0'         // AiHelp客服模块（一般必接）
-    googleImplementation 'com.wa.sdk:wa-sdk-appsflyer:4.10.0'      // AppsFlyer模块（一般必接）
-    googleImplementation 'com.wa.sdk:wa-sdk-google:4.10.0'         // Google模块（谷歌包一般必接）
-    googleImplementation 'com.wa.sdk:wa-sdk-facebook:4.10.0'       // Facebook模块（谷歌包一般必接）
-    googleImplementation 'com.wa.sdk:wa-sdk-firebase:4.10.0'       // Firebase消息推送模块（谷歌包一般必接）
-    googleImplementation 'com.wa.sdk:wa-sdk-admob:4.10.0'          // AdMob广告模块（可选）
+    implementation "com.wa.sdk:wa-sdk-base:4.11.0"         // 基础模块
+    implementation "com.wa.sdk:wa-sdk-core:4.11.0"         // 核心模块
+    implementation "com.wa.sdk:wa-sdk-aihelp:4.11.0"       // AiHelp客服模块
+    implementation "com.wa.sdk:wa-sdk-appsflyer:4.10.0"    // AppsFlyer模块
+    implementation "com.wa.sdk:wa-sdk-google:4.11.0"       // Google模块
+    implementation "com.wa.sdk:wa-sdk-facebook:4.10.0"     // Facebook模块
+    implementation "com.wa.sdk:wa-sdk-firebase:4.11.0"     // Firebase消息推送模块
+    implementation "com.wa.sdk:wa-sdk-admob:4.11.0"        // AdMob广告模块（可选）
 
     // 官网包 接入模块
-    officialImplementation 'com.wa.sdk:wa-sdk-base:4.10.0'         // 基础模块（必选）
-    officialImplementation 'com.wa.sdk:wa-sdk-core:4.10.0'         // 核心模块（必选）
-    officialImplementation 'com.wa.sdk:wa-sdk-aihelp:4.10.0'       // AiHelp客服模块（一般必接）
-    officialImplementation 'com.wa.sdk:wa-sdk-appsflyer:4.10.0'    // AppsFlyer模块（一般必接）
-    officialImplementation 'com.wa.sdk:wa-sdk-ghgl:4.8.0'         // 网页登录模块（官网包必接）
-    officialImplementation 'com.wa.sdk:wa-sdk-ghgp:4.8.0'         // 网页支付模块（官网包必接）
-    officialImplementation 'com.wa.sdk:wa-sdk-admob:4.10.0'        // AdMob广告模块（可选）
+    implementation "com.wa.sdk:wa-sdk-base:4.11.0"         // 基础模块
+    implementation "com.wa.sdk:wa-sdk-core:4.11.0"         // 核心模块
+    implementation "com.wa.sdk:wa-sdk-aihelp:4.11.0"       // AiHelp客服模块
+    implementation "com.wa.sdk:wa-sdk-appsflyer:4.10.0"    // AppsFlyer模块
+    implementation "com.wa.sdk:wa-sdk-ghgl:4.11.0"         // 网页登录模块（官网包必接）
+    implementation "com.wa.sdk:wa-sdk-ghgp:4.11.0"         // 网页支付模块（官网包必接）
+    implementation "com.wa.sdk:wa-sdk-admob:4.11.0"        // AdMob广告模块（可选）
 
-    // Nowgg包 接入模块
-    nowggImplementation 'com.wa.sdk:wa-sdk-base:4.10.0'            // 基础模块（必选）
-    nowggImplementation 'com.wa.sdk:wa-sdk-core:4.10.0'            // 核心模块（必选）
-    nowggImplementation 'com.wa.sdk:wa-sdk-aihelp:4.10.0'          // AiHelp客服模块（一般必接）
-    nowggImplementation 'com.wa.sdk:wa-sdk-appsflyer:4.10.0'       // AppsFlyer模块（一般必接）
-    nowggImplementation 'com.wa.sdk:wa-sdk-nowgg:4.8.0'           // Nowgg模块（Nowgg包必接）
+    // Nowgg包 接入模块（接入时 nowggImplementation 换成 implementation）
+    nowggImplementation "com.wa.sdk:wa-sdk-base:4.11.0"            // 基础模块
+    nowggImplementation "com.wa.sdk:wa-sdk-core:4.11.0"            // 核心模块
+    nowggImplementation "com.wa.sdk:wa-sdk-aihelp:4.11.0"          // AiHelp客服模块
+    nowggImplementation "com.wa.sdk:wa-sdk-appsflyer:4.10.0"       // AppsFlyer模块
+    nowggImplementation "com.wa.sdk:wa-sdk-nowgg:4.8.0"            // Nowgg模块（Nowgg包必接）
 
-    // 雷电包 接入模块
-    leidianImplementation 'com.wa.sdk:wa-sdk-base:4.10.0'          // 基础模块（必选）
-    leidianImplementation 'com.wa.sdk:wa-sdk-core:4.10.0'          // 核心模块（必选）
-    leidianImplementation 'com.wa.sdk:wa-sdk-appsflyer:4.10.0'     // AppsFlyer模块（一般必接）
-    leidianImplementation 'com.wa.sdk:wa-sdk-google:4.10.0'        // Google模块（一般必接）
-    leidianImplementation 'com.wa.sdk:wa-sdk-facebook:4.10.0'      // Facebook模块（一般必接）
-    leidianImplementation 'com.wa.sdk:wa-sdk-leidian:4.8.0'       // 雷电模块（雷电包必接）
+    // 雷电包 接入模块（接入时 leidianImplementation 换成 implementation）
+    leidianImplementation "com.wa.sdk:wa-sdk-base:4.11.0"          // 基础模块
+    leidianImplementation "com.wa.sdk:wa-sdk-core:4.11.0"          // 核心模块
+    leidianImplementation "com.wa.sdk:wa-sdk-appsflyer:4.10.0"     // AppsFlyer模块
+    leidianImplementation "com.wa.sdk:wa-sdk-google:4.11.0"        // Google模块
+    leidianImplementation "com.wa.sdk:wa-sdk-facebook:4.10.0"      // Facebook模块
+    leidianImplementation "com.wa.sdk:wa-sdk-leidian:4.8.0"        // 雷电模块（雷电包必接）
 
 //    华为 HMS（可选）
 //    implementation 'com.wa.sdk:wa-sdk-huaweihms:3.18.0'

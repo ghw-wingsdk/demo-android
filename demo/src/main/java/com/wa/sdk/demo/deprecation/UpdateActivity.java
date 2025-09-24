@@ -6,7 +6,6 @@ import android.widget.TextView;
 
 import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.model.WACallback;
-import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.demo.R;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.hup.WAHupProxy;
@@ -54,7 +53,7 @@ public class UpdateActivity extends BaseActivity {
             @Override
             public void onSuccess(int code, String message, String result) {
                 String text = "Update succeed! patch file: " + result;
-                LogUtil.d(LogUtil.TAG, text);
+                logD(text);
                 showLongToast(text);
             }
 
@@ -66,8 +65,8 @@ public class UpdateActivity extends BaseActivity {
             @Override
             public void onError(int code, String message, String result, Throwable throwable) {
                 String text = "Download patch file failed: " + (null == result ? "" : result) + "\n"
-                        + (null == throwable ? "" : LogUtil.getStackTrace(throwable));
-                LogUtil.e(LogUtil.TAG, text);
+                        + (null == throwable ? "" : getStackTrace(throwable));
+                logE(text);
                 showLongToast(text);
             }
         });

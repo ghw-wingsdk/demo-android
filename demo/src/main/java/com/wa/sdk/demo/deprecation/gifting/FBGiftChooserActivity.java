@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
+
 import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.utils.StringUtil;
 import com.wa.sdk.demo.R;
@@ -28,6 +30,7 @@ import java.util.List;
 
 /**
  * 选择礼物（Demo)
+ *
  */
 public class FBGiftChooserActivity extends BaseActivity {
 
@@ -44,25 +47,26 @@ public class FBGiftChooserActivity extends BaseActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        setResult(RESULT_CANCELED);
-        finish();
-    }
-
-    private void initView() {
-
-        TitleBar titleBar = (TitleBar) findViewById(R.id.tb_gift_chooser);
-        titleBar.setTitleText(R.string.gift_chooser);
-        titleBar.setLeftButton(android.R.drawable.ic_menu_revert, new View.OnClickListener() {
+    protected OnBackPressedCallback handleBackPressed() {
+        return new OnBackPressedCallback(true) {
             @Override
-            public void onClick(View v) {
+            public void handleOnBackPressed() {
                 setResult(RESULT_CANCELED);
                 finish();
             }
+        };
+    }
+
+    private void initView() {
+        TitleBar titleBar = findViewById(R.id.tb_gift_chooser);
+        titleBar.setTitleText(R.string.gift_chooser);
+        titleBar.setLeftButton(android.R.drawable.ic_menu_revert, v -> {
+            setResult(RESULT_CANCELED);
+            finish();
         });
         titleBar.setTitleTextColor(R.color.color_white);
 
-        final ListView lv = (ListView) findViewById(R.id.lv_gift_chooser);
+        final ListView lv = findViewById(R.id.lv_gift_chooser);
         mAdapter = new GiftAdapter(this);
         lv.setAdapter(mAdapter);
         showLoadingDialog(getString(R.string.loading), null);
@@ -101,8 +105,8 @@ public class FBGiftChooserActivity extends BaseActivity {
 
     private class GiftAdapter extends BaseAdapter {
 
-        private Context mmContext;
-        private List<WAFBGraphObject> mmDatas = new ArrayList<>();
+        private final Context mmContext;
+        private final List<WAFBGraphObject> mmDatas = new ArrayList<>();
 
         public GiftAdapter(Context context) {
             this.mmContext = context;
@@ -148,9 +152,9 @@ public class FBGiftChooserActivity extends BaseActivity {
             if (null == convertView) {
                 itemView = new ItemView();
                 convertView = View.inflate(mmContext, R.layout.item_gift_chooser, null);
-                itemView.icon = (ImageView) convertView.findViewById(R.id.iv_gift_icon);
-                itemView.name = (TextView) convertView.findViewById(R.id.tv_gift_name);
-                itemView.description = (TextView) convertView.findViewById(R.id.tv_gift_description);
+                itemView.icon = convertView.findViewById(R.id.iv_gift_icon);
+                itemView.name = convertView.findViewById(R.id.tv_gift_name);
+                itemView.description = convertView.findViewById(R.id.tv_gift_description);
                 convertView.setTag(itemView);
             } else {
                 itemView = (ItemView) convertView.getTag();

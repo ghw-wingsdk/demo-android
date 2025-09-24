@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -13,11 +14,9 @@ import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.wa.sdk.WAConstants;
 import com.wa.sdk.admob.WAAdMobPublicProxy;
 import com.wa.sdk.admob.model.WAAdMobAdsCallback;
 import com.wa.sdk.common.model.WACallback;
-import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.utils.WADemoConfig;
 
@@ -51,19 +50,19 @@ public class AdMobActivity extends BaseActivity {
 
         @Override
         public void onAdClicked() {
-            LogUtil.i(WAConstants.TAG, mAdType + " 广告：点击");
+            logI(mAdType + " 广告：点击");
         }
 
         @Override
         public void onAdDismissed() {
-            LogUtil.i(WAConstants.TAG, mAdType + " 广告：关闭");
+            logI(mAdType + " 广告：关闭");
             IS_LOADING_AD = false;
         }
 
         @Override
         public void onAdFailedToShow(@NonNull String error_message) {
             String msg = mAdType + " 广告：显示失败 - " + error_message;
-            LogUtil.i(WAConstants.TAG, msg);
+            logI(msg);
             showShortToast(msg);
             IS_LOADING_AD = false;
         }
@@ -71,12 +70,12 @@ public class AdMobActivity extends BaseActivity {
         @Override
         public void onAdImpression() {
             mShowTimes++;
-            LogUtil.i(WAConstants.TAG, mAdType + " 广告：次数, " + mShowTimes);
+            logI(mAdType + " 广告：次数, " + mShowTimes);
         }
 
         @Override
         public void onAdShowed() {
-            LogUtil.i(WAConstants.TAG, mAdType + " 广告：显示成功");
+            logI(mAdType + " 广告：显示成功");
         }
     }
 
@@ -112,6 +111,7 @@ public class AdMobActivity extends BaseActivity {
 
     @Override
     public void onClick(View v) {
+        super.onClick(v);
         int id = v.getId();
         // 广告开关判断
         if (id == R.id.btn_is_open_app_open_ad) {
@@ -265,7 +265,7 @@ public class AdMobActivity extends BaseActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         String iabtcfTcString = preferences.getString("IABTCF_TCString", null);
         String iabtcfAddtlConsent = preferences.getString("IABTCF_AddtlConsent", null);
-        LogUtil.i(TAG, "iabtcfTcString:" + iabtcfTcString);
-        LogUtil.i(TAG, "iabtcfAddtlConsent:" + iabtcfAddtlConsent);
+        Log.i(TAG, "iabtcfTcString:" + iabtcfTcString);
+        Log.i(TAG, "iabtcfAddtlConsent:" + iabtcfAddtlConsent);
     }
 }

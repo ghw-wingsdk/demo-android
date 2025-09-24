@@ -15,7 +15,6 @@ import com.wa.sdk.WAConstants;
 import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.model.WAResult;
-import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.common.utils.StringUtil;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.utils.WASdkDemo;
@@ -124,7 +123,7 @@ public class AccountManagerActivity extends BaseActivity {
                                     + "\naccess_token:" + result.getAccessToken()
                                     + "\nplatform_uid:" + result.getPlatformUserId();
                             showLongToast(msg);
-                            Log.i(WAConstants.TAG, msg);
+                            Log.i(TAG, msg);
                             if (WAConstants.CHANNEL_FACEBOOK.equals(result.getPlatform())) {
                                 WASocialProxy.inviteInstallReward(AccountManagerActivity.this, WAConstants.CHANNEL_FACEBOOK, new WACallback<WAResult>() {
                                     @Override
@@ -151,7 +150,7 @@ public class AccountManagerActivity extends BaseActivity {
                             cancelLoadingDialog();
                             String msg = "Binding canceled";
                             showLongToast(msg);
-                            Log.i(WAConstants.TAG, msg);
+                            Log.i(TAG, msg);
                         }
 
                         @Override
@@ -159,7 +158,7 @@ public class AccountManagerActivity extends BaseActivity {
                             cancelLoadingDialog();
                             String msg = "Binding error: " + message + "->" + (null == throwable ? "" : throwable);
                             showLongToast(msg);
-                            Log.i(WAConstants.TAG, msg);
+                            Log.i(TAG, msg);
                         }
                     });
                 })
@@ -195,7 +194,7 @@ public class AccountManagerActivity extends BaseActivity {
 
                                 WASdkDemo.getInstance().updateLoginAccount(result);
                             }
-                            LogUtil.i(LogUtil.TAG, text);
+                            logI(text);
                             cancelLoadingDialog();
                             showLongToast(text);
                         }
@@ -203,7 +202,7 @@ public class AccountManagerActivity extends BaseActivity {
                         @Override
                         public void onCancel() {
                             cancelLoadingDialog();
-                            LogUtil.i(LogUtil.TAG, "Create account canceled");
+                            logI("Create account canceled");
                             showShortToast("Create account canceled");
                         }
 
@@ -211,7 +210,7 @@ public class AccountManagerActivity extends BaseActivity {
                         public void onError(int code, String message, WALoginResult result, Throwable throwable) {
                             cancelLoadingDialog();
                             String text = "code:" + code + "\nmessage:" + message;
-                            LogUtil.i(LogUtil.TAG, "create account failed->" + text);
+                            logI("create account failed->" + text);
                             showShortToast("Login failed->" + text);
                         }
                     });

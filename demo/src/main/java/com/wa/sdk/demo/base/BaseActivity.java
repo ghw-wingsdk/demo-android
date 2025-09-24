@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.activity.ComponentActivity;
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
@@ -35,6 +36,11 @@ import com.wa.sdk.demo.utils.WADemoConfig;
 import com.wa.sdk.demo.utils.WASdkDemo;
 import com.wa.sdk.demo.widget.LoadingDialog;
 import com.wa.sdk.demo.widget.TitleBar;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 
 
 /**
@@ -53,6 +59,11 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
         if (isSetFullScreen) EdgeToEdge.enable((ComponentActivity) this);
         super.onCreate(savedInstanceState);
         mFragmentManager = getSupportFragmentManager();
+        OnBackPressedCallback onBackPressedCallback = handleBackPressed();
+        if (onBackPressedCallback != null) {
+            // Log.w("zii-", this + " - demo -  getOnBackPressedDispatcher:" + onBackPressedCallback);
+            getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
+        }
     }
 
     @Override
@@ -273,6 +284,21 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
         Log.e(TAG, text);
     }
 
+    protected String getStackTrace(Throwable throwable) {
+        Writer writer = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(writer);
+        throwable.printStackTrace(printWriter);
+        printWriter.close();
+        String error = writer.toString();
+        try {
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return error;
+
+    }
+
     protected void setScreenOrientation() {
         int orientation = WASdkDemo.getInstance().getSpHelper().getInt(WADemoConfig.SP_KEY_SETTING_ORIENTATION, 0);
         if (orientation == 1) {
@@ -333,6 +359,14 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+
+    /**
+     * 返回手势处理
+     */
+    protected OnBackPressedCallback handleBackPressed() {
+        return null;
     }
 }
 

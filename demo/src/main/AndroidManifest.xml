@@ -1,19 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.wa.sdk.demo">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--  ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 官网包专用权限(Google包请忽略该部分) ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓  -->
+    <uses-permission
+        android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="PackageVisibilityPolicy,QueryAllPackagesPermission" />
+    <!--  ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ 官网包专用权限(Google包请忽略该部分) ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑  -->
 
     <application
+        android:name=".utils.DemoApp"
         android:hardwareAccelerated="true"
         android:icon="@drawable/ic_launcher"
-        android:name=".utils.DemoApp"
         android:label="@string/app_name"
         android:localeConfig="@xml/locales_config"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
+        <!-- wingsdk 的 appid -->
+        <meta-data
+            android:name="com.wa.sdk.APP_ID"
+            android:value="@string/sdk_app_id" />
+        <!-- wingsdk 的 appkey -->
+        <meta-data
+            android:name="com.wa.sdk.APP_KEY"
+            android:value="@string/sdk_app_key" />
+        <!-- Facebook 配置-->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="@string/facebook_client_token" />
+
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true"
+            android:screenOrientation="behind">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider959864665060487"
+            android:exported="true" />
+        <!--    AdMob应用ID配置    -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/manifest_admob_appid" />
+
+        <!--  ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 官网包专用配置(Google包请忽略该部分) ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓  -->
+        <!--    Provider声明，authorities必须以 "com.wa.provider.ad" 为前缀，后缀建议使用游戏简称(4个字母及以上)。比如游戏简称为 loap，则authorities可以设置为 com.wa.provider.ad.loap   -->
+        <provider
+            android:name="com.wa.sdk.wa.core.sdkadid.WASdkAdIdProvider"
+            android:authorities="${SDK_ADID_PROVIDER}"
+            android:exported="true" />
+        <!--    渠道配置，具体值从运营处获取    -->
+        <meta-data
+            android:name="CHANNEL"
+            android:value="${SDK_OFFICIAL_CHANNEL}" />
+        <!--  ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ 官网包专用配置(Google包请忽略该部分) ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑  -->
+
+        <!--  ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 这部分功能不需要设置(除非运营有要求)  ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ -->
+        <!--    开启UMP功能（不需要）    -->
+        <!--        <meta-data-->
+        <!--            android:name="com.wa.sdk.UMP_ENABLE"-->
+        <!--            android:value="true" />-->
+        <!--    AppsFlyer 应用ID（一般不需要）    -->
+        <meta-data
+            android:name="com.wa.sdk.track.APPSFLYER_APP_KEY"
+            android:value="922wXRJwEns6Qj4MfMt4Gg" />
+        <!-- Google 游戏服务配置（一般不需要）-->
+        <meta-data
+            android:name="com.google.android.gms.games.APP_ID"
+            android:value="@string/google_game_app_id" />
+        <!--    Firebase 通知图标配置（一般不需要）    -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/color_wa_push_notification" />
+        <!--    HuaweiHMS 配置    -->
+        <meta-data
+            android:name="com.wa.sdk.track.ENABLE_HUAWEIHMS"
+            android:value="true" />
+        <!--    开启登录窗口返回按钮功能（一般不需要）    -->
+        <!--        <meta-data-->
+        <!--            android:name="com.wa.sdk.login.ENABLE_BACK"-->
+        <!--            android:value="true" />-->
+        <!--    AiHelp 配置（不需要）    -->
+        <!--        <meta-data-->
+        <!--            android:name="com.wa.sdk.AIHelp_domain"-->
+        <!--            android:value="gamehollywoodhk.aihelp.net" />-->
+        <!--        <meta-data-->
+        <!--            android:name="com.wa.sdk.AIHelp_appId"-->
+        <!--            android:value="gamehollywoodhk_platform_598ee350-adbf-4a70-bef6-6d11232b7301" />-->
+        <!--  ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ 这部分功能不需要设置(除非运营有要求)  ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
+
+        <!--  ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 以下是Demo配置  ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ -->
         <activity
             android:name=".SplashActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
@@ -177,8 +269,9 @@
             android:screenOrientation="behind" />
         <activity
             android:name=".deprecation.DeprecationFunctionActivity"
-            android:screenOrientation="behind"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="behind" />
+
         <receiver
             android:name=".rare.receiver.PushReceiver"
             android:exported="true">
@@ -187,75 +280,6 @@
             </intent-filter>
         </receiver>
 
-        <!-- wingsdk 的 appid -->
-        <meta-data
-            android:name="com.wa.sdk.APP_ID"
-            android:value="@string/sdk_app_id" />
-        <!-- wingsdk 的 appkey -->
-        <meta-data
-            android:name="com.wa.sdk.APP_KEY"
-            android:value="@string/sdk_app_key" />
-        <!-- Facebook 配置-->
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
-        <meta-data
-            android:name="com.facebook.sdk.ClientToken"
-            android:value="@string/facebook_client_token" />
-
-        <activity
-            android:name="com.facebook.CustomTabActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="@string/fb_login_protocol_scheme" />
-            </intent-filter>
-        </activity>
-        <provider
-            android:name="com.facebook.FacebookContentProvider"
-            android:authorities="com.facebook.app.FacebookContentProvider959864665060487"
-            android:exported="true" />
-        <!-- AiHelp客服 配置 -->
-        <meta-data
-            android:name="com.wa.sdk.AIHelp_domain"
-            android:value="@string/manifest_aihelp_domain" />
-        <meta-data
-            android:name="com.wa.sdk.AIHelp_appId"
-            android:value="@string/manifest_aihelp_appid" />
-        <!--    AdMob应用ID配置    -->
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="@string/manifest_admob_appid" />
-
-        <!--    以下功能不需要设置或开启，除非运营有额外要求    -->
-        <!--    开启UMP功能（一般不需要）    -->
-        <!--        <meta-data-->
-        <!--            android:name="com.wa.sdk.UMP_ENABLE"-->
-        <!--            android:value="true" />-->
-        <!--    AppsFlyer 应用ID（一般不需要）    -->
-        <meta-data
-            android:name="com.wa.sdk.track.APPSFLYER_APP_KEY"
-            android:value="922wXRJwEns6Qj4MfMt4Gg" />
-        <!-- Google 游戏服务配置（一般不需要）-->
-        <meta-data
-            android:name="com.google.android.gms.games.APP_ID"
-            android:value="@string/google_game_app_id" />
-        <!--    Firebase 通知图标配置（一般不需要）    -->
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/color_wa_push_notification" />
-        <!--    HuaweiHMS 配置    -->
-        <meta-data
-            android:name="com.wa.sdk.track.ENABLE_HUAWEIHMS"
-            android:value="true" />
-        <!--    开启登录窗口返回按钮功能（一般不需要）    -->
-        <!--        <meta-data-->
-        <!--            android:name="com.wa.sdk.login.ENABLE_BACK"-->
-        <!--            android:value="true" />-->
     </application>
 
 </manifest>

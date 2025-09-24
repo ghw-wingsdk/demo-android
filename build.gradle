@@ -11,7 +11,7 @@ buildscript {
         maven { url 'https://developer.huawei.com/repo/' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.6.1'
+        classpath 'com.android.tools.build:gradle:8.9.3'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -32,11 +32,7 @@ allprojects {
         maven {url 'https://developer.huawei.com/repo/'}
 
         maven {
-            boolean isTestRepository = Boolean.valueOf(project.IS_TEST_REPOSITORY)
-            def repositoryUrl = isTestRepository ? "http://172.16.100.58:8081/nexus/content/groups/wing/"
-                    : "http://git.wingsdk.cn:8081/repository/winga-group/";
-            url repositoryUrl
-            println("RepositoryUrl:$repositoryUrl")
+            url "http://git.wingsdk.cn:8081/repository/winga-group/"
             allowInsecureProtocol = true
         }
 

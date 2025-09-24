@@ -32,7 +32,7 @@
     <style name="demo_edit" parent="demo_button">
         <item name="hintTextColor">@color/colorGray</item>
         <item name="android:textSize">15dp</item>
-        <item name="maxLine">1</item>
+        <item name="android:maxLines">1</item>
         <item name="android:inputType">text</item>
         <item name="android:ellipsize">end</item>
     </style>

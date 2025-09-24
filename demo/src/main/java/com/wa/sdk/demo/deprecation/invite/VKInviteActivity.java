@@ -2,13 +2,13 @@ package com.wa.sdk.demo.deprecation.invite;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.model.WAResult;
-import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.demo.R;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.widget.TitleBar;
@@ -16,11 +16,11 @@ import com.wa.sdk.social.WASocialProxy;
 
 /**
  * Facebook邀请页面
+ *
  */
 public class VKInviteActivity extends BaseActivity {
 
-    private static final String TAG = LogUtil.TAG + "_VKINVITE";
-
+    private static final String TAG = BaseActivity.TAG + "_VKINVITE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +65,7 @@ public class VKInviteActivity extends BaseActivity {
         WASocialProxy.inviteInstallReward(this, WAConstants.CHANNEL_VK, new WACallback<WAResult>() {
             @Override
             public void onSuccess(int code, String message, WAResult result) {
-                LogUtil.i(TAG, "Install invite reward success: " + message);
+                Log.i(TAG, "Install invite reward success: " + message);
                 cancelLoadingDialog();
                 showShortToast(message);
             }
@@ -73,12 +73,12 @@ public class VKInviteActivity extends BaseActivity {
             @Override
             public void onCancel() {
                 cancelLoadingDialog();
-                LogUtil.i(TAG, "Install invite reward canceled: ");
+                Log.i(TAG, "Install invite reward canceled: ");
             }
 
             @Override
             public void onError(int code, String message, WAResult result, Throwable throwable) {
-                LogUtil.i(TAG, "Install invite reward error: " + message);
+                Log.i(TAG, "Install invite reward error: " + message);
                 cancelLoadingDialog();
                 showShortToast("code:" + code
                         + "\nmessage:" + message);
@@ -91,20 +91,20 @@ public class VKInviteActivity extends BaseActivity {
         WASocialProxy.inviteEventReward(WAConstants.CHANNEL_VK, "testCpReward", new WACallback<WAResult>() {
             @Override
             public void onSuccess(int code, String message, WAResult result) {
-                LogUtil.i(TAG, "Invite event reward success: " + message);
+                Log.i(TAG, "Invite event reward success: " + message);
                 cancelLoadingDialog();
                 showShortToast(message);
             }
 
             @Override
             public void onCancel() {
-                LogUtil.i(TAG, "Invite event reward canceled: ");
+                Log.i(TAG, "Invite event reward canceled: ");
                 cancelLoadingDialog();
             }
 
             @Override
             public void onError(int code, String message, WAResult result, Throwable throwable) {
-                LogUtil.i(TAG, "Invite event reward error: " + message);
+                Log.i(TAG, "Invite event reward error: " + message);
                 cancelLoadingDialog();
                 showShortToast("code:" + code
                         + "\nmessage:" + message);

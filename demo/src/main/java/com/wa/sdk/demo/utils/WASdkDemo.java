@@ -47,7 +47,6 @@ public class WASdkDemo {
 
     /**
      * 更新登录账号信息
-     *
      * @param loginResult
      */
     public void updateLoginAccount(WALoginResult loginResult) {
@@ -65,7 +64,6 @@ public class WASdkDemo {
 
     /**
      * 获取当前登录账号信息
-     *
      * @return
      */
     public WALoginResultV2 getLoginAccount() {
@@ -74,7 +72,6 @@ public class WASdkDemo {
 
     /**
      * 是否已经登录
-     *
      * @return
      */
     public boolean isLogin() {
@@ -89,7 +86,6 @@ public class WASdkDemo {
 
     /**
      * 获取当前的登录流程类型
-     *
      * @return
      */
     public int getLoginFlowType() {
@@ -98,7 +94,6 @@ public class WASdkDemo {
 
     /**
      * 设置登录流程类型
-     *
      * @param flowType
      */
     public void setLoginFlowType(int flowType) {

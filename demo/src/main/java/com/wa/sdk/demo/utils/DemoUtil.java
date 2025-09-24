@@ -8,8 +8,8 @@ import android.content.pm.Signature;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Base64;
+import android.util.Log;
 
-import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.demo.BuildConfig;
 import com.wa.sdk.track.WAEventParameterName;
 
@@ -69,7 +69,7 @@ public class DemoUtil {
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
-                LogUtil.e("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+                Log.e(WADemoConfig.TAG, "KeyHash:" + Base64.encodeToString(md.digest(), Base64.DEFAULT));
             }
         } catch (PackageManager.NameNotFoundException e) {
             // do nothing
@@ -116,7 +116,7 @@ public class DemoUtil {
             ApplicationInfo ai = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
             return ai.metaData;
         } catch (PackageManager.NameNotFoundException e) {
-            LogUtil.e("DemoSdk2", "Failed to load meta-data, NameNotFound: " + e.getMessage());
+            Log.e(WADemoConfig.TAG, "Failed to load meta-data, NameNotFound: " + e.getMessage());
         }
         return null;
     }
@@ -127,7 +127,6 @@ public class DemoUtil {
         String versionCode = "代码版本：" + BuildConfig.VERSION_CODE;
         String buildType = "打包类型：" + BuildConfig.FLAVOR + "_" + BuildConfig.BUILD_TYPE;
         String buildTime = "打包时间：" + BuildConfig.DEMO_BUILD_TIME;
-        String isTestRepository = "测试仓库：" + (BuildConfig.IS_TEST_REPOSITORY ? "是" : "否");
         String lineNew = "\n";
 
         Bundle manifest = DemoUtil.getMataDatasFromManifest(context);
@@ -143,7 +142,6 @@ public class DemoUtil {
                 + officialPackage + lineNew
                 + buildType + lineNew
                 + buildTime + lineNew
-                + isTestRepository + lineNew
                 ;
     }
 }

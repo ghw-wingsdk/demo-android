@@ -8,13 +8,10 @@
     <string name="facebook_client_token">507dae1af0c6e3e9ea59e798587e80b3</string>
     <!-- Google Web Client ID , 注意:不是 Android ClientID -->
     <string name="google_server_client_id">15309153268-vnpucgn8cvbna2sseegrg2ofogrf8n17.apps.googleusercontent.com</string>
-    <!--  Google游戏服务功能用（一般不需要）  -->
-    <string name="google_game_app_id">15309153268</string>
-    <!--  AiHelp 配置  -->
-    <string name="manifest_aihelp_domain">gamehollywoodhk.aihelp.net</string>
-    <string name="manifest_aihelp_appid">gamehollywoodhk_platform_598ee350-adbf-4a70-bef6-6d11232b7301</string>
     <!--  AdMob应用ID  -->
     <string name="manifest_admob_appid">ca-app-pub-3512615046087076~6119035746</string>
+    <!--  Google游戏服务功能用（一般不需要）  -->
+    <string name="google_game_app_id">15309153268</string>
     <!-- VK app id -->
     <integer name="com_vk_sdk_AppId">5527303</integer>
 

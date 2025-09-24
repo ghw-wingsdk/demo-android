@@ -4,10 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.wa.sdk.WAConstants;
 import com.wa.sdk.ad.WAAdProxy;
 import com.wa.sdk.ad.model.WAAdCallback;
-import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.demo.R;
 import com.wa.sdk.demo.base.BaseActivity;
 
@@ -56,7 +54,7 @@ public class VideoAdActivity extends BaseActivity {
                             + "\nrewardType = " + rewardType
                             + "\nrewardAmount = " + rewardAmount
                             + "\nextra = " + extra + "\n";
-                    LogUtil.e(WAConstants.TAG, text);
+                    logE(text);
                     showShortToast(text);
                 }
 
@@ -68,7 +66,7 @@ public class VideoAdActivity extends BaseActivity {
                             + "\nrewardType = " + rewardType
                             + "\nrewardAmount = " + rewardAmount
                             + "\nextra = " + extra + "\n";
-                    LogUtil.e(WAConstants.TAG, text);
+                    logE(text);
                     showShortToast(text);
                 }
 
@@ -80,7 +78,7 @@ public class VideoAdActivity extends BaseActivity {
                             + "\ncampaignId = " + campaignId
                             + "\nadSetId = " + adSetId
                             + "\nextra = " + extra + "\n";
-                    LogUtil.e(WAConstants.TAG, text);
+                    logE(text);
                     showShortToast(text);
                 }
 
@@ -90,7 +88,7 @@ public class VideoAdActivity extends BaseActivity {
                             + "\ncampaignId = " + campaignId
                             + "\nadSetId = " + adSetId
                             + "\nextra = " + extra + "\n";
-                    LogUtil.e(WAConstants.TAG, text);
+                    logE(text);
                     showShortToast(text);
                 }
 
@@ -102,7 +100,7 @@ public class VideoAdActivity extends BaseActivity {
                             + "\nrewardType = " + rewardType
                             + "\nrewardAmount = " + rewardAmount
                             + "\nextra = " + extra + "\n";
-                    LogUtil.e(WAConstants.TAG, text);
+                    logE(text);
                     showShortToast(text);
                 }
             }, "extra");

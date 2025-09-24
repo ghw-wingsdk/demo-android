@@ -45,7 +45,7 @@ public class PaymentActivity extends BaseActivity {
                 List<WASkuDetails> waSkuDetailsList = result.getSkuList();
                 // if (waSkuDetailsList != null)
                 //     for (WASkuDetails waSkuDetails : waSkuDetailsList) {
-                //         LogUtil.d(TAG, "Inventory, sku:" + waSkuDetails.getSku() + ", title: " + waSkuDetails.getTitle() + ", price: " + waSkuDetails.getVirtualCurrency());
+                //         logD("Inventory, sku:" + waSkuDetails.getSku() + ", title: " + waSkuDetails.getTitle() + ", price: " + waSkuDetails.getVirtualCurrency());
                 //     }
                 // 查询渠道后台商品，比如 Google 后台配置的商品（不建议直接使用渠道后台商品）
                 WAPayProxy.queryChannelProduct(FlavorApiHelper.getQueryProductChannel(), new WACallback<Map<String, WAChannelProduct>>() {

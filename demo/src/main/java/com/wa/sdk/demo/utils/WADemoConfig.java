@@ -34,15 +34,11 @@ public class WADemoConfig {
 
     public static final String SP_KEY_IS_FIRST_ENTER = "is_first_enter";
 
-    public static final String SP_KEY_IS_FIRST_IMPORT_IN_CREATE = "is_first_import_in_create";
+    public static final String SP_KEY_IS_CREATE_USER_IN_FIRST_IMPORT = "is_first_import_in_create";
 
     public static final String SP_KEY_CURRENT_LEVEL = "sp_key_current_level";
 
     public static final String SP_KEY_CURRENT_SERVER_ID = "sp_key_current_server_id";
-
-    public static final String SP_KEY_DEMO_ENV = "SP_KEY_DEMO_ENV";
-
-
 
     public static final String EXTRA_DATA = "extra_data";
 

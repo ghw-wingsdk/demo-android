@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
+
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.model.WACallback;
@@ -35,6 +37,7 @@ import java.util.Map;
 
 /**
  * VK社区数据展示页面
+ *
  */
 public class VKCommunityDisplayActivity extends BaseActivity {
 
@@ -101,9 +104,14 @@ public class VKCommunityDisplayActivity extends BaseActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        setResult(RESULT_CANCELED);
-        finish();
+    protected OnBackPressedCallback handleBackPressed() {
+        return new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                setResult(RESULT_CANCELED);
+                finish();
+            }
+        };
     }
 
     private boolean initData() {

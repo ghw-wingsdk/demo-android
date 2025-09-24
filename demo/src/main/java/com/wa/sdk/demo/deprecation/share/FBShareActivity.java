@@ -18,7 +18,6 @@ import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.model.WACallbackManagerImpl;
 import com.wa.sdk.common.model.WAPermissionCallback;
 import com.wa.sdk.common.utils.FileUtil;
-import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.demo.R;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.social.WASocialProxy;
@@ -35,7 +34,6 @@ import java.io.File;
  * Facebook分享页面
  */
 public class FBShareActivity extends BaseActivity {
-    private static final String TAG = LogUtil.TAG + "_DEMO_SHARE";
 
     private boolean mShareWithApi = false;
 
@@ -51,7 +49,7 @@ public class FBShareActivity extends BaseActivity {
         public void onSuccess(int code, String message, WAShareResult result) {
 
             String msg = "Code:" + code + ", Message:" + message + ", Result:" + result.toString();
-            LogUtil.i(TAG, msg);
+            logI(msg);
             showLongToast(msg);
         }
 
@@ -63,9 +61,9 @@ public class FBShareActivity extends BaseActivity {
         @Override
         public void onError(int code, String message, WAShareResult result, Throwable throwable) {
             String msg2 = "FacebookShare error: Code:" + code + ", Message:"
-                    + message + (null == throwable ? "" : ", Throwable:" + LogUtil.getStackTrace(throwable));
+                    + message + (null == throwable ? "" : ", Throwable:" + getStackTrace(throwable));
             showLongToast(msg2);
-            LogUtil.e(TAG, msg2);
+            logE(msg2);
         }
     };
 
@@ -155,7 +153,7 @@ public class FBShareActivity extends BaseActivity {
 //                    Toast.makeText(FBShareActivity.this, "Demo: Bitmap is null", Toast.LENGTH_LONG).show();
 //                } else {
 //                    Toast.makeText(FBShareActivity.this, "Demo: Bitmap is ：" + bm.getByteCount(), Toast.LENGTH_LONG).show();
-//                    LogUtil.e("Bitmap", "Bitmap byte count:" + bm.getByteCount());
+//                    Log.e("Bitmap", "Bitmap byte count:" + bm.getByteCount());
 //                }
 //                // 构造图片内容对象
 //                WASharePhoto photo = new WASharePhoto.Builder()
@@ -218,10 +216,10 @@ public class FBShareActivity extends BaseActivity {
         Bitmap bm = BitmapFactory.decodeFile(file.getPath(), options);
         if (null == bm) {
 //            Toast.makeText(FBShareActivity.this, "Demo: Bitmap is null", Toast.LENGTH_LONG).show();
-            LogUtil.d("Bitmap", "Demo: Bitmap is null");
+            logE("Demo: Bitmap is null");
         } else {
 //            Toast.makeText(FBShareActivity.this, "Demo: Bitmap is ：" + bm.getByteCount(), Toast.LENGTH_LONG).show();
-            LogUtil.e("Bitmap", "Bitmap byte count:" + bm.getByteCount());
+            logE("Bitmap byte count:" + bm.getByteCount());
         }
         // 构造图片内容对象
         WASharePhoto photo = new WASharePhoto.Builder()
@@ -242,7 +240,7 @@ public class FBShareActivity extends BaseActivity {
         try {
             startActivityForResult(intent, WACallbackManagerImpl.RequestCodeOffset.PickImage.toRequestCode());
         } catch (ActivityNotFoundException e) {
-            LogUtil.e(LogUtil.TAG, LogUtil.getStackTrace(e));
+            logE(getStackTrace(e));
             showShortToast("No Activity found to handle pick image");
         }
     }
@@ -254,7 +252,7 @@ public class FBShareActivity extends BaseActivity {
         try {
             startActivityForResult(intent, WACallbackManagerImpl.RequestCodeOffset.PickVideo.toRequestCode());
         } catch (ActivityNotFoundException e) {
-            LogUtil.e(LogUtil.TAG, LogUtil.getStackTrace(e));
+            logE(getStackTrace(e));
             showShortToast("No Activity found to handle pick video");
         }
     }

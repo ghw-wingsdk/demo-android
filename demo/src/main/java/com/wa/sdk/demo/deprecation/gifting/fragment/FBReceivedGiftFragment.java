@@ -15,7 +15,6 @@ import androidx.annotation.Nullable;
 
 import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.model.WAResult;
-import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.demo.R;
 import com.wa.sdk.demo.base.BaseFragment;
 import com.wa.sdk.social.WASocialProxy;
@@ -30,10 +29,9 @@ import java.util.List;
 
 /**
  * 收到的礼物Fragment
+ *
  */
 public class FBReceivedGiftFragment extends BaseFragment {
-
-    private static final String TAG = LogUtil.TAG + "GIFTING";
 
     private ListView mLvRequests;
 

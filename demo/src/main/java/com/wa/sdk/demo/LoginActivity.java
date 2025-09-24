@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import com.wa.sdk.WAConstants;
 import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.model.WACallback;
-import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.utils.WADemoConfig;
 import com.wa.sdk.demo.utils.WASdkDemo;
@@ -187,7 +186,7 @@ public class LoginActivity extends BaseActivity {
         @Override
         public void onCancel() {
             cancelLoadingDialog();
-            LogUtil.i(LogUtil.TAG, "Login canceled");
+            logI("Login canceled");
             showLongToast("Login canceled");
         }
 
@@ -195,7 +194,7 @@ public class LoginActivity extends BaseActivity {
         public void onError(int code, String message, WALoginResultV2 result, Throwable throwable) {
             cancelLoadingDialog();
             String text = "code:" + code + "\nmessage:" + message;
-            LogUtil.w(LogUtil.TAG, "Login failed->" + text);
+            logW("Login failed->" + text);
             showLongToast("Login failed->" + text);
             if (code == WACallback.CODE_ACCOUNT_IN_DELETION_BUFFER_DAYS) {
                 // 正在删除中的账号，会返回删除状态，删除时间，及UserID

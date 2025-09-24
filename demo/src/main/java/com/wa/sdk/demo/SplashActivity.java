@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import com.wa.sdk.admob.WAAdMobPublicProxy;
 import com.wa.sdk.admob.model.WAAdMobAdsCallback;
 import com.wa.sdk.common.model.WACallback;
-import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.core.WACoreProxy;
 import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.utils.DemoUtil;
@@ -105,7 +104,7 @@ public class SplashActivity extends BaseActivity {
             } else if (mInitUmpState == UMP_INIT_FAILURE) {
                 nextAlter(); // 授权失败，提示继续或退出
             } else {
-                LogUtil.i(TAG, "未授权，不处理");// 未进行授权，需要等授权后进行处理
+                logI("未授权，不处理");// 未进行授权，需要等授权后进行处理
             }
         }
     }
@@ -120,18 +119,18 @@ public class SplashActivity extends BaseActivity {
      * 展示广告，广告后进入游戏
      */
     private void nextShowAppOpenAd() {
-        LogUtil.i(TAG, "尝试显示开屏广告");
+        logI("尝试显示开屏广告");
         // 如果需要控制在第N次打开游戏才显示开屏广告，可以在尝试显示广告前进行判断处理
         WAAdMobPublicProxy.showAppOpenAd(SplashActivity.this, new WAAdMobAdsCallback() {
             @Override
             public void onAdDismissed() {
-                LogUtil.i(TAG, "开屏广告关闭");
+                logI("开屏广告关闭");
                 startMainActivity();
             }
 
             @Override
             public void onAdFailedToShow(@NonNull String error_message) {
-                LogUtil.i(TAG, "开屏广告显示失败: " + error_message);
+                logI("开屏广告显示失败: " + error_message);
                 startMainActivity();
             }
         });
@@ -141,7 +140,7 @@ public class SplashActivity extends BaseActivity {
      * 提示同意授权失败，用户选择继续游戏或退出
      */
     private void nextAlter() {
-        LogUtil.i(TAG, "采集同意失败，提示继续游戏或退出");
+        logI("采集同意失败，提示继续游戏或退出");
         new AlertDialog.Builder(this)
                 .setMessage("UMP 未同意，AdMob功能无法初始化，继续游戏，或退出程序？")
                 .setCancelable(false)
@@ -180,7 +179,7 @@ public class SplashActivity extends BaseActivity {
 
                 @Override
                 public void onError(int code, String message, Object result, Throwable throwable) {
-                    LogUtil.w(TAG, "UMP 初始化失败：" + code + ", " + message);
+                    logW("UMP 初始化失败：" + code + ", " + message);
 
                     mInitUmpState = UMP_INIT_FAILURE;
                     if (mMillisUntilFinished == 0) {

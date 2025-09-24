@@ -14,7 +14,6 @@ import com.wa.sdk.WAConstants;
 import com.wa.sdk.common.WACommonProxy;
 import com.wa.sdk.common.model.WACallback;
 import com.wa.sdk.common.model.WAResult;
-import com.wa.sdk.common.utils.LogUtil;
 import com.wa.sdk.common.utils.StringUtil;
 import com.wa.sdk.demo.R;
 import com.wa.sdk.demo.base.BaseActivity;
@@ -371,7 +370,7 @@ public class GoogleGameActivity extends BaseActivity {
         WASocialProxy.loadAchievements(GoogleGameActivity.this, WAConstants.CHANNEL_GOOGLE, true, new WACallback<WALoadAchievementResult>() {
             @Override
             public void onSuccess(int code, String message, WALoadAchievementResult result) {
-                LogUtil.e(WAConstants.TAG, "Load achievement onSuccess, achievement array size: " + result.getAchievements().size());
+                logE("Load achievement onSuccess, achievement array size: " + result.getAchievements().size());
                 StringBuilder sb = new StringBuilder();
                 for (WAAchievement achievement : result.getAchievements()) {
                     sb.append("Id: ")
@@ -410,7 +409,7 @@ public class GoogleGameActivity extends BaseActivity {
                     }
                     sb.append("\n-----------------\n");
 
-                    LogUtil.w(WAConstants.TAG, achievement.toString());
+                    logW(achievement.toString());
                 }
                 mTvDataText.setText(sb.toString());
                 mBtnLoadAchievement.setEnabled(true);
@@ -418,14 +417,14 @@ public class GoogleGameActivity extends BaseActivity {
 
             @Override
             public void onCancel() {
-                LogUtil.e(WAConstants.TAG, "Load achievement onCancel");
+                logE("Load achievement onCancel");
                 mTvDataText.setText("Load achievement canceled");
                 mBtnLoadAchievement.setEnabled(true);
             }
 
             @Override
             public void onError(int code, String message, WALoadAchievementResult result, Throwable throwable) {
-                LogUtil.e(WAConstants.TAG, String.format("Load achievement onError: code=%d, message=%s", code, message));
+                logE(String.format("Load achievement onError: code=%d, message=%s", code, message));
                 mTvDataText.setText(String.format("Load achievement error: code=%d, message=%s", code, message));
                 mBtnLoadAchievement.setEnabled(true);
                 handleNeedSign(code);

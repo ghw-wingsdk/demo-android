@@ -155,7 +155,7 @@ public class MainActivity extends BaseActivity {
             // 是否新用户，新用户无角色信息，旧用户有角色信息
             boolean isNewUser = getSpHelper().getBoolean(WADemoConfig.SP_KEY_IS_FIRST_ENTER, true);
             // 无需创角的游戏（这类型游戏一进服就会有角色信息）
-            boolean isNoCreateUserGame = getSpHelper().getBoolean(WADemoConfig.SP_KEY_IS_FIRST_IMPORT_IN_CREATE, false);
+            boolean isNoCreateUserGame = getSpHelper().getBoolean(WADemoConfig.SP_KEY_IS_CREATE_USER_IN_FIRST_IMPORT, false);
 
             if (isNewUser && !isNoCreateUserGame) {
                 // 未创角，缺少信息可以按下面设置默认值

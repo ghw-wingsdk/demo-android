@@ -238,6 +238,7 @@
     <string name="get_user_center_data">Get userCenter data</string>
     <string name="show_user_center_ui">show userCenter ui</string>
     <string name="apk_info">Apk Info</string>
+    <string name="is_open_game_review">Is Open Game Review</string>
     <string name="game_review">Open Game Review</string>
     <string name="request_notification_permission">Notification Permission</string>
     <!--  账号删除  -->

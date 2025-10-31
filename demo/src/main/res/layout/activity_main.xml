@@ -26,19 +26,6 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ToggleButton
-                    android:id="@+id/tbtn_debug"
-                    style="@style/demo_button"
-                    android:checked="true"
-                    android:textOff="@string/disable_debug"
-                    android:textOn="@string/enable_debug" />
-            </LinearLayout>
-
             <LinearLayout style="@style/demo_linearlayout">
 
                 <Button
@@ -60,9 +47,9 @@
                     android:text="@string/tracking" />
 
                 <Button
-                    android:id="@+id/btn_csc"
+                    android:id="@+id/btn_customer_center"
                     style="@style/demo_button"
-                    android:text="@string/wa_csc" />
+                    android:text="@string/wa_sdk_settings_customer_center" />
             </LinearLayout>
 
             <LinearLayout style="@style/demo_linearlayout">
@@ -82,9 +69,23 @@
             <LinearLayout style="@style/demo_linearlayout">
 
                 <Button
+                    android:id="@+id/btn_is_open_game_review"
+                    style="@style/demo_button"
+                    android:text="@string/is_open_game_review" />
+
+                <Button
                     android:id="@+id/btn_open_game_review"
                     style="@style/demo_button"
                     android:text="@string/game_review" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/demo_linearlayout">
+
+                <Button
+                    android:id="@+id/btn_csc"
+                    style="@style/demo_button"
+                    android:text="@string/wa_csc" />
 
                 <Button
                     android:id="@id/btn_admob"
@@ -100,24 +101,10 @@
                     android:text="@string/request_permission" />
 
                 <Button
-                    android:id="@+id/btn_customer_center"
-                    style="@style/demo_button"
-                    android:text="@string/wa_sdk_settings_customer_center" />
-
-            </LinearLayout>
-
-            <LinearLayout style="@style/demo_linearlayout">
-
-                <Button
                     android:id="@+id/btn_social_func"
                     style="@style/demo_button"
                     android:text="@string/social_function" />
 
-                <Button
-                    android:id="@+id/btn_share_invite"
-                    style="@style/demo_button"
-                    android:visibility="invisible"
-                    android:text="@string/share_invite" />
             </LinearLayout>
 
             <LinearLayout style="@style/demo_linearlayout">
@@ -126,6 +113,14 @@
                     android:id="@+id/btn_rare_function"
                     style="@style/demo_button"
                     android:text="@string/rare_function" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/demo_linearlayout">
+
+                <Button
+                    android:id="@+id/btn_sdk_test"
+                    style="@style/demo_button"
+                    android:text="@string/test_sdk" />
             </LinearLayout>
 
         </LinearLayout>

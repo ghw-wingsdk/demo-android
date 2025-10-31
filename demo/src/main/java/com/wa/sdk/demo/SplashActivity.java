@@ -52,8 +52,6 @@ public class SplashActivity extends BaseActivity {
         // 添加UMP监听处理，UMP默认关闭。如无特殊要求，不需要开启并接入UMP相关功能
         handleUMP();
 
-        // 开启日志
-        WACoreProxy.setDebugMode(getSpHelper().getBoolean(WADemoConfig.SP_KEY_ENABLE_DEBUG, true));
         showLoadingDialog("初始化中", false, false, null);
         // SDK初始化
         WACoreProxy.initialize(this, new WACallback<Void>() {

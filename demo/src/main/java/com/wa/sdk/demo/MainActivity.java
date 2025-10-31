@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ToggleButton;
 
 import androidx.annotation.Nullable;
 
@@ -38,7 +36,6 @@ import com.wa.sdk.user.model.WALoginResultV2;
 
 public class MainActivity extends BaseActivity {
     private EditText mEtProductId;
-    private boolean mPayInitialized = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +51,6 @@ public class MainActivity extends BaseActivity {
             return;
         }
 
-        // 开启 WingSDK 日志
-        WACoreProxy.setDebugMode(getSpHelper().getBoolean(WADemoConfig.SP_KEY_ENABLE_DEBUG, true));
         // WingSDK 初始化
         showLoadingDialog("初始化中", false, false, null);
         WACoreProxy.initialize(this, new WACallback<Void>() {
@@ -191,9 +186,6 @@ public class MainActivity extends BaseActivity {
                     WATrackProxy.trackEvent(MainActivity.this, userCreateEvent);
                 }
             }
-
-            // 玩家进服后申请通知权限
-            WACommonProxy.requestNotificationPermission(MainActivity.this);
         });
     }
 
@@ -272,6 +264,10 @@ public class MainActivity extends BaseActivity {
         } else if (id == R.id.btn_csc) {
             // AiHelp客服
             startActivity(new Intent(this, AiHelpActivity.class));
+        } else if (id == R.id.btn_is_open_game_review) {
+            // 是否开启游戏评价
+            boolean isOpenGameReview = WAUserProxy.isOpenGameReview();
+            showShortToast("是否开启游戏评价：" + isOpenGameReview);
         } else if (id == R.id.btn_open_game_review) {
             // 打开游戏评价
             openGameReview();
@@ -361,16 +357,13 @@ public class MainActivity extends BaseActivity {
     }
 
     private void productPay() {
-        if (!mPayInitialized) {
-            showShortToast("Payment not initialize!");
-            return;
-        }
         final String sdkProductId = mEtProductId.getText().toString().trim();
         if (StringUtil.isEmpty(sdkProductId)) {
             showShortToast("sdk product id is empty!");
             return;
         }
-        WAPayProxy.payUI(this, sdkProductId, "CpOrderId:12345", new WACallback<WAPurchaseResult>() {
+        hideKeyboard();
+        WAPayProxy.payUI(this, sdkProductId, "中国电信：12345", new WACallback<WAPurchaseResult>() {
             @Override
             public void onSuccess(int code, String message, WAPurchaseResult result) {
                 cancelLoadingDialog();
@@ -444,22 +437,8 @@ public class MainActivity extends BaseActivity {
         tb.setTitleText(R.string.title_main);
         tb.setTitleTextColor(R.color.color_white);
 
-        ToggleButton tbtnDebug = findViewById(R.id.tbtn_debug);
-        boolean enableDebug = getSpHelper().getBoolean(WADemoConfig.SP_KEY_ENABLE_DEBUG, true);
-        tbtnDebug.setChecked(enableDebug);
-        tbtnDebug.setOnCheckedChangeListener(mOnCheckedChangeListener);
-
         mEtProductId = findViewById(R.id.et_static_pay_product_id);
         mEtProductId.setText("1");
-
     }
-
-    private final CompoundButton.OnCheckedChangeListener mOnCheckedChangeListener = (buttonView, isChecked) -> {
-        int id = buttonView.getId();
-        if (id == R.id.tbtn_debug) {
-            getSpHelper().saveBoolean(WADemoConfig.SP_KEY_ENABLE_DEBUG, isChecked);
-            WACoreProxy.setDebugMode(isChecked);
-        }
-    };
 
 }

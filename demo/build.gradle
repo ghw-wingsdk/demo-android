@@ -17,8 +17,8 @@ android {
         minSdkVersion 24
         targetSdkVersion 36
         compileSdk 36
-        versionCode 4110000
-        versionName "4.11.0"
+        versionCode 5000000
+        versionName "5.0.0"
         signingConfig signingConfigs.sdk2config
 
         //华为多语种设置
@@ -81,9 +81,10 @@ android {
 
         // 打包文件名
         variant.outputs.each { output ->
+            def formattedDate = new Date().format('MMdd_HHmm')
             def output_ver = '_v' + variant.mergedFlavor.versionName
             def output_env = '_' + flavor_env + '环境'
-            def output_build_apk = '_' + 'build' + getDate() + '.apk'
+            def output_build_apk = '_build' + formattedDate + '.apk'
             def output_header = 'WingSDK' + output_ver + output_env
 
             def output_apk_name = output_header
@@ -131,7 +132,7 @@ android {
 //获取时间戳
 static def getDate() {
     def date = new Date()
-    def formattedDate = date.format('HHmm')
+    def formattedDate = date.format('yyyyMMdd_HHmm')
     return formattedDate
 }
 
@@ -140,37 +141,37 @@ dependencies {
     implementation 'com.google.android.material:material:1.12.0'
 
     // Google包 接入模块
-    implementation "com.wa.sdk:wa-sdk-base:4.11.0"         // 基础模块
-    implementation "com.wa.sdk:wa-sdk-core:4.11.0"         // 核心模块
-    implementation "com.wa.sdk:wa-sdk-aihelp:4.11.0"       // AiHelp客服模块
-    implementation "com.wa.sdk:wa-sdk-appsflyer:4.10.0"    // AppsFlyer模块
-    implementation "com.wa.sdk:wa-sdk-google:4.11.0"       // Google模块
-    implementation "com.wa.sdk:wa-sdk-facebook:4.10.0"     // Facebook模块
-    implementation "com.wa.sdk:wa-sdk-firebase:4.11.0"     // Firebase消息推送模块
-    implementation "com.wa.sdk:wa-sdk-admob:4.11.0"        // AdMob广告模块（可选）
+    implementation "com.wa.sdk:wa-sdk-base:5.0.0"         // 基础模块
+    implementation "com.wa.sdk:wa-sdk-core:5.0.0"         // 核心模块
+    implementation "com.wa.sdk:wa-sdk-aihelp:5.0.0"       // AiHelp客服模块
+    implementation "com.wa.sdk:wa-sdk-appsflyer:5.0.0"    // AppsFlyer模块
+    implementation "com.wa.sdk:wa-sdk-google:5.0.0"       // Google模块
+    implementation "com.wa.sdk:wa-sdk-facebook:5.0.0"     // Facebook模块
+    implementation "com.wa.sdk:wa-sdk-firebase:5.0.0"     // Firebase消息推送模块
+    implementation "com.wa.sdk:wa-sdk-admob:5.0.0"        // AdMob广告模块（可选）
 
     // 官网包 接入模块
-    implementation "com.wa.sdk:wa-sdk-base:4.11.0"         // 基础模块
-    implementation "com.wa.sdk:wa-sdk-core:4.11.0"         // 核心模块
-    implementation "com.wa.sdk:wa-sdk-aihelp:4.11.0"       // AiHelp客服模块
-    implementation "com.wa.sdk:wa-sdk-appsflyer:4.10.0"    // AppsFlyer模块
-    implementation "com.wa.sdk:wa-sdk-ghgl:4.11.0"         // 网页登录模块（官网包必接）
-    implementation "com.wa.sdk:wa-sdk-ghgp:4.11.0"         // 网页支付模块（官网包必接）
-    implementation "com.wa.sdk:wa-sdk-admob:4.11.0"        // AdMob广告模块（可选）
+    implementation "com.wa.sdk:wa-sdk-base:5.0.0"         // 基础模块
+    implementation "com.wa.sdk:wa-sdk-core:5.0.0"         // 核心模块
+    implementation "com.wa.sdk:wa-sdk-aihelp:5.0.0"       // AiHelp客服模块
+    implementation "com.wa.sdk:wa-sdk-appsflyer:5.0.0"    // AppsFlyer模块
+    implementation "com.wa.sdk:wa-sdk-ghgl:5.0.0"         // 网页登录模块（官网包必接）
+    implementation "com.wa.sdk:wa-sdk-ghgp:5.0.0"         // 网页支付模块（官网包必接）
+    implementation "com.wa.sdk:wa-sdk-admob:5.0.0"        // AdMob广告模块（可选）
 
     // Nowgg包 接入模块（接入时 nowggImplementation 换成 implementation）
-    nowggImplementation "com.wa.sdk:wa-sdk-base:4.11.0"            // 基础模块
-    nowggImplementation "com.wa.sdk:wa-sdk-core:4.11.0"            // 核心模块
-    nowggImplementation "com.wa.sdk:wa-sdk-aihelp:4.11.0"          // AiHelp客服模块
-    nowggImplementation "com.wa.sdk:wa-sdk-appsflyer:4.10.0"       // AppsFlyer模块
+    nowggImplementation "com.wa.sdk:wa-sdk-base:5.0.0"            // 基础模块
+    nowggImplementation "com.wa.sdk:wa-sdk-core:5.0.0"            // 核心模块
+    nowggImplementation "com.wa.sdk:wa-sdk-aihelp:5.0.0"          // AiHelp客服模块
+    nowggImplementation "com.wa.sdk:wa-sdk-appsflyer:5.0.0"       // AppsFlyer模块
     nowggImplementation "com.wa.sdk:wa-sdk-nowgg:4.8.0"            // Nowgg模块（Nowgg包必接）
 
     // 雷电包 接入模块（接入时 leidianImplementation 换成 implementation）
-    leidianImplementation "com.wa.sdk:wa-sdk-base:4.11.0"          // 基础模块
-    leidianImplementation "com.wa.sdk:wa-sdk-core:4.11.0"          // 核心模块
-    leidianImplementation "com.wa.sdk:wa-sdk-appsflyer:4.10.0"     // AppsFlyer模块
-    leidianImplementation "com.wa.sdk:wa-sdk-google:4.11.0"        // Google模块
-    leidianImplementation "com.wa.sdk:wa-sdk-facebook:4.10.0"      // Facebook模块
+    leidianImplementation "com.wa.sdk:wa-sdk-base:5.0.0"          // 基础模块
+    leidianImplementation "com.wa.sdk:wa-sdk-core:5.0.0"          // 核心模块
+    leidianImplementation "com.wa.sdk:wa-sdk-appsflyer:5.0.0"     // AppsFlyer模块
+    leidianImplementation "com.wa.sdk:wa-sdk-google:5.0.0"        // Google模块
+    leidianImplementation "com.wa.sdk:wa-sdk-facebook:5.0.0"      // Facebook模块
     leidianImplementation "com.wa.sdk:wa-sdk-leidian:4.8.0"        // 雷电模块（雷电包必接）
 
 //    华为 HMS（可选）

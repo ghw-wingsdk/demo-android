@@ -15,6 +15,7 @@ import com.wa.sdk.pay.model.WAPurchaseResult;
 import com.wa.sdk.pay.model.WASkuDetails;
 import com.wa.sdk.pay.model.WASkuResult;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,31 +44,37 @@ public class PaymentActivity extends BaseActivity {
             @Override
             public void onSuccess(int code, String message, WASkuResult result) {
                 List<WASkuDetails> waSkuDetailsList = result.getSkuList();
-                // if (waSkuDetailsList != null)
-                //     for (WASkuDetails waSkuDetails : waSkuDetailsList) {
-                //         logD("Inventory, sku:" + waSkuDetails.getSku() + ", title: " + waSkuDetails.getTitle() + ", price: " + waSkuDetails.getVirtualCurrency());
-                //     }
                 // 查询渠道后台商品，比如 Google 后台配置的商品（不建议直接使用渠道后台商品）
                 WAPayProxy.queryChannelProduct(FlavorApiHelper.getQueryProductChannel(), new WACallback<Map<String, WAChannelProduct>>() {
                     @Override
                     public void onSuccess(int code, String message, Map<String, WAChannelProduct> map) {
-                        if (waSkuDetailsList != null && !waSkuDetailsList.isEmpty()) {//存在商品
-                            ProductListAdapter productListAdapter = new ProductListAdapter(PaymentActivity.this, waSkuDetailsList, map);
-                            ListView listView = findViewById(R.id.lv_payment_sku);
-                            listView.setAdapter(productListAdapter);
-                            productListAdapter.setClickListenter(sdkProductId -> payUI(sdkProductId, "CpOrderId:12345"));
-                        }
+                        setAdapter(waSkuDetailsList, map);
                         cancelLoadingDialog();
                         showLongToast("渠道商品查询成功");
                     }
 
                     @Override
                     public void onCancel() {
+                        setAdapter(waSkuDetailsList, new HashMap<>());
+                        cancelLoadingDialog();
                     }
 
                     @Override
                     public void onError(int code, String message, Map<String, WAChannelProduct> result, Throwable throwable) {
-                        logD("渠道商品查询失败：" + code + " , " + message);
+                        setAdapter(waSkuDetailsList, new HashMap<>());
+                        cancelLoadingDialog();
+                        showLongToast("渠道商品查询失败：" + code + " , " + message);
+                    }
+
+                    private void setAdapter(List<WASkuDetails> waSkuDetailsList, Map<String, WAChannelProduct> channelProductMap) {
+                        if (waSkuDetailsList != null && !waSkuDetailsList.isEmpty()) {//存在商品
+                            ProductListAdapter productListAdapter = new ProductListAdapter(PaymentActivity.this, waSkuDetailsList, channelProductMap);
+                            ListView listView = findViewById(R.id.lv_payment_sku);
+                            listView.setAdapter(productListAdapter);
+                            productListAdapter.setClickListenter(sdkProductId -> payUI(sdkProductId, "CpOrderId:12345"));
+                        } else {
+                            showLongToast("未找到 SDK 商品");
+                        }
                     }
                 });
             }

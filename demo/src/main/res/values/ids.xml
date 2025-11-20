@@ -3,4 +3,5 @@
     <item type="id" name="btn_nowgg_login" />
     <item type="id" name="btn_admob" />
     <item type="id" name="layout_main_banner_ad" />
+    <item type="id" name="btn_qoo_login" />
 </resources>

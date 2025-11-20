@@ -1,6 +1,7 @@
 package com.wa.sdk.demo;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -10,9 +11,11 @@ import com.wa.sdk.demo.base.BaseActivity;
 import com.wa.sdk.demo.utils.WADemoConfig;
 import com.wa.sdk.demo.utils.WASdkDemo;
 import com.wa.sdk.track.WATrackProxy;
+import com.wa.sdk.track.model.WACustomEvent;
 import com.wa.sdk.track.model.WAInitiatedPurchaseEvent;
 import com.wa.sdk.track.model.WALevelAchievedEvent;
 import com.wa.sdk.track.model.WALvXEvent;
+import com.wa.sdk.track.model.WAStageEvent;
 import com.wa.sdk.track.model.WATutorialCompletedEvent;
 import com.wa.sdk.track.model.WAUserCreateEvent;
 import com.wa.sdk.track.model.WAUserImportEvent;
@@ -150,6 +153,18 @@ public class TrackingEventActivity extends BaseActivity {
         WATrackProxy.trackEvent(context, event);
     }
 
+    private void ghw_self_stage_x(Context context) {
+        String stage = "2_3"; // 关卡
+        WAStageEvent event = new WAStageEvent(stage);
+        WATrackProxy.trackEvent(context, event);
+    }
+
+    private void ghw_self_x(Context context) {
+        String event = "test_event"; // 自定义事件的名称
+        WACustomEvent customEvent = new WACustomEvent(event);
+        WATrackProxy.trackEvent(context, customEvent);
+    }
+
 
     private boolean clickSetInfo(int id) {
         if (id == R.id.btn_set_server_id) {
@@ -192,7 +207,7 @@ public class TrackingEventActivity extends BaseActivity {
 
 
     public static String getCurrentNickname() {
-        return "Lucy";
+        return "Lucy-" + Build.MODEL.replace(" ", "-");
     }
 
 }

@@ -17,8 +17,8 @@ android {
         minSdkVersion 24
         targetSdkVersion 36
         compileSdk 36
-        versionCode 5000000
-        versionName "5.0.0"
+        versionCode 5010000
+        versionName "5.1.0"
         signingConfig signingConfigs.sdk2config
 
         //华为多语种设置
@@ -36,6 +36,10 @@ android {
         defaultPackage { dimension = "pkg"; isDefault = true }
         nowgg { dimension = "pkg" }
         leidian { dimension = "pkg" }
+        qoo {
+            dimension = "pkg"
+            applicationIdSuffix = ".qooapp"
+        }
     }
 
     applicationVariants.configureEach { variant ->
@@ -59,11 +63,8 @@ android {
         // 默认应用 (sdk2)
         def sdk_app_id = "f7f9a9d18da611e5a0be000d3a906774"
         def sdk_app_key = "CFHF7nQCCaojCX6Sm4eT1GEIWRprimgX"
-        def application_id = "com.ghw.sdk2"
-
         variant.resValue "string", "sdk_app_id", sdk_app_id
         variant.resValue "string", "sdk_app_key", sdk_app_key
-        mergedFlavor.applicationId = application_id
 
         // 应用名
         def app_name = "WingSDK"
@@ -75,7 +76,7 @@ android {
         variant.resValue "string", "wa_custom_tab_scheme", ("wa" + sdk_app_id)
         def sdk_adid_provider = "com.wa.provider.ad." + name.replace("release", "")
         mergedFlavor.manifestPlaceholders.putAll([SDK_ADID_PROVIDER: sdk_adid_provider])
-        mergedFlavor.manifestPlaceholders.putAll([SDK_OFFICIAL_CHANNEL: isGHG ? "Site" : "Rtwogames"])
+        mergedFlavor.manifestPlaceholders.putAll([SDK_CHANNEL: isGHG ? "Site" : "Rtwogames"])
 //        println('applicationVariants :' + name + ",  " + sdk_adid_provider + " , app_name:" + app_name)
 
 
@@ -92,6 +93,8 @@ android {
                 output_apk_name += '_Nowgg包'
             } else if (name.contains("leidian")) {
                 output_apk_name += '_雷电包'
+            } else if (name.contains("qoo")) {
+                output_apk_name += '_qoo包'
             }
             output.outputFileName = output_apk_name + output_build_apk
         }
@@ -141,38 +144,45 @@ dependencies {
     implementation 'com.google.android.material:material:1.12.0'
 
     // Google包 接入模块
-    implementation "com.wa.sdk:wa-sdk-base:5.0.0"         // 基础模块
-    implementation "com.wa.sdk:wa-sdk-core:5.0.0"         // 核心模块
+    implementation "com.wa.sdk:wa-sdk-base:5.1.0"         // 基础模块
+    implementation "com.wa.sdk:wa-sdk-core:5.1.0"         // 核心模块
     implementation "com.wa.sdk:wa-sdk-aihelp:5.0.0"       // AiHelp客服模块
     implementation "com.wa.sdk:wa-sdk-appsflyer:5.0.0"    // AppsFlyer模块
-    implementation "com.wa.sdk:wa-sdk-google:5.0.0"       // Google模块
+    implementation "com.wa.sdk:wa-sdk-google:5.1.0"       // Google模块
     implementation "com.wa.sdk:wa-sdk-facebook:5.0.0"     // Facebook模块
     implementation "com.wa.sdk:wa-sdk-firebase:5.0.0"     // Firebase消息推送模块
     implementation "com.wa.sdk:wa-sdk-admob:5.0.0"        // AdMob广告模块（可选）
 
     // 官网包 接入模块
-    implementation "com.wa.sdk:wa-sdk-base:5.0.0"         // 基础模块
-    implementation "com.wa.sdk:wa-sdk-core:5.0.0"         // 核心模块
+    implementation "com.wa.sdk:wa-sdk-base:5.1.0"         // 基础模块
+    implementation "com.wa.sdk:wa-sdk-core:5.1.0"         // 核心模块
     implementation "com.wa.sdk:wa-sdk-aihelp:5.0.0"       // AiHelp客服模块
     implementation "com.wa.sdk:wa-sdk-appsflyer:5.0.0"    // AppsFlyer模块
-    implementation "com.wa.sdk:wa-sdk-ghgl:5.0.0"         // 网页登录模块（官网包必接）
-    implementation "com.wa.sdk:wa-sdk-ghgp:5.0.0"         // 网页支付模块（官网包必接）
+    implementation "com.wa.sdk:wa-sdk-ghgl:5.1.0"         // 网页登录模块（官网包必接）
+    implementation "com.wa.sdk:wa-sdk-ghgp:5.1.0"         // 网页支付模块（官网包必接）
     implementation "com.wa.sdk:wa-sdk-admob:5.0.0"        // AdMob广告模块（可选）
 
     // Nowgg包 接入模块（接入时 nowggImplementation 换成 implementation）
-    nowggImplementation "com.wa.sdk:wa-sdk-base:5.0.0"            // 基础模块
-    nowggImplementation "com.wa.sdk:wa-sdk-core:5.0.0"            // 核心模块
+    nowggImplementation "com.wa.sdk:wa-sdk-base:5.1.0"            // 基础模块
+    nowggImplementation "com.wa.sdk:wa-sdk-core:5.1.0"            // 核心模块
     nowggImplementation "com.wa.sdk:wa-sdk-aihelp:5.0.0"          // AiHelp客服模块
     nowggImplementation "com.wa.sdk:wa-sdk-appsflyer:5.0.0"       // AppsFlyer模块
     nowggImplementation "com.wa.sdk:wa-sdk-nowgg:4.8.0"            // Nowgg模块（Nowgg包必接）
 
     // 雷电包 接入模块（接入时 leidianImplementation 换成 implementation）
-    leidianImplementation "com.wa.sdk:wa-sdk-base:5.0.0"          // 基础模块
-    leidianImplementation "com.wa.sdk:wa-sdk-core:5.0.0"          // 核心模块
+    leidianImplementation "com.wa.sdk:wa-sdk-base:5.1.0"          // 基础模块
+    leidianImplementation "com.wa.sdk:wa-sdk-core:5.1.0"          // 核心模块
     leidianImplementation "com.wa.sdk:wa-sdk-appsflyer:5.0.0"     // AppsFlyer模块
-    leidianImplementation "com.wa.sdk:wa-sdk-google:5.0.0"        // Google模块
+    leidianImplementation "com.wa.sdk:wa-sdk-google:5.1.0"        // Google模块
     leidianImplementation "com.wa.sdk:wa-sdk-facebook:5.0.0"      // Facebook模块
     leidianImplementation "com.wa.sdk:wa-sdk-leidian:4.8.0"        // 雷电模块（雷电包必接）
+
+    // Qoo包 接入模块（接入时 qooImplementation 换成 implementation）
+    qooImplementation "com.wa.sdk:wa-sdk-base:5.1.0"          // 基础模块
+    qooImplementation "com.wa.sdk:wa-sdk-core:5.1.0"          // 核心模块
+    qooImplementation "com.wa.sdk:wa-sdk-aihelp:5.0.0"          // AiHelp客服模块
+    qooImplementation "com.wa.sdk:wa-sdk-appsflyer:5.0.0"     // AppsFlyer模块
+    qooImplementation "com.wa.sdk:wa-sdk-qoo:5.1.0"           // Qoo模块（Qoo包必接）
 
 //    华为 HMS（可选）
 //    implementation 'com.wa.sdk:wa-sdk-huaweihms:3.18.0'

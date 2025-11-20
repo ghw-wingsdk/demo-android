@@ -95,6 +95,9 @@ public class LoginActivity extends BaseActivity {
         } else if (id == R.id.btn_nowgg_login) {
             // Nowgg 登录
             loginPlatform(WAConstants.CHANNEL_NOWGG);
+        } else if (id == R.id.btn_qoo_login) {
+            // qoo 登录
+            loginPlatform(WAConstants.CHANNEL_QOOAPP);
         }
 
         // 其他接口功能

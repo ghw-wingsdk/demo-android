@@ -4,13 +4,12 @@
     package="com.wa.sdk.demo">
 
     <application>
-        <!--    now.gg 配置    -->
         <meta-data
-            android:name="com.wa.sdk.nowgg.CLIENT_ID"
-            android:value="qjFlYAorUYEymZdx2Psq$$01J8HC3HDQEZ9WA4HV6DB3P29M" />
+            android:name="com.qooapp.APP_ID"
+            android:value="@string/appid_test" />
         <meta-data
-            android:name="com.wa.sdk.nowgg.PAYMENT_ID"
-            android:value="8849" />
+            android:name="com.qooapp.PUBLIC_KEY"
+            android:value="@string/public_key_test" />
 
         <!--    以下为 Demo 处理，研发接入请忽略   -->
         <activity

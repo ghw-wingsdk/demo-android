@@ -12,13 +12,19 @@ public class FlavorApiHelper {
 
     public static boolean isLeidianFlavor() {
         return BuildConfig.FLAVOR.contains("leidian");
-        }
+    }
+
+    public static boolean isQooFlavor() {
+        return BuildConfig.FLAVOR.contains("qoo");
+    }
 
     public static String getQueryProductChannel() {
         if (isNowggFlavor()) {
             return WAConstants.CHANNEL_NOWGG;
         } else if (isLeidianFlavor()) {
             return WAConstants.CHANNEL_LEIDIAN;
+        } else if (isQooFlavor()) {
+            return WAConstants.CHANNEL_QOOAPP;
         } else {
             return WAConstants.CHANNEL_GOOGLE;
         }

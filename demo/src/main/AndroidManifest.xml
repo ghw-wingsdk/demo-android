@@ -68,7 +68,7 @@
         <!--    渠道配置，具体值从运营处获取    -->
         <meta-data
             android:name="CHANNEL"
-            android:value="${SDK_OFFICIAL_CHANNEL}" />
+            android:value="${SDK_CHANNEL}" />
         <!--  ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ 官网包专用配置(Google包请忽略该部分) ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑  -->
 
         <!--  ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 这部分功能不需要设置(除非运营有要求)  ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ -->
@@ -92,6 +92,10 @@
         <meta-data
             android:name="com.wa.sdk.track.ENABLE_HUAWEIHMS"
             android:value="true" />
+        <!--    禁用进服时的通知权限申请    -->
+        <!--        <meta-data-->
+        <!--            android:name="com.wa.sdk.permission.DISABLE_NOTIFICATION"-->
+        <!--            android:value="true" />-->
         <!--    开启登录窗口返回按钮功能（一般不需要）    -->
         <!--        <meta-data-->
         <!--            android:name="com.wa.sdk.login.ENABLE_BACK"-->

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">QooSDKDemo</string>
+    <string name="public_key_test">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsOpFcQWx4Env8NnE6DmpzDtT8OLzxJrSogoRgkcEF/0nYSikpSVn4MVFRmav2H56lSc8iEizAJomKCI/5HrqauFR/iwy/a0sNNzEPK9Nc1swWa3YGiZwx5Jld66oNYzp/V9y/EijXKcbGBdA25IaLCRF2x56+9LTSYVVIBVMjVIHZ5Ay4EcyGD+7qR9QkvnA3DQI7L/qYZx/4/oRr47VIGhBNhT61pN+nTPtT6ej3L4mZVW7BZ8v6m16Fo4AEOt0CkQGGbgGXNsWR2e/Y+10UrVMrsbf5wcYZHssuaZUVX1Z3JOQ9rJBnGxwr/jYmbSwBms+VB4zqXKBC6D412fwwQIDAQAB</string>
+    <string name="appid_test">SANDb0fadfc667854cb4b411cf6be6625b52</string>
+    <string name="public_key_pro">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnlUU0NWGpbXTvYtLzdxQn9HbiYGj0BioOLNVYf0KRpnYrJSi7gOK8TxjOe4Yb9lJdvS4x2ROZzDeERaJ62DSDQhOVx47Lv+MwWy/5+GbQTs2PPqBeIgpKVL7nxhyiYyfwcCzCxj9V+WJudrNYAzXUNDt9Cq6pv6i39yCYStRCUHFKWknfCP6bxaxfDG4LIMpTPdjroXa8tSI9a4hNLzy6cJ7kj2j8RUS0tTVOsHj6PHq9oe5+3hJq32MPhNGxomVwXCaPST4JnOGCH6ufqRwVrwPvW/wKNhQ2tcwYFZR4M1rolnMyHF97Jc4iV36xeZZXlP3ogM+ITeR1CNWTD0jdwIDAQAB</string>
+    <string name="appid_pro">PRODc7c744ab0eec4acf8c5604bd4cdd12ad</string>
+</resources>

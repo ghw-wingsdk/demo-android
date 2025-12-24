@@ -282,5 +282,7 @@
     <string name="share_invite_with_system">分享邀请（系统）</string>
     <string name="share_invite_with_facebook">分享邀请（Facebook）</string>
     <string name="share_invite_count">获取邀请人数</string>
+    <string name="pass_get_info">获取月卡信息</string>
+    <string name="pass_show_guide_dialog">月卡用户指引弹窗</string>
 
 </resources>

@@ -52,7 +52,7 @@
         </activity>
         <provider
             android:name="com.facebook.FacebookContentProvider"
-            android:authorities="com.facebook.app.FacebookContentProvider959864665060487"
+            android:authorities="com.facebook.app.FacebookContentProvider${FACEBOOK_APP_ID}"
             android:exported="true" />
         <!--    AdMob应用ID配置    -->
         <meta-data

@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources translatable="false">
-    <!--  接入web_ghgl模块登录需要, 内容：wa + SdkAppID  -->
-    <!--    <string name="wa_custom_tab_scheme">waf7f9a9d18da611e5a0be000d3a906774</string>-->
-    <!--  Facebook  -->
-    <string name="facebook_app_id">959864665060487</string>
-    <string name="fb_login_protocol_scheme">fb959864665060487</string>
-    <string name="facebook_client_token">507dae1af0c6e3e9ea59e798587e80b3</string>
     <!-- Google Web Client ID , 注意:不是 Android ClientID -->
     <string name="google_server_client_id">15309153268-vnpucgn8cvbna2sseegrg2ofogrf8n17.apps.googleusercontent.com</string>
     <!--  AdMob应用ID  -->
     <string name="manifest_admob_appid">ca-app-pub-3512615046087076~6119035746</string>
     <!--  Google游戏服务功能用（一般不需要）  -->
     <string name="google_game_app_id">15309153268</string>
-    <!-- VK app id -->
-    <integer name="com_vk_sdk_AppId">5527303</integer>
+
+    <!--  官网包 GHGL 模块配置, 内容：wa + SdkAppID  -->
+    <!--    <string name="wa_custom_tab_scheme">waf7f9a9d18da611e5a0be000d3a906774</string>-->
 
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
@@ -280,5 +275,6 @@
     <string name="share_invite_with_system">Share Invite With System</string>
     <string name="share_invite_with_facebook">Share Invite With Facebook</string>
     <string name="share_invite_count">Share Invite Count</string>
-
+    <string name="pass_get_info">Get Pass Info</string>
+    <string name="pass_show_guide_dialog">Show Pass Guide</string>
 </resources>

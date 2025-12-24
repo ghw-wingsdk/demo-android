@@ -1,4 +1,23 @@
 ext {
+    // 打包配置
+    versionCode = 5020000
+    versionName = "5.2.0"
+    hostEnv = "live"
+    // 编译 API 版本
+    compileSdkVersion = 36
+    targetSdkVersion = 36
+    minSdkVersion = 24
+    // 默认应用配置
+    application_id = "com.ghw.sdk2"
+    sdk_app_id = "f7f9a9d18da611e5a0be000d3a906774"
+    sdk_app_key = "CFHF7nQCCaojCX6Sm4eT1GEIWRprimgX"
+    facebook_app_id = "959864665060487"
+    facebook_client_token = "507dae1af0c6e3e9ea59e798587e80b3"
+    app_name = "WingSDK"
+    app_title = "WingSDK"
+    app_channel = ""
+    apk_pack_name = ""
+
     // 依赖配置
     dependency = [
             supportV4            : 'com.android.support:support-v4:27.0.2',

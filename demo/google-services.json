@@ -103,22 +103,14 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:15309153268:android:114258cd032c9266304fa1",
+        "mobilesdk_app_id": "1:15309153268:android:ff5951bae8fcad2f304fa1",
         "android_client_info": {
           "package_name": "com.ghw.sdk2.qooapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "15309153268-eo8536ni84tupc9b9po7r2ivc0e82s0m.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.ghw.sdk2.qooapp",
-            "certificate_hash": "5e3a3f39b3347e5f0b284dfd70bc32745f572dbe"
-          }
-        },
-        {
-          "client_id": "15309153268-pnih7423cm660viaj69ulv7btgvulpgj.apps.googleusercontent.com",
+          "client_id": "15309153268-n4biset1avt8rap3ohkk54c732g94lcm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.ghw.sdk2.qooapp",
@@ -146,16 +138,16 @@
               "client_type": 3
             },
             {
-              "client_id": "15309153268-ocu8ni35gjis5jeki3a3pmoem45hi8tu.apps.googleusercontent.com",
+              "client_id": "15309153268-e27ngf742m1uv860dg86o6qou4nj1kd2.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.wing.sdkfo"
+                "bundle_id": "com.wohew.rider",
+                "app_store_id": "6468900533"
               }
             }
           ]
         }
-      },
-      "admob_app_id": "ca-app-pub-3512615046087076~6119035746"
+      }
     },
     {
       "client_info": {
@@ -401,6 +393,198 @@
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.wing.sdkfo"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:15309153268:android:9673cb101f7f8958304fa1",
+        "android_client_info": {
+          "package_name": "com.ghw.ghg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "15309153268-imcfgbmkklfolgj4b6nl4133arrnos8k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ghw.ghg",
+            "certificate_hash": "5c6008fb32af979d59861abd1baeade5d69911a6"
+          }
+        },
+        {
+          "client_id": "15309153268-gpaj17mgc1afrt059tmu18ve3vfqb0lh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAj_kvqB1jBtFqn3Lh-aXpPTomO3vShcdA"
+        },
+        {
+          "current_key": "AIzaSyAwSdZrypToPn9O2xq73vRlDqPJy1Dm9nU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "110785692199427598710",
+              "client_type": 3
+            },
+            {
+              "client_id": "15309153268-e27ngf742m1uv860dg86o6qou4nj1kd2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.wohew.rider",
+                "app_store_id": "6468900533"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:15309153268:android:03dc9320866668a7304fa1",
+        "android_client_info": {
+          "package_name": "com.ghw.r2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "15309153268-gtptqvo55t8lq7ldp2l8ueq4dolb3rmd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ghw.r2",
+            "certificate_hash": "4b962b99fffead7a1c0577e0e622938b7a269d57"
+          }
+        },
+        {
+          "client_id": "15309153268-gpaj17mgc1afrt059tmu18ve3vfqb0lh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAj_kvqB1jBtFqn3Lh-aXpPTomO3vShcdA"
+        },
+        {
+          "current_key": "AIzaSyAwSdZrypToPn9O2xq73vRlDqPJy1Dm9nU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "110785692199427598710",
+              "client_type": 3
+            },
+            {
+              "client_id": "15309153268-e27ngf742m1uv860dg86o6qou4nj1kd2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.wohew.rider",
+                "app_store_id": "6468900533"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:15309153268:android:9673cb101f7f8958304fa1",
+        "android_client_info": {
+          "package_name": "com.ghw.ghg.official"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "15309153268-imcfgbmkklfolgj4b6nl4133arrnos8k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ghw.ghg.official",
+            "certificate_hash": "5c6008fb32af979d59861abd1baeade5d69911a6"
+          }
+        },
+        {
+          "client_id": "15309153268-gpaj17mgc1afrt059tmu18ve3vfqb0lh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAj_kvqB1jBtFqn3Lh-aXpPTomO3vShcdA"
+        },
+        {
+          "current_key": "AIzaSyAwSdZrypToPn9O2xq73vRlDqPJy1Dm9nU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "110785692199427598710",
+              "client_type": 3
+            },
+            {
+              "client_id": "15309153268-e27ngf742m1uv860dg86o6qou4nj1kd2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.wohew.rider",
+                "app_store_id": "6468900533"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:15309153268:android:03dc9320866668a7304fa1",
+        "android_client_info": {
+          "package_name": "com.ghw.r2.official"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "15309153268-gtptqvo55t8lq7ldp2l8ueq4dolb3rmd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ghw.r2.official",
+            "certificate_hash": "4b962b99fffead7a1c0577e0e622938b7a269d57"
+          }
+        },
+        {
+          "client_id": "15309153268-gpaj17mgc1afrt059tmu18ve3vfqb0lh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAj_kvqB1jBtFqn3Lh-aXpPTomO3vShcdA"
+        },
+        {
+          "current_key": "AIzaSyAwSdZrypToPn9O2xq73vRlDqPJy1Dm9nU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "110785692199427598710",
+              "client_type": 3
+            },
+            {
+              "client_id": "15309153268-e27ngf742m1uv860dg86o6qou4nj1kd2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.wohew.rider",
+                "app_store_id": "6468900533"
               }
             }
           ]

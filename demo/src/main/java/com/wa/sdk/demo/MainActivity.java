@@ -32,6 +32,7 @@ import com.wa.sdk.user.model.WABindResultV2;
 import com.wa.sdk.user.model.WACertificationInfo;
 import com.wa.sdk.user.model.WAGameReviewCallback;
 import com.wa.sdk.user.model.WALoginResultV2;
+import com.wa.sdk.user.model.WAPassPlatformInfo;
 
 
 public class MainActivity extends BaseActivity {
@@ -280,10 +281,54 @@ public class MainActivity extends BaseActivity {
         } else if (id == R.id.btn_social_func) {
             // 社交功能
             startActivity(new Intent(this, SocialActivity.class));
+        } else if (id == R.id.btn_pass_info) {
+            // 获取月卡信息
+            getPassInfo();
+        } else if (id == R.id.btn_show_pass_guide) {
+            // 月卡用户指引弹窗
+            showPassUserGuide();
         } else if (id == R.id.btn_rare_function) {
             // 不常用功能
             startActivity(new Intent(this, RareFunctionActivity.class));
         }
+    }
+
+    private void showPassUserGuide() {
+        WAUserProxy.showPassUserGuide(this, new WACallback<Void>() {
+            @Override
+            public void onSuccess(int code, String message, Void result) {
+                logIShortToast("显示成功");
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(int code, String message, @Nullable Void result, @Nullable Throwable throwable) {
+
+            }
+        });
+    }
+
+    private void getPassInfo() {
+        WAUserProxy.getPassInfo(new WACallback<WAPassPlatformInfo>() {
+            @Override
+            public void onSuccess(int code, String message, WAPassPlatformInfo result) {
+                logIShortToast("月卡状态：" + (result.getPassStatus() == 1 ? "已激活" : "未激活") + "\n" + result);
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(int code, String message, @Nullable WAPassPlatformInfo result, @Nullable Throwable throwable) {
+                logIShortToast("获取月卡信息失败（" + code + "）:" + message);
+            }
+        });
     }
 
     private void showCustomerCenter() {
@@ -434,7 +479,7 @@ public class MainActivity extends BaseActivity {
     private void initView() {
         TitleBar tb = findViewById(R.id.tb_main);
         tb.setRightButton(android.R.drawable.ic_menu_close_clear_cancel, v -> finish());
-        tb.setTitleText(R.string.title_main);
+        tb.setTitleText(R.string.app_title);
         tb.setTitleTextColor(R.color.color_white);
 
         mEtProductId = findViewById(R.id.et_static_pay_product_id);

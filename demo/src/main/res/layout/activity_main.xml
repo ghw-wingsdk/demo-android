@@ -133,6 +133,7 @@
                 <Button
                     android:id="@+id/btn_sdk_test"
                     style="@style/demo_button"
+                    android:visibility="gone"
                     android:text="@string/test_sdk" />
             </LinearLayout>
 

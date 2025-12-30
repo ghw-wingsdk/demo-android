@@ -297,7 +297,7 @@ public class MainActivity extends BaseActivity {
         WAUserProxy.showPassUserGuide(this, new WACallback<Void>() {
             @Override
             public void onSuccess(int code, String message, Void result) {
-                logIShortToast("显示成功");
+                logIShortToast("打开月卡用户指引弹窗成功");
             }
 
             @Override
@@ -307,7 +307,7 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onError(int code, String message, @Nullable Void result, @Nullable Throwable throwable) {
-
+                logIShortToast("打开月卡用户指引弹窗失败（" + code + "）：" + message);
             }
         });
     }
@@ -326,7 +326,7 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onError(int code, String message, @Nullable WAPassPlatformInfo result, @Nullable Throwable throwable) {
-                logIShortToast("获取月卡信息失败（" + code + "）:" + message);
+                logIShortToast("获取月卡信息失败（" + code + "）：" + message);
             }
         });
     }
@@ -408,7 +408,7 @@ public class MainActivity extends BaseActivity {
             return;
         }
         hideKeyboard();
-        WAPayProxy.payUI(this, sdkProductId, "中国电信：12345", new WACallback<WAPurchaseResult>() {
+        WAPayProxy.payUI(this, sdkProductId, "中国电信订单：12++34==56+=78*！9", new WACallback<WAPurchaseResult>() {
             @Override
             public void onSuccess(int code, String message, WAPurchaseResult result) {
                 cancelLoadingDialog();

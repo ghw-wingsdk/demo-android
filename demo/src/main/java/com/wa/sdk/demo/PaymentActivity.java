@@ -71,7 +71,7 @@ public class PaymentActivity extends BaseActivity {
                             ProductListAdapter productListAdapter = new ProductListAdapter(PaymentActivity.this, waSkuDetailsList, channelProductMap);
                             ListView listView = findViewById(R.id.lv_payment_sku);
                             listView.setAdapter(productListAdapter);
-                            productListAdapter.setClickListenter(sdkProductId -> payUI(sdkProductId, "CpOrderId:12345"));
+                            productListAdapter.setClickListenter(sdkProductId -> payUI(sdkProductId, "中国电信订单：12++34==56+=78*！9"));
                         } else {
                             showLongToast("未找到 SDK 商品");
                         }

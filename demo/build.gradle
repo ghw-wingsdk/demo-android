@@ -129,8 +129,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.12.0'
 
     // Google包 接入模块
-    implementation "com.wa.sdk:wa-sdk-base:5.2.0"         // 基础模块
-    implementation "com.wa.sdk:wa-sdk-core:5.2.0"         // 核心模块
+    implementation "com.wa.sdk:wa-sdk-base:5.2.1"         // 基础模块
+    implementation "com.wa.sdk:wa-sdk-core:5.2.1"         // 核心模块
     implementation "com.wa.sdk:wa-sdk-aihelp:5.0.0"       // AiHelp客服模块
     implementation "com.wa.sdk:wa-sdk-appsflyer:5.0.0"    // AppsFlyer模块
     implementation "com.wa.sdk:wa-sdk-google:5.2.0"       // Google模块

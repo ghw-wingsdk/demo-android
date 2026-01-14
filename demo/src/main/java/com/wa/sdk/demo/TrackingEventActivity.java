@@ -18,7 +18,6 @@ import com.wa.sdk.track.model.WALvXEvent;
 import com.wa.sdk.track.model.WAStageEvent;
 import com.wa.sdk.track.model.WATutorialCompletedEvent;
 import com.wa.sdk.track.model.WAUserCreateEvent;
-import com.wa.sdk.track.model.WAUserImportEvent;
 import com.wa.sdk.track.model.WAUserImportEventV2;
 import com.wa.sdk.track.model.WAUserInfoUpdateEvent;
 import com.wa.sdk.user.model.WALoginResultV2;
@@ -27,20 +26,26 @@ import com.wa.sdk.user.model.WALoginResultV2;
  * 数据采集
  */
 public class TrackingEventActivity extends BaseActivity {
+    private static final String DEFAULT_NICKNAME = "Lucy-" + Build.MODEL.replace(" ", "-");
+    private static final String DEFAULT_SERVER_ID = "s1";
+    private static final String DEFAULT_LEVEL = "1";
 
     private EditText mEdtCurrentServerId;
     private EditText mEdtCurrentLevel;
+    private EditText mEdtCurrentNickname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tracking_simulate);
+        setContentView(R.layout.activity_tracking_event);
         setTitleBar(R.string.tracking);
 
         mEdtCurrentServerId = findViewById(R.id.edt_current_server_id);
         mEdtCurrentLevel = findViewById(R.id.edt_current_level);
+        mEdtCurrentNickname = findViewById(R.id.edt_current_nickname);
         mEdtCurrentLevel.setText("" + getCurrentLevel());
         mEdtCurrentServerId.setText(getCurrentServerId());
+        mEdtCurrentNickname.setText(getCurrentNickname());
     }
 
     @Override
@@ -48,10 +53,7 @@ public class TrackingEventActivity extends BaseActivity {
         int id = v.getId();
         if (clickSetInfo(id)) return;
 
-        if (id == R.id.btn_user_import_first) {
-            // 用户首次进服（旧版，已经废弃）
-            ghw_user_import_first(this);
-        } else if (id == R.id.btn_user_import) {
+        if (id == R.id.btn_user_import) {
             // 用户进服（新版V2）
             ghw_user_import(this);
         } else if (id == R.id.btn_user_create) {
@@ -83,17 +85,6 @@ public class TrackingEventActivity extends BaseActivity {
         int level = getCurrentLevel(); // 游戏角色当前等级
 
         WAUserImportEventV2 event = new WAUserImportEventV2(serverId, gameUserId, nickName, level);
-        WATrackProxy.trackEvent(context, event);
-    }
-
-    private void ghw_user_import_first(Context context) {
-        String serverId = getCurrentServerId();  // 服务器ID
-        String gameUserId = "-1"; // 游戏角色ID，未创角时，可以传入 -1
-        String nickName = ""; // 游戏角色昵称，未创角时，可以传入空字符串
-        int level = getCurrentLevel(); // 游戏角色等级，未创角时，填入游戏角色初始等级，一般为 1
-        boolean isFirstEnter = true;
-
-        WAUserImportEvent event = new WAUserImportEvent(serverId, gameUserId, nickName, level, isFirstEnter);
         WATrackProxy.trackEvent(context, event);
     }
 
@@ -169,7 +160,7 @@ public class TrackingEventActivity extends BaseActivity {
     private boolean clickSetInfo(int id) {
         if (id == R.id.btn_set_server_id) {
             String serverId = mEdtCurrentServerId.getText().toString();
-            serverId = TextUtils.isEmpty(serverId) ? "s1" : serverId;
+            serverId = TextUtils.isEmpty(serverId) ? DEFAULT_SERVER_ID : serverId;
             getSpHelper().saveString(WADemoConfig.SP_KEY_CURRENT_SERVER_ID, serverId);
 
             mEdtCurrentServerId.setText(serverId);
@@ -178,26 +169,33 @@ public class TrackingEventActivity extends BaseActivity {
             return true;
         } else if (id == R.id.btn_set_level) {
             String level = mEdtCurrentLevel.getText().toString();
-            level = TextUtils.isEmpty(level) ? "1" : level;
+            level = TextUtils.isEmpty(level) ? DEFAULT_LEVEL : level;
             getSpHelper().saveString(WADemoConfig.SP_KEY_CURRENT_LEVEL, level);
 
             mEdtCurrentLevel.setText(level);
             hideKeyboard();
             showShortToast("设置成功，当前等级：" + level);
             return true;
+        } else if (id == R.id.btn_set_nickname) {
+            String nickname = mEdtCurrentNickname.getText().toString();
+            nickname = TextUtils.isEmpty(nickname) ? DEFAULT_NICKNAME : nickname;
+            getSpHelper().saveString(WADemoConfig.SP_KEY_CURRENT_NICKNAME, nickname);
+
+            mEdtCurrentNickname.setText(nickname);
+            hideKeyboard();
+            showShortToast("设置成功，当前昵称：" + nickname);
+            return true;
         }
         return false;
     }
 
     public static int getCurrentLevel() {
-        return Integer.parseInt(WASdkDemo.getInstance().getSpHelper().getString(WADemoConfig.SP_KEY_CURRENT_LEVEL, "1"));
+        return Integer.parseInt(WASdkDemo.getInstance().getSpHelper().getString(WADemoConfig.SP_KEY_CURRENT_LEVEL, DEFAULT_LEVEL));
     }
-
 
     public static String getCurrentServerId() {
-        return WASdkDemo.getInstance().getSpHelper().getString(WADemoConfig.SP_KEY_CURRENT_SERVER_ID, "s1");
+        return WASdkDemo.getInstance().getSpHelper().getString(WADemoConfig.SP_KEY_CURRENT_SERVER_ID, DEFAULT_SERVER_ID);
     }
-
 
     public static String getCurrentGameUserId() {
         WALoginResultV2 account = WASdkDemo.getInstance().getLoginAccount();
@@ -205,9 +203,8 @@ public class TrackingEventActivity extends BaseActivity {
         return getCurrentServerId() + "-role1-" + userId;
     }
 
-
     public static String getCurrentNickname() {
-        return "Lucy-" + Build.MODEL.replace(" ", "-");
+        return WASdkDemo.getInstance().getSpHelper().getString(WADemoConfig.SP_KEY_CURRENT_NICKNAME, DEFAULT_NICKNAME);
     }
 
 }

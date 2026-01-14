@@ -40,6 +40,8 @@ public class WADemoConfig {
 
     public static final String SP_KEY_CURRENT_SERVER_ID = "sp_key_current_server_id";
 
+    public static final String SP_KEY_CURRENT_NICKNAME = "sp_key_current_nickname";
+
     public static final String EXTRA_DATA = "extra_data";
 
     public static final String EXTRA_EVENT_NAME = "extra_event_name";
